@@ -2,7 +2,7 @@
 
 Single-cell sequencing technologies are powerful tools used to assess genomic, transcriptomic and proteomics information at the single-cell level. In recent years, the application of techniques that use single-cell sequencing have become increasingly common in several areas of research: including medicine, agriculture, and other life sciences disciplines. Single-cell sequencing may be used to study many aspects of an organism’s biology, both in health and disease, and the results of these studies contribute immensely to advancing the understanding of organisms as a whole. 
 
-The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/)is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
+The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/) is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
 
 ### Practical Modules with Google Colab Notebooks:
 
@@ -11,7 +11,7 @@ This module provides an introduction to Jupyter Notebooks and Google Colaborator
 
 [English version](Notebooks_EN/Module01_IntroductionNotebooks_and_Databases.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo01_IntroducciónCuadernos_BasesDeDatos.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo01_IntrocucaoNotebooks_e_BancosdeDados.ipynb)
 
@@ -21,7 +21,7 @@ Additionally, we will explore the key steps in processing raw sequencing reads i
 
 [English version](Notebooks_EN/Module02_Processing_RawSeqs_CellRanger.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo02_ProcesamientoSecuenciasBrutas_CellRanger.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo02_ProcessamentoSequenciasBrutas_CellRanger.ipynb)
 
@@ -35,7 +35,7 @@ Furthermore, we will do differential expression analysis, cell type annotation, 
 
 [English version](Notebooks_EN/Module03_QualityControl_ReductionDimensionality_DiferentialExpressionAnalysis.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo03_ControlCalidad_ReducionDimensionalidad_AnalisisEspresionDiferencial.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo03_ControleQualidade_ReducaoDimensionalidade_AnaliseExpressaoDiferencial.ipynb).
 
@@ -48,7 +48,7 @@ In this notebook, we explore core concepts and methods for data integration and 
 
 [English version](Notebooks_EN/Module04_Dataset_Integration.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo04_IntegraciónDatos.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo04_IntegracaoMultiplasAmostras.ipynb)
 
@@ -59,7 +59,7 @@ By using scRNA-seq data, computational tools such as Monocle3 can infer the sing
 
 [English version](Notebooks_EN/Module05_Pseudotime_Analysis.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo05_AnalasisPseudotiempo.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo05_Pseudotempo.ipynb)
 
@@ -71,7 +71,7 @@ In this notebook, main concepts and a general computational workflow will be cov
 
 [English version](Notebooks_EN/Module06_CellCellCommunication.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo06_Comunicación_CelulaCelula.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo06_ComunicacaoCelulaCelula.ipynb)
 
@@ -82,7 +82,7 @@ This notebook explores multimodal data integration at the single-cell level, com
 
 [English version](Notebooks_EN/Module07_MultimodalDataAnalysis.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo07_MultimodalDataAnalisis.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo07_AnaliseDadosMultimodais.ipynb)
 
@@ -94,7 +94,7 @@ In this module, participants will explore the profound implications of TCR profi
 
 [English version](Notebooks_EN/Module08_TCRsequence.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo08_SecuenciaTCR.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo08_SequenciamentoCelulaT.ipynb)
 
@@ -106,7 +106,7 @@ In this notebook, we will cover practical steps in setting up a spatial transcri
 
 [English version](Notebooks_EN/Module09_SpatialTranscriptomics.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo09_TranscriptomicaEspacial.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo09_TranscriptomicaEspacial.ipynb)
 
@@ -120,7 +120,7 @@ Using ArchR, an optimized tool for scATAC-seq analysis, we will process raw sequ
 
 [English version](Notebooks_EN/Module10_scATACseq.ipynb)
 
-[versión en Español]()
+[versión en Español](Cuadernos_ES/Modulo10_scATACseq.ipynb)
 
 [Versão em Portugues](Cadernos_PT_BR/Modulo10_scATACseq.ipynb)
 
@@ -143,7 +143,7 @@ We appreciate the continuous support and feedback from participants, mentors, an
 - Erick Armingol
 - Gabriela Guimarães
 - Leandro Santos
-- Joyce Silva
+- Joyce Karoline Silva
 - Mariana Boroni
 - Orr Ashenberg
 - Patricia Severino
