@@ -68,7 +68,7 @@ By using scRNA-seq data, computational tools such as Monocle3 can infer the sing
 
 [English version](Notebooks_EN/Module06_Pseudotime_Analysis.ipynb)
 
-[versión en Español](Cuadernos_ES/Modulo06_AnalasisPseudotiempo.ipynb)
+[versión en Español](Cuadernos_ES/Modulo06_AnalisisPseudotiempo.ipynb)
 
 [Versão em Português](Cadernos_PT_BR/Modulo06_Pseudotempo.ipynb)
 
