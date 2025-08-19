@@ -18,9 +18,9 @@ This module provides an introduction to Jupyter Notebooks and Google Colaborator
 ## Module 02 - INTRODUCTION TO R AND DATA VISUALIZATION WITH ggplot2
 This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.
 
-[English version](Notebooks_EN/Module01_IntroductionNotebooks_and_Databases.ipynb)
+[English version](Notebooks_EN/Module02_IntroductionToR.ipynb)
 
-[versión en Español](Cuadernos_ES/Modulo01_IntroducciónCuadernos_BasesDeDatos.ipynb)
+[versión en Español](Cuadernos_ES/Modulo02_IntroduccionR.ipynb)
 
 [Versão em Português](Cadernos_PT_BR/Modulo02_IntrocucaoR.ipynb)
 
