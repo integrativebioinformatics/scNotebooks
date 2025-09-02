@@ -1,4 +1,4 @@
-# Single-Cell Notebooks with Docker — A Beginner's Guide
+# The Single-Cell Notebooks with Docker — A Beginner's Guide
 
 This guide shows you how to install and run single-cell analysis notebooks using Docker, even if you've never used Docker before. Take a deep breath, follow the steps, and you'll be fine! 🚀
 
@@ -64,7 +64,7 @@ http://127.0.0.1:8888/tree?token=SC-Notebooks
 ```
 ---
 # PT - BR
-# Single-Cell Notebooks com Docker — Guia para Iniciantes
+# The Single-Cell Notebooks com Docker — Guia para Iniciantes
 
 Este guia mostra como instalar e rodar os notebooks de análise single-cell usando Docker, mesmo que você nunca tenha usado Docker antes. Respira fundo, segue os passos, e vai dar tudo certo! 🚀
 
@@ -132,7 +132,7 @@ http://127.0.0.1:8888/tree?token=SC-Notebooks
 ---
 # ES
 
-# Single-cell Notebooks con Docker: Guía para principiantes
+# The Single-cell Notebooks con Docker: Guía para principiantes
 
 Esta guía te muestra cómo instalar y ejecutar notebooks de análisis de una sola célula con Docker, incluso si nunca lo has usado. ¡Respira hondo, sigue los pasos y todo irá bien! 🚀
 
