@@ -4,6 +4,28 @@ Single-cell sequencing technologies are powerful tools used to assess genomic, t
 
 The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/) is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
 
+### How to Use
+
+Our notebooks are available in **multilingual versions** and can be accessed in two simple ways:
+
+#### Option 1: Open in Google Colab  
+You can run the notebooks directly in your browser using [Google Colab](https://colab.research.google.com/), with no need to install anything locally.  
+Just follow our step-by-step [multilingual tutorial](https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_Uploading_Notebooks_Colab.md) to learn how to:
+- Manually upload `.ipynb` files
+- Clone the GitHub repository and open notebooks directly in Colab
+
+> ⚠️ *Some notebooks with many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality.*
+
+#### Option 2: Run Locally with Docker  
+If you prefer to work offline or want a fully configured environment, you can run the notebooks using Docker.  
+Check out our [Docker tutorial](https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_docker.md) for detailed instructions on:
+- Pulling the official image from DockerHub
+- Mounting local directories to save outputs and access reference files
+- Launching the Jupyter interface locally
+
+With either method, you'll be ready to explore and analyze single-cell data in just a few steps!
+
+
 ### Practical Modules with Google Colab Notebooks:
 
 ## Module 01 - INTRODUCTION TO NOTEBOOKS AND DATABASES
@@ -151,19 +173,22 @@ We appreciate the continuous support and feedback from participants, mentors, an
 
 **List of Contributors - Listed Alphabetically:**
 
+- Alex K. Shalek
 - Adolfo Rojas
 - Benilton S. Carvalho
 - Bruno Vinagre
-- Carlos Alberto Oliveira de Biagi Júnior
-- Cesar Prada
+- Cesar A. Prada-Medina
 - Cristóvão Antunes
 - Daniela Russo
+- Diego Pérez-Stuardo
+- Emiliano Vicencio
 - Erick Armingol
-- Gabriela Guimarães
+- Gabriela Rapozo
 - Gerardo Munoz
 - Leandro Santos
 - Joyce Karoline Silva
 - Mariana Boroni
+- Natalia Tavares
 - Orr Ashenberg
 - Patricia Severino
 - Raúl Arias-Carrasco
@@ -171,7 +196,7 @@ We appreciate the continuous support and feedback from participants, mentors, an
 - Sebastián Urquiza-Zurich
 - Sergio Triana
 - Vinicius Maracaja-Coutinho
-- Yesid Cuesta
+- Yesid Cuesta-Astroz
 
 
 ******
