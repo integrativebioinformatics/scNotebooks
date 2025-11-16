@@ -4,6 +4,7 @@ Single-cell sequencing technologies are powerful tools used to assess genomic, t
 
 The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/) is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
 
+---
 ### How to Use
 
 Our notebooks are available in **multilingual versions** and can be accessed in two simple ways:
@@ -14,7 +15,7 @@ Just follow our step-by-step [multilingual tutorial](https://github.com/integrat
 - Manually upload `.ipynb` files
 - Clone the GitHub repository and open notebooks directly in Colab
 
-> ⚠️ *Some notebooks with many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality.*
+> *Some notebooks with many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality.*
 
 #### Option 2: Run Locally with Docker  
 If you prefer to work offline or want a fully configured environment, you can run the notebooks using Docker.  
@@ -155,7 +156,7 @@ Using ArchR, an optimized tool for scATAC-seq analysis, we will process raw sequ
 
 [Versão em Português](Cadernos_PT_BR/Modulo11_scATACseq.ipynb)
 
-## Module 12 – UNDERSTANDING ALTERNATIVE POLYADENYLATION (APA)
+## Module 12 – Understanding Alternative Polyadenylation (APA)
 
 This module focuses on the bioinformatic analysis of Alternative Polyadenylation (APA) using SCAPE-APA, a specialized computational tool designed for single-cell RNA-seq data. Learners will explore the principles behind APA detection, quantification, and interpretation in a high-throughput context. The module introduces the structure and workflow of SCAPE-APA, including input formats, preprocessing steps, and output interpretation. Through guided exercises, users will apply SCAPE-APA to real datasets, visualize APA dynamics across cell types, and extract biologically meaningful insights from polyadenylation site usage. This hands-on approach equips learners with essential skills for analyzing transcriptomic complexity at single-cell resolution.
 
