@@ -29,7 +29,7 @@ With either method, you'll be ready to explore and analyze single-cell data in j
 
 ### Practical Modules with Google Colab Notebooks:
 
-## Module 01 - INTRODUCTION TO NOTEBOOKS AND DATABASES
+## Module 01 - Introduction to notebooks and Databases
 This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.
 
 [English version](Notebooks_EN/Module01_IntroductionNotebooks_and_Databases.ipynb)
@@ -38,7 +38,7 @@ This module provides an introduction to Jupyter Notebooks and Google Colaborator
 
 [Versão em Português](Cadernos_PT_BR/Modulo01_IntroduçaoNotebooks_e_BancosdeDados.ipynb)
 
-## Module 02 - INTRODUCTION TO R AND DATA VISUALIZATION WITH ggplot2
+## Module 02 - Introduction to R and Data Visualization with ggplot2
 This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.
 
 [English version](Notebooks_EN/Module02_IntroductionToR.ipynb)
