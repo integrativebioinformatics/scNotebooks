@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno01/cuaderno01.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module01/module01.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno01/cuaderno01.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module01/module01.html">
+                                English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Introdução aos Notebook e Base de Dados
+                    </h1>
+                    <p class="hero-text">
+                        Este módulo oferece uma introdução ao Jupyter Notebooks e ao Google Colaboratory, explorando suas funcionalidades e estrutura, incluindo células de código e células de texto. Além disso, abordamos os principais bancos de dados públicos para dados de células únicas e outros bancos de dados de expressão gênica, contendo informações sobre humanos e outros organismos. Para potencializar o aprendizado, disponibilizamos exercícios práticos para acessar, explorar e analisar esses bancos de dados, permitindo que os usuários desenvolvam habilidades essenciais na manipulação de dados biológicos.
+                    </p>
+                    <br>
+                    <hr/>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">Você conhece o Jupyter Notebooks?</h2>
+                    <p>O Jupyter Notebooks são um conjunto de ferramentas que combina códigos executáveis, textos com informações, visualizações e outros elementos em um único documento. Amplamente usado em análises de dados, aprendizado de máquina e em análises computacionais, compatível com múltiplas linguagens de programação, sendo o Python a mais popular. Sua interface intuitiva simplifica a exploração dos dados e experimentos, documentados em tempo real.</p>
+                    <br>
+                    <p>Aqui, nós temos células de texto e células de código que atendem diferentes propostas para organizar e apresentar o conteúdo dentro dos notebooks.</p>
+                    <br>
+                    <b>Células de texto</b>
+                    <ul.a>
+                        <li>São usadas para adicionar explicações, descrições e formataçã usando Markdown ou HTML.</li>
+                        <li>Você pde inserir cabeçalhos, listas, links, equações e outros elementos para documentar seu trabalho e fazer isso de forma mais compreensível (para que outras pessoas que queiram utilizá-lo também).</li>
+                        <br>
+                        <p>Adicionar uma célula de texto:</p>
+                        <li>Selecione o <span class="code-inline-light">+ Markdown</span> presente na barra de ferramentas superior.</li>
+                        <li>Digite seu texto na célula usando Markdown para formatação (por exemplo, <span class="code-inline-light">#</span> para cabeçalhos, <span class="code-inline-light">**</span> para textos em negrito e <span class="code-inline-light">*</span> para itálico).</li>
+                        <li>Clique fora da célula ou pressione <span class="code-inline-light">Shift + Enter</span> para renderizar o formato de texto.</li>
+                    </ul.a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">Células no Jupyter</h2>
+                    <b>Células de código</b>
+                    
+                    <ul.a>
+                        <li>São utilizadas para escrever e executar códigos de programação, principalmente em Python.</li>
+                        <li>Elas permitem testar algoritmos, manipular dados e criar gráficos com os resultados exibidos diretamente abaixo das células executadas.</li>
+                        <br>
+                        <p>Adicionar uma célula de texto:</p>
+                        <li>Selecione o + Code presente na barra de ferramentas para inserir uma célula de código abaixo da célula ativa.</li>
+                        <li>Digite seu código na célula e pressione Shift + Enter para executá-lo.</li>
+                    </ul.a>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Teste o código em python aqui
+test = 4
+                </code></pre>
+                </div>
+            </section>
+                    <p>Aqui eu posso escrever <b>lindos</b> textos.</p>
+                    <br>
+
+                    <h3>Notas:</h3>
+                    <br>
+                    <p><b>1</b>: Se você desejar visualizar páginas ou vídeos na web através desse notebook, será necesário adicionar as seguintes extensões:</p>
+                    <p><a href="https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe">Extensão Google </a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/ignore-x-frame-options-header/">Extensão Firefox</a></p>
+                    <br>
+                    <p>2: Se voce deseja criar um Colab notebook com o kernel R, você pode fazer isso através do link:</p>
+                    <p><a href="https://colab.to/r">Colab com R</a> ou <a href="https://colab.research.google.com/notebook#create=true&language=r"></a>Outra forma</p>
+                </div>
+            </div>
+        </section>
+
+    <section class="hero-modules">
+    <div class="container">
+        <div class="hero-content">
+            <h2 class="hero-heading">Google Colaboratory</h2>
+            <p>O Google Colab é uma plataforma gratuita baseada em nuvem que permite criar, rodar e compartilhar Jupyter notebooks diretamente em seu navegador. O jupyter suporta linguagem como Python e permite acesso a poderosas recursos computacionais como GPUs e TPUs, sendo ideal para relizar tarefas de aprendizado de máquinas e de ciência de dados.</p>
+            <br>
+            <p>Além disso, é integrado com o Google Drive, permitindo fácil armazenamento e colaborações em tempo real.</p>
+
+            <div class="video-container">
+                    <iframe width="1000" height="606" src="https://www.youtube.com/embed/inN8seMm7UI"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen">
+                    </iframe>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <section class="hero-modules">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-heading">Explorando repositórios de Single-Cell RNA-seq</h2>
+                <p>Nesta atividade, exploraremos repositórios e ferramentas online para análise de dados de RNA-seq de células individuais. Navegaremos por diversos bancos de dados, incluindo o (<a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a>), Human Cell Atlas Data Portal (<a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a>), CELLXGENE (<a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a>), SRA (<a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a>), GEO (<a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a>), (<a href="https://panglaodb.se/">https://panglaodb.se/</a>), CellType (<a href="https://celltype.info/">https://celltype.info/</a>), and CellTypist (<a href="https://www.celltypist.org/">https://www.celltypist.org/</a>), para descobrir e explorar conjuntos de dados de RNA-seq de células individuais. Por meio deste exercício prático, você aprenderá a acessar, visualizar e interpretar dados de RNA-seq de células individuais usando recursos online.</p>
+                <br>
+                <p>Objetivos:</p>
+                <ul.a>
+                    <li> Explorar repositórios e ferramentas de dados de RNA-seq de células individuais</li>
+                    <li>Aprender a acessar e visualizar dados de RNA-seq de células individuais</li>
+                    <li>Entender como interpretar dados de RNA-seq de células individuais</li>
+                </ul.a>
+                <br>
+                <p>Observação: Esta atividade foi elaborada para ser concluída em seu próprio ritmo, e você pode realizar os exercícios em seu próprio ritmo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero-modules">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-heading">Single Cell Expression Atlas</h2>
+                <p>
+                    O Single Cell Expression Atlas é um repositório online que fornece acesso a uma vasta coleção de conjuntos de dados de RNA-sequenciamento de células únicas de vários organismos e tecidos. O atlas permite que os usuários explorem e comparem perfis de expressão gênica em diferentes tipos de células, tecidos e condições.
+                    <br>
+                    Practical Exercises:
+                </p>
+                <br>
+                <p>
+                    1. Explore a Interface Geral do Single Cell Expression Atlas:
+                    <ul.a>
+                        <li>Acesse o site do Single Cell Expression Atlas. Você pode acessar o site através do seu próprio navegador ou do navegador incorporado ao final desta sessão neste caderno: <a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a></li>
+                        <li>Uma das vantagens deste repositório é a ampla gama de organismos com dados de células únicas disponíveis, abrangendo espécies de Animais, Plantas, Fungos e Protistas. Navegue pela página, explorando as diferentes espécies disponíveis e explore aquela de seu interesse para aprofundar seus conhecimentos.</li>
+                        <li>Explore também o outro conjunto de experimentos disponíveis, que inclui dados do Human Cell Atlas, Fly Cell Atlas, Malaria Cell Atlas, COVID-19 Data Portal e iniciativas discovAIR.</li>
+                    </ul.a>
+                </p>
+                <!-- Insert image -->
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea.png" alt="lala" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <p>
+                    2. Buscar um Conjunto de Dados de Interesse:
+                    <ul.a>
+                        <li>Ao selecionar uma espécie ou coleção de experimentos de interesse, você terá acesso a uma lista de experimentos vinculados a esse organismo/iniciativa.</li>
+                        <li>Lá, você pode selecionar experimentos com base em diferentes variáveis, incluindo o Reino do organismo, a Coleção de Experimentos e o Tipo de Tecnologia. Você também pode explorar outros recursos, como o Título do estudo, os Fatores Experimentais (por exemplo, parte do organismo, estado de desenvolvimento, idade, etc.) e o Número de Células disponíveis.</li>
+                        <li>Lá, você também pode selecionar o conjunto de experimentos de interesse para baixar os arquivos de quantificação bruta, os arquivos de contagens normalizadas e o arquivo de delineamento do experimento.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea2.png" alt="img" class="video-preview">
+                    </div>
+                    <br>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea3.png" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <p>
+                    3. Visualize e Explore os Dados Disponíveis:
+                    <ul.a>
+                        <li>Selecione um gene ou tipo de célula de interesse e navegue pelo navegador interativo, explorando diferentes aspectos dos dados disponíveis.</li>
+                        <li>Selecione conjuntos de dados com base em "Tipo de célula inferido - rótulos de ontologia" ou "Parte do organismo".</li>
+                        <li>Selecione um conjunto de dados de interesse e explore todos os dados disponíveis.</li>
+                        <li>Visualize os perfis de expressão gênica usando os gráficos interativos (por exemplo, t-SNE, mapa de calor).</li>
+                        <li>Visualize marcadores genéticos e aproveite outros recursos interessantes do repositório.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea4.png" alt="img" class="video-preview">
+                    </div>
+                    <br>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea5.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea6.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea7.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea8.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/scea/scea9.png" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <p>
+                    4. Agora aproveite o repositório, brincando com os dados e genes de interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.
+                </p>
+                <br>
+
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://www.ebi.ac.uk/gxa/sc/home" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero-modules">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-heading">Human Cell Atlas, Data portal</h2>
+                <i>Breve Descrição:</i>
+                <br>
+                <p>O Human Cell Atlas Data Portal é um repositório online que fornece acesso a uma vasta coleção de conjuntos de dados de sequenciamento de célula única e transcriptômica espacial de vários tecidos e tipos de células humanas. O portal é o principal repositório da iniciativa Human Cell Atlas e permite que os usuários explorem, visualizem e analisem perfis de expressão gênica em diferentes tipos de células, tecidos e condições gerados pelo consórcio.</p>
+                <br>
+                <i>Exercícios Práticos:</i>
+                <p>
+                    1. Explore a Interface Geral do Portal:
+                    <ul.a>
+                        <li>Acesse o site do Human Cell Atlas Data Portals: <a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a> </li>
+                        <li>Explore as funcionalidades gerais do site, visualizando os dados disponíveis e como contribuir com os dados.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca1.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca2.png" alt="img" class="video-preview">
+                    </div>
+                    
+                </div>
+                </section>
+
+                <p>
+                    2.Pesquisar e Explorar um Conjunto de Dados de Interesse:
+                    <ul.a>
+                        <li>Explore os conjuntos de dados disponíveis, navegando pelos Projetos, Amostras e Arquivos disponíveis. Utilize os filtros disponíveis para realizar uma seleção mais específica.</li>
+                        <li>Após selecionar um conjunto de dados específico, navegue pelas abas Visão Geral, Metadados, Matrizes, Download e Exportação.</li>
+                        <li>Verifique se o conjunto de dados permite uma exploração mais aprofundada em outro Portal de Análise (por exemplo, UCSC Genome Browser ou CELLXGENE).</li>
+                        <li>Verifique a possibilidade de exportar os dados disponíveis para análise na solução em nuvem Terra. Observe que esta é uma plataforma privada de terceiros.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca3.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca4.png" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <p>
+                    3. Pesquisar e Explorar os Atlas de Redes Biológicas:
+                    <ul.a>
+                        <li>Observe que cada rede possui conjuntos de dados, mas, no momento, apenas Pulmão e Sistema Nervoso possuem atlas unificados disponíveis.</li>
+                        <li>Navegue pelas diferentes rede, explorando os dados e atlas disponíveis.</li>
+                        <li>Explore as diferentes particularidades dos componentes dos atlas, como o número de tecidos, o estado da doença, o número de células e a possibilidade de explorá-los mais a fundo no CELLxGENE ou baixando os dados.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                <div class="container-xxl">
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca5.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca6.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca7.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca8.png" alt="img" class="video-preview">
+                    </div>
+                    <div class="video-content">
+                            <img src="../modulo01/hca/hca9.png" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <p>
+                    4. Explore os guias disponíveis para saber mais sobre todas as funcionalidades e diferentes aspectos do Portal de Dados do HCA:
+                    <section class="video">
+                        <div class="container-xxl">
+                            <div class="video-content">
+                                <img src="../modulo01/hca/hca11.png" alt="img">
+                            </div>
+                        </div>
+                    </section>
+                    
+                </p>
+                <p>
+                    5. Agora aproveite o repositório, brincando com os dados e genes de interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.
+                </p>
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://data.humancellatlas.org/" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero-modules">
+        <div class="container">
+            <div class="hero-content">
+                <h2 class="hero-heading">CellxGENE</h2>
+                <i>Breve Descrição:</i>
+
+                <p>O CELLxGENE é um portal web desenvolvido pela Chan Zuckerberg Initiative (CZI) que permite a exploração e análise interativas de dados de RNA-sequencing de células individuais. Ele oferece uma interface amigável para visualizar e comparar perfis de expressão gênica em diferentes tipos de células, tecidos e condições.</p>
+                <br>
+                <i>Exercícios Práticos:</i>
+                <p>
+                    1. Explore a Interface Geral do Portal:
+                    <ul.a>
+                        <li>Acesse o site do CELLxGENE: <a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a> </li>
+                        <li>O CELLxGENE oferece diversas ferramentas que permitem explorar e analisar dados de células individuais com mais detalhes.</li>
+                        <li>Navegue pelas Coleções e Conjuntos de Dados disponíveis e selecione um de seu interesse para explorar mais a fundo. Você pode usar a opção "Filtros" para selecionar os dados de acordo com diferentes aspectos de interesse (por exemplo, tipo de célula, doença, etnia autorrelatada, sexo).</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg1.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg2.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg3.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg4.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    2. Explore um Conjunto de Dados de Interesse:
+                    <ul.a>
+                        <li>Explore as diferentes funcionalidades disponíveis. Ative a visualização por as cores para cada célula disponível com base no tipo de célula, estágio de desenvolvimento, etnia, sexo, doença (se disponível), etc.</li>
+                        <li>Experimente as células, tente explorar os diferentes gráficos disponíveis e obtenha diferentes visualizações dos dados de acordo com suas preferências.</li>
+                        <li>Selecione dois grupos de células de seu interesse para identificar os genes com maior expressão diferencial. Faça isso com base em suas preferências: tipo de célula, sexo, estado da doença, etc. Altere as cores de um dos genes com expressão diferencial de interesse.</li>
+                        <li>Experimente as diferentes funcionalidades disponíveis para explorar ainda mais seu conjunto de dados de interesse.</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg5.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg6.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    3. Explore o Gene Expression Functionality:
+                    <ul.a>
+                        <li>Selecione o conjunto de dados de interesse com base nos Filtros; adicione uma lista de interesse e visualize sua expressão nos diferentes tipos de células.</li>
+                        <li>Explore o gráfico, observando os níveis de expressão e a porcentagem de células que expressam aquele gene.</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg7.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    4. Explore Cell Guide Functionalitys:
+                    <ul.a>
+                        <li>Selecione uma célula ou tecido de interesse e navegue por sua ontologia.</li>
+                        <li>As células podem ter diferentes subtipos, portanto, são classificadas com base em uma ontologia.</li>
+                        <li>A ontologia celular (CL) é uma estrutura padronizada para descrever e categorizar tipos de células com base em suas características, funções e relacionamentos. Ela fornece uma linguagem comum e um conjunto de termos para definir e anotar tipos de células em diferentes espécies, tecidos e conjuntos de dados.</li>
+                        <li>Navegue pela célula ou tecido de seu interesse, explorando sua descrição, ontologia, genes marcadores e dados disponíveis.</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg8.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg9.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg10.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg11.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    5. Explore a Differential Expression Functionality:
+                    <ul.a>
+                        <li>Selecione os grupos para os quais deseja realizar uma análise de expressão diferencial com base no organismo, tecido, tipo de célula, doença, etnia, sexo, entre outras opções disponíveis.</li>
+                        <li>Neste exemplo, identificamos os genes diferencialmente expressos de acordo com o sexo em células B do cólon.</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg12.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    6. Explore o CELLxGENE Census:
+                    <ul.a>
+                        <li>Familiarize-se com a plataforma Census, que permite acessar, consultar e analisar todos os dados de RNA de célula única do CELLxGENE.</li>
+                </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/cell_gene/cg13.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                   <ul.a>
+                        <li>Agora aproveite o repositório, interagindo com os dados e genes de interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.</li>
+                </ul.a>
+                </p>
+
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://cellxgene.cziscience.com/" frameborder="0"></iframe>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">Panglao DB</h2>
+                    <i>Breve Descrição:</i>
+                    <p>O PanglaoDB é um banco de dados para a comunidade científica interessada na exploração de experimentos de sequenciamento de RNA de células únicas em camundongos e humanos. Coletamos e integramos dados de múltiplos estudos e os apresentamos por meio de uma estrutura unificada. Apesar de estar atualmente descontinuado, é muito útil para explorar genes marcadores.</p>
+                    <br>
+                    <i>Exercícios Práticos:</i>
+                <p>
+                    1. Explore a Interface Geral do Portal:
+                    <ul.a>
+                        <li>Acesse o site do PanglaoDB: <a href="https://panglaodb.se/">https://panglaodb.se/</a></li>
+                        <li>Navegue pelas opções de Busca para explorar o repositório.</li>
+                        <li>Você pode avaliar a expressão de um gene de interesse.</li>
+                        <li>Você também pode explorar marcadores celulares do tipo de célula de interesse.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/pdb/pdb1.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/pdb/pdb2.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/pdb/pdb3.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+                <p>
+                    2. Agora aproveite o repositório, brinque com os dados e genes de interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.
+                </p>
+
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://panglaodb.se/" frameborder="0"></iframe>
+                </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">CellTypist</h2>
+                    <i>Breve Descrição:</i>
+                    <p>CellTypist é uma plataforma web projetada para facilitar a identificação, classificação e anotação de tipos de células. Ela fornece uma interface amigável para que pesquisadores anotem e classifiquem tipos de células em seus próprios dados.</p>
+                    <br>
+                    <i>Exercícios Práticos:</i>
+                <p>
+                    1. Explore a Interface do Portal Geral:
+                    <ul.a>
+                        <li>Acesse o site do CellTypist: <a href="https://www.celxltypist.org/">https://www.celxltypist.org/</a></a></li>
+                        <li>Navegue pela Enciclopédia disponível. Explore mais profundamente um grupo de células de seu interesse.</li>
+                        <li>Em "Recursos", navegue pelos modelos disponíveis; explore os órgãos ali disponíveis, bem como tenha acesso ao pacote Python.</li>
+                        <li>Na página "Início", explore a ferramenta automática para anotar seus próprios dados.</li>
+                        <li>Acesse os tutoriais disponíveis para se aprofundar nas funcionalidades da plataforma.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp1.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp2.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp3.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp4.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp5.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/ctp/ctp6.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    2. Agora aproveite a plataforma, brincando com os dados e genes de seu interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.
+                </p>
+
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://www.celltypist.org/" frameborder="0"></iframe>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">GEO (Gene Expression Omnibus)</h2>
+                    <i>Breve Descrição:</i>
+                    <p>O GEO é um banco de dados público abrangente que arquiva e distribui gratuitamente dados genômicos funcionais de microarray, sequenciamento de última geração e outras formas de alto rendimento. É um recurso inestimável para pesquisadores, apoiando a descoberta de novos insights sobre a função, regulação e expressão gênica; apoiando a reutilização de dados.</p>
+                    <br>
+                    <i>Exercícios Práticos:</i>
+                <p>
+                    1. Explore a Interface do Portal Geral:
+                    <ul.a>
+                        <li>Acesse o site do GEO: <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a></li>
+                        <li>Pesquise um conjunto de dados de interesse, usando, por exemplo, as seguintes palavras-chave: "single cell heart"</li>
+                        <li>Explore os conjuntos de dados públicos relacionados a experimentos com coração de célula única (ou relacionados às palavras-chave utilizadas). Selecione um para obter mais informações sobre esse estudo.</li>
+                        <li>Navegue pelas amostras disponíveis.</li>
+                        <li>Avalie se eles seguiram os princípios FAIR ao depositar seus dados.</li>
+                    </ul.a>
+                </p>
+
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/geo/geo1.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/geo/geo2.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/geo/geo3.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/geo/geo4.png" alt="img" class="video-preview">
+                        </div>
+                    </div>
+                </section>
+
+                <p>
+                    2. Agora, aproveite o repositório, explorando os conjuntos de dados de seu interesse. Você pode usar o navegador integrado disponível abaixo ou o navegador principal do seu computador.
+                </p>
+
+                <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://www.ncbi.nlm.nih.gov/geo/" frameborder="0"></iframe>
+                </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading">SRA (Sequence Read Archive)</h2>
+                    <i>Breve Descrição:</i>
+                    <p>O SRA é um banco de dados público abrangente que arquiva e distribui gratuitamente dados de sequenciamento de alto rendimento, incluindo RNA-seq, DNA-seq e outras formas de dados de sequenciamento de nova geração (NGS).</p>
+                    <br>
+                    <i>Exercícios Práticos:</i>
+                    <p>
+                    1. Explore a Interface do Portal Geral:
+                        <ul.a>
+                            <li>Acesse o site do SRA: <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a></li>
+                            <li>Pesquise um conjunto de dados de interesse, usando, por exemplo, as seguintes palavras-chave: "single-cell heart"</li>
+                            <li>Filtre o resultado de acordo com a fonte, plataforma de sequenciamento, organismo de interesse ou outros recursos disponíveis.</li>
+                            <li>Explore os conjuntos de dados públicos relacionados a experimentos cardíacos de célula única (ou relacionados às palavras-chave utilizadas). Selecione um para obter mais informações sobre esse estudo.</li>
+                            <li>Navegue pelas amostras disponíveis.</li>
+                            <li>Avaliar se seguiram os princípios FAIR ao depositar seus dados.</li>
+                        </ul.a>
+                    </p>
+                <section class="video">
+                    <div class="container-xxl">
+                        <div class="video-content">
+                            <img src="../modulo01/sra/sra1.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/sra/sra2.png" alt="img" class="video-preview">
+                        </div>
+                        <div class="video-content">
+                            <img src="../modulo01/sra/sra3.png" alt="img" class="video-preview">
+                        </div> 
+                    </div>
+
+                    <p>
+                    2. Agora aproveite o repositório, brincando com os conjuntos de dados de seu interesse. Você pode usar o navegador incorporado disponível abaixo ou o navegador principal do seu computador.
+                    </p>
+
+                    <div class="iframe-container">
+                    <iframe width="1000", height="606" src="https://www.ncbi.nlm.nih.gov/sra" frameborder="0"></iframe>
+                </div>
+
+
+
+                <h2 class="hero-heading">NOTA:</h2>
+                    <p>
+                        Ademais, existe o SRA Explorer, uma ferramenta interativa de visualização de dados do SRA, que facilita a navegação e o acesso aos dados brutos armazenados no SRA, permitindo busca e download de dados eficientes.
+                    </p>
+
+                </section>
+                </div>
+            </div>
+        </section>
+        
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

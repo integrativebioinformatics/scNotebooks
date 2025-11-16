@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="images/favicon2.ico" type="image/x-icon">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li>
+                            <a href="#members">Team</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="https://github.com/integrativebioinformatics/SingleCell-Learn"><i class="fa-solid fa-arrow-up-right-from-square"></i>GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="#about">About</a>
+                        </li>
+                        <li>
+                            <a href="#members">Team</a>
+                        </li>
+                        <li>
+                            <a class="" href="https://github.com/integrativebioinformatics/SingleCell-Learn"><i class="fa-solid fa-arrow-up-right-from-square"></i>GitHub</a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div> 
+            </div>
+        </nav> 
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xxl">
+                        A global initiative for inclusive and accessible single-cell transcriptomics education
+                    </h1>
+                    <p class="hero-text">
+                        Computational framework includes jupyter notebooks designed for inclusive training in bioinformatics, specifically in single-cell data analysis.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#modules" class="btn btn-primary">
+                            Get Started
+                        </a>
+                        <a href="https://github.com/integrativebioinformatics/SingleCell-Learn/tree/main/Notebooks_EN" class="btn btn"><i class="fa-brands fa-github"></i>
+                            Go to Notebooks
+                        </a>
+                        <a href="https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_docker.md" class="btn btn"><i class="fa-brands fa-docker"></i>
+                            Run Docker
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About -->
+         <section id="about" class="abt">
+            <div class="container-sm">
+                <h3 class="text-xl text-center">
+                    Project Structure
+                </h3>
+                <ul class="abt-menu">
+                    <li class="active">About</li>
+                    <li class="">Modules</li>
+                    <li class="">Team</li>
+                </ul>
+                <div class="abt-content">
+                    <div class="abt-group">
+                        <div class="abt-group-header">
+                            <h4 class="pricing-card-heading text-md">
+                            Acessible Education:
+                        </h4>
+                            <p class="pricing-card-subheading">
+                                Develop learning materials that can be used by researchers and students at various experience levels.
+                            </p>
+                        
+                        </div>
+                    </div>
+                    <div class="abt-group">
+                        <div class="abt-group-header">
+                            <h4 class="pricing-card-heading text-md">
+                            Global Inclusion:
+                        </h4>
+                            <p class="pricing-card-subheading">
+                                Reduce geographical and economic barriers to learning single-cell RNA sequencing (scRNA-seq).
+                            </p>
+                        
+                        </div>
+                    </div>
+                    <div class="abt-group">
+                        <div class="abt-group-header">
+                            <h4 class="pricing-card-heading text-md">
+                            Hands-on Training:
+                        </h4>
+                            <p class="pricing-card-subheading">
+                                Offer interactive modules covering everything from raw data processing to advanced analyses, including TCR sequence integration.
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </section>
+
+
+        <!-- Modules -->
+            <section id="modules" class="mod">
+                <div class="container-sm">
+                    <ul class="mod-menu">
+                        <li class="">About</li>
+                        <li class="active">Modules</li>
+                        <li>Team</li>
+                    </ul>
+                    <div class="mod-content">
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                                <a href="modules/en/module01/module01.html">
+                                    <h4 class="text-md">
+                                        Introduction to Notebooks and Databases
+                                    </h4>
+                                </a> 
+                                <i class="fas fa-chevron-up"></i>
+                            </div>
+                            <div class="mod-group-body open">
+                                <p>This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.</p>
+                            </div>
+                        </div>
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                                <a href="modules/en/module02/module02.html">
+                                    <h4 class="text-md">
+                                        Introduction to R and RStudio
+                                    </h4>
+                                </a> 
+                                <i class="fas fa-chevron-up"></i>
+                            </div>
+                            <div class="mod-group-body open">
+                                <p>This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.</p>
+                            </div>
+                        </div>
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                                <a href="modules/en/module03/module03.html">
+                                    <h4 class="text-md">
+                                        Processing raw scRNA-seq data
+                                    </h4>
+                                </a>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                                <p>This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics. Processing scRNA-seq data is a crucial step in single-cell analysis. The chosen library preparation method determines whether RNA sequences are captured from transcript ends (e.g., 10X Genomics, Drop-seq) or full-length transcripts (e.g., Smart-seq), directly influencing downstream analysis and biological insights.</p>
+                            </div>
+                        </div>
+    
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module04/module04.html">
+                                <h4 class="text-md">
+                                    Quality Control, Differential expression, Cell Type Annotation, Clustering and Functional Data analysis
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure proper quality control before downstream analysis.
+
+                                A key part of scRNA-seq analysis is identifying genes and transcripts with distinct expression patterns across different conditions. These differences can reveal underlying biological processes driving cellular heterogeneity. To refine the dataset, we will assess its quality using key metrics, apply normalization techniques to mitigate technical variability, and implement clustering methods to group cells based on gene expression patterns.
+
+                                Furthermore, we will do differential expression analysis, cell type annotation, and functional enrichment techniques to uncover gene regulation mechanisms, identify key markers, and explore pathways involved in cellular differentiation and disease states. Together, these approaches provide a comprehensive framework for interpreting single-cell transcriptomics data and extracting meaningful biological insights.
+                            </p>
+                            </div>
+                        </div>
+                
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module05/module05.html">
+                                <h4 class="text-md">
+                                    Integrating single-cell transcriptomes from multiple samples
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
+
+                                Computational methods help eliminate unwanted variation, ensuring biologically meaningful signals. Batch correction requires two key decisions: selecting the appropriate method and its parameters, and defining the batch covariate based on the integration objective.
+
+                                In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
+                            </p>
+                            </div>
+                        </div>
+                
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module06/module06.html">
+                                <h4 class="text-md">
+                                    Trajectory inference and pseudotemporal ordering
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest to understand changes in the cellular functions. In each of these states, some genes get activated and others silenced. By using scRNA-seq data, computational tools such as Monocle3 can infer the single-cell trajectories that cells undergo when transitioning across the different functional states. Thus, the developmental history (ontogeny) of differentiated cell types can be traced. This notebook will cover the key concepts and methods related to inferring cell-state trajectory and pseudotime ordering, followed by hands-on activities that illustrate the use of Monocle3, a tool devised for this purpose.
+                            </p>
+                            </div>
+                        </div>
+                
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module07/module07.html">
+                                <h4 class="text-md">
+                                    Deciphering cell-cell communication in single-cell transcriptomics data
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit signals, exchange information, and coordinate their behaviors, ultimately contributing to essential biological processes such as development, immune response, and tissue homeostasis. In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module08/module08.html">
+                                <h4 class="text-md">
+                                    Multimodal Single-Cell Analysis
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module09/module09.html">
+                                <h4 class="text-md">
+                                    TCR Profiling in Single-Cell Analysis
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                T cell receptor (TCR) profiling and Cellular Indexing of Transcriptomes and Epitopes by Sequencing (CITE-Seq) are pivotal techniques in single-cell research, offering unparalleled insights into the adaptive immune system and cellular heterogeneity. TCR profiling enables a deep dive into the repertoire and diversity of T cell populations, highlighting the specificity and uniqueness of T cell responses. On the other hand, CITE-Seq facilitates the concurrent assessment of transcriptomic data and protein expression within individual cells, creating a comprehensive portrayal of cellular states.
+
+                                In this module, participants will explore the profound implications of TCR profiling in understanding immune responses and the synergies it can achieve when coupled with CITE-Seq. We'll initiate with core concepts and theories, and swiftly transition into practical applications using advanced computational tools. Through this hands-on approach, attendees will master the nuances of TCR profiling and CITE-Seq, equipping them with valuable tools for their immunological and single-cell research pursuits.
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module10/module10.html">
+                                <h4 class="text-md">
+                                    An introduction to Spatial Transcriptomics approaches
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to advance our understanding of complex biological processes and help identify new biomarkers for disease diagnosis and treatment. The main goal of spatial transcriptomics is to capture the gene expression profile of individual cells (or a mini mixture of cells in a given region) in their native tissue context, allowing for the identification of cell types and their spatial distribution. This information can then be used to create detailed maps of gene expression within tissues, providing insights into cellular interactions, developmental processes, and disease progression. In this notebook, we will cover practical steps in setting up a spatial transcriptomics analysis pipeline using the Seurat package. We will cover the basic analysis to recover gene expression in different regions as well as cell type deconvolution approaches.
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module11/module11.html">
+                                <h4 class="text-md">
+                                    An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq)
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the genome that are open and potentially active, meaning they can be bound by transcription factors to regulate gene activity.
+                            </p>
+                            </div>
+                        </div>
+
+                        <div class="mod-group">
+                            <div class="mod-group-header">
+                            <a href="modules/en/module12/module12.html">
+                                <h4 class="text-md">
+                                    Understanding Alternative Polyadenylation (APA)
+                                </h4>
+                            </a>
+                            <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="mod-group-body">
+                            <p>
+                                This module focuses on the bioinformatic analysis of Alternative Polyadenylation (APA) using SCAPE-APA, a specialized computational tool designed for single-cell RNA-seq data. Learners will explore the principles behind APA detection, quantification, and interpretation in a high-throughput context. The module introduces the structure and workflow of SCAPE-APA, including input formats, preprocessing steps, and output interpretation. Through guided exercises, users will apply SCAPE-APA to real datasets, visualize APA dynamics across cell types, and extract biologically meaningful insights from polyadenylation site usage. This hands-on approach equips learners with essential skills for analyzing transcriptomic complexity at single-cell resolution.
+                            </p>
+                            </div>
+                        </div>
+
+                        
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- List of Contributors -->
+         <section id="members" class="mod">
+            <div class="container-sm">
+                <ul class="mod-menu">
+                    <li class="">About</li>
+                    <li class="">Modules</li>
+                    <li class="active">Team</li>
+                </ul>
+                <div class="mod">
+                    <h4>Listed Alphabetically</h4>
+                    <p>Adolfo Rojas</p>
+                    <p>Benilton S. Carvalho <a href="https://orcid.org/0000-0001-5122-5646"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Bruno Vinagre <a href="https://orcid.org/0009-0005-3051-8630"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Carlos Alberto Oliveira de Biagi Júnior <a href="https://orcid.org/0000-0003-0700-3135"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Cesar Prada</p>
+                    <p>Cristóvão Antunes</p>
+                    <p>Daniela Russo</p>
+                    <p>Erick Armingol <a href="https://orcid.org/0000-0002-1546-9165"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Gabriela Guimarães</p>
+                    <p>Leandro Santos</p>
+                    <p>Joyce Silva</p>
+                    <p>Mariana Boroni <a href="https://orcid.org/0000-0003-3495-9917"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Natalia Tavares <a href="https://orcid.org/0000-0002-4026-679X"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Orr Ashenberg</p>
+                    <p>Patricia Severino <a href="https://orcid.org/0000-0001-6527-6612"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Raúl Arias-Carrasco <a href="https://orcid.org/0000-0003-1698-9282"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Ricardo Khouri <a href="https://orcid.org/0000-0001-5664-4436"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Sebástian Urquiza-Zurich <a href="https://orcid.org/0000-0002-8064-330X"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Sergio Triana</p>
+                    <p>Vinicius Maracaja-Coutinho <a href="https://orcid.org/0000-0002-8873-9381"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                    <p>Yesid Cuesta <a href="https://orcid.org/0000-0002-4243-0645"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
+                                </div>
+                </div>
+         </section>
+         
+         <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+
+        <!--Foootnote-->
+            <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        <script src="js/main.js"></script>
+    </body>
+</html>

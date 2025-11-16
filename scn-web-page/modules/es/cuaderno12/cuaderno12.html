@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo12/modulo12.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module12/module12.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo12/modulo12.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module12/module12.html">
+                                English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Poliadenilción Alternativa de scRNA-Seq
+                    </h1>
+                    <p class="hero-text">
+                        La Poliadenilción Alternativa (APA) es un proceso biológico que ocurre durante la maduración de ARN mensajero (ARNm), en el cual se utilizan diferente señales en teminacion (poliadenilación) en el mismo gen. Esto significa que una sola secuencia de ADN puede generar múltiples versiones de ARNm con diferentes longitudes en el extremo 3'. Elas variaciones pueden afectar la estabilidad del ARN, su ubicación en la célula y su traducción a proteínas. Como resultado, la APA desempeña un papel importante en la regulación de la expresión génica y puede estar asociada con procesos como la diferenciación celular y enfermedades como el cáncer.
+                        <br>
+                        <p>El <a href="https://github.com/chengl7-lab/scape">SCAPE-APA</a> (Single Cell Analysis of Polyadenylation Events)  es un package computacional desarrollado para identificar y cuantificar eventos de poliadenilación alternativa en datos de scRNA-seq. Nos permite estudiar cómo diferentes células utilizan diferentes sitios de poliadenilación en sus genes, revelando capas adicionales de regulación que no se detectan únicamente mediante el análisis clásico de expresión génica.</p>
+                        <br>
+                        <p>En este cuaderno, utilizaremos SCAPE-APA en el entorno de Google Colab para estimar eventos de poliadenilación alternativos en datos de scRNA-seq. El objetivo es ofrecer una introducción práctica e intuitiva a este tipo de análisis, demostrando cómo APA contribuye a la diversidad regulatoria entre células individuales.</p>
+                    </p>
+                    <br>
+                    <hr/>
+            </div>
+        </section> 
+        
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instalamos python3-conda
+# (!) indica que este es un comando para la terminal de Linux
+
+!apt-get install -y python3-conda
+                </code></pre>
+                </div>
+            </section>
+
+            <h3>Conda</h3> 
+            <p>Conda es un gestor de paquetes y entornos utilizado principalmente en ciencia de datos y bioinformática. Facilita la instalación de software y bibliotecas, incluso aquellas con dependencias complejas.</p> 
+            <br>
+            <p>Un entorno virtual de Conda es un espacio aislado donde se pueden instalar versiones específicas de paquetes sin interferir con otras instalaciones del sistema. Esto evita conflictos y garantiza análisis reproducibles.</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instalar el package condalab, que le permitirá utilizar Conda en Google Colab, 
+# junto con sus paquetes y funciones.
+
+!pip install -q condacolab
+import condacolab
+condacolab.install()
+                </code></pre>
+                </div>
+            </section>
+            <p>✨🍰✨ Todo parece funcionar!</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instalación de packages y herramientas numéricas para la visualización 
+# y gestión de datos en el entorno Conda.
+
+# Creación del entorno scape_env con Python versión 3.11
+!conda create -y -n scape_env python=3.11
+
+# Instalación de los packages necesarios
+!conda run -n scape_env conda install -y anaconda::numpy anaconda::scipy anaconda::pandas anaconda::matplotlib
+!conda run -n scape_env conda install -y anaconda::click anaconda::tomli-w anaconda::requests
+!conda run -n scape_env conda install -y conda-forge::psutil conda-forge::tomli-w
+!conda run -n scape_env conda install -y bioconda::bedtools bioconda::pybedtools bioconda::pysam bioconda::gffutils
+!conda run -n scape_env pip install taichi
+!conda run -n scape_env pip install scape-apa
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Verificando la instalación de SCAPE-APA.
+
+!conda run -n scape_env bash -c "unset MPLBACKEND && export MPLBACKEND=Agg && scape --help"
+                </code></pre>
+                </div>
+            </section>
+
+
+            <br>
+            <h3>GitHub</h3> 
+            <p>GitHub es una plataforma en línea donde los desarrolladores almacenan, comparten y colaboran en proyectos de código mediante el sistema de control de versiones Git.</p>
+            <br>
+            <p>El comando git clone se usa para copiar un repositorio completo desde GitHub (u otro servidor Git) a tu repositorio local. Descarga todos los archivos, el historial de versiones y la estructura del proyecto, lo que te permite trabajar localmente. Hagamos esto como SCAPE-APA.</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Obteniendo los archivos del repositorio de GitHub.
+!git clone https://github.com/chengl7-lab/scape.git
+# Moviéndonos al directorio del tutorial dentro de Scape
+%cd scape/tutorial
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Lista de archivos dentro de la carpeta "ejemplo de juguete".
+
+!ls -lh /content/scape/examples/toy-example/
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cambiar directorio.
+
+%cd /content/scape/examples/toy-example/
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Descargar el archivo de anotación "Mus_musculus.GRCm39.113.chr.gff3"
+#wget es para descargar
+# -O para definir la ubicación del archivo y su nombre
+!wget -O /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3 https://ftp.ensembl.org/pub/release-113/gff3/mus_musculus/Mus_musculus.GRCm39.113.chr.gff3.gz
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Comprobación del contenido interno.
+# El encabezado se usa para comprobar el tipo de archivo.
+# -n 20 especifica que se verán las primeras 20 líneas del archivo.
+!head -n 20 /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Comprobar el tamaño del archivo
+
+!wc -l /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3
+                </code></pre>
+                </div>
+            </section>           
+                  
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Anotaciones de La Región UTR</h2>
+                    <p>Las UTRs son regiones no traducidas del ARN mesajero, ubicadas en los extremos 5' y 3'del gen. La APA suele ocurrir en el extremo 3', dentro de la UTR 3'. Esto significa que definir correctamente la ubicación de estas regiones es esencial para detectar con precisión los diferentes eventos de APA que pueden ocurrir en un gen.</p>
+                    <br>
+                    <p>El comando <span class="code-inline-light">gen_utr_annotation</span> forma parte del flujo de trabajo de análisis de SCAPE-APA y su objetivo principal es generar anotaciones de UTR (Regiones No Traducidas) a partir de un archivo .gff3 que contiene las anotaciones genómicas de una especie.</p>
+                    <br>
+                    <ul.a>
+                        ¿Qué hace el comando en la práctica?
+                        <li>Lee el archivo .gff3, que contiene información sobre la estructura génica.</li>
+                        <li>Identifica y extrae las regiones UTR 3' de cada transcripción basándose en estas anotaciones.</li>
+                        <li>Generar un archivo de salida con estas regiones, que será utilizado por SCAPE-APA para detectar las ubicaciones donde aparecen diferentes señales de poliadenilación.</li>
+                    </ul.a>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Llamar a SCAPE en el entorno Conda.
+# Usar "unset MPLBACKEND" para eliminar la configuración inicial de Google Colab y
+# "MPLBACKENG=Agg" para renderizar gráficos.
+
+# scape gen_utr_annotation = Llamar a SCAPE con el comando "gen_utr_annotation".
+# --gff_file = archivo ".gff3".
+# --output_dir = Ruta de salida del archivo generado.
+# --res_file_name = Nombre del archivo generado, con formato ".csv".
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+scape gen_utr_annotation \
+--gff_file /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3 \
+--output_dir /content/scape/examples/toy-example/ \
+--res_file_name example_annotation"
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Necesitamos realizar adaptaciones para Google Colab, ya que no permite ejecutar scripts de Python directamente con el comando scape como en una terminal normal.</p>
+            <br>
+            <p>Para ejecutar SCAPE-APA en Google Colab, debe usar el comando conda run -n scape_env para asegurarse de que el entorno Conda correcto esté activado antes de ejecutar el comando scape.</p>
+            <br>
+            <p>No es necesario si ejecuta SCAPE-APA localmente en su terminal, ya que el entorno Conda ya estará activo.</p>
+            <br>
+            <p>Se vería así:<span class="code-inline-light">scape gen_utr_annotation --gff_file /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3 --output_dir /content/scape/examples/toy-example/ --res_file_name example_annotation</span></p>
+            <br>        
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Preparar datos de scRNA-seq</h2>
+                    <p>El comando  <span class="code-inline-light">prepare_input</span> es un paso esencial en el proceso de SCAPE-APA y su objetivo es preparar datos de scRNA-seq para la detección de eventos de APA.</p>
+                    <br>
+                    <p>Al centrarse únicamente en las lecturas ubicadas en las regiones UTR, este paso reduce el ruido y centra el análisis en las áreas donde se producen eventos de APA. Esto mejora la precisión y la eficiencia de la detección, lo que permite una estimación más fiable de los diferentes sitios de poliadenilación en células individuales.</p>
+                    <ul.a>
+                        Qué hace:
+                        <li>Procesa el archivo .bam, que contiene las alineaciones de las lecturas de RNA-seq de células individuales.</li>
+                        <li>Filtra y selecciona únicamente las lecturas que se alinean con las regiones UTR (principalmente 3'UTR) previamente anotadas con el comando gen_utr_annotation.</li>
+                        <li>Consolida los datos relevantes en un formato adecuado para los análisis SCAPE-APA posteriores.</li>
+                    </ul.a>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# scape prepare_input = Comando para preparar datos de un archivo ".bam".
+# --utr_file = Ruta al archivo de anotación UTR generado anteriormente.
+# --cb_file = Archivo de código de barras para identificar células en datos de scRNA-seq.
+# --bam_file = Archivo ".bam" de lecturas alineadas.
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+scape prepare_input --utr_file /content/scape/examples/toy-example/example_annotation.csv \
+--cb_file /content/scape/examples/toy-example/barcodes.tsv.gz \
+--bam_file /content/scape/examples/toy-example/example.bam \
+--output_dir /content/scape/examples/toy-example/"
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Comprobación de directorio.
+
+!ls -lh /content/scape/examples/toy-example/
+                </code></pre>
+                </div>
+            </section>
+            <br>
+            <h3>Samtools</h3>
+            <br>
+            <p>Samtools es una colección de herramientas de línea de comandos que se utilizan para manipular archivos de alineación de secuencias, específicamente en los formatos SAM (Alineación/Mapa de Secuencias) y BAM (versión comprimida de SAM).</p>
+            <br>
+            <p>Vamos a instalarlo:</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instalación de samtools.
+
+!apt-get install -y samtools
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualización del archivo ".bam" con samtools.
+
+!samtools view /content/scape/examples/toy-example/example.bam | head -n 10
+                </code></pre>
+                </div>
+            </section>
+            <p>Samtools permite crear un índice del archivo bam, lo que permite que las herramientas bioinformáticas accedan rápidamente a regiones específicas del genoma dentro de ese archivo. Esto es esencial, por ejemplo, para visualizar alineaciones en exploradores de genomas o para análisis que implican la extracción de regiones específicas.</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crear un índice
+!samtools index /content/scape/examples/toy-example/example.bam
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Lista todos los archivos en el directorio especificado
+# La barra vertical se llama pipe (|) es un operador que se utiliza para encadenar comandos, 
+# permitiendo que la salida de un comando se utilice directamente como entrada para el siguiente
+# | grep ".pkl" = filtra la salida del comando anterior y muestra solo las líneas que contienen archivos con la extensión .pkl
+
+!ls -lh /content/scape/examples/toy-example/ | grep ".pkl"
+                </code></pre>
+                </div>
+            </section>
+
+            <br>
+
+            <section class="hero-modules">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>Inferir eventos APA</h2>
+                        <p>Con SCAPE-APA, es posible inferir cómo la célula utiliza diferentes señales de terminación del ARN, un proceso fundamental para comprender la regulación génica a nivel unicelular. La detección de estos eventos nos permite investigar patrones de expresión más precisos y sus posibles implicaciones en procesos biológicos o enfermedades.</p>
+                        <br>
+                        <p>Para ello, se utiliza<span class="code-inline-light">infer_pa </span>en regiones 3'UTR previamente anotadas.</p>
+                        <br>
+                        <ul.a>
+                            Función:
+                            <li>Analiza los datos de entrada (filtrados en el paso preparar_entrada) para detectar sitios de poliadenilación alternativos (sitios APA) dentro de las regiones UTR.</li>
+                            <li>Identifica en qué posiciones se poliadenilan los diferentes transcritos del mismo gen, lo que nos permite inferir la diversidad de isoformas reguladas postranscripcionalmente.</li>
+                        </ul.a>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Comando para ejecutar el modelo de inferencia y detectar sitios de poliadenilación.
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && scape infer_pa \
+--pkl_input_file /content/scape/examples/toy-example/pkl_input/example.100.1.1.input.pkl \
+--output_dir /content/scape/examples/toy-example/"
+                </code></pre>
+                </div>
+            </section>
+                        <p>Ejecución del comando <span class="code-inline-light">infer_pa </span> Este comando se encarga de inferir eventos de APA a partir de alineaciones de scRNA-seq y regiones UTR previamente anotadas.</p>
+                        <br>
+                        <ul.a>
+                            Argumentos principales del comando:
+                            <li>utr_file: Archivo .csv con anotaciones de las regiones UTR, generado en el paso gen_utr_annotation.</li>
+                            <li>cb_file: Archivo que contiene los códigos de barras celulares, que identifican cada célula individualmente.</li>
+                            <li>bam_file: Archivo .bam con lecturas de ARN alineadas con el genoma.</li>
+                            <li>output_dir: Directorio donde se guardarán los archivos de salida.</li>
+                        </ul.a>
+                        <br>
+                        <ul.a>
+                            Parámetros principales de inferencia:
+                            <li>chunksize: Número de UTR analizados simultáneamente (útil para gestionar la memoria en grandes conjuntos de datos).</li>
+                            <li>n_max_apa / n_min_apa: Número máximo y mínimo de sitios APA que el algoritmo detectará por UTR.</li>
+                            <li>min_LA / max_LA: Tamaño mínimo y máximo permitido para las regiones de alineación (ajusta el ruido y la precisión).</li>
+                            <li>mu_f / sigma_f: Media y desviación estándar de la longitud de los fragmentos de ARN (esencial para modelar los datos).</li>
+                            <li>min_pa_gap: Distancia mínima entre dos sitios APA distintos: evita la detección de falsos positivos demasiado cercanos.</li>
+                            <li>max_beta, beta_step: Controla la distribución beta, utilizada en el modelado estadístico de la posición de los sitios APA.</li>
+                            <li>theta_step: Rango de valores theta, otro parámetro de la mezcla de distribuciones.</li>
+                            <li>min_ws / max_unif_ws: Controla los pesos de las distribuciones en el modelado: esencial para ajustar los eventos reales frente al ruido.</li>
+                            <li>re_run_mode: Si está habilitado (TRUE), permite repetir el análisis, sobrescribiendo los resultados anteriores.</li>
+                            <li>fixed_run_mode:si está deshabilitado (FALSO), permite que el algoritmo ajuste automáticamente los parámetros para una mejor inferencia.</li>
+                        </ul.a>
+                        <br>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#NO CORRAS
+
+python infer_pa.py \
+  --utr_file /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.utr_annot.csv \
+  --cb_file /content/scape/examples/toy-example/barcodes.tsv \
+  --bam_file /content/scape/examples/toy-example/example.bam \
+  --output_dir /content/scape/examples/toy-example/output/
+
+                </code></pre>
+                </div>
+            </section>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hero-modules">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>Agrupación de Eventos</h2>
+                        <p>El comando  <span class="code-inline-light">merge_pa</span> se utiliza para agrupar los eventos APA detectados en pasos anteriores de SCAPE-APA, fusionando los resultados que pertenecen al mismo gen o región UTR.</p>
+                        <br>
+                        <ul.a>
+                            Función práctica:
+                            <li>Recibe como entrada los resultados de inferencia de eventos APA por célula o por región UTR (obtenidos mediante <span class="code-inline-light">infer_pa</span>).</li>
+                            <li>Agrupa los sitios APA que se encuentran en la misma región genómica (por ejemplo, dentro del mismo 3'UTR o en un solo gen).</li>
+                            <li>Elimina redundancias y genera un resumen consolidado de los puntos de corte más representativos de cada gen.</li>
+                        </ul.a>
+                        <br>
+                        <p>Durante la inferencia, se pueden detectar múltiples sitios APA en diferentes células o réplicas. La función merge_pa permite fusionar eventos similares, lo que facilita la interpretación. Además, también reduce el ruido estadístico y ayuda en la visualización general de los patrones APA por gen, que pueden usarse en análisis posteriores, como agrupamiento, visualizaciones o asociación con metadatos celulares.</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Con "merge_pa", se recopilan los sitios de poliadenilación inferidos en el paso anterior, 
+# fusionando los sitios dentro del mismo gen o UTR.
+
+# Genera dos archivos "res.TYPE.pk1", donde "TYPE" puede ser los sitios del gen 
+# o los UTR fusionados (gen - UTR).
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+scape merge_pa --output_dir /content/scape/examples/toy-example/"
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Lista de archivos en toy-example
+
+!ls -lh /content/scape/examples/toy-example/
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Análisis SCAPE-APA para calcular la duración efectiva de los eventos APA detectados
+
+!conda run -n scape_env bash -c z \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+scape cal_exp_pa_len --output_dir /content/scape/examples/toy-example/"
+                </code></pre>
+                </div>
+            </section>            
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Lista de archivos en toy-example
+
+!ls -lh /content/scape/examples/toy-example/
+                </code></pre>
+                </div>
+            </section>            
+                    </div>
+                </div>
+            </section>
+
+            <section class="hero-modules">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>Visualización de resultados</h2>
+                        <p><span class="code-inline-light">gen_utr_annotation</span></p>
+                        <br>
+                        <p>Pandas es una potente biblioteca para la manipulación y el análisis de datos en Python. Con ella, se puede trabajar con tablas (DataFrames) de forma similar a las hojas de cálculo de Excel o las tablas de SQL. Utilicémosla para analizar los datos.</p>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+import pandas as pd
+
+# Carregar a anotação UTR
+df_utr = pd.read_csv("/content/scape/examples/toy-example/example_annotation.csv")
+
+# Exibir as primeiras linhas da tabela
+df_utr.head()
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+import matplotlib.pyplot as plt
+
+# Calcular o comprimento de cada UTR
+df_utr["length"] = df_utr["end"] - df_utr["start"]
+
+# Plotar um histograma de comprimento
+plt.figure(figsize=(8, 5))
+plt.hist(df_utr["length"], bins=30, edgecolor='black')
+plt.xlabel("Longitud UTR (pb)")
+plt.ylabel("Frecuencia")
+plt.title("Distribución de la longitud UTR")
+plt.show()
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Ejecutar merge_pa
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+scape merge_pa --output_dir /content/scape/examples/toy-example/ \
+--utr_merge True"
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Verificar que "prepare_input" funcionó
+# Esperar los archivos ".pk1"
+
+import os
+
+# Listar los archivos generados
+
+os.listdir("/content/scape/examples/toy-example/pkl_input/")
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualización de parámetros mediante "infer_pa" (res.utr.pkl)
+
+!conda run -n scape_env bash -c \
+"unset MPLBACKEND && export MPLBACKEND=Agg && \
+python -c 'import pickle; f=open(\"/content/scape/examples/toy-example/res.utr.pkl\", \"rb\"); \
+print(pickle.load(f))'"
+                </code></pre>
+                </div>
+            </section>
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+import matplotlib.pyplot as plt
+
+# Dados do Sítio PA
+pa_sites = ["PA1 (2965)", "PA2 (4171)"]
+usage_probs = [0.16, 0.84]
+
+# Criar Gráfico de Barras
+plt.figure(figsize=(6, 4))
+plt.bar(pa_sites, usage_probs, color=['blue', 'red'])
+plt.xlabel("Sitios de poliadenilación")
+plt.ylabel("Probabilidad de uso")
+plt.title("Preferencia de sitios de poliadenilación en el UTR")
+plt.ylim(0, 1)
+
+# Mostrar gráfico
+plt.show()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# merge_pa
+# Revisar el contenido del archivo fusionado
+with open("/content/scape/examples/toy-example/res.gene.pkl", "rb") as f:
+    try:
+        merged_pa = pickle.load(f)
+        print(merged_pa)
+    except EOFError:
+        print("O arquivo res.gene.pkl está vazio.")
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# cal_exp_pa_len
+df_exp_len = pd.read_csv("/content/scape/examples/toy-example/cluster_wrt_CB.gene.pa.len.csv")
+
+# Mostrar las primeras líneas
+
+df_exp_len.head()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+plt.figure(figsize=(8, 5))
+plt.hist(df_exp_len.iloc[:, 1], bins=30, edgecolor='black')
+plt.xlabel("Longitud esperada de poliadenilación (pb)")
+plt.ylabel("Frecuencia")
+plt.title("Distribución de la longitud esperada de PA")
+plt.show()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#ex_pa_cnt_mat
+
+df_counts = pd.read_csv("/content/scape/examples/toy-example/res.utr.cnt.tsv.gz", sep="\t")
+
+# Mostrar las primeras líneas
+df_counts.head()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+plt.figure(figsize=(8, 5))
+plt.hist(df_counts.iloc[:, 1], bins=30, edgecolor='black')
+plt.xlabel("Número de eventos de poliadenilación")
+plt.ylabel("Frecuencia")
+plt.title("Distribución de eventos de poliadenilación")
+plt.show()
+                </code></pre>
+                </div>
+            </section>
+
+
+
+
+                    </div>
+                </div>
+            </section>
+
+            
+
+                </div>
+            </div>
+        </section>
+
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>        

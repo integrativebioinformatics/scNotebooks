@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo11/modulo11.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno11/cuaderno11.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo11/modulo11.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno11/cuaderno11.html">
+                                Español
+                            </a>
+                        </li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq)
+                    </h1>
+                    <p class="hero-text">
+                        scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the genome that are open and potentially active, meaning they can be bound by transcription factors to regulate gene activity.
+                    </p>
+                    <br>
+                    </div>
+                <hr/> 
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <br/>
+                    <p>For this work, we will use data from the article by Kumegawa et al. (2022) entitled: "GRHL2 motif is associated with intratumor heterogeneity of cis-regulatory elements in luminal breast cancer"</p>
+                    <br>
+                    <p>In this paper, Kumegawa et al. analyze chromatin accessibility profiles of more than 10.000 cells from 16 breast cancer patients including luminal, luminal-HER2, HER2+ and 3 triple-negative subtypes. Using this profiling process, they classified cells into cancer cells and tumor microenvironment, allowing to highlight the heterogeneity of disease-related pathways. Moreover, they identified the GRHL2 transcription factor which cooperated with FOXA1 to initiate endocrine resistance and that GRHL2 binding elements potentially regulate genes associated with endocrine resistance, metastasis, and poor prognosis in patients that received hormonal therapy.</p>
+                    <br>
+                    <p>The scATAC-seq libraries were prepared with the SureCell ATAC-seq Library Preparation kit (BioRad) and a SureCell ddSEQ Index Kit (Bio-Rad). Alignment was done with ATAC-Seq Analysis Toolkit (Bio-Rad).</p>
+                    <br>
+                    <p>For this work, we will explore two breast tumor samples (TNBC and Luminal-HER2), specifically T cells. To do so, we went to retrieve the file fragment of a sample from the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi">GEO (Gene Expression Omnibus)</a> website using the identifier provided by the author: GSE198639.</p>
+                    <br>
+                    <p>This course is done using ArchR. For more details on ArchR see <a href="https://www.archrproject.com/index.html">here</a>.</p>
+                    <br>
+                    <p>ArchR provides a comprehensive suite for scATAC-seq analysis tools from pre-processing data to results, offering several levels of information. Moreover, ArchR is fast and ask a reasonable ressource usage.</p>
+                    <br>
+                    <p>For these analyses, you need (if you will do in your computer):</p>
+                    <ul.a>
+                        <li>Install python3.6 or more: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
+                        <li>Install conda (miniconda or anaconda, it's a package manager for python, it allows to create python environment):<a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">https://conda.io/projects/conda/en/latest/user-guide/install/index.html</a></li>
+                        <li>Install macs2 package (via the terminal):</li>
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+conda create -y -n MACS2 python=3.6
+
+conda activate MACS2
+
+conda install macs2 or conda install -c bioconda macs2
+                </code></pre>
+                </div>
+            </section>
+                        <li>Install of R4.1.3 or more: <a href="https://cran.r-project.org/">https://cran.r-project.org/</a></li>
+                        <li>install these R packages (via R environment):</li>
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+install.packages(c("devtools","BiocManager","reticulate","clustree","Seurat"))
+
+devtools::install_github("GreenleafLab/ArchR", ref="master", repos = BiocManager::repositories())
+
+ArchR::installExtraPackages()
+
+BiocManager::install("BSgenome.Hsapiens.UCSC.hg19") (or other genome if you have data from another organism or another genome reference)
+
+devtools::install_github("GreenleafLab/chromVARmotifs")
+
+install.packages("hexbin")
+                </code></pre>
+                </div>
+            </section>
+                    </ul.a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Download preinstalled libraries and datasets</h2>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Download the installation script from GitHub
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+
+# Change the script's permissions to make it executable
+Sys.chmod("add_cranapt_jammy.sh", "0755")
+
+# Execute the script in the terminal
+system("./add_cranapt_jammy.sh")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+system("apt install libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libbz2-dev libgsl-dev gsl-bin -y")
+system("apt install  libfontconfig1-dev libharfbuzz-dev libfribidi-dev libcairo2-dev libgmp-dev -y")
+system("apt update")
+system("apt install libmagick++-dev -y")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define a helper function to run shell commands and print their output
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)  # Execute the command and capture output
+  cat(paste0(result, collapse = "\n"))  # Print output to console
+}
+
+# Download the MACS2 package (version 2.2.9.1) using wget
+shell_call("wget https://github.com/macs3-project/MACS/archive/refs/tags/v2.2.9.1.tar.gz -O MACS.tar.gz")
+
+# Extract the downloaded tar.gz file
+system("tar -xvf MACS.tar.gz")
+
+# Install MACS2 in editable mode using pip
+shell_call("pip install -e MACS-2.2.9.1/")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set a long timeout limit to avoid download failures
+options(timeout = 1000)
+
+# Install BiocManager if not already installed
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager", quiet = TRUE)
+
+# Install ArchR from GitHub using devtools
+devtools::install_github("GreenleafLab/ArchR", ref = "master", repos = BiocManager::repositories(), upgrade = FALSE)
+
+# Install additional dependencies for ArchR
+ArchR::installExtraPackages()
+
+# Install other required R packages
+install.packages("clustree", quiet = TRUE)
+install.packages("hexbin")
+
+# Install a specific version of the Matrix package from CRAN archives
+install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos = NULL, type = "source")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Function to run shell commands and display the output
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)  # Run command and store output
+  cat(paste0(result, collapse = "\n"))  # Print the output
+}
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set a timeout limit for downloads
+options(timeout = 300)
+
+# Download the scATAC-seq workshop dataset as a ZIP file
+download.file('https://iauchile-my.sharepoint.com/:u:/g/personal/adolfo_rh_postqyf_uchile_cl/ETPOTjhE9llEkT85F6XQfyQBdN4r9R2Jf4hvY1BicfTWSw?e=tQbDjt&download=1', 
+              'scATACseqWorkshop.zip')
+
+# List the downloaded files with detailed information
+shell_call("ls -lh")
+
+# Unzip the downloaded file
+system("unzip scATACseqWorkshop.zip")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>NOTE: If you have errors you can do this to reanalyze the data</h2>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define the working directory
+work_dir2 <- "/content/"
+setwd(work_dir2)
+
+# Remove any existing directory with the same name
+shell_call("rm -rf scATACseqWorkshop/")
+
+# Unzip the dataset again
+shell_call("unzip scATACseqWorkshop.zip")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Define libraries, parameters and directories</h2>
+
+                    <p>Firstly, we define python library location and load R libraries. After, we define some parameters such as: 1) the number of threads we will use, 2) the working directory and 3) the location of fragment files.</p>
+                    <br>
+                    <p>In fact, ArchR can utilize multiple input formats of scATAC-seq data (the fragment files and the BAM files are the more common scATAC-seq data).</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Suppress package startup messages for cleaner output
+# Load libraries
+suppressPackageStartupMessages({
+  library(ArchR)
+  library(reticulate)
+  library(clustree)
+  library(Seurat)
+  library(hexbin)
+})
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set the Python environment path for Reticulate
+Sys.setenv(RETICULATE_PYTHON = "/usr/local/bin/python")
+
+# Check the Python configuration
+py_config()
+
+# Test if MACS2 is installed and accessible
+findMacs2()
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set a random seed for reproducibility
+set.seed(1)
+
+# Define the number of threads to use
+nb.threads = 2
+addArchRThreads(threads = nb.threads)
+
+# Set the working directory
+work_dir <- "/content/scATACseqWorkshop"
+setwd(work_dir)
+
+# List and name the input fragment files
+inputFiles <- list.files(file.path(work_dir, "fragments_data"), full.names = TRUE)
+names(inputFiles) <- gsub("^.+/", "", gsub("GSM[0-9]+_", "", gsub(".fragments.tsv.gz", "", inputFiles)))
+
+# Specify the reference genome for ArchR
+addArchRGenome("hg19")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Create Arrow file</h2>
+
+                    <p>We create an HDF5-format Arrow file that stores all of the data associated with a sample (now and during all the analysis process). It will be updated with the additional layers of information.</p>
+                    <br>
+                    <p>If we analyse some samples, an Arrow file will be generated for each sample.</p>
+                    <br>
+                    <p>It's not a R language object and because of this, we will generate an ArchRProject object to associate the Arrow file(s) into a single analytical framework that will be rapidly accessible in R.</p>
+                    <br>
+                    <p>During this step, ArchR computes a TileMatrix containing insertion counts across genome-wide 500-bp bins (default value) and a GeneScoreMatrix that stores predicted gene expression based on weighting insertion counts in tiles nearby a gene promoter.</p>
+
+                    <br>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+ArrowFiles <- createArrowFiles(
+  inputFiles = inputFiles,   # Input files containing scATAC-seq data
+  sampleNames = names(inputFiles),  # Assign sample names based on input file names
+  minTSS = 0.1,   # Minimum TSS enrichment score to filter low-quality cells
+  minFrags = 1,   # Minimum number of unique fragments per cell
+  addTileMat = TRUE,  # Compute and store the tile matrix for accessibility analysis
+  addGeneScoreMat = TRUE  # Compute and store the gene score matrix for gene activity analysis
+)
+
+# Create an ArchR project using the Arrow files
+project <- ArchRProject(
+  ArrowFiles = ArrowFiles,  # Use the generated Arrow files
+  outputDirectory = "Analysis_scATACseq_noFilter",  # Define output directory for the project
+  copyArrows = TRUE  # Recommended to maintain an unaltered copy of Arrow files for future use
+)
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Strict quality control (QC) of scATAC-seq data is essential to remove the contribution of low-quality cells.</p>
+                    <br>
+                    <p>ArchR considers three characteristics of data:</p>
+                    <ul.a>
+                        <li>The fragment size (DNA fragments cut by Tn5 transposases) distribution. Due to nucleosomal periodicity, we expect to see depletion of fragments that are the length of DNA wrapped around a nucleosome (approximately 147 bp).</li>
+                        <li>The Transcription Start Site (TSS) enrichment (signal-to-background ratio). Low signal-to-background ratio is often attributed to dead or dying cells which have de-chromatized DNA which allows for random transposition genome-wide.</li>
+                        <li>The number of unique nuclear fragments (i.e. not mapping to mitochondrial DNA).</li>
+                    </ul.a>
+                    <br>
+                    <p>We can appreciate the QC and the main metrics of samples using some plots: Plot QC metrics:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extract TSS enrichment and fragment count data from the ArchR project
+df <- getCellColData(project, select = c("log10(nFrags)", "TSSEnrichment"))
+
+# Create a scatter plot of TSS Enrichment vs. Log10(Unique Fragments)
+plot.tss.frags <- ggPoint(
+  x = df[,1], y = df[,2],  # Set x-axis as log10(Unique Fragments) and y-axis as TSS Enrichment
+  colorDensity = TRUE,  # Color points based on density
+  continuousSet = "sambaNight",  # Define color theme
+  xlabel = "Log10 Unique Fragments", ylabel = "TSS Enrichment",  # Label axes
+  xlim = c(0, quantile(df[,1], probs = 1) + 0.1),  # Set x-axis limits
+  ylim = c(0, quantile(df[,2], probs = 1) + 0.1)   # Set y-axis limits
+)
+
+# Save the plot as a PDF in the project's "Plots" directory
+plotPDF(plot.tss.frags, name = "TSS-vs-Frags.pdf", ArchRProj = project, addDOC = FALSE)
+
+# Display the plot
+plot.tss.frags
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Plot TSS metrics:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a ridge plot showing TSS enrichment distribution across samples
+plot.tss.v1 <- plotGroups(
+  ArchRProj = project,
+  groupBy = "Sample",  # Group by sample
+  colorBy = "cellColData",  # Color based on cell metadata
+  name = "TSSEnrichment",  # Use TSS Enrichment as the feature to plot
+  plotAs = "ridges"  # Plot as ridge plot
+)
+
+# Create a violin plot with an overlaid box plot
+plot.tss.v2 <- plotGroups(
+  ArchRProj = project,
+  groupBy = "Sample",
+  colorBy = "cellColData",
+  name = "TSSEnrichment",
+  plotAs = "violin",  # Plot as a violin plot
+  alpha = 0.4,  # Set transparency level
+  addBoxPlot = TRUE  # Overlay a box plot on top of the violin plot
+)
+
+# Display both plots side by side
+plot.tss.v1 | plot.tss.v2
+                </code></pre>
+                </div>
+            </section>
+
+                
+                    <p>Plot fragment metrics:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a ridge plot showing log10(Unique Fragments) distribution across samples
+plot.frags.v1 <- plotGroups(
+  ArchRProj = project,
+  groupBy = "Sample",
+  colorBy = "cellColData",
+  name = "log10(nFrags)",
+  plotAs = "ridges"
+)
+
+# Create a violin plot with an overlaid box plot
+plot.frags.v2 <- plotGroups(
+  ArchRProj = project,
+  groupBy = "Sample",
+  colorBy = "cellColData",
+  name = "log10(nFrags)",
+  plotAs = "violin",
+  alpha = 0.4,
+  addBoxPlot = TRUE
+)
+
+# Display both plots side by side
+plot.frags.v1 | plot.frags.v2
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create Arrow Files with Quality Filters
+ArrowFiles <- createArrowFiles(
+  inputFiles = inputFiles,  # List of fragment files for each sample
+  sampleNames = names(inputFiles),  # Assign sample names based on file names
+  minTSS = 4,  # Minimum Transcription Start Site (TSS) enrichment score to retain a cell
+  minFrags = 1000,  # Minimum number of unique fragments per cell
+  addTileMat = TRUE,  # Create a tile matrix for peak calling and other analyses
+  addGeneScoreMat = TRUE  # Compute gene activity scores
+)
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Doublet detection</h2>
+                </div>
+                <p>A source of trouble in single-cell data is the contribution of "doublets" to the analysis (a doublet refers to a single droplet that received more than one nucleus). To predict which “cells” are actually doublets, ArchR synthesizes in silico doublets from the data by mixing the reads from thousands of combinations of individual cells. It projects these synthetic doublets into the UMAP embedding and identify their nearest neighbor. By iterating this procedure thousands of times, it can identify “cells” in the data whose signal looks very similar to synthetic doublets. Here, we identify the doublets.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Compute Doublet Scores
+doubletScores <- addDoubletScores(
+  input = ArrowFiles,  # Use Arrow files created in the previous step
+  k = 10,  # Number of nearest neighbors to consider for doublet detection
+  knnMethod = "UMAP",  # Use UMAP embedding for nearest neighbor search
+  LSIMethod = 1  # Use Latent Semantic Indexing (LSI) method 1 for doublet estimation
+)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Creation of ArchR project</h2>
+                </div>
+                <p>As explain before, we generate a ArchR project to easily manipulate the scATAC-seq generated by ArchR.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create an ArchR Project
+project <- ArchRProject(
+  ArrowFiles = ArrowFiles,  # Use the Arrow files created earlier
+  outputDirectory = "Analysis_scATACseq",  # Define output directory for the project
+  copyArrows = TRUE  # Keep a copy of the Arrow files for future reference
+)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>We can easily list the matrix items present in the project</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# List Available Matrices in the Project
+getAvailableMatrices(project)  # Check what matrices (e.g., Gene Score Matrix) are available
+                </code></pre>
+                </div>
+            </section>
+
+                <br>
+                <p>Strict quality control (QC) of scATAC-seq data is essential to remove the contribution of low-quality cells.</p>
+                <br>
+                <p>ArchR consider three characteristics of data:</p>
+                <ul.a>
+                    <li>The fragment size distribution. Due to nucleosomal periodicity, we expect to see depletion of fragments that are the length of DNA wrapped around a nucleosome (approximately 147 bp).</li>
+                    <li>The TSS enrichment (signal-to-background ratio). Low signal-to-background ratio is often attributed to dead or dying cells which have de-chromatized DNA which allows for random transposition genome-wide.</li>
+                    <li>The number of unique nuclear fragments (i.e. not mapping to mitochondrial DNA). We can appreciate the QC and the main metrics of samples using some plots:</li>
+                </ul.a>
+                <br>
+                <p>Plot QC metrics:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot TSS Enrichment vs. Fragment Counts
+df <- getCellColData(project, select = c("log10(nFrags)", "TSSEnrichment"))  # Extract metadata
+
+plot.tss.frags <- ggPoint(
+  x = df[,1],  # Log10 number of unique fragments
+  y = df[,2],  # TSS Enrichment score
+  colorDensity = TRUE,  # Color by density
+  continuousSet = "sambaNight",  # Use the "sambaNight" color scheme
+  xlabel = "Log10 Unique Fragments",  # Label for X-axis
+  ylabel = "TSS Enrichment",  # Label for Y-axis
+  xlim = c(log10(450), quantile(df[,1], probs = 1) + 0.1),  # Set X-axis limits
+  ylim = c(0, quantile(df[,2], probs = 1) + 0.1)  # Set Y-axis limits
+) +
+  geom_hline(yintercept = 4, lty = "dashed", col = "black") +  # Add horizontal line at TSS = 4
+  geom_vline(xintercept = log10(1000), lty = "dashed", col = "black")  # Add vertical line at 1000 fragments
+
+# Save the plot as a PDF inside the project directory
+plotPDF(plot.tss.frags, name = "TSS-vs-Frags.pdf", ArchRProj = project, addDOC = FALSE)
+
+# Display the plot
+plot.tss.frags
+                </code></pre>
+                </div>
+            </section>
+                
+                <p>Plot TSS metrics:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot TSS Enrichment Distributions
+
+# Ridge plot of TSS enrichment per sample
+plot.tss.v1 <- plotGroups(
+  ArchRProj = project, 
+  groupBy = "Sample",  # Group by sample
+  colorBy = "cellColData",  # Use cell metadata for color
+  name = "TSSEnrichment",  # Plot TSS enrichment scores
+  plotAs = "ridges"  # Use a ridge plot
+)
+
+# Violin plot of TSS enrichment per sample with an overlaid boxplot
+plot.tss.v2 <- plotGroups(
+  ArchRProj = project, 
+  groupBy = "Sample",  # Group by sample
+  colorBy = "cellColData",  # Use cell metadata for color
+  name = "TSSEnrichment",  # Plot TSS enrichment scores
+  plotAs = "violin",  # Use a violin plot
+  alpha = 0.4,  # Set transparency
+  addBoxPlot = TRUE  # Add a boxplot overlay
+)
+
+# Display the ridge and violin plots side by side
+plot.tss.v1 | plot.tss.v2
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Plot fragment metrics:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot Fragment Count Distributions
+
+# Ridge plot of log10 fragment counts per sample
+plot.frags.v1 <- plotGroups(
+  ArchRProj = project, 
+  groupBy = "Sample",  # Group by sample
+  colorBy = "cellColData",  # Use cell metadata for color
+  name = "log10(nFrags)",  # Plot log10 fragment counts
+  plotAs = "ridges"  # Use a ridge plot
+)
+
+# Violin plot of log10 fragment counts per sample with an overlaid boxplot
+plot.frags.v2 <- plotGroups(
+  ArchRProj = project, 
+  groupBy = "Sample",  # Group by sample
+  colorBy = "cellColData",  # Use cell metadata for color
+  name = "log10(nFrags)",  # Plot log10 fragment counts
+  plotAs = "violin",  # Use a violin plot
+  alpha = 0.4,  # Set transparency
+  addBoxPlot = TRUE  # Add a boxplot overlay
+)
+
+# Display the ridge and violin plots side by side
+plot.frags.v1 | plot.frags.v2
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Filter the doublets</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Filter Out Doublets from the Dataset
+project <- filterDoublets(ArchRProj = project)  # Remove detected doublets to keep only single cells
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Sample Fragment Size Distribution and TSS Enrichment Profiles</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot the Transcription Start Site (TSS) enrichment profile
+plot.tss.v3 <- plotTSSEnrichment(ArchRProj = project)
+
+# Plot the fragment size distribution
+plot.frags.v3 <- plotFragmentSizes(ArchRProj = project)
+
+# Display both plots side by side
+plot.frags.v3 | plot.tss.v3
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Normalization, dimensional reduction, batch effect correction, clustering and others step</h2>
+                    <h3>Normalization and dimensional reduction</h3>
+                    <p>scATAC-seq generates a sparse insertion counts matrix (500-bp tiles; binary data of ~6 million of features) making it impossible to identify variable peaks for standard dimensionality reduction. To get around this issue, ArchR use LSI (Latent Semantic Indexing), a layered dimensionality reduction approach for sparse and noisy data.</p>
+                    <br>
+                    <p>Rather than identifying the most variable peaks, ArchR tries using the most accessible features as input to LSI.</p>
+                    <br>
+                    <p>However, when running multiple samples the results could shown high degrees of noise and low reproducibility.</p>
+                    <br>
+                    <p>To remedy this, ArchR introduced the “iterative LSI” approach (Satpathy, Granja et al., 2019), which computes an initial LSI transformation on the most accessible tiles and identifies lower resolution clusters that are not batch confounded.</p>
+                    <ul.a>
+                        <li>This approach computes an initial LSI transformation on the most accessible tiles and identifies lower resolution clusters that are not batch confounded.</li>
+                        <li>ArchR computes the average accessibility for each of these clusters across all features. ArchR then identifies the most variable peaks across these clusters and uses these features for LSI again.</li>
+                        <li>In this second iteration, the most variable peaks are more similar to the variable genes used in scRNA-seq LSI implementations.</li>
+                    </ul.a>
+                    <br>
+                    <p>This approach minimizes observed batch effects and allow dimensionality reduction operations on a more reasonably sized feature matrix.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+project_Normalized <- addIterativeLSI(ArchRProj = project, iterations = 2,
+                                      # Number of iterations for LSI; more iterations refine clustering
+                                      #sampleCellsPre = 50000, # Optional: Number of cells to use for iterations before the final one
+                                      #clusterParams = list(resolution = 0.1, sampleCells = 50000, maxClusters = 6, n.start = 10), 
+                                      # Cluster parameters can be adjusted to optimize clustering
+                                      useMatrix = "TileMatrix", # Use TileMatrix for LSI
+                                      name = "IterativeLSI", # Name of the reduced dimensions
+                                      varFeatures = 25000) # Number of variable features to use for LSI
+                </code></pre>
+                </div>
+            </section>
+
+                    <br>
+
+                    <h3>Batch effect correction</h3>
+                    <br>
+                    <p>Sometimes the iterative LSI approach isn’t enough to correct strong batch effect differences. For this reason, ArchR implements a commonly used batch effect correction tool called Harmony (Korsunsky et al., 2019) which was originally designed for scRNA-seq.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Perform batch correction using Harmony on the reduced dimensions from LSI
+project_Normalized <- addHarmony(ArchRProj = project_Normalized, reducedDims = "IterativeLSI",
+                                 name = "Harmony", groupBy = "Sample")
+                </code></pre>
+                </div>
+            </section>
+
+                <h3>UMAP</h3>
+                    <br>
+                    <p>Run UMAP in ArchR.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Compute UMAP embedding based on Iterative LSI dimensions
+project_Normalized <- addUMAP(ArchRProj = project_Normalized, reducedDims = "IterativeLSI", name = "UMAP")
+
+# Plot UMAP colored by sample identity
+plotEmbedding(ArchRProj = project_Normalized, colorBy = "cellColData", name = "Sample", embedding = "UMAP", size=0.1)
+
+# Compute UMAP embedding based on Harmony dimensions (after batch correction)
+project_Normalized <- addUMAP(ArchRProj = project_Normalized, reducedDims = "Harmony", name = "UMAP", force=TRUE)
+
+# Plot UMAP again to visualize batch-corrected embedding
+plotEmbedding(ArchRProj = project_Normalized, colorBy = "cellColData", name = "Sample", embedding = "UMAP", size=0.1)
+                </code></pre>
+                </div>
+            </section>
+
+                    <h3>Clustering</h3>
+                    <br>
+                    <p>To identify clusters, ArchR allows to use same method as Seurat or Scran. We have selected the same method describe the first day and used in Seurat package.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Iterate over different clustering resolutions from 0.0 to 0.9
+for(i in seq(0,0.9,0.1)){
+  project_Normalized <- addClusters(input = project_Normalized, reducedDims = "Harmony",
+                                    method = "Seurat", # Clustering method (Seurat-based)
+                                    name = paste("Clusters.res",i,sep=""), # Naming clusters dynamically
+                                    resolution = i, # Set clustering resolution
+                                    verbose = FALSE) # Suppress verbose output
+                </code></pre>
+                </div>
+            </section>
+
+                    <h3>Save and load a project</h3>
+                    <br>
+                    <p>Save</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Save the current state of the ArchR project to disk
+saveArchRProject(ArchRProj = project_Normalized,
+                 outputDirectory = file.path(getwd(),"Analysis_scATACseq"))
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Load</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load the saved ArchR project
+project_Normalized <- loadArchRProject(path = file.path(getwd(),"Analysis_scATACseq"),
+                                       force = TRUE, showLogo = FALSE)
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Exploration of data using Gene estimation</h2>
+                    <h4>Visualization of clustering using Clustree</h4>
+                    <br>
+                    <p>Clustree is an useful tool to explore the links between the clusters from different resolutions.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extract clustering information from ArchR project
+tmp.clustree.datatable <- as.data.frame(project_Normalized@cellColData)
+
+# Plot a clustering tree to visualize clustering relationships across resolutions
+clustree(tmp.clustree.datatable, prefix="Clusters.res")
+                </code></pre>
+                </div>
+            </section>
+                    <br>
+                    <h4>Visualization of clustering on UMAP</h4>
+                    <br>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Iterate over different clustering resolutions and visualize UMAP embeddings
+for(i in seq(0,0.9,0.1)){
+  # Plot UMAP with cluster labels
+  plot.umap.resi <- plotEmbedding(ArchRProj = project_Normalized, 
+                                  colorBy = "cellColData", 
+                                  name = paste("Clusters.res",i,sep=""), 
+                                  embedding = "UMAP", size=0.1)
+  
+  # Plot UMAP without cluster labels
+  plot.umap.woLabel.resi <- plotEmbedding(ArchRProj = project_Normalized, 
+                                          colorBy = "cellColData", 
+                                          name = paste("Clusters.res",i,sep=""), 
+                                          embedding = "UMAP", size=0.1, 
+                                          labelMeans=FALSE)
+
+  # Display both plots side by side
+  print(plot.umap.resi | plot.umap.woLabel.resi)
+}
+                </code></pre>
+                </div>
+            </section>
+                    <br>
+                    <h4>Characterization of clusters</h4>
+                    <br>
+                    
+                    <p>At this step, we select a specific resolution to explore in details the GeneScore to characterize the different clusters. For that, we will identify marker genes (based on gene scores, or estimation of gene expression) of clusters. In short, ArchR estimates gene scores using the local accessibility of the gene region that includes the promoter and gene body, but imposes an exponential weight that accounts for the activity of putative distal regulatory elements as a function of distance.</p>
+                    <br>
+                    <p>Remarks: ArchR can used gene, peak or transcription factor motif features. Here, ArchR identify the genes that appear to be uniquely active in each cluster at the resolution 0.4.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+slct.res = "res0.7" # Select resolution for analysis
+
+# Identify marker genes using Gene Score Matrix
+markersGS.slctRes <- getMarkerFeatures(ArchRProj = project_Normalized,
+                                       useMatrix = "GeneScoreMatrix",
+                                       groupBy = paste("Clusters.",slct.res,sep=""),
+                                       bias = c("TSSEnrichment", "log10(nFrags)"),
+                                       testMethod = "wilcoxon") # Perform Wilcoxon test
+
+# Extract marker genes with FDR ≤ 0.05 and Log2 Fold Change ≥ 0.2
+markerList <- getMarkers(markersGS.slctRes, cutOff = "FDR <= 0.05 & Log2FC >= 0.2")
+
+# Display marker genes for the first cluster
+i = names(markerList)[1]
+markerList[[i]]
+
+# Save marker genes for each cluster
+for(i in names(markerList)){
+  write.table(markerList[[i]], sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE,
+              file=file.path(work_dir, paste(i, ".res", slct.res, ".mGenesList.tsv", sep="")))
+}
+                </code></pre>
+                </div>
+            </section>
+                    <br>
+                    <p>To visualize the marker genes, we can produce a heatmap:</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define key marker genes
+markerGenes <- c("EPCAM", "VIM", "FLT4", "THY1", "CD3D", "PECAM1", "CD38", "PAX5",
+                 "MS4A1", "CD14", "ITGAX", "CD4", "CD8A", "GZMA")
+
+# Generate heatmap of gene scores
+heatmapGS <- plotMarkerHeatmap(seMarker = markersGS.slctRes,
+                               cutOff = "FDR <= 0.05 & Log2FC >= 1",
+                               labelMarkers = markerGenes,
+                               transpose = FALSE)
+
+# Display heatmap
+heatmapGS
+
+# Retrieve heatmap matrix
+heatmapGSmatrix <- plotMarkerHeatmap(seMarker = markersGS.slctRes,
+                                     cutOff = "FDR <= 0.05 & Log2FC >= 1",
+                                     labelMarkers = markerGenes,
+                                     returnMatrix = TRUE,
+                                     transpose = FALSE)
+
+# Display first 10 rows of heatmap matrix
+head(heatmapGSmatrix, 10)
+
+# Save heatmap matrix
+write.table(cbind(Cluster=rownames(heatmapGSmatrix), heatmapGSmatrix), sep="\t",
+            row.names=FALSE, col.names=TRUE, quote=FALSE,
+            file=file.path(work_dir, paste("GeneScores-Marker-Heatmap", slct.res, sep=".")))
+                </code></pre>
+                </div>
+            </section>
+                    
+                    <p>Or visualize GeneScore of marker genes in UMAP</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot Gene Score UMAP without MAGIC imputation
+plot.GS.woMAGIC <- plotEmbedding(ArchRProj = project_Normalized, 
+                                 colorBy = "GeneScoreMatrix", 
+                                 name = markerGenes, embedding = "UMAP", 
+                                 quantCut = c(0.01, 0.95), 
+                                 imputeWeights = NULL)
+
+# Display selected genes
+plot.GS.woMAGIC$VIM | plot.GS.woMAGIC$EPCAM
+                </code></pre>
+                </div>
+            </section>
+                    
+                    <p>However, scATAC-seq data is really sparse. Due to that, it is highly suggest to use MAGIC (van Dijk, et al., 2018), which add an imputation weight to the gene scores by smoothing signal across nearby cells.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Apply MAGIC for gene imputation
+project_Normalized <- addImputeWeights(project_Normalized)
+
+# Plot Gene Score UMAP with imputation
+plot.GS <- plotEmbedding(ArchRProj = project_Normalized, colorBy = "GeneScoreMatrix",
+                         name = markerGenes,
+                         embedding = "UMAP",
+                         imputeWeights = getImputeWeights(project_Normalized))
+
+plot.GS$VIM | plot.GS$EPCAM
+plot.GS$FLT4 | plot.GS$THY1
+plot.GS$ITGAX | plot.GS$CD14
+plot.GS$MS4A1 | plot.GS$CD38
+plot.GS$CD3D | plot.GS$CD8A
+plot.GS$CD4 | plot.GS$GZMA
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>scATAC-scRNAseq integration</h2>
+                    <p>ArchR enables integration with scRNA-seq, offers the possibility to use clusters called in scRNA-seq space or use the gene expression measurements after integration.</p>
+                    <br>
+                    <p>The way this integration works is by directly aligning cells from scATAC-seq with cells from scRNA-seq by comparing the scATAC-seq gene score matrix with the scRNA-seq gene expression matrix. This alignment is performed using the FindTransferAnchors() function from the Seurat package which allows you to align data across two datasets.</p>
+                    <br>
+                    <p>However, to appropriately scale this procedure for hundreds of thousands of cells ArchR provides, a parallelization of this procedure by dividing the total cells into smaller groups of cells and performing separate alignments.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Import scRNAseq data
+scRNA<-readRDS(file.path(work_dir,"scRNAseq.data.rds"))
+DefaultAssay(object = scRNA) <- "RNA"
+
+# Integrate scRNA-seq and scATAC-seq data
+project_Normalized <- addGeneIntegrationMatrix(ArchRProj = project_Normalized,
+    useMatrix = "GeneScoreMatrix", matrixName = "GeneIntegrationMatrix",
+    reducedDims = "Harmony", #Harmony , IterativeLSI
+    seRNA = scRNA, addToArrow = TRUE, force= TRUE,
+    groupRNA = "integrated_snn_res.0.5",
+    nameCell = "predictedCell", nameGroup = "predictedGroup", nameScore = "predictedScore",
+    sampleCellsATAC = 10000, sampleCellsRNA = 10000, scaleTo = 10000)
+project_Normalized <- addImputeWeights(project_Normalized)
+
+saveArchRProject(ArchRProj = project_Normalized, load = FALSE)
+
+plot_rna.woLabel <- plotEmbedding(project_Normalized,colorBy = "cellColData",name = "predictedGroup", embedding = "UMAP", size=1, labelMeans=FALSE)
+plot_rna <- plotEmbedding(project_Normalized,colorBy = "cellColData",name = "predictedGroup", embedding = "UMAP", size=1)
+
+# Cross table between scRNA-seq and scATAC-seq data
+cM <- as.matrix(confusionMatrix(project$Clusters.res0.7,                # Warning resolution
+                                project$predictedGroup))                # Warning resolution
+
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Peak calling</h2>
+
+                    <p>Calling peaks is one of the most fundamental processes in ATAC-seq data analysis. Because per-cell scATAC-seq data is essentially binary (accessible or not accessible), we perform calling peaks on groups of similar cells (or clusters) define previously.</p>
+                    <br>
+                    <p>ArchR applies a Iterative Overlap Peak Merging Procedure with the recommanded MACS2 peak caller (Zhang et al., 2008).</p>
+                    <br>
+                    <p>It uses a function to perform this iterative overlap peak merging procedure:</p>
+                    <ul>
+                        <li>ArchR would call peaks for each pseudo-bulk replicate individually.</li>
+                        <li>ArchR would analyze all of the pseudo-bulk replicates from a single cell type together, performing the first iteration of iterative overlap removal.</li>
+                        <li>After the first iteration of iterative overlap removal, ArchR checks to see the reproducibility of each peak across pseudo-bulk replicates and only keeps peaks that pass a threshold indicated by the reproducibility parameter.</li>
+                        <li>At the end of this process, we would have a single merged peak set for each cell types.</li>
+                    </ul>
+                    <br>
+                    <h4>Creation of the pseudo-bulk replicates</h4>
+                    <br>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Determine the number of replicates to use for coverage calculation
+nbReplicates = ifelse(length(names(table(project_Normalized$Sample))) > 5, 
+                      length(names(table(project_Normalized$Sample))), 5)
+
+# Add group coverage information to the ArchR project
+project_Peaks <- addGroupCoverages(
+    ArchRProj = project_Normalized, 
+    maxReplicates = nbReplicates, 
+    groupBy = paste("Clusters", slct.res, sep = ".")
+)
+                </code></pre>
+                </div>
+            </section>
+                    <br>
+                    <h4>Perform peak calling</h4>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Find the path to MACS2
+pathToMacs2 <- findMacs2()
+
+# Perform peak calling using MACS2
+project_Peaks <- addReproduciblePeakSet(
+    ArchRProj = project_Peaks,
+    groupBy = paste("Clusters", slct.res, sep = "."),
+    pathToMacs2 = pathToMacs2
+)
+
+# Alternative peak calling method (use if MACS2 is unavailable)
+# project_Peaks <- addReproduciblePeakSet(
+#     ArchRProj = project_Peaks,
+#     groupBy = paste("Clusters", slct.res, sep = "."),
+#     peakMethod = "Tiles",
+#     method = "p"
+# )
+
+# Retrieve the peak set after calling peaks
+getPeakSet(project_Peaks)
+
+# Add imputation weights to improve downstream analyses
+project_Peaks <- addImputeWeights(project_Peaks)
+
+# Save the ArchR project with peak calling results
+saveArchRProject(
+    ArchRProj = project_Peaks,
+    outputDirectory = file.path(getwd(), "Analysis_scATACseq"), 
+    load = TRUE
+)
+                </code></pre>
+                </div>
+            </section>
+                    <br>
+                    <h4>Identification of marker peaks</h4>
+                    <p>As explained before for the marker genes, ArchR can used gene, peak or transcription factor motif features. Here, ArchR identify the peaks that appear to be uniquely active in each cluster at selected resolution.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate a Peak Matrix for accessibility quantification
+project_Peaks <- addPeakMatrix(project_Peaks)
+
+# Identify marker peaks for each cluster using Wilcoxon test
+markersPeaks <- getMarkerFeatures(
+    ArchRProj = project_Peaks,
+    useMatrix = "PeakMatrix",
+    groupBy = paste("Clusters", slct.res, sep = "."),
+    bias = c("TSSEnrichment", "log10(nFrags)"),
+    testMethod = "wilcoxon"
+)
+
+# Extract significantly different peaks (FDR <= 0.01, Log2FC >= 1)
+markerList <- getMarkers(markersPeaks, cutOff = "FDR <= 0.01 & Log2FC >= 1")
+
+# View marker peaks for cluster C9
+markerList[["C9"]]
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>To visualize the marker genes, we can produce a heatmap:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate a heatmap of marker peaks (less stringent threshold)
+heatmapPeaks <- plotMarkerHeatmap(
+    seMarker = markersPeaks,
+    cutOff = "FDR <= 0.1 & Log2FC >= 0.5",
+    transpose = FALSE
+)
+
+# Display the heatmap
+heatmapPeaks
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Or MA and volcano plots of marker peaks by cluster:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate MA and Volcano plots for cluster C9
+map <- plotMarkers(
+    seMarker = markersPeaks, 
+    name = "C9",
+    cutOff = "FDR <= 0.1 & Log2FC >= 1",  # Default
+    plotAs = "MA"
+)
+
+vp <- plotMarkers(
+    seMarker = markersPeaks, 
+    name = "C9",
+    cutOff = "FDR <= 0.1 & Log2FC >= 1",  # Default
+    plotAs = "Volcano"
+)
+
+# Combine both plots
+map | vp
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Or visualize the marker peaks on a browser track:</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate a browser track visualization for CD4
+plot.track1 <- plotBrowserTrack(
+    ArchRProj = project_Peaks,
+    groupBy = paste("Clusters", slct.res, sep = "."),
+    geneSymbol = c("CD4"),
+    features = getMarkers(markersPeaks, cutOff = "FDR <= 0.1 & Log2FC >= 1", returnGR = TRUE)["C9"],
+    upstream = 50000, downstream = 50000
+)
+
+# Display the track
+grid::grid.newpage()
+grid::grid.draw(plot.track1$CD8A)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Save the object and download it!!
+saveRDS(project_Peaks,"project_Peaks.rds")
+saveRDS(markersPeaks,"markersPeaks.rds")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Motif Enrichment</h2>
+                    <p>After identified peak sets, the next step is to predict what transcription factors (TFs) may be mediating the binding events that create those accessible chromatin sites.</p>
+                    <br>
+                    <p>ArchR allow to annotate the TF motifs that are enriched in peaks that are up or down in the different cell types.</p>
+                    <br>
+                    <p>Firstly, we add motif annotations to our ArchRProject based on a reference database (for example: CIS-BP, JASPAR, Encode or Homer).</p>
+                    <br>
+                    <p>Here, we have selected CIS-BP which contains > 300 TF families from > 700 species collecting from > 70 sources , including other databases: Transfac, JASPAR, Hocomoco, FactorBook, UniProbe, among others.</p>
+                    <br>
+                    <p>Next, we test the set of significantly differential peaks for motif enrichment.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Download and reload data if needed
+shell_call("gdown 1SdSmF9R3yHNWacmFf22RxpcrrKmUHM_b")
+markersPeaks = readRDS("markersPeaks.rds")
+
+shell_call("gdown 1S6fRM7_KX4kjd9ankvzA5HloJJSIM4bn")
+project_Peaks = readRDS("project_Peaks.rds")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Motif Enrichment
+project_Peaks <- addMotifAnnotations(ArchRProj = project_Peaks, motifSet = "cisbp", name = "Motif", force = TRUE)
+
+# Motif enrichment in marker peaks
+enrichMotifs <- peakAnnoEnrichment(
+    seMarker = markersPeaks, ArchRProj = project_Peaks,
+    peakAnnotation = "Motif",cutOff = "FDR <= 0.1 & Log2FC >= 0.5")        # Default
+
+# You have two output, the Enrichment matrix and the pvalue matrix:
+head(enrichMotifs@assays@data$Enrichment,10)
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>We can display a heatmap to visualize the main motifs of each clusters.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot a heatmap of enriched motifs
+heatmapEM <- plotEnrichHeatmap(enrichMotifs, n = 7, transpose = TRUE)
+ComplexHeatmap::draw(heatmapEM, heatmap_legend_side = "bot", annotation_legend_side = "bot")
+                </code></pre>
+                </div>
+            </section>
+
+                    <h4>ChromVAR and visualization of motif deviation</h4>
+
+                    <p>ChromVAR, developed by Greenleaf lab, is designed for predicting enrichment of TF activity on a per-cell basis from sparse chromatin accessibility data. ChromVAR computes:</p>
+
+                    <ul.a>
+                        <li>A “deviation”, which is a bias-corrected measurement of how far the per-cell accessibility of a given feature (i.e motif) deviates from the expected accessibility based on the average of all cells or samples.</li>
+                        <li>A “z-score” / a “deviation score”, which is the z-score for each bias-corrected deviation across all cells.</li>
+                    </ul.a>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Add background peaks
+project_Peaks <- addBgdPeaks(project_Peaks)
+
+# Compute deviations matrix
+project_Peaks <- addDeviationsMatrix(ArchRProj = project_Peaks, peakAnnotation = "Motif",force = TRUE)
+
+# Plot variability in motif accessibility
+getVarDeviations(project_Peaks, name = "MotifMatrix", plot = TRUE)
+
+# Save project
+saveArchRProject(ArchRProj = project_Normalized,
+                 outputDirectory = file.path(getwd(),"Analysis_scATACseq"))
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>We can display a distribution of markers</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define a list of motifs to analyze
+motifs <- c("FOS", "JUNB")
+
+# Retrieve motif features from the MotifMatrix that match the selected motifs
+markerMotifs <- getFeatures(
+  project_Peaks,
+  select = paste(motifs, "_", collapse = "|", sep = ""),
+  useMatrix = "MotifMatrix"
+)
+
+# Filter motif features to include only those with the "z:" prefix
+markerMotifs <- grep("z:", markerMotifs, value = TRUE)
+
+# Add imputation weights to the ArchR project for smoothing data visualization
+project_Peaks <- addImputeWeights(project_Peaks)
+
+# Generate grouped motif enrichment plots
+cowp <- plotGroups(
+  ArchRProj = project_Peaks,
+  groupBy = paste("Clusters", slct.res, sep = "."),
+  colorBy = "MotifMatrix",
+  name = markerMotifs,
+  imputeWeights = getImputeWeights(project_Peaks)
+)
+
+# Arrange plots in a grid layout with two columns
+do.call(cowplot::plot_grid, c(list(ncol = 2), cowp))
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Or visualize the motif deviation in UMAP (and see if motif deviation correlates with TF gene score)</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot motif enrichment on UMAP embedding
+motif.umap <- plotEmbedding(
+  ArchRProj = project_Peaks,
+  colorBy = "MotifMatrix",
+  name = sort(markerMotifs),
+  embedding = "UMAP",
+  imputeWeights = getImputeWeights(project_Peaks)
+)
+
+# Display motif UMAP plots in a grid layout
+do.call(cowplot::plot_grid, c(list(ncol = 2), motif.umap))
+
+# Retrieve gene activity features related to the selected motifs
+markerRNA <- getFeatures(
+  project_Peaks,
+  select = paste(motifs, "$", collapse = "|", sep = ""),
+  useMatrix = "GeneScoreMatrix"
+)
+
+# Plot gene score matrix enrichment on UMAP embedding
+gene.umap <- plotEmbedding(
+  ArchRProj = project_Peaks,
+  colorBy = "GeneScoreMatrix",
+  name = sort(markerRNA),
+  embedding = "UMAP",
+  imputeWeights = getImputeWeights(project_Peaks)
+)
+
+# Display gene score UMAP plots in a grid layout
+do.call(cowplot::plot_grid, c(list(ncol = 2), gene.umap))
+                </code></pre>
+                </div>
+            </section>
+
+                    <h4>Pairwise test between clusters</h4>
+
+                    <p>We can identify the motif enrichment between two clusters (based on differential accessibility of peaks between these two clusters).</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+slct.Cl1="C9"
+slct.Cl2="C11"
+
+# Perform differential analysis between C9 and C11
+markerTest <- getMarkerFeatures(ArchRProj = project_Peaks,
+                                useMatrix = "PeakMatrix",
+                                groupBy = paste("Clusters",slct.res,sep="."),
+                                testMethod = "wilcoxon",
+                                bias = c("TSSEnrichment", "log10(nFrags)"),
+                                useGroups = slct.Cl1, bgdGroups = slct.Cl2)
+
+# Generate MA and Volcano plots
+map.Cl1vCl2 <- markerPlot(seMarker = markerTest, name = slct.Cl1,
+                        cutOff = "FDR <= 0.1 & abs(Log2FC) >= 1",
+                        plotAs = "MA")
+vp.Cl1vCl2 <- markerPlot(seMarker = markerTest, name = slct.Cl1,
+                       cutOff = "FDR <= 0.1 & abs(Log2FC) >= 1",
+                       plotAs = "Volcano")
+
+map.Cl1vCl2 | vp.Cl1vCl2
+
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Motif Up-Enrich and motif Down-enrich (based on the pairwise test between clusters)</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Identify significantly enriched motifs in peaks with increased accessibility
+motifsUp <- peakAnnoEnrichment(ArchRProj = project_Peaks,
+                               seMarker = markerTest,
+                               peakAnnotation = "Motif",
+                               cutOff = "FDR <= 0.1 & Log2FC >= 0.5") # Select motifs with significant FDR and Log2FC >= 0.5
+
+# Create a data frame with motif names and -log10 adjusted p-values
+df <- data.frame(TF = rownames(motifsUp), mlog10Padj = assay(motifsUp)[,1])
+df <- df[order(df$mlog10Padj, decreasing = TRUE),] # Sort by significance
+df$rank <- seq_len(nrow(df)) # Assign rank based on significance
+
+# Plot enriched TF motifs with labels
+ggUp <- ggplot(df, aes(rank, mlog10Padj, color = mlog10Padj)) +
+    geom_point(size = 1) + ggrepel::geom_label_repel(
+        data = df[rev(seq_len(30)), ], aes(x = rank, y = mlog10Padj, label = TF),
+        size = 1.5, nudge_x = 2, color = "black") + theme_ArchR() +
+        ylab("-log10(P-adj) Motif Enrichment") + xlab("Rank Sorted TFs Enriched") +
+        scale_color_gradientn(colors = paletteContinuous(set = "comet"))
+
+# Identify significantly enriched motifs in peaks with decreased accessibility
+motifsDo <- peakAnnoEnrichment(ArchRProj = project_Peaks,
+                               seMarker = markerTest,
+                               peakAnnotation = "Motif",
+                               cutOff = "FDR <= 0.1 & Log2FC <= -0.5") # Select motifs with Log2FC <= -0.5
+
+df <- data.frame(TF = rownames(motifsDo), mlog10Padj = assay(motifsDo)[,1])
+df <- df[order(df$mlog10Padj, decreasing = TRUE),] # Sort by significance
+df$rank <- seq_len(nrow(df)) # Assign rank
+
+# Plot TF motifs that are lost in accessibility
+ggDo <- ggplot(df, aes(rank, mlog10Padj, color = mlog10Padj)) +
+    geom_point(size = 1) + ggrepel::geom_label_repel(
+        data = df[rev(seq_len(30)), ], aes(x = rank, y = mlog10Padj, label = TF),
+        size = 1.5, nudge_x = 2, color = "black") + theme_ArchR() +
+        ylab("-log10(FDR) Motif Enrichment") + xlab("Rank Sorted TFs Enriched") +
+        scale_color_gradientn(colors = paletteContinuous(set = "comet"))
+
+# Combine both plots
+ggUp | ggDo
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Identification of Positive TF-Regulators</h2>
+                    <p>Although ATAC-seq allows unbiased identification of TFs, families of TFs share similar motifs when viewed in aggregate. This makes it difficult to identify specific TFs that may be responsible for the observed changes in chromatin accessibility to their predicted binding sites. To circumvent this problem, ArchR identifies TFs whose gene expression (Gene score) is positively correlated with changes in accessibility of their corresponding motif (Motif deviation obtained using ChromVAR).</p>
+                    <h4>Step 1. Identify Deviant TF Motifs</h4>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extract motif deviation scores grouped by clusters
+seGroupMotif <- getGroupSE(ArchRProj = project_Peaks, useMatrix = "MotifMatrix", groupBy = paste("Clusters", slct.res, sep="."))
+
+# Extract only Z-score deviations
+seZ <- seGroupMotif[rowData(seGroupMotif)$seqnames == "z",]
+
+# Compute the maximum delta in Z-score across all clusters
+rowData(seZ)$maxDelta <- lapply(seq_len(ncol(seZ)), function(x){
+  rowMaxs(assay(seZ) - assay(seZ)[,x])
+}) %>% Reduce("cbind", .) %>% rowMaxs
+                </code></pre>
+                </div>
+            </section>
+                    <h4>Step 2. Identify Correlated TF Motifs and TF Gene Score/Expression</h4>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Compute correlations between gene scores and motif deviations
+corGSM_MM <- correlateMatrices(
+    ArchRProj = project_Peaks,
+    useMatrix1 = "GeneScoreMatrix",
+    useMatrix2 = "MotifMatrix",
+    reducedDims = "Harmony" # Can also use IterativeLSI
+)
+
+# Display top correlations
+head(corGSM_MM, 15)
+                </code></pre>
+                </div>
+            </section>
+                    <h4>Step 3. Add Maximum Delta Deviation to the Correlation Data Frame</h4>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Annotate motifs with the max delta observed between clusters
+corGSM_MM$maxDelta <- rowData(seZ)[match(corGSM_MM$MotifMatrix_name, rowData(seZ)$name), "maxDelta"]
+                </code></pre>
+                </div>
+            </section>
+                    <h4>Step 4. Identify Positive TF Regulators</h4>
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Sort by absolute correlation and remove duplicate motifs
+corGSM_MM <- corGSM_MM[order(abs(corGSM_MM$cor), decreasing = TRUE), ]
+corGSM_MM <- corGSM_MM[which(!duplicated(gsub("\\-.*", "", corGSM_MM[,"MotifMatrix_name"]))), ]
+
+# Classify TFs as positive (PLUS), negative (NEG), or neutral (NO)
+corGSM_MM$TFRegulator <- "NO"
+corGSM_MM$TFRegulator[which(corGSM_MM$cor > 0.1 & corGSM_MM$padj < 0.01 & corGSM_MM$maxDelta > quantile(corGSM_MM$maxDelta, 0.75))] <- "PLUS"
+corGSM_MM$TFRegulator[which(corGSM_MM$cor < (-0.1) & corGSM_MM$padj < 0.01 & corGSM_MM$maxDelta > quantile(corGSM_MM$maxDelta, 0.75))] <- "NEG"
+
+# Scatter plot of correlation vs max delta
+ggplot(data.frame(corGSM_MM), aes(cor, maxDelta, color = TFRegulator)) +
+  geom_point() +
+  theme_ArchR() +
+  geom_vline(xintercept = 0, lty = "dashed") +
+  scale_color_manual(values = c("NO"="darkgrey", "PLUS"="firebrick3", "NEG"="royalblue1")) +
+  xlab("Correlation To Gene Score") +
+  ylab("Max TF Motif Delta") +
+  scale_y_continuous(
+    expand = c(0,0),
+    limits = c(0, max(corGSM_MM$maxDelta)*1.05)
+  )
+
+# Display top regulators
+head(as.matrix(sort(corGSM_MM[corGSM_MM$TFRegulator=="PLUS", c("GeneScoreMatrix_name", "MotifMatrix_name", "cor", "padj", "maxDelta")])), 15)
+head(as.matrix(sort(corGSM_MM[corGSM_MM$TFRegulator=="NEG", c("GeneScoreMatrix_name", "MotifMatrix_name", "cor", "padj", "maxDelta")])), 5)
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Co-accessibility</h2>
+                </div>
+                <p>To study how the genes are regulated (promoter and enhancer links) ArchR proposes Co-accessibility analysis. Co-accessibility is a correlation in accessibility between two peaks across many single cells. Said another way, when Peak A is accessible in a single cell, Peak B is often also accessible. For example, co-accessibility allows to visualize the enhancer(s) linked to the gene promoter.</p>
+                <br>
+                <p>Remarks:Co-accessibility analysis identify cell type-specific peaks. Although these peaks are often accessible together within a single cell type (and often all not accessible in all other cell types) does not necessarily explain a regulatory relationship between these peaks.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Add co-accessibility analysis to the ArchR project using Harmony dimensions
+project_Peaks <- addCoAccessibility(ArchRProj = project_Peaks, reducedDims = "Harmony")
+
+# Retrieve co-accessibility interactions with correlation cutoff and resolution
+cA <- getCoAccessibility(
+  ArchRProj = project_Peaks,
+  corCutOff = 0.5,
+  resolution = 10000,
+  returnLoops = TRUE
+)
+
+# Display the first 10 co-accessibility interactions
+head(cA$CoAccessibility, 10)
+
+# Generate a genome browser track visualization for selected marker genes
+p <- plotBrowserTrack(
+  ArchRProj = project_Peaks,
+  groupBy = paste("Clusters", slct.res, sep = "."),
+  geneSymbol = markerGenes,
+  upstream = 50000,  # Extend 50kb upstream
+  downstream = 50000,  # Extend 50kb downstream
+  loops = getCoAccessibility(project_Peaks)
+)
+
+# Render the genome browser plot
+grid::grid.newpage()
+grid::grid.draw(p$CD8A)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading text-xl">Footprinting</h2>
+                </div>
+                <p>Transcription factor (TF) footprinting allows for the prediction of the precise binding location of a TF at a particular locus. This is because the DNA bases that are directly bound by the TF are actually protected from transposition while the DNA bases immediately adjacent to TF binding are accessible.</p>
+                <br>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Get motif positions
+motifPositions <- getPositions(project_Peaks)
+
+# Remove 'z:' prefix from motif names
+markerMotifs <- gsub("z:", "", markerMotifs)
+
+# Compute motif footprints
+seFoot <- getFootprints(
+  ArchRProj = project_Peaks,
+  positions = motifPositions[markerMotifs],
+  groupBy = paste("Clusters", slct.res, sep=".")
+)
+
+# Plot footprints with bias correction
+plotFootprints(seFoot = seFoot,
+               ArchRProj = project_Peaks,
+               normMethod = "Subtract", # Options: Divide, None
+               plotName = paste("Footprints-Subtract-Bias", slct.res, "cisbp", sep="."),
+               addDOC = FALSE,
+               smoothWindow = 5)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Trajectory Analysis</h2>
+                </div>
+                <p>ArchR proposes to create a cellular trajectory that approximates the differentiation from a cell cluster to an other one. After the definition of the trajectory backbone, which consist of an ordered vector of cell group labels, ArchR identify a pseudo-time value for each cell in the trajectory. In the results, ArchR provides UMAPs to visualize the pseudo-temporal trajectory and heatmaps to track spike/pattern/gene signals as a function of pseudo-temporality.</p>
+                <br>
+                <h4>Construction of trajectory</h4>
+                <p>Firstly, ArchR produces a pseudo-time value for each cell in the trajectory, which can be visualize on UMAP and used to display an arrow approximating the trajectory path from the spline-fit.</p>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define a trajectory (e.g., C9 to C11)
+trajectory <- c("C9","C11")
+traj.name <- "TF.C9.C11"
+
+# Add trajectory to the project
+project_Peaks <- addTrajectory(
+    ArchRProj = project_Peaks,
+    name = traj.name,
+    groupBy = paste("Clusters", slct.res, sep="."),
+    trajectory = trajectory,
+    embedding = "UMAP",
+    force = TRUE
+)
+
+# Plot trajectory
+plotTraj <- plotTrajectory(project_Peaks, trajectory = traj.name, colorBy = "cellColData", name = traj.name, embedding = "UMAP")
+plotTraj[[1]]
+                </code></pre>
+                </div>
+            </section>
+
+                <h4>Observation of specific genes</h4>
+                <p>It's possible to visualize this trajectory but color the cells by a specific gene score value.</p>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot trajectory of the gene CD4 using the GeneScoreMatrix, visualized in UMAP embedding
+p_gene <- plotTrajectory(project_Peaks, trajectory = traj.name, colorBy = "GeneScoreMatrix", 
+                         name = "CD4", continuousSet = "horizonExtra", embedding = "UMAP")
+
+# Display the first two trajectory plots side by side
+p_gene[[1]] | p_gene[[2]]
+                </code></pre>
+                </div>
+            </section>
+
+                <h4>Pseudo-time heatmaps</h4>
+                <p>Finally, ArchR allow to perform heatmap to visualize changes in many features (peaks, gene scores or motifs) across pseudo-time.</p>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Obtain the gene score trajectory (normalized with log2)
+trajGSM <- getTrajectory(ArchRProj = project_Peaks, name = traj.name, useMatrix = "GeneScoreMatrix", log2Norm = TRUE)
+
+# Plot heatmap for gene score trajectory with "horizonExtra" color palette
+p_trajGSM <- plotTrajectoryHeatmap(trajGSM, pal = paletteContinuous(set = "horizonExtra"))
+
+# Generate heatmap matrix for gene score trajectory
+p_trajGSM.matrix <- plotTrajectoryHeatmap(trajGSM, pal = paletteContinuous(set = "horizonExtra"), returnMatrix = TRUE)
+
+# Obtain the peak accessibility trajectory (normalized with log2)
+trajPM  <- getTrajectory(ArchRProj = project_Peaks, name = traj.name, useMatrix = "PeakMatrix", log2Norm = TRUE)
+
+# Plot heatmap for peak accessibility trajectory with "solarExtra" color palette
+p_trajPM <- plotTrajectoryHeatmap(trajPM, pal = paletteContinuous(set = "solarExtra"))
+
+# Generate heatmap matrix for peak accessibility trajectory
+p_trajPM.matrix <- plotTrajectoryHeatmap(trajPM, pal = paletteContinuous(set = "solarExtra"), returnMatrix = TRUE)
+
+# Obtain the motif activity trajectory (without log2 normalization)
+trajMM  <- getTrajectory(ArchRProj = project_Peaks, name = traj.name, useMatrix = "MotifMatrix", log2Norm = FALSE)
+
+# Plot heatmap for motif activity trajectory with "solarExtra" color palette
+p_trajMM <- plotTrajectoryHeatmap(trajMM, pal = paletteContinuous(set = "solarExtra"))
+
+# Generate heatmap matrix for motif activity trajectory
+p_trajMM.matrix <- plotTrajectoryHeatmap(trajMM, pal = paletteContinuous(set = "solarExtra"), returnMatrix = TRUE)
+
+# Display the heatmaps
+p_trajGSM
+p_trajPM
+p_trajMM
+                </code></pre>
+                </div>
+            </section>
+
+                <h4>Integrative pseudo-time analysis</h4>
+                <p>As shown before, ArchR allows also to perform integrative analysis to identify positive TF using gene scores and motif accessibility across pseudo-time, follow their variability across pseudo-time and understand their role in this trajectory. To do it, ArchR proposes to use the correlateTrajectories() function which takes two SummarizedExperiment objects obtained from the getTrajectories() function which we have obtained before.</p>
+                <ul.a>
+                    <li>Step 1. Identify and select the motifs which gene score and TF motif accessibility is correlated:</li>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Compute correlation between gene score trajectory (trajGSM) and motif trajectory (trajMM)
+# Using low stringency criteria: correlation cutoff of 0.2, variance cutoffs of 0.5 for both matrices
+corGSM_MM <- correlateTrajectories(trajGSM, trajMM, 
+                                   corCutOff = 0.2, varCutOff1 = 0.5, varCutOff2 = 0.5)
+
+# Filter the gene score and motif trajectories based on correlation results
+flt_trajGSM <- trajGSM[corGSM_MM[[1]]$name1, ]
+flt_trajMM <- trajMM[corGSM_MM[[1]]$name2, ]
+                </code></pre>
+                </div>
+            </section>
+                    
+                    <li>Step 2. Create a new trajectory two visualize side by side the TF motif based on gene score and TF motif enrichment:</li>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a combined trajectory object using the filtered gene score trajectory (flt_trajGSM)
+combinedTraj <- flt_trajGSM
+
+# Normalize and combine the gene score trajectory (flt_trajGSM) and motif trajectory (flt_trajMM)
+# - Scale each row (gene/motif) separately for both matrices
+# - Transpose the result and add them together to integrate information from both sources
+assay(combinedTraj, withDimnames=FALSE) <- t(apply(assay(flt_trajGSM), 1, scale)) + 
+                                           t(apply(assay(flt_trajMM), 1, scale))
+
+# Generate a heatmap matrix from the combined trajectory
+# - returnMat = TRUE returns the matrix instead of plotting
+# - varCutOff = 0 ensures no variance-based filtering
+combinedMat <- plotTrajectoryHeatmap(combinedTraj, returnMat = TRUE, varCutOff = 0)
+
+# Determine the order of rows (genes/motifs) in the combined matrix
+rowOrder <- match(rownames(combinedMat), rownames(flt_trajGSM))
+
+# Plot heatmap for the gene score trajectory, keeping row order consistent with the combined matrix
+ht_GSM <- plotTrajectoryHeatmap(flt_trajGSM, pal = paletteContinuous(set = "horizonExtra"),  
+                                varCutOff = 0, rowOrder = rowOrder)
+
+# Plot heatmap for the motif trajectory, keeping row order consistent with the combined matrix
+ht_MM <- plotTrajectoryHeatmap(flt_trajMM, pal = paletteContinuous(set = "solarExtra"), 
+                               varCutOff = 0, rowOrder = rowOrder)
+
+# Display both heatmaps side by side for comparison
+ht_GSM + ht_MM
+                </code></pre>
+                </div>
+            </section>
+                </ul.a>
+                
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Session information</h2>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display session info to track package versions
+sessionInfo()
+                </code></pre>
+                </div>
+            </section>
+                </div>
+            </div>
+        </section>
+
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+
+        <!--Foootnote-->
+            <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</htm

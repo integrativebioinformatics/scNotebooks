@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno03/cuaderno03.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module03/module03.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno03/cuaderno03.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module03/module03.html">
+                                English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Processando dados brutos de scRNA-seq
+                    </h1>
+                    <p class="hero-text">
+                        Este notebook apresenta operações essenciais de linha de comando no Linux, abordando comandos fundamentais que são amplamente aplicáveis em diferentes linguagens de programação com mínimas adaptações. Essas habilidades básicas oferecem suporte à gestão eficiente de dados e à análise em biologia computacional.
+
+                        Além disso, exploraremos as etapas principais no processamento de leituras de sequenciamento bruto em matrizes de contagem utilizando o Cell Ranger, discutindo suas principais saídas e o papel na transcriptômica de célula única. O processamento de dados de scRNA-seq é uma etapa crucial na análise de célula única.
+
+                        O método escolhido para preparação da biblioteca determina se as sequências de RNA são capturadas a partir das extremidades dos transcritos (por exemplo, 10X Genomics, Drop-seq) ou de transcritos completos (por exemplo, Smart-seq), influenciando diretamente as análises subsequentes e os insights biológicos.
+                    </p>
+                    <br>
+                    <hr/>                    
+                    </div>
+                    <h2 class="hero-heading text-xl">
+                        Instalar utilitários
+                    </h2>
+                    <h3><i>SRAtoolkit</i></h3>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="sra-tool.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <h2 class="hero-heading text-xl">NOTA: Comandos Shell</h2>
+                <br>
+                <p>Google Colab/Jupyter Notebook usando phyton como linguagem de programação padrão.
+
+                É permitido usar outras linguagens, como shell script.
+                <ul.a>
+                    <li>Para isso, no Google Colab usamos <span class="code-inline-light">"!"</span> antes do código.</li>
+                    <li>Para os Jupyter Notebooks usamos uma célula de código com <span class="code-inline-light">%%bash</span> antes para escrever nosso script.</li>
+                </ul.a>
+                </p>
+                
+                <p>Este é um marcador para o Google Colab entender que este é o código do Shell. Para seu uso pessoal, "!" não é necessário.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Uma hashtag é um comentário, esta parte do código não é usada. No entanto, serve para anotações importantes.
+# É uma prática boa e comum em código como um lembrete e como um mecanismo para reprodução.
+# Recomendamos sempre comentar seus códigos e script
+
+echo "Hello, world!"  
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Ao longo deste Notebook você verá diferentes comandos no shell. Eles serão explicados, mas aqui está um pequeno conjunto dos comandos mais comuns.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Crie uma pasta (folder)
+# Em programação, pasta é chamada de diretório. Usaremos o nome diretório daqui em diante.
+# O nome pasta pode ser qualquer coisa (por exemplo, pasta1, pasta_1, etc.), tente sempre nomear diretórios que você lembre quais dados você está salvando nele
+mkdir folder
+                </code></pre>
+                </div>
+            </section>
+     
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# lista de arquivos e diretórios
+# Em geral, os diretórios têm um / no final (por exemplo, /Documentos/Arquivos/scRNAseq_data/, aqui temos três diretórios
+ls
+                </code></pre>
+                </div>
+            </section>
+
+               
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Um comando pode ser seguido para argumentos. Argumentos especificam seu código principal. Podem ser - ou -- ou posicionais (ou seja, dependem da ordem).
+# É uma coisa importante saber sobre um software que você deseja usar.
+ls -l
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# O comando cd é usado para entrar ou sair de um diretório
+# Se você quiser ir para outro diretório, você pode usar cd .. para voltar para frente ou somente cd para ir para frente
+cd
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# O comando mv é usado para mover seu arquivo para um diretório específico
+# Você só precisa especificar o caminho para o diretório para o qual deseja mover seu arquivo
+mv seu_arquivo local_para_mover/
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Além disso, mv pode alterar nomes de diretórios ou arquivos. Tente:
+mv folder/ diretório/
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Além disso, mv pode alterar nomes de diretórios ou arquivos. Tente:
+mv folder/ diretório/
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# O comando cat mostra todo o conteúdo do seu arquivo
+%%bash
+cat
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Além disso, você pode concatenar (juntar) dois ou mais arquivos usando este comando
+# O arquivo unificado irá aparecer após '> "nome_do_arquivo"'
+%%bash
+cat arquivo_1 arquivo_2 > arquivo_3
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# O comando head mostra as primeiras 10 linhas do seu arquivo
+# Como a cabeça do "cat"
+%%bash
+head your_file
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# O comando tail mostra as últimas 10 linhas do seu arquivo
+# Como um tail do "gato"
+%%bash
+tail
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# O comando wget é usado para baixar arquivos
+# Você pode colocar um link ao lado do comando para baixar dados (por exemplo, um conjunto de dados específico de um banco de dados)
+# Aqui está um exemplo de uma amostra de RNA-seq do SRA
+%%bash
+wget https://trace.ncbi.nlm.nih.gov/Traces/sra?run=SRR24765940
+                </code></pre>
+                </div>
+            </section>
+
+        </section>
+
+            
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Instalação</h3>
+               
+                <p>Para começar, você deve baixar o SRAtoolkit para usar a ferramenta fastq-dump, que permite baixar arquivos SRA.</p>
+
+                <p>O SRA Toolkit é um conjunto de ferramentas desenvolvido pelo National Center for Biotechnology Information (NCBI) para acessar, baixar e manipular dados de alto rendimento armazenados no Sequence Read Archive (SRA)</p>
+
+                <p>O fastq-dump é uma das ferramentas do SRA Toolkit. Ele é usado para extrair dados no formato FASTQ ou FASTA de acessos SRA. O FASTQ é um formato comum para armazenar dados de sequenciamento de DNA e RNA, que inclui as leituras de sequência e suas qualidades. O fastq-dump permite que os usuários convertam arquivos SRA em arquivos FASTQ, facilitando o processamento e a análise desses dados em outras ferramentas de bioinformática.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# O -q é para o modo de saída, para não fornecer toda o texto de saída do wget, apenas executar silenciosamente.
+# O --output-document é para especificar o nome do arquivo onde o conteúdo baixado deve ser salvo.
+wget -q --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.1.0/sratoolkit.3.1.0-ubuntu64.tar.gz
+
+# .tar.gz é um arquivo que foi primeiro empacotado com tar e depois compactado com gzip.
+# O comando tar é usado para compactar ou descompactar arquivos em sistemas Unix/Linux. O nome "tar" vem de "tape archive"
+# -xzf: indica que o tar deve extrair o conteúdo de um arquivo compactado com gzip.
+tar -xzf sratoolkit.tar.gz
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Então, para testar o download, você pode ver as três primeiras leituras de um único número de acesso SRA.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# sratoolkit.3.1.0-ubuntu64 é o diretório principal, bin é intermediário e fastq-dump é um software de interesse
+# -X 3: Limita a extração às 3 primeiras leituras do arquivo SRA. A opção -X define o número máximo de leituras a serem extraídas.
+# --stdout: Instrui o fastq-dump a enviar a saída para o stdout (saída padrão) em vez de gravar em arquivos locais.
+sratoolkit.3.1.0-ubuntu64/bin/fastq-dump -X 3 SRR11537950 --stdout
+                </code></pre>
+                </div>
+            </section>
+
+        </div>
+        </section>
+
+        <p>Dowload do SRA</p>
+
+        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Baixaremos os arquivos SRR11537950
+# sratoolkit.3.1.0-ubuntu64/bin/fastq-dump: Este é o PATH para o executável fastq-dump dentro da instalação do SRA Toolkit.
+# --split-files: Esta opção instrui o fastq-dump a dividir os arquivos de leitura de pares em dois arquivos separados.
+# --gzip: Esta opção compacta a saída no formato gzip, ou seja, reduz o tamanho do arquivo.
+# -X 1000000: Limita o número de leituras extraídas.
+sratoolkit.3.1.0-ubuntu64/bin/fastq-dump --split-files --gzip -X 1000000 SRR11537950
+
+# Crie um diretório com o mesmo número de acesso SRA
+mkdir -p SRR11537950
+
+# Mova tudo com as informações "SRR11537950" e ".fastq.gz" para uma pasta
+mv SRR11537950*.fastq.gz SRR11537950/
+
+# Renomeie os arquivos para nomes apropriados para o Cell Ranger.
+mv SRR11537950/SRR11537950_1.fastq.gz SRR11537950/SRR11537950_S1_L001_R1_001.fastq.gz
+mv SRR11537950/SRR11537950_2.fastq.gz SRR11537950/SRR11537950_S1_L001_R2_001.fastq.gz
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# list of archives
+ls
+                </code></pre>
+                </div>
+            </section>
+
+        </div>
+        </section>
+
+
+        <section class="hero-modules">
+            <div class="container">
+
+                <h2>Cell Ranger</h2>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="gen10x.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <h3>O que é Cell Ranger?</h3>
+                <br>
+                <p>O Cell Ranger é um conjunto de software desenvolvido pela 10x Genomics para analisar dados de sequenciamento de RNA de célula única (scRNA-seq) gerados a partir de sua plataforma Chromium. Ele processa os dados de sequenciamento brutos em insights significativos, incluindo matrizes de expressão genética, agrupamento de células e outras análises posteriores.
+                <br>
+                <b>Observação:</b>
+                <br>
+                O Cell Ranger requer mais de 12 GB de RAM para ser executado, ele não funciona com o Colab.
+                <br>
+                <b>Baixar:</b>Atualize o <a href="https://www.10xgenomics.com/support/software/cell-ranger/downloads">link</a> se expirou e então a referência genômica relevante.
+                </p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# -O: nome do arquivo de saída
+wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/cell-ranger/downloads"
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+wget -O cellranger-9.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-9.0.0.tar.gz?Expires=1735019868&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=jr1wurwScX~6D75pHB8jDbGMyGRI28tiLJAe9LUo0Xz5hqUgQlVpaRBz50wZewTz9lp2ozBI91iEQkZ7s2ZbOGbugctslStBOCkILh3gfkIiv63YBJRSDm0kPJjAvLXHm6BUf20bPTJPiuwLvRWZuSrri0tV7vzn9iCY24I3~tjGCy4377Dm-1oCuiQCuHjXlyZjEZVXQZuS9ghX9ZmmldDnf6wE9hqIE80PhiSclOyFWfqLg8v5OBGP0JqrdI5oNhGiRKKmezIpT2eZ-pfzSCGMcQu1r6irmsz4pgZxl4ElWIpLtzB7xJb2H2OvL~j3rsBX6Ay-idAxDOF31tMqyQ__"
+wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
+                </code></pre>
+                </div>
+            </section>
+             
+                <h3>Instalação</h3>
+                <br>
+                <p>Ele só precisa ser descompactado para ser instalado.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+tar -xzf cellranger-7.2.0.tar.gz
+tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
+                </code></pre>
+                </div>
+            </section>
+                <ul.a>
+                    É recomendável criar uma referência para o Cell Ranger:
+                    <li>cellranger-7.2.0/bin/cellranger é um caminho para o software</li>
+                    <li>o comando mkref é usado para criar pacotes de referência personalizados</li>
+                    <li>--genome: Cria um diretório para saídas</li>
+                    <li>--fasta: Especifique seu genoma de referência</li>
+                    <li>/genome/genome.fa: Caminho e nome do seu genoma no formato .fa</li>
+                    <li>--genes: Especifique seu arquivo GTF de referência</li>
+                    <li>/gtf/genome.annotation.gtf: caminho e nome do arquivo de anotação</li>
+                </ul.a>
+
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+!cellranger-7.2.0/bin/cellranger mkref --genome=reference --fasta=/genome/genome.fa --genes=/rato/gencode.vM36.annotation.gtf
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+#Mostra o caminho completo
+pwd
+                </code></pre>
+                </div>
+            </section>
+    
+                <h2>NÃO EXECUTE</h2>
+                <ul.a>
+                    cellranger-7.2.0/bin/cellranger é um caminho para o software
+
+                    <li>count é usado para contar moléculas de RNA mensageiro (mRNA)</li>
+
+                    <li>--id= é um nome de diretório para saídas</li>
+
+                    <li>--fastqs caminho para arquivos a serem analisados</li>
+
+                    <li>--sample arquivos a serem analisados</li>
+
+                    <li>--transcriptome é a referência</li>
+                </ul.a>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# NÃO EXECUTE
+# Isso "\" quebra a linha do código e continua na próxima
+cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
+    --fastqs=SRR11537950 --sample=SRR11537950 \
+    --transcriptome=refdata-gex-GRCh38-2020-A 
+
+#--localcores=2 --localmem=12
+                </code></pre>
+                </div>
+            </section>
+
+                <b>Saídas do Cellranger executando uma amostra</b>
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <ul.a>
+                    <li>O software Cell Ranger se esforça para manter a compatibilidade com ferramentas de análise comuns usando formatos de arquivo de saída padrão sempre que possível. Por exemplo, os arquivos BAM com código de barras podem ser visualizados em navegadores de genoma padrão, como o IGV, para verificar a qualidade do alinhamento e outros recursos.</li>
+                </ul.a>
+
+                <p>O pipeline de contagem cellranger gera um arquivo HTML de resumo interativo chamado web_summary.html que contém métricas de resumo e resultados de análise secundária automatizados. Vamos dar uma olhada!</p>
+                <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary">
+                    <p>https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary</p>
+                </a>
+
+                <ul.a>
+                    <br>
+                    Entenda a saída do resumo:
+                    <li>O texto verde indica que as métricas principais estão no intervalo esperado.</li>
+                    <li>O texto vermelho/amarelo indica erros/avisos.</li>
+                </ul.a>
+
+                <p>Gráfico de classificação de código de barras:
+                    <br>
+                    Uma queda acentuada é indicativa de boa separação entre os códigos de barras associados à célula e os códigos de barras associados a GEMs vazios.
+                </p>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output_cellranger.jpg" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output_cellranger2.jpg" alt="video" class="video-preview">
+                    </div>
+                    <h4>O significado de t-SNE, clusters, características e outras informações serão explicadas em outros módulos.</h4>
+                </div>
+                </section>
+            </div>
+        </section>
+             
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

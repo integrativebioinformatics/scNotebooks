@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo02/modulo02.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/caduerno02/caduerno02.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo02/modulo02.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno02/cuaderno02.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Introduction to R and RStudio
+                    </h1>
+                    <p class="hero-text">
+                        R is a powerful programming language for data analysis, graphics, and especially statistical analysis. It is freely available to the public at <a href="http://www.r-project">www.r-project</a>.org with easy-to-install binaries for Linux, macOS, and Windows. This notebook provides an introduction to R, designed for students and researchers. No prior experience is required, although some familiarity with scripting languages such as Bash, Matlab, or Python is helpful.
+                        <br>
+                        The best option for programming in R is to install RStudio or Visual Studio Code. Here, we'll learn some of the fundamentals of R and how to load and process data.
+                    </p>
+                    <br>
+                    <hr/>                    
+                    </div>
+                    <h2 class="hero-heading">A Brief Introduction</h2>
+
+                    <p>When starting out in R (or any programming language), we learn three fundamental skills:
+                    <br>
+
+                    <ul.a>
+                        <li>
+                            1. Reading Code: Initially, you'll encounter pre-built code.
+                            Reading is the first step to familiarizing yourself with the logic, commands, and how R "speaks." Example: understanding what mean(c(1, 2, 3)) means.
+                        </li>
+                        <li>2. Understanding Code: Here you begin to understand why that code is there, what it does, and how it connects to the data. Example: realizing that mean() calculates the mean and c(1, 2, 3) creates a vector (and what is a vector?)</li>
+                        <li>3. Writing Code: The pinnacle of learning! With practice, you'll begin to write your own scripts and functions—whether for graphing, analysis, or automating tasks. Example: creating a graph with plot(x, y) and adjusting the parameters however you like.</li>
+                    </ul.a>
+                </p>
+
+                <br>
+
+                <h3>Comments</h3>
+
+                <p>Comments are parts of a computer program used to describe a piece of code. We can make a comment using the # symbol.
+                <br>
+                Purpose of comments? Readability, ignoring some code, pseudocode</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Anything that starts with # is a comment and is not executed
+# This is used to explain what the code does
+# or to leave notes or reminders
+# or to disable a line of code
+# or to make the code more readable or organized
+                </code></pre>
+                </div>
+                </section>
+
+                <h3>Variable</h3>
+
+                <p>Different types of values, such as characters, numbers, or logical values, can be assigned to a variable.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+x <- 10 # The most common form of assignment
+y = 20 # Also works                    
+                </code></pre>
+                </div>
+                </section>
+
+                <p>R will throw an error because it will think you're trying to use the age variable, call the do function, access the patient… a complete mess.
+                <br>       
+                You can use the underscore (_), the period (.), or camelCase to separate words in variable names, like this:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+patient_age <- 25
+patient.age <- 25
+PatientAge <- 25                    
+                </code></pre>
+                </div>
+                </section>
+
+        </section>     
+
+        <section class="hero-modules">
+            <div class="container">
+                <p>In other words, whenever you create a variable, avoid spaces and use legal characters. Note that although each spelling is acceptable, each creates a different variable.</p>
+                <br>
+                <h3>R differentiates EVERYTHING</h3>
+                <p>When we speak or write with other people, we understand small errors, language variations, and misspellings. R is not like that.</p>
+                <br>
+                <p>In R, "age," "Age," "ages," and "Ages" are completely different names. This is because the language is case-sensitive.</p>
+                <br>
+                <p>And each variable must be unique within the same workspace; that is, each time I write a different way, I create a new object. This is important because it avoids confusion and ensures that you know exactly which variable you're using.
+                <br>
+                Therefore, create variable names that make sense, are easy to remember, and are different enough for YOU to work with.</p>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <p>Rules for naming variables:</p>
+                <ul.a>
+                    <li>A variable name can be created using letters, digits, periods, and underscores</li>
+                    <li>Start with a letter (never a number!)</li>
+                    <li>If a variable name starts with a period, you can't use digits after it.</li>
+                    <li>R (like other programming languages) is case-sensitive. This means that age and Age are different variables.</li>
+                    <li>Avoid accents and special characters</li>
+                    <li>Be descriptive, but don't overdo it.</li>
+                    <li>Write simply and in a standardized format. The clearer your variable is, the easier it will be to reuse.</li>
+                    <li>if_it_is_too_long_it_is_bad_to_reuse</li>
+
+                </ul.a>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>What does <- mean?</h3>
+                <p>This arrow is used to assign a value to an object. It's like saying, "Put this value here inside this little box." Or, "x is now worth 10 and y is now worth 20."</p>
+                <br>
+                <p>But the "<-" arrow is the traditional and most widely used form in the R community, especially in statistics and data science. It's like a language tradition—many say the arrow indicates where the value comes from and where it goes.</p>
+                <br>
+                <p>On the keyboard, to do "<-", you type "<" and then "-", and R automatically understands it as an assignment.</p>
+                
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Data and Data Types</h3>
+                <p>In R, data is typically organized into tables (data frames), which resemble Excel spreadsheets. Each column represents a variable (age, name, height, etc.) and each row represents an observation (a person, an animal, an experiment, etc.).
+                <br>
+                You can create data manually</p>
+                <br>
+<section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# There are several data types in R, but the most common are:
+# Numbers
+x <- 10.5 # Decimal numbers
+
+# Integer
+y <- 5L # Integer numbers
+
+# Text (we call them "strings")
+name <- "my name is:" # Text in quotes (fill in your name)
+
+# Logical (boolean)
+true <- TRUE # True
+false <- FALSE # False
+
+# Vectors
+ages <- c(25, 30, 35) # Vector of numbers                    
+                </code></pre>
+                </div>
+                </section>
+                
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+                </code></pre>
+                </div>
+                </section>
+
+                <p><span class="code-inline-light">c()</span> is a function that stands for "combine" or "concatenate," used to create vectors.</p>
+                <br>
+                <p>All elements of a vector must be of the same type. If you don't use c(), R won't understand that you want to create a vector and will throw an error. When you use c(), R understands that you are combining these values into a single object, forming a vector.</p>
+                <br>
+                <p>Whenever you want to create a vector with MULTIPLE values, whether numbers, text, or logical values.</p>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Data frame</h3>
+                <p>A data frame is like an Excel spreadsheet: each column is a variable and each row is an observation. You can import your own data or build it within R.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+my_dataframe <- data.frame(
+  Name = c("Camila", "Matias", "Juan"),
+  Age = c(21,33,19),
+  Student = c(TRUE, FALSE, TRUE)
+)
+
+my_dataframe                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Matrix</h3>
+                <p>A matrix is a table of only numbers (or a single type of data), organized into rows and columns, as in mathematics.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+m <- matrix(1:9, nrow = 3, ncol = 3)
+
+m                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Strings</h3>
+                <p>In programming, strings are sequences of characters—that is, any set of letters, numbers, symbols, or spaces. They are used to represent text.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Finding the length of a string
+nchar(my_string1)
+
+# Joining strings together
+paste(my_string1, "2023")
+
+#Splitting strings
+txt<-("R is the statistical analysis language")
+unlist(strsplit(txt, split = " "))                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Vector</h3>
+                <p>A vector is a basic structure that stores a collection of elements of the same type—they can be numbers, text (strings), logical values (TRUE/FALSE), etc. Vectors can perform operations such as adding, filtering, comparing, etc.</p>
+
+                <ul>
+                    Think of a vector as a neat little box that holds several identical items:
+                    <li>A vector of numbers: c(1, 2, 3, 4)</li>
+                    <li>A vector of text: c("apple", "banana", "orange")</li>
+                    <li>A logical vector: c(TRUE, FALSE, TRUE)</li>
+                </ul>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Vector
+my_vector1 <- c(1,2,3)
+my_vector2 <- c(4,5,6)
+another_vector <- c("Camila", "Matias", "Juan")
+
+class(my_vector1)
+my_vector1                    
+                </code></pre>
+                </div>
+
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+class(another_vector)
+another_vector                    
+                </code></pre>
+                </div>
+
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Creating vectors with R functions
+my_name <- rep("Alejandra", times = 5)
+my_name
+
+my_seq <- rep(c(1,3,5), times = 3)
+my_seq
+
+my_seq <- rep(c(1,3,5), each = 3)
+my_seq
+
+my_seq <- -10:10
+my_seq
+
+my_seq <- seq(from = -10, to = 10, by = 2)
+my_seq                    
+                </code></pre>
+                </div>
+                </section>
+
+                <h3>List</h3>
+                <p>A list is a "pocket" that can hold anything: numbers, text, vectors, data frames, even functions!
+                <br>
+                Think of a shopping list: Soap, Fabric softener, Apple, Orange, Biscuits, Bread etc...</p>
+
+                <p>Notice that the items aren't part of the same categories (food, cleaning supplies, hygiene products), but they're all in the same list. It works similarly in R:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+my_list <- list(City = "Salvador", Age = 476, Beaches = c(Barra, Itapuã, Piatã, Ribeira))
+
+my_list                    
+                </code></pre>
+                </div>
+                </section>
+
+                <h3>Factor</h3>
+                <p>A factor is used to represent categorical variables, such as "sex," "marital status," or "yes/no response." Behind the scenes, R treats these values as named numeric levels.
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sex <- factor(c("F", "M", "F"))                    
+                </code></pre>
+                </div>
+                </section>
+                <br>
+                R understands this as a variable with two levels: "F" and "M."</p>
+
+                <p>Factors are essential in statistical analysis because they treat categories as distinct levels, not just any text.</p>
+
+                <h3>Operations in R</h3>
+                <p>R is a language created by mathematicians to solve statistical and mathematical problems. Therefore, performing operations in this language is quite similar to what we already know in traditional mathematics.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+my_result <- 2 + 3
+
+1 - my_result
+
+6 * 4
+
+2 ^ 3
+
+10 / 5
+
+log10(1000)
+
+log2(32)
+
+sqrt(144)                    
+                </code></pre>
+                </div>
+                </section>
+
+                <h3>Vector Operations</h3>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+my_vector1
+my_vector2                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Finding the length of a vector
+length(my_vector1)                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Math
+my_vector1 * my_vector2
+my_vector1 + my_vector2
+my_vector1 - my_vector2
+my_vector1 / my_vector2                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Indexing is a way to select (include/exclude) particular elements from a variable
+my_vector2
+my_vector2[1]
+my_vector2[-c(1,3)]
+my_vector2[2:3]
+my_vector2[c(1,3)] # First and third only                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a vector with some random values
+some_values <- c(8, 6, 1, 12, 3)
+
+mean(some_values)
+
+median(some_values)
+
+sort(some_values)
+
+# Quartiles  (25% vs 75%)
+quantile(some_values, 0.25)
+quantile(some_values, 0.75)
+
+# Interquartile range
+IQR(some_values)
+
+# Standard deviation
+#In R, the standard deviation and the variance are computed as if the data represent a sample (n - 1)
+sd(some_values)
+
+# Variance
+var(some_values)
+                </code></pre>
+                </div>
+                </section>
+
+              
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Packages (or libraries)</h3>
+
+                <p>Packages are collections of ready-made functions that help you perform specific tasks. For example:
+
+                <li>ggplot2 — for elegant graphs</li>
+
+                <li>dplyr — for manipulating data</li>
+
+                <li>readr — for reading files</li>
+
+                <li>Before using a package, you need:</li></p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# 1. Instalar (apenas uma vez):
+install.packages("ggplot2")                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# 2. Carregar (toda vez que vocês for usar):
+library(ggplot2)                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <head>What are functions?</head>
+
+                <p>Functions are ready-made commands that do something for you. You've seen some above. They follow the structure:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+function_name(argument 1, argument 2, ...)                    
+                </code></pre>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Example:
+mean(c(1, 2, 3, 4))                    
+                </code></pre>
+                </div>
+                </section>
+
+                <li>mean is the name of the function.</li>
+                <li>c(1, 2, 3, 4) is the argument (an array of numbers).</li>
+                <li>Functions save time and organize what you need to do. There are hundreds of them in R—and you can even create your own or use others'.</li>
+
+                <h3>What are function arguments?</h3>
+                <p>When we use a function in R, we need to pass it the necessary information so it knows what to do. This information is called arguments—think of them as the steps in an experiment.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+round(3.14159, digits = 2)                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Plotting Numerial Data</h3>
+
+                <p>There are several ways to create graphs in R, but in this lesson we'll focus on the ggplot2 package, a powerful and elegant tool for data visualization. It's based on the so-called grammar of graphs, which allows you to build graphs in a structured and intuitive way—as if you were writing meaningful sentences.</p>
+                <br>
+                <p>The grammar of graphs is a set of rules that defines how to build visualizations in a logical and standardized way. The great advantage is that, by following this grammar, you learn a single structure that serves to create different types of graphs—without having to memorize different arguments for each one.</p>
+                <br>
+                <p>This package stands out because it gives you complete control over the graph: you decide every part—axes, colors, visualization types, titles, legends… everything can be added and adjusted with layers. This makes your graphs more personalized and informative.</p>
+                <br>
+                <p>The three main components of the grammar of graphs are:</p>
+                <br>
+                <li>Data: the observations in our dataset.</li>
+                <li>Aesthetics: Mappings of data to visual properties (such as axes and sizes of geometric objects).</li>
+                <li>Geometries: Geometric objects, such as lines, that represent what we see in the graph.</li>
+                <br>
+                <p>Useful Resources:</p>
+                <br>
+                <p>PDF of the documentation: <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf</a></p>
+                <br>
+                <p>Here's the link to the website: <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a></p>
+                <br>
+                <p>And here's the link to the book: <a href="https://ggplot2-book.org/">https://ggplot2-book.org/</a></p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load the tidyverse package
+library(tidyverse)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load the msleep dataset
+data(msleep)
+
+# Check the structure of the msleep dataset
+str(msleep)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+nrow(msleep)
+ncol(msleep)
+head(msleep)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Are there NA values? How many?
+any(is.na(msleep))
+sum(is.na(msleep))                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Leave out any observation with NA values
+msleep %>%
+  drop_na()
+
+#Equal to do:
+#drop_na(msleep)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Is there a relationship between sleep total and sleep rem?
+# How can we check that?
+# Plotting maybe?
+
+plot(msleep$sleep_total, msleep$sleep_rem)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Correlation coefficient can be computed using the functions cor()
+cor.test(msleep$sleep_total, msleep$sleep_rem, method = "pearson", use = "complete.obs")                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Comparing means
+t.test(msleep$sleep_total, msleep$sleep_rem)                    
+                </code></pre>
+                </div>
+                </section>
+    
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Applying the ggplot2 package</h3>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Using tidyverse
+msleep %>%
+  ggplot(aes(x = sleep_total, y = sleep_rem)) +
+  geom_point()                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Directly calling ggplot
+ggplot(msleep, aes(x = sleep_total, y = sleep_rem)) +
+  geom_point()                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Saving plots
+g <- ggplot(msleep, aes(x = sleep_total, y = sleep_rem)) +
+  geom_point()
+ggsave(filename = "test.pdf", plot = g)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Other alternative
+pdf("test2.pdf")
+g
+dev.off()                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Add a custom y-axis title
+msleep %>%
+  ggplot(aes(sleep_total, sleep_rem)) + # Implicit or explicit arguments?
+  geom_point() +
+  xlab("Total sleep time (h)") +
+  ylab("REM sleep time (h)")                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+msleep %>%
+  ggplot(aes(sleep_total, sleep_rem)) +
+  geom_point(color = "red") +  #visit: color-hex.com to select it
+  xlab("Total sleep time (h)") +
+  ylab("REM sleep time (h)")                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# How can we colour the points by vore?
+str(msleep)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+msleep %>%
+  ggplot(aes(sleep_total, sleep_rem, color = vore)) +
+  geom_point() +
+  xlab("Total sleep time (h)") +
+  ylab("REM sleep time (h)")                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Boxplots</h3>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Base R
+boxplot(sleep_total ~ vore, data = msleep)                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# ggplot2
+msleep %>%
+  ggplot(aes(vore, sleep_total)) +
+      geom_boxplot()                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+msleep %>%
+  filter(!(is.na(msleep$vore))) %>%
+  ggplot(aes(vore, sleep_total, fill = vore)) +
+  geom_boxplot()                    
+                </code></pre>
+                </div>
+                </section>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+msleep %>%
+  filter(!(is.na(msleep$vore))) %>%
+  ggplot(aes(vore, sleep_total)) +
+  geom_boxplot() +
+  geom_jitter(aes(color=vore)) +
+  labs(x= "Diet", y = "Total sleep time (h)", color ="Diet type")                    
+                </code></pre>
+                </div>
+                </section>
+            </div>
+        </section>
+    
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

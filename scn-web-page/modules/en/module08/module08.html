@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo08/modulo08.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno08/cuaderno08.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo08/modulo08.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno08/cuaderno08.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Multimodal Single-Cell Analysis
+                    </h1>
+                    <p class="hero-text">
+                        This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
+                    </p>
+                    <br>
+                    <hr/>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Load libraries and set user directory paths</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Function to execute shell commands from within R
+## Useful when running R in Google Colab or other environments where system calls are needed
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)  # Execute the shell command and capture the output
+  cat(paste0(result, collapse = "\n"))  # Print the result in a readable format
+}
+
+## Function to load required R packages
+## If a package is not installed, it notifies the user
+loadPackages = function(pkgs){
+  myrequire = function(...){
+    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
+  }
+  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE)  # Check if packages are available
+  if (!all(ok)){
+    message("There are missing packages: ", paste(pkgs[!ok], collapse=", "))  # Inform user about missing packages
+  }
+}
+
+## Setup R2U (Ubuntu optimized R package manager) for faster package installation
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")  # Download installation script
+Sys.chmod("add_cranapt_jammy.sh", "0755")  # Grant execution permissions to the script
+shell_call("./add_cranapt_jammy.sh")  # Run the script
+bspm::enable()  # Enable BSPM (Bridge to System Package Manager) for installing R packages
+options(bspm.version.check=FALSE)  # Disable BSPM version check
+shell_call("rm add_cranapt_jammy.sh")  # Remove the installation script after execution
+
+## Install necessary R packages from CRAN
+cranPkgs2Install = c("dplyr", "ggpubr", "Seurat", "cowplot",
+                     "Rtsne", "hdf5r", "patchwork")
+install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## To simplify package loading, we created the loadPackages() function
+## If you don't have this function, you should load packages using library(name_of_package)
+pkgs = c("Seurat", "dplyr","patchwork","ggplot2")
+loadPackages(pkgs)  # Load the specified packages
+
+# Important
+# Update scw01 dorectory to match your personal user directory
+# To match your personal user directory. This is where you read and write data
+mydir <- "/content"
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Multi-modal data analysis</h2>
+
+                <p>In this notebook, we will embark on the exciting journey of analyzing multi-modal data, specifically focusing on the RNA and protein expression levels in individual cells. We will be guided by a comprehensive tutorial from Seurat, which you can find in detail <a href="https://satijalab.org/seurat/articles/multimodal_vignette.html">here</a>.</p>
+                <br>
+                <p>The dataset we will be working with consists of 8,617 cord blood mononuclear cells (CBMCs). These cells have been meticulously analyzed to provide both transcriptomic measurements and abundance estimates for 11 surface proteins. The protein levels have been quantified using DNA-barcoded antibodies, allowing for precise and reliable data.</p>
+                <br>
+                <p>To begin our analysis, we will load two count matrices: one containing the RNA measurements and the other containing the antibody-derived tags (ADT). This dual dataset will enable us to explore and understand the intricate relationships between RNA expression and protein levels in these individual cells.</p>
+                <br>
+                <p>Here’s a brief overview of our dataset as described by Seurat: > "In this analysis, we examine a dataset of 8,617 cord blood mononuclear cells (CBMCs), where transcriptomic measurements are paired with abundance estimates for 11 surface proteins, quantified using DNA-barcoded antibodies. Initially, we load two count matrices: one for the RNA measurements and one for the antibody-derived tags (ADT)."</p>
+                <br>
+                <p>By following this tutorial, we aim to gain insights into the biological mechanisms at play and the interactions between RNA and protein expressions at a single-cell level.</p>
+                <br>
+                <p>Get ready for a deep dive into multi-modal data analysis!</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Download raw single-cell RNA-seq and ADT (antibody-derived tag) data from the NCBI GEO database
+shell_call("wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz")
+shell_call("wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load in the RNA UMI matrix
+# Note: The dataset also contains ~5% of mouse cells, which we can use as negative controls for the protein measurements
+# For this reason, the gene expression matrix has HUMAN_ or MOUSE_ appended to the beginning of each gene
+cbmc.rna <- as.sparse(read.csv(file = paste0(mydir,"/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1))
+
+# read.csv: reads a CSV file into a data frame, file argument specifies the path to the CSV file.
+# and (paste0) concatenates the directory stored in mydir with the filename.
+# sep = ",": Indicates that the delimiter used in the CSV file is a comma.
+# header = TRUE: Specifies that the first row of the CSV file contains column names.
+# row.names = 1: Specifies that the first column of the CSV file should be used as row names
+# as.sparse(): This function converts the data frame into a sparse matrix. 
+# Sparse matrices are used to efficiently store data with a lot of zero values, which is common in single-cell RNA-seq data.
+
+# To make life a bit easier going forward, we're going to discard all but the top 100 most highly expressed mouse genes, 
+# and remove the 'HUMAN_' from the CITE-seq prefix
+cbmc.rna <- CollapseSpeciesExpressionMatrix(cbmc.rna)
+
+# This command processes the cbmc.rna matrix to handle or collapse gene expression data from potentially multiple species, 
+# ensuring that the matrix is properly formatted for further analysis.
+
+# Load the ADT UMI matrix (for protein-level measurements)
+cbmc.adt <- as.sparse(read.csv(file = paste0(mydir,"/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1))
+
+# Note: Ensure that both RNA and ADT matrices have identical column names (i.e., the same cells)
+# This command used to compare the column names of two data frames
+all.equal(colnames(cbmc.rna), colnames(cbmc.adt))  # Should return TRUE
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a Seurat object for the scRNA-seq data
+cbmc <- CreateSeuratObject(counts = cbmc.rna)
+
+# Verify the available assays (default is RNA). The cbmc object contains an assay storing RNA measurement
+Assays(cbmc)
+
+# Create a new assay to store ADT information
+adt_assay <- CreateAssayObject(counts = cbmc.adt)
+
+# Add the ADT assay to the Seurat object
+cbmc[["ADT"]] <- adt_assay
+
+# Verify that the Seurat object now contains both RNA and ADT assays
+Assays(cbmc)
+
+# Extract a list of features (antibodies) measured in the ADT assay
+rownames(cbmc[["ADT"]])
+
+# Note: We can easily switch back and forth between the two assays to specify the default for visualization and analysis
+
+# List the current default assay (should be RNA)
+DefaultAssay(cbmc)
+
+# Switch the default assay to ADT
+DefaultAssay(cbmc) <- "ADT"
+DefaultAssay(cbmc)  # Should now return "ADT"
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Clustering</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Note that all operations below are performed on the RNA assay Set and verify that the
+# Default assay is RNA
+DefaultAssay(cbmc) <- "RNA" # This command sets the default assay for the cbmc object to be the RNA assay
+DefaultAssay(cbmc) # See the Assay
+
+# Perform visualization and clustering steps
+cbmc <- NormalizeData(cbmc) # This command normalizes the gene expression data in the cbmc object
+cbmc <- FindVariableFeatures(cbmc) # This command identifies most variable features in the data.
+cbmc <- ScaleData(cbmc) # This command scales the data, adjusting the mean of gene expression to 0 and the variance to 1.
+cbmc <- RunPCA(cbmc, verbose = FALSE) # This command performs a Principal Component Analysis (PCA) on the data
+cbmc <- FindNeighbors(cbmc, dims = 1:30) # This command finds the nearest neighbors of each cell based on the first 30 dimensions resulting from the PCA
+cbmc <- FindClusters(cbmc, resolution = 0.8, # This command performs clustering of the cells using the nearest neighbors identified earlier
+verbose = FALSE)
+cbmc <- RunUMAP(cbmc, dims = 1:30) # This command performs UMAP (Uniform Manifold Approximation and Projection) projection to visualize the data in a lower-dimensional space
+DimPlot(cbmc, label = TRUE) # This command generates a scatter plot of the cells in UMAP space, where each point represents a cell
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Visualize multiple modalities side-by-side</h2>
+
+                <p>Now that we have successfully clustered our scRNA-seq profiles, we can move on to visualizing the expression of either protein or RNA molecules in our dataset. Seurat offers several methods to switch between different modalities and specify which modality you are interested in analyzing or visualizing.</p>
+                <br>
+                <p>This is especially important because, in some cases, the same feature can be present in multiple modalities. For instance, in our dataset, we have independent measurements of the B cell marker CD19, both at the protein level and RNA level. Being able to switch between these modalities allows us to comprehensively explore and understand the biological significance of these features.</p>
+                <br>
+                <p>By leveraging Seurat's capabilities, we can gain deeper insights into the relationships and interactions between RNA and protein expressions within individual cells, ultimately enhancing our understanding of the underlying biological processes.</p>
+                <br>
+                <p>If you have any questions or need further assistance with the analysis, feel free to ask!</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Normalize ADT data
+DefaultAssay(cbmc) <- "ADT" # This command sets the default assay for the cbmc object to be the Antibody-Derived Tags (ADT) assay
+cbmc <- NormalizeData(cbmc, normalization.method = "CLR", margin = 2)
+# This command normalizes the ADT data in the cbmc object using the CLR (Centered Log Ratio) method. The margin = 2 parameter indicates that normalization will be applied to the columns (genes/proteins).
+DefaultAssay(cbmc) <- "RNA" # This command resets the default assay for the cbmc object to be the RNA assay.
+
+# Note that the following command is an alternative but returns the same result
+cbmc <- NormalizeData(cbmc, normalization.method = "CLR", margin = 2, assay = "ADT")
+
+# Now, we will visualize CD14 levels for RNA and protein By setting the default assay, we can
+# Visualize one or the other
+DefaultAssay(cbmc) <- "ADT"
+p1 <- FeaturePlot(cbmc, "CD19", cols = c("lightgrey", "darkgreen")) 
++ ggtitle("CD19 protein") # This command creates a FeaturePlot of the CD19 protein in the ADT data, coloring cells with low levels of expression in light gray and high levels in dark green
+DefaultAssay(cbmc) <- "RNA" # This command resets the default assay to RNA.
+p2 <- FeaturePlot(cbmc, "CD19") + ggtitle("CD19 RNA") # This command creates a FeaturePlot of CD19 RNA in the RNA data
+
+# Place plots side-by-side
+p1 | p2 # This command places the two plots side by side for visual comparison of CD19 protein and RNA expression.
+
+
+# Alternately, we can use specific assay keys to specify a specific modality Identify the key for the RNA and protein assays
+Key(cbmc[["RNA"]])
+Key(cbmc[["ADT"]])
+# These commands identify the keys for the RNA and ADT assays, respectively. Keys are prefixes used to differentiate modalities when specifying features
+
+# Now, we can include the key in the feature name, which overrides the default assay
+p1 <- FeaturePlot(cbmc, "adt_CD19", cols = c("lightgrey", "darkgreen")) + ggtitle("CD19 protein")
+p2 <- FeaturePlot(cbmc, "rna_CD19") + ggtitle("CD19 RNA")
+p1 | p2 # plot p1 and p2 at same time
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Identify cell surface markers for scRNA-seq clusters</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# As we know, CD19 is a B cell marker, we can identify cluster 6 as expressing CD19 on the surface
+VlnPlot(cbmc, "adt_CD19") #creat a violin plot
+
+# We can also identify alternative protein and RNA markers for this cluster through differential expression
+adt_markers <- FindMarkers(cbmc, ident.1 = 6, assay = "ADT") # This function identifies differentially expressed markers for cluster 6 using the ADT assay
+rna_markers <- FindMarkers(cbmc, ident.1 = 6, assay = "RNA") # This function identifies differentially expressed markers for cluster 6 using the RNA assay
+#ident.1 = 6: Specifies that cluster 6 is the group of interest for which markers are being identified.
+#assay: Indicates that the ADT/RNA assay data should be used for the analysis.
+#adt/rna_markers: Stores the results of the marker identification for the ADT/RNA assay.
+
+# Display the top markers
+head(adt_markers)
+head(rna_markers)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Additional visualizations of multimodal data</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Draw ADT scatter plots (like biaxial plots for FACS). Note that you can even 'gate' cells if desired by using HoverLocator and FeatureLocator
+FeatureScatter(cbmc, feature1 = "adt_CD19", feature2 = "adt_CD3")
+
+# View relationship between protein and RNA
+FeatureScatter(cbmc, feature1 = "adt_CD3", feature2 = "rna_CD3E")
+
+FeatureScatter(cbmc, feature1 = "adt_CD4", feature2 = "adt_CD8")
+
+# Let's look at the raw (non-normalized) ADT counts. You can see the values are quite high,
+# particularly in comparison to RNA values. This is due to the significantly higher protein
+# copy number in cells, which significantly reduces 'drop-out' in ADT data
+FeatureScatter(cbmc, feature1 = "adt_CD4", feature2 = "adt_CD8", slot = "counts")
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Loading data from 10X multi-modal experiments</h2>
+                <h3>NOTE: DO NOT RUN THIS SECTION</h3>
+
+                <p>We are including it for you reference if you will need to process multi-modal 10x data from the raw data.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load the 10X Genomics PBMC dataset from the specified directory
+# This data includes gene expression and antibody capture information
+pbmc10k.data <- Read10X(data.dir = "../data/pbmc10k/filtered_feature_bc_matrix/")
+
+# Clean up the row names of the Antibody Capture data to remove unwanted suffixes,
+# specifically the '_TotalSeqB' and any 'control' prefixes
+rownames(x = pbmc10k.data[["Antibody Capture"]]) <- gsub(pattern = "_[control_]*TotalSeqB", replacement = "",
+    x = rownames(x = pbmc10k.data[["Antibody Capture"]]))
+
+# Create a Seurat object for the gene expression data,
+# filtering to keep genes detected in at least 3 cells and cells with at least 200 features
+pbmc10k <- CreateSeuratObject(counts = pbmc10k.data[["Gene Expression"]], min.cells = 3, min.features = 200)
+
+# Normalize the gene expression data using log normalization
+pbmc10k <- NormalizeData(pbmc10k)
+
+# Add the ADT data (Antibody Derived Tags) to the Seurat object as a separate assay
+# This ensures we can analyze protein expression alongside RNA data
+pbmc10k[["ADT"]] <- CreateAssayObject(pbmc10k.data[["Antibody Capture"]][, colnames(x = pbmc10k)])
+
+# Normalize the ADT data using CLR (Centered Log Ratio) normalization method
+# This is important for correcting technical variation in protein expression data
+pbmc10k <- NormalizeData(pbmc10k, assay = "ADT", normalization.method = "CLR")
+
+# Create scatter plots to visualize the relationship between different features:
+# Plot 1: CD19 vs. CD3 protein expression
+plot1 <- FeatureScatter(pbmc10k, feature1 = "adt_CD19", feature2 = "adt_CD3", pt.size = 1)
+
+# Plot 2: CD4 vs. CD8a protein expression
+plot2 <- FeatureScatter(pbmc10k, feature1 = "adt_CD4", feature2 = "adt_CD8a", pt.size = 1)
+
+# Plot 3: CD3 protein expression vs. CD3E RNA expression
+plot3 <- FeatureScatter(pbmc10k, feature1 = "adt_CD3", feature2 = "CD3E", pt.size = 1)
+
+# Combine the three scatter plots into one figure and remove the legend for clarity
+(plot1 + plot2 + plot3) & NoLegend()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

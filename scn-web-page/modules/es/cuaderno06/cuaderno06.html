@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo06/modulo06.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno06/cuaderno06.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo06/modulo06.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno06/cuaderno06.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Inferencia de trayectorias y ordenamiento pseudotemporal
+                    </h1>
+                    <p class="hero-text">
+                        La expresión génica cambia de manera dinámica a medida que las células transitan de un estado a otro. Estas transiciones ocurren durante el desarrollo y a lo largo de la vida, lo que las convierte en un aspecto clave para comprender las variaciones en las funciones celulares. En cada uno de estos estados, algunos genes se activan mientras que otros se silencian.
+
+                        Mediante el uso de datos de scRNA-seq, herramientas computacionales como Monocle3 pueden inferir las trayectorias de célula única que las células siguen al pasar entre diferentes estados funcionales. De esta forma, es posible rastrear la historia del desarrollo (ontogenia) de los tipos celulares diferenciados.
+
+                        Este cuaderno abordará los conceptos y métodos fundamentales relacionados con la inferencia de trayectorias de estados celulares y el ordenamiento en pseudotiempo, seguido de actividades prácticas que ilustran el uso de Monocle3, una herramienta diseñada específicamente para este propósito.
+                    </p>
+                    <br>
+                    <hr/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Instala las bibliotecas requeridas</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Descargar un script desde GitHub que configura la instalación de paquetes 
+# de R desde el gestor de paquetes del sistema (apt).
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+
+# Otorgar permisos de ejecución al script descargado
+Sys.chmod("add_cranapt_jammy.sh", "0755")
+
+# Ejecutar el script para configurar la instalación de paquetes de R vía apt
+system("./add_cranapt_jammy.sh")
+
+# Habilitar bspm (puente al gestor de paquetes del sistema), que permite instalar paquetes de R desde apt
+bspm::enable()
+
+# Desactivar la verificación de versión de bspm para evitar problemas de compatibilidad
+options(bspm.version.check=FALSE)
+
+# Eliminar el script después de ejecutarlo para mantener limpio el entorno
+system("rm add_cranapt_jammy.sh")
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Vamos a crear una función en R que realice llamadas al sistema</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Definir una función para ejecutar comandos de consola y capturar su salida
+shell_call <- function(command, ...) {
+  # Ejecuta el comando en la consola del sistema y captura la salida
+  result <- system(command, intern = TRUE, ...)
+  
+  # Imprime la salida en un formato legible
+  cat(paste0(result, collapse = "\n"))
+}
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Instalar las bibliotecas requeridas</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instalar el paquete R.utils, que proporciona funciones utilitarias adicionales para los próximos pasos
+install.packages("R.utils")
+
+# Instalar versiones específicas de Seurat Wrappers y Seurat Data desde GitHub
+remotes::install_github('satijalab/seurat-wrappers@d28512f804d5fe05e6d68900ca9221020d52cf1d', upgrade=F)
+remotes::install_github('satijalab/seurat-data')
+
+# Verificar si BiocManager está instalado; si no lo está, instalarlo para gestionar paquetes de Bioconductor
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager", quiet = T)
+
+# Instalar paquetes adicionales requeridos
+install.packages("harmony")  # Harmony para corrección por lote
+BiocManager::install("clusterProfiler", update = T, ask=F, force=T) # Para análisis de enriquecimiento funcional
+BiocManager::install("destiny", update = F) # Para mapas de difusión en datos de célula única
+remotes::install_github('cole-trapnell-lab/monocle3') # Instalar Monocle3 para inferencia de trayectorias
+
+# Opcional: Instalar una versión específica del paquete Matrix (comentado)
+# install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")
+
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Introducción</h2>
+
+                <p>Las células transitan continuamente entre diferentes estados funcionales a lo largo del desarrollo y la vida. Durante estas transiciones, la expresión génica cambia de manera dinámica: algunos genes se activan mientras que otros se silencian. La secuenciación de ARN de célula única (scRNA-seq) permite a los investigadores capturar estos cambios dinámicos con alta resolución. Herramientas computacionales como Monocle3 utilizan datos de scRNA-seq para reconstruir trayectorias celulares, ayudándonos a entender cómo las células progresan a través de diferentes estados a lo largo del tiempo. Este enfoque es especialmente útil para estudiar la diferenciación, la progresión de enfermedades y la reprogramación celular.</p>
+                <br>
+                <p>En este tutorial, aprenderemos a inferir trayectorias celulares y estimar el pseudotiempo —una medida del progreso relativo de las células a lo largo de una ruta de desarrollo— utilizando Monocle3. Al analizar datos de células individuales, podemos mapear cómo evolucionan las células a través de diferentes estados funcionales e identificar genes clave que impulsan estas transiciones.</p>
+                <br>
+                <p>Este tutorial está inspirado en y se basa en guías y estudios previos que han demostrado el poder de la inferencia de trayectorias en la biología de células individuales.</p>
+                <ul.a>
+                    <a href="https://cole-trapnell-lab.github.io/monocle3/docs/trajectories/">
+                        <li>Tutorial original de Monocle3</li>
+                    </a>
+                    <a href="https://stuartlab.org/signac/articles/monocle.html">
+                        <li>Tutorial que combina Seurat y Monocle3 por el Stuart Lab</li>
+                    </a>
+                    <a href="https://rpubs.com/mahima_bose/Seurat_and_Monocle3_p">
+                        <li>Tutorial que combina Seurat y Monocle3 por Mahima Bose</li>
+                    </a>
+                </ul.a>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                        <img src="umap_pseudotime.png" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cargar las librerías necesarias para el análisis de RNA-seq de célula única
+library(monocle3)      # Inferencia de trayectorias
+library(Seurat)        # Marco de análisis de célula única
+library(SeuratData)    # Conjuntos de datos de célula única preprocesados
+library(SeuratWrappers) # Funcionalidades adicionales de Seurat
+library(patchwork)     # Composición de gráficos
+library(harmony)       # Corrección de efectos de lote
+library(ggplot2)       # Visualización de datos
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Carga de datos</h2>
+
+                <p>Aquí cargamos nuestros conjuntos de datos de interés para integrar múltiples muestras de scRNA-seq.</p>
+                <br>
+                <p>Este tutorial demuestra cómo alinear dos grupos de células mononucleares de sangre periférica (PBMCs) del estudio de <a href="https://www.nature.com/articles/nbt.4042">Kang et al, 2017</a>. En este experimento, las PBMCs se dividieron en un grupo control y un grupo estimulado, donde este último fue tratado con interferón-beta. Esta estimulación provocó cambios específicos en la expresión génica según el tipo celular. Como resultado, al analizar los datos, las células tienden a agruparse no solo por su identidad biológica (tipo celular), sino también por su condición de estimulación. Esto introduce un desafío en el análisis conjunto, ya que las diferencias en los patrones de expresión pueden ocultar las similitudes subyacentes entre los mismos tipos celulares en ambos grupos.</p>
+                <br>
+                <p>Al integrar estos conjuntos de datos, buscamos corregir los efectos de lote y las variaciones específicas de la condición, permitiendo una comparación más precisa de las características biológicas compartidas entre ambos grupos.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# escargar e instalar el conjunto de datos "ifnb", que contiene datos de RNA-seq de una sola célula
+InstallData("ifnb")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cargar el conjunto de datos "ifnb" previamente instalado
+LoadData("ifnb")/code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Almacenar el conjunto de datos cargado en una nueva variable llamada 'testdata'
+# Esto nos permite modificar el conjunto de datos mientras conservamos el original intacto
+testdata <- ifnb
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Asegurar que el objeto Seurat esté actualizado al formato más reciente
+testdata <- UpdateSeuratObject(object = testdata)
+
+# Mostrar un resumen general del conjunto de datos usando dplyr::glimpse()
+testdata %>% dplyr::glimpse()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Procesamiento de datos</h2>
+
+                <p>Realizamos el procesamiento típico de datos, integración, corrección de lotes y agrupamiento antes de ejecutar Monocle3.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Aquí está el procesamiento paso a paso
+testdata <- Seurat::NormalizeData(testdata, verbose = FALSE) %>%  # Normalizar los datos de expresión génica
+            FindVariableFeatures(selection.method = "vst", nfeatures = 2000) %>%  # Identificar los 2000 genes más variables
+            ScaleData(verbose = FALSE) %>%  # Estandarizar y centrar los datos
+            RunPCA(npcs = 30, verbose = FALSE) %>%  # Realizar Análisis de Componentes Principales (PCA) con 30 componentes
+            RunHarmony("stim", plot_convergence = FALSE) %>%  # Corrección de lotes usando Harmony
+            RunUMAP(reduction = "harmony", dims = 1:30) %>%  # Realizar agrupamiento UMAP usando datos corregidos por Harmony
+            FindNeighbors(reduction = "harmony", dims = 1:30) %>%  # Calcular vecinos más cercanos para agrupamiento
+            FindClusters(resolution = 0.5)  # Agrupar células usando el algoritmo de Louvain
+
+# El argumento 'verbose = FALSE' suprime los mensajes de salida para mantener la consola limpia
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Así es como se ve el UMAP:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crear un gráfico UMAP con etiquetas de clúster basadas en 'seurat_annotations'
+scPlot <- DimPlot(testdata, label = TRUE, group.by = 'seurat_annotations')
+
+# Mostrar el gráfico
+scPlot
+
+# Opcional: Guardar el gráfico como una imagen (comentado)
+# ggsave("01-DimPlot.png", plot = scPlot, bg = "white")
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Ejecutando Monocle3</h2>
+
+                <p>Para analizar trayectorias celulares usando Monocle3, primero necesitamos convertir nuestro objeto Seurat a un formato que Monocle3 pueda procesar. Esto se realiza con la función <span class="code-inline-light">as.cell_data_set()</span> del paquete SeuratWrappers. Esta función transforma el objeto Seurat en un objeto CellDataSet, que sirve como entrada para los algoritmos de inferencia de trayectorias de Monocle3. Una vez convertido, este objeto puede utilizarse para construir trayectorias de desarrollo, inferir pseudotiempo y analizar las transiciones entre estados celulares.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Convertir el objeto Seurat en un cell_data_set (cds) compatible con Monocle3
+cds <- as.cell_data_set(testdata)
+
+# Almacenar los nombres de los genes como metadatos en el conjunto de datos celular
+fData(cds)$gene_short_name <- rownames(fData(cds))
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Obtener una visión general de la estructura del conjunto de datos celular (cds)
+cds %>% dplyr::glimpse()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Inferencia de trayectoria</h2>
+
+                <p>Monocle3 determina si las células deben ubicarse dentro de la misma trayectoria o asignarse a trayectorias separadas mediante su algoritmo de agrupamiento. Durante este proceso, cada célula no solo se agrupa en un clúster, sino que también se asigna a una partición, que representa regiones distintas del conjunto de datos. Al construir trayectorias, Monocle3 trata cada partición como una trayectoria separada. En este paso, primero agrupamos las células usando la función <span class="code-inline-light">cluster_cells()</span> que identifica agrupamientos biológicamente significativos. Luego, utilizamosque identifica agrupamientos biológicamente significativos. Luego, utilizamos <span class="code-inline-light">learn_graph()</span> para inferir la estructura de la trayectoria, lo que nos permite visualizar y analizar las rutas de desarrollo que siguen las células.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+cds <- cluster_cells(cds = cds,  # Realizar el agrupamiento en el conjunto de datos celulares
+                     reduction_method = "UMAP",  # Usar UMAP para la reducción dimensional
+                     cluster_method = 'louvain') %>%  # Aplicar el algoritmo Louvain para el agrupamiento
+       learn_graph(use_partition = T)  # Aprender la gráfica de la trayectoria celular
+
+                </code></pre>
+                </div>
+            </section>
+
+                <p>A continuación, visualizamos la trayectoria inferida para examinar cómo se organizan las células a lo largo de las vías de desarrollo.</p>
+                <br>
+                <p>En el gráfico, las líneas negras representan la estructura de la trayectoria inferida, formando un grafo que conecta células relacionadas. Si el grafo no está completamente conectado, indica que las células en diferentes particiones siguen caminos de desarrollo distintos.</p>
+                <br>
+                <p>Los puntos especiales dentro del grafo están marcados con círculos numerados. Los círculos gris claro en los extremos de las ramas corresponden a destinos celulares distintos — posibles estados finales en la trayectoria. Los círculos negros representan puntos de bifurcación, donde las células pueden seguir diferentes direcciones de desarrollo.</p>
+                <br>
+                <p>La visualización puede personalizarse usando los argumentos  <span class="code-inline-light">label_leaves</span> y <span class="code-inline-light">label_branch_points</span> en la función <span class="code-inline-light">plot_cells()</span>. Estas opciones controlan si los destinos celulares y los puntos de bifurcación se etiquetan en el gráfico. Es importante notar que los números mostrados en los círculos son solo marcadores de referencia y no implican un significado biológico específico.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generar un gráfico UMAP que muestra los grupos celulares junto con los puntos clave de la trayectoria 
+scPlot <- plot_cells(cds, 
+                     color_cells_by = "cluster",  # Colorear las células según la asignación de grupo
+                     label_groups_by_cluster = FALSE,  # No etiquetar los grupos 
+                     label_branch_points = TRUE,  # Etiquetar los puntos de bifurcación en la trayectoria
+                     label_roots = TRUE,  # Etiquetar las células raíz en la trayectoria  
+                     label_leaves = TRUE,  # Etiquetar los nodos hoja en la trayectoria  
+                     group_label_size = 5)  # Definir el tamaño de fuente para las etiquetas  
+
+# Mostrar el gráfico  
+scPlot  
+
+# Opcional: Guardar el gráfico como imagen  
+# ggsave("02-plot_cells.png", plot = scPlot, bg = "white", width = 9, height = 9, dpi = 600)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Aquí podemos tener una visualización más limpia al eliminar las etiquetas.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generar un gráfico UMAP que muestre los clústeres celulares sin las marcas de trayectoria  
+scPlot <- plot_cells(cds, 
+                     color_cells_by = "cluster",  # Colorear las células según la asignación de clúster 
+                     label_groups_by_cluster = FALSE,  # No etiquetar los clústeres  
+                     label_branch_points = FALSE,  # No etiquetar los puntos de bifurcación  
+                     label_roots = FALSE,  # No etiquetar las células raíz 
+                     label_leaves = FALSE,  # No etiquetar los nodos hoja  
+                     group_label_size = 5)  # Ajustar el tamaño de fuente para las etiquetas
+
+# Mostrar el gráfico  
+scPlot  
+
+# Opcional: Guardar el gráfico como imagen
+# ggsave("03-plot_cells.png", plot = scPlot, bg = "white", width = 9, height = 9, dpi = 600)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Inferencia de pseudotiempo</h2>
+
+                <p>El pseudotiempo estima el progreso de las células a través de un proceso biológico basándose en similitudes en la expresión génica. Monocle3 ordena las células a lo largo de una trayectoria, asignando un valor de pseudotiempo que refleja su posición relativa desde un punto de inicio definido. Las células más cercanas a la raíz tienen valores de pseudotiempo más bajos, mientras que aquellas más avanzadas en la trayectoria presentan valores más altos, indicando estados más desarrollados. Esto ayuda a modelar la diferenciación e identificar cambios regulatorios clave a lo largo del tiempo.</p>
+                <br>
+                <p>Monocle3 ordena las células a lo largo de una trayectoria aprendida usando el pseudotiempo, que representa una medida abstracta del progreso. El pseudotiempo se determina por la distancia entre una célula y el punto inicial de la trayectoria, medida a lo largo del camino más corto. La longitud de la trayectoria corresponde a los cambios transcripcionales totales que una célula experimenta desde el estado inicial hasta el final.</p>
+                <br>
+                <p>Comparando el UMAP anotado y la trayectoria de Monocle3, podemos definir cuáles clústeres de Monocle3 son las raíces para inferir la diferenciación:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Establecer tamaño del gráfico (opcional)  
+# options(repr.plot.height = 9, repr.plot.width = 16)
+
+# Crear un gráfico UMAP con anotaciones de clústeres desde Seurat
+gumap <- DimPlot(testdata, label = TRUE, group.by = 'seurat_annotations')
+
+# Crear un gráfico de Monocle3 mostrando clústeres sin marcas de trayectoria  
+gcluster <- plot_cells(cds, 
+                       color_cells_by = "cluster",  
+                       label_groups_by_cluster = FALSE,  
+                       label_branch_points = FALSE,  
+                       label_roots = FALSE,  
+                       label_leaves = FALSE,  
+                       group_label_size = 5)
+
+# Combinar ambos gráficos en una sola figura  
+scPlot <- gumap + gcluster + theme(aspect.ratio = 1)
+
+# Mostrar el gráfico combinado  
+scPlot  
+
+# Opcional: Guardar el gráfico como imagen
+# ggsave("04-DimPlot-plot_cells.png", plot = scPlot, bg = "white", width = 18, height = 9, dpi = 600)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Luego, usando el siguiente comando, podemos seleccionar las células raíz o estados iniciales en la trayectoria e inferir el pseudotiempo para cada una de las otras células.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Asignar un orden pseudotemporal a las células usando clusters específicos como células raíz  
+cds <- order_cells(cds, 
+                   reduction_method = "UMAP",  # Usar UMAP para la inferencia de la trayectoria 
+                   root_cells = colnames(cds[, clusters(cds) %in% c(3, 15, 9, 22)]))  # Especificar clusters raíz 
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Establecer tamaño del gráfico (opcional)  
+options(repr.plot.height = 7, repr.plot.width = 7)
+
+# Generar un gráfico UMAP con las células coloreadas según el pseudotiempo
+scPlot1 <- plot_cells(cds, 
+                      color_cells_by = "pseudotime",  # Colorear las células según su pseudotiempo  
+                      label_groups_by_cluster = FALSE,  
+                      label_branch_points = FALSE,  
+                      label_roots = FALSE,  
+                      label_leaves = FALSE,  
+                      group_label_size = 5)
+
+# Mostrar el gráfico  
+scPlot1  
+
+# Guardar el gráfico como una imagen 
+ggsave("05-plot_cells.png", plot = scPlot1, bg = "white", width = 9, height = 9, dpi = 600)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Una representación conjunta en UMAP de los Clústeres de Seurat, la Trayectoria y los Pseudotiempos.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Establecer tamaño del gráfico (opcional)  
+# options(repr.plot.height=6, repr.plot.width=16)
+
+# Combinar gráficos previos (UMAP de Seurat, clústeres de Monocle3 y pseudotiempo)  
+scPlot <- gumap + gcluster + scPlot1
+
+# Mostrar la figura combinada  
+scPlot  
+
+# Guardar el gráfico combinado como imagen  
+ggsave("06-Multiple_plots.png", plot = scPlot, bg = "white", width = 27, height = 9, dpi = 600)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Podemos ordenar los clústeres de Seurat según los pseudotiempos con los que están asociados.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Establecer tamaño del gráfico (opcional)  
+# options(repr.plot.height=7, repr.plot.width=7)
+
+# Extraer valores de pseudotiempo de Monocle3  
+cds$monocle3_pseudotime <- pseudotime(cds)
+
+# Convertir los metadatos celulares en un dataframe 
+data.pseudo <- as.data.frame(colData(cds))
+
+# Generar un diagrama de caja que muestra la distribución del pseudotiempo entre los tipos celulares  
+scPlot <- ggplot(data.pseudo, aes(monocle3_pseudotime, 
+                                  reorder(seurat_annotations, monocle3_pseudotime),  # Ordenar por pseudotiempo  
+                                  fill = seurat_annotations)) +  # Colorear por tipo celular  
+          geom_boxplot()  # Crear diagrama de caja   
+
+# Mostrar el diagrama de caja  
+scPlot  
+
+# Opcional: Guardar el gráfico como imagen  
+# ggsave("07-boxplot.png", plot = scPlot, bg = "white")
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Finalmente, podemos examinar cómo cambia la expresión génica de algunos genes a lo largo del pseudotiempo.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extraer datos de expresión para genes seleccionados (CD44 y CXCL2)  
+cds_subset <- cds[c('CD44', 'CXCL2'), ]
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generar un gráfico que muestre la expresión de los genes seleccionados a lo largo del pseudotiempo  
+scPlot <- plot_genes_in_pseudotime(cds_subset)
+
+# Mostrar el gráfico  
+scPlot  
+
+# Opcional: Guardar el gráfico como una imagen  
+# ggsave("08-genes_in_pseudotime.png", plot = scPlot, bg = "white")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# El siguiente código identifica genes que cambian su expresión a lo largo del pseudotiempo.   
+# Sin embargo, ejecutar esto puede llevar bastante tiempo.  
+
+# cds_pr_test_res <- graph_test(cds, neighbor_graph="principal_graph", cores=4)  # Perform differential expression analysis  
+# pr_deg_ids <- row.names(subset(cds_pr_test_res, q_value < 0.05))  # Select significant genes based on q-value  
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2 class="hero-heading text-xl">Preguntas adicionales:</h2>
+                <ul.a>
+                    <li>¿Cómo afecta la selección de diferentes células raíz al análisis?</li>
+                    <li>Realiza el análisis para un tipo celular de interés. ¿Puedes identificar subtipos celulares?</li>
+                    <li>¿Cambian los genes marcadores de este tipo celular a lo largo del pseudotiempo?</li>
+                </ul.a>
+                <br>
+            </div>
+
+        </section>
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

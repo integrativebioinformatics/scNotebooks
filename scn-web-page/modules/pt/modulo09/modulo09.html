@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno09/cuaderno09.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module09/module09.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno09/cuaderno09.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module09/module09.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Peril dos Receptores de Células T em Dados de scRNA-seq
+                    </h1>
+                    <p class="hero-text">
+                        O perfil dos receptores de células T (TCR) e o Indexamento Celular de Transcriptomas e Epítopos por Sequenciamento (CITE-Seq) são técnicas fundamentais na pesquisa de célula única, oferecendo percepções incomparáveis sobre o sistema imune adaptativo e a heterogeneidade celular. O perfil desses TCR permite uma análise aprofundada do repertório e da diversidade das populações de células T, destacando a especificidade e a singularidade das respostas dessas células. Por outro lado, o CITE-Seq possibilita a avaliação simultânea de dados transcriptômicos e da expressão proteica em células individuais, criando um retrato abrangente dos estados celulares.
+
+                        Neste módulo, os participantes explorarão as implicações profundas do perfilamento de TCR na compreensão das respostas imunológicas e as sinergias que podem ser alcançadas quando combinado ao CITE-Seq. Iniciaremos com conceitos e teorias centrais e, em seguida, avançaremos rapidamente para aplicações práticas utilizando ferramentas computacionais avançadas.
+                    </p>
+                    <br>
+                    <hr/>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Carregue bibliotecas e defina caminhos de diretório de usuário.</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Function to run shell commands in Google Colab with R kernel
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...) # Runs the shell command and captures output
+  cat(paste0(result, collapse = "\n")) # Prints the output to the console
+}
+
+## Function to load multiple R packages
+loadPackages = function(pkgs){
+  myrequire = function(...){
+    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
+  }
+  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE) # Checks if each package is installed
+  if (!all(ok)){
+    message("There are missing packages: ", paste(pkgs[!ok], collapse=", ")) # Prints missing packages
+  }
+}
+
+## Download the script to add R2U (fast package installation system)
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+Sys.chmod("add_cranapt_jammy.sh", "0755") # Change permissions to allow execution
+
+## Run the script to set up R2U
+shell_call("./add_cranapt_jammy.sh")
+
+## Enable BSPM package manager for installing system-wide packages
+bspm::enable()
+options(bspm.version.check=FALSE)
+
+## Remove the setup script to keep the workspace clean
+shell_call("rm add_cranapt_jammy.sh")
+
+## Define the list of packages to install
+cranPkgs2Install = c("dplyr", "ggpubr", "Seurat", "cowplot",
+                     "Rtsne", "hdf5r", "patchwork")
+
+## Install all packages without prompting the user
+install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Para simplificar o carregamento de pacotes, criamos a função loadPackages().
+# Mas, se você não tiver a função, use 'library(nome_do_pacote)'
+pkgs = c("Seurat", "dplyr", "patchwork") # List of packages to load
+loadPackages(pkgs) # Load packages using previously defined function
+
+# Definir o diretório onde os dados serão armazenados e acessados
+# IMPORTANTE: O usuário deve alterar "scw01" para corresponder ao seu diretório de trabalho atual
+mydir <- "/content"
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Introdução</h2>
+
+                <p>Neste notebook, nos aprofundaremos na análise de dados multimodais de células únicas. Nosso foco será em uma amostra de câncer de pulmão de células não pequenas (non-small cell lung cancer - NSCLC) que foi processada usando a tecnologia de perfil imunológico 10X 5'. Essa tecnologia avançada captura sequências de RNA e receptores de células T para cada célula individual, proporcionando uma visão abrangente do cenário celular.</p>
+                <br>
+                <p>Você pode baixar o conjunto de dados no site da 10x Genomics <a href="https://www.10xgenomics.com/resources/datasets/nsclc-tumor-1-standard-5-0-0">aqui</a>.</p>
+                <br>
+                <ul.a>
+                    <li>Antes de prosseguirmos, reserve um momento para ler a descrição detalhada do processamento da amostra e das etapas iniciais da análise, fornecida na página. Isso fornecerá contexto e insights valiosos sobre a configuração experimental e a qualidade dos dados.</li>
+                </ul.a>
+                <br>
+                <h3>Análise de Sequenciamento de Célula T</h3>
+                <br>
+                <p>A abordagem de sequenciamento de TCR em célula única permite analisar a diversidade dos receptores de células T com alta resolução, identificando clonotipos específicos e suas funções no sistema imunológico. Diferente do bulk RNA-Seq, que mistura informações de várias células, o método de célula única preserva a identidade individual de cada célula T, possibilitando a correlação entre perfil transcriptômico e repertório de TCR</p>
+                <br>
+
+                <h3>Nota:</h3>
+                <br>
+                <p>Neste notebook, abordaremos de forma resumida as etapas principais da análise de célula única. Como neste módulo focaremos na análise de sequência de TCR, forneceremos uma visão geral dos principais processos. Para explicações mais detalhadas sobre cada etapa, consulte os outros módulos disponíveis.</p>
+                <br>
+
+                <h4>Leia as contagens brutas de genes e metadados</h4>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Baixe uma matriz de genes e códigos de barras filtrada da 10X Genomics
+# Este comando usa o curl para baixar um arquivo da internet. (-O) Salva o arquivo com o mesmo nome que ele tem no servidor.
+shell_call("curl -O https://cf.10xgenomics.com/samples/cell-vdj/5.0.0/vdj_v1_hs_nsclc_multi_5gex_t_b/vdj_v1_hs_nsclc_multi_5gex_t_b_count_filtered_feature_bc_matrix.tar.gz")
+
+# Extraia o arquivo baixado (descompacte o conjunto de dados)
+# tar -xf instrui o tar a extrair (-x) o arquivo especificado (-f) e descompactá-lo.
+shell_call("tar -xf /content/vdj_v1_hs_nsclc_multi_5gex_t_b_count_filtered_feature_bc_matrix.tar.gz")
+                </code></pre>
+                </div>
+            </section>
+                
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Lê a matriz de código de barras e características filtrada em um objeto de matriz
+# Este comando lê a matriz de código de barras e características filtrada de um conjunto de dados 10X Genomics 
+# localizado no diretório especificado e atribui os dados resultantes à variável de contagem (counts).
+counts <- Read10X(paste0(mydir, "/filtered_feature_bc_matrix/"))
+                </code></pre>
+                </div>
+            </section>
+                <br>
+
+                <h3>Criação do Objeto Seurat</h3>
+                <br>
+                <p>Em seguida, usaremos a matriz de contagem e os metadados para criar um objeto Seurat. O objeto Seurat atua como um contêiner abrangente que contém não apenas os dados brutos de contagem e os metadados, mas também quaisquer resultados de análises posteriores, como PCA (Principal Component Analysis - Análise de Componentes Principais) e resultados de agrupamento. Esse contêiner centralizado permite a manipulação e análise de dados simplificadas, fornecendo uma estrutura organizada para nosso conjunto de dados scRNA-Seq.</p>
+                <br>
+                <p>
+                Ao criar um objeto Seurat, podemos gerenciar e analisar nossos dados com eficiência, facilitando a execução de operações complexas e a visualização dos resultados.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crie um objeto Seurat usando a matriz de contagem bruta
+seurat.raw <- CreateSeuratObject(counts = counts)
+
+# Exiba o conteúdo do objeto Seurat
+seurat.raw
+                </code></pre>
+                </div>
+            </section>
+                <br>
+                <h3>Explorando o Objeto Seurat</h3>
+                <br>
+                <p>O primeiro passo em nossa análise é nos familiarizarmos com o conjunto de dados agora armazenado no objeto Seurat. O Seurat fornece ferramentas poderosas que nos permitem explorar e visualizar nossos dados de contagem juntamente com os metadados associados. Isso nos permite obter uma compreensão abrangente de nossos dados de scRNA-Seq.</p>
+                <br>
+                <p>Aproveitando os recursos do Seurat, podemos realizar diversas análises exploratórias, como:</p>
+                <br>
+                <ul.a>
+                    <li>Inspecionar a Distribuição da Expressão Gênica: Podemos visualizar a distribuição dos níveis de expressão gênica entre as células para identificar genes altamente expressos e detectar quaisquer outliers potenciais.</li>
+                    <li>Explorar Metadados: Podemos explorar os metadados associados às nossas células, como anotações de tipo de célula, origens da amostra e condições experimentais, para entender o contexto e as características do nosso conjunto de dados.</li>
+                    <li>Identificar Genes Variáveis: Podemos identificar genes que exibem variabilidade significativa entre as células, que frequentemente são de interesse para análises posteriores, como agrupamento e expressão diferencial.</li>
+                    <li>Visualização de Dados: Podemos criar visualizações como gráficos de violino, feature plots e mapas de calor para explorar os padrões de expressão de genes específicos e comparar diferentes grupos de células.</li>
+                </ul.a>
+                <br>
+                <p>Ao conduzir essas explorações iniciais, preparamos o terreno para análises mais avançadas, como redução de dimensionalidade, agrupamento e análise de expressão diferencial. Essa etapa fundamental é crucial para entender as nuances do nosso conjunto de dados e tomar decisões informadas ao longo do nosso pipeline de análise.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Quantas células e genes temos atualmente?
+print(paste0("O número de genes é ", dim(seurat.raw)[1], "e o número de células é ", dim(seurat.raw)[2]))
+
+# A função print() exibe o resultado no console.
+# A função dim() retorna as dimensões de um objeto, geralmente uma matriz ou quadro de dados.
+# No caso de objetos Seurat, a matriz de contagem de expressão gênica tem genes como linhas e células como colunas.
+# A função paste0() concatena (une) sequência de caracteres (strings) sem adicionar espaços entre elas.
+# As frases dentro das aspas nos parênteses (""") também serão impressas
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualizar um subconjunto (uma fatia/slice) da matriz de contagem
+# Lembre-se: linhas são genes, colunas são células/barcodes (códigos de barras)
+GetAssayData(seurat.raw, slot = "counts")[8:10,13:14]
+                </code></pre>
+                </div>
+            </section>
+
+                <p>NOTA: os pontos ('.') refletem um valor zero. A tabela de contagem é armazenada em formato de matriz esparsa, que armazena explicitamente apenas valores diferentes de zero para economizar espaço.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Exibir colunas de metadados disponíveis no objeto Seurat
+# Quais colunas de metadados estão disponíveis no objeto Seurat?
+print(colnames(seurat.raw@meta.data))
+
+# (@) Acessa o espaço (slot) meta.data do objeto seurat.raw.
+
+# O slot meta.data normalmente contém metadados associados às células
+# como tipo de célula, ID da amostra ou outras anotações.
+
+# A função colnames() recupera os nomes das colunas do quadro de dados de metadados 
+# armazenado no slot meta.data
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cria um gráfico de violino mostrando a distribuição do número de UMIs por célula
+options(repr.plot.width=7, repr.plot.height=7) # This command sets the width and height of the plot output.
+VlnPlot(seurat.raw, features = c("nCount_RNA"),y.max=2e4) 
+# Cria um gráfico de violino
+# seurat.raw: O objeto Seurat contendo seus dados de célula única.
+# features = c("nCount_RNA"): Ele plota o número de moléculas de RNA (nCount_RNA) para cada célula.
+# y.max=2e4: Define o valor máximo para o eixo y como 20.000 (2e4 é a notação científica para 20.000)
+                </code></pre>
+                </div>
+            </section>
+
+                <h3>Controle de Qualidade (Quality Control - QC)</h3>
+                <br>
+                <p>Já observamos que duas das principais métricas de controle de qualidade — número de UMIs (Identificadores Moleculares Únicos - Unique Molecular Identifiers) e número de genes detectados por célula — foram computadas automaticamente pelo Seurat. A próxima métrica importante de QC a ser considerada é a porcentagem de genes mitocondriais. Os genes mitocondriais podem indicar estresse celular ou apoptose, por isso é crucial monitorar seus níveis de expressão.</p>
+                <br>
+                <p>Para calcular a porcentagem de genes mitocondriais, usaremos o método PercentageFeatureSet do Seurat. Este método calcula a porcentagem de UMIs originários de genes que correspondem a um padrão especificado. Para genes mitocondriais, normalmente procuramos genes que começam com "MT-" (prefixo comum para genes mitocondriais).</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Os nomes dos genes mitocondriais humanos começam com "MT-", então calcularemos a porcentagem de genes que correspondem ao padrão "^MT-"
+# Esta função calcula a porcentagem de contagens para características (genes) que correspondem a um determinado padrão.
+# Também cria uma nova coluna de metadados no objeto seurat.raw chamada percent.mt e atribui as porcentagens calculadas a ela.
+seurat.raw[["percent.mt"]] <- PercentageFeatureSet(seurat.raw, pattern = "^MT-") 
+
+# Agora podemos ver que a % de expressão gênica mitocondrial foi calculada para cada célula
+head(seurat.raw$percent.mt) # Exibe as primeiras linhas das porcentagens mitocondriais calculadas
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gráfico de violino para três métricas de qualidade: contagem de UMI, contagem de genes, porcentagem de genes mitocondriais
+options(repr.plot.width=12, repr.plot.height=6)
+VlnPlot(seurat.raw, features = c("nCount_RNA", "nFeature_RNA", "percent.mt"))
+# # Podemos visualizar todas as três métricas de qualidade celular juntas usando o método VlnPlot de Seurat
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Muitas vezes, é útil visualizar essas métricas de QC em conjunto, pois células com valores discrepantes em múltiplas dimensões têm maior probabilidade de serem células de baixa qualidade. O FeatureScatter do Seurat cria um gráfico de dispersão de duas colunas fornecidas a partir dos nossos metadados.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gráfico de dispersão: contagens totais de UMI vs porcentagem de genes mitocondriais
+options(repr.plot.width=6, repr.plot.height=6)
+FeatureScatter(seurat.raw, feature1 = "nCount_RNA", feature2 = "percent.mt") # Here we visualize the number of UMI vs the percentage of mito genes
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# # Após visualizarmos as métricas, podemos selecionar os limites que queremos usar para filtrar.
+# Usamos o método subset do R para filtrar
+seurat.raw <- subset(
+    seurat.raw,
+    subset = # Aplica critérios de filtragem:
+        nFeature_RNA > 200 & # Remove células com menos de 200 genes
+        nCount_RNA > 400 & # Remove células com menos de 400 UMIs
+        nFeature_RNA < 6000 & # Remover células com mais de 6000 genes (possíveis doublets)
+        percent.mt < 40) # Remove células com mais de 40% de RNA mitocondrial (células de baixa qualidade)
+
+                </code></pre>
+                </div>
+            </section>
+
+                <h3>Normalizando Dados no Seurat</h3>
+                <br>
+                <p>Após remover células indesejadas do conjunto de dados, o próximo passo é normalizar os dados. A normalização é essencial para ajustar as diferenças na profundidade do sequenciamento entre as células, garantindo comparações significativas.</p>
+                <br>
+                <p>1.Método de Normalização: LogNormalize</p>
+                <ul.a>
+                    <li>O método de normalização mais comum no Seurat é o método de normalização em escala global chamado "LogNormalize". Este método envolve três etapas principais:</li>
+                </ul.a>
+                <p>2.Normalização por Expressão Total:</p>
+                <ul.a>
+                    <li>Para cada célula, o método calcula a expressão total (a soma das contagens de todos os genes).</li>
+                    <li>Cada valor de expressão gênica é dividido pela expressão total da célula para ajustar as diferenças na profundidade do sequenciamento.</li>
+                </ul.a>
+                <p>3.Multiplicação por um Fator de Escala:</p>
+                <ul.a>
+                    <li>Os valores normalizados são então multiplicados por um fator de escala (10.000 por padrão). Isso ajuda a trazer os valores para uma escala mais conveniente e interpretável.</li>
+                </ul.a>
+                <p>4.Transformação Logarítmica:</p>
+                <ul.a>
+                    <li>Por fim, os valores normalizados são transformados em logaritmo usando o logaritmo natural. A transformação logarítmica estabiliza a variância e reduz o impacto de outliers, tornando a distribuição dos dados mais simétrica.</li>
+                </ul.a>
+                <p>5.Armazenamento de Dados:</p>
+                <ul.a>
+                    <li>As contagens brutas originais são armazenadas em seurat.raw[["RNA"]]@counts. Este espaço contém os dados de contagem não normalizados para cada gene em cada célula.</li>
+                    <li>Os novos dados normalizados são armazenados em seurat.raw[["RNA"]]@data. Este espaço contém os valores de expressão normalizados e transformados em logaritmo para cada gene em cada célula.</li>
+                </ul.a>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Normalizar dados usando LogNormalization
+seurat.raw <- NormalizeData(seurat.raw, normalization.method = "LogNormalize", scale.factor = 10000)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Faça descoberta de genes de variáveis ​​padrão, escalonamento, PCA, agrupamento e UMAP</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Identificar os genes mais variáveis
+seurat.raw <- FindVariableFeatures(seurat.raw, selection.method = "vst", nfeatures = 2000)
+# Escalonar os dados
+seurat.raw <- ScaleData(seurat.raw, features = VariableFeatures(seurat.raw), do.scale = T, do.center = T)
+# Executar PCA (Análise de Componentes Principais - Principal Component Analysis)
+seurat.raw <- RunPCA(seurat.raw, features = VariableFeatures(seurat.raw))
+# Encontrar células vizinhas
+seurat.raw <- FindNeighbors(seurat.raw, dims = 1:20, k.param = 20)
+# Identificar agrupamento (clusters) em baixa resolução
+seurat.raw <- RunUMAP(seurat.raw, dims = 1:20, reduction = "pca", seed.use = 1)
+
+# Encontre os clusters e use uma resolução baixa (0,1 é um bom começo) 
+# para que possamos identificar facilmente todas as células T posteriormente
+seurat.raw <- FindClusters(seurat.raw, resolution = 0.1)
+
+# Visualize o UMAP com rótulos de cluster
+DimPlot(seurat.raw, reduction = "umap", label = T,group.by = "seurat_clusters")
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Observe o feature plot dos marcadores de tipos celulares para descobrir qual cluster é composto por células T.</p>
+                <ul.a>
+                    <li>Genes de células T: CD3D, CD8A, GNLY</li>
+                    <li>Gene de células B: CD79A</li>
+                    <li>Gene de células mieloides: FCGR3A</li>
+                    <li>Gene de células epiteliais (pulmonares): KRT7</li>
+                </ul.a>
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Feature plot dos genes marcadores específicos para identificar tipos de células
+FeaturePlot(seurat.raw, features = c("CD3D", "CD8A", "GNLY", 
+            "CD79A", "FCGR3A","KRT7"), min.cutoff = "q1")
+                </code></pre>
+                </div>
+            </section>
+                <br>
+                <h3>Integração de sequências de TCR</h3>
+                <br>
+                <p>Nesta seção, leremos os arquivos gerados pelo software 10X CellRanger que descrevem as sequências de TCR encontradas em células individuais.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Baixar arquivos com curl
+shell_call("curl -O https://cf.10xgenomics.com/samples/cell-vdj/5.0.0/vdj_v1_hs_nsclc_multi_5gex_t_b/vdj_v1_hs_nsclc_multi_5gex_t_b_vdj_t_all_contig_annotations.csv")
+shell_call("curl -O https://cf.10xgenomics.com/samples/cell-vdj/5.0.0/vdj_v1_hs_nsclc_multi_5gex_t_b/vdj_v1_hs_nsclc_multi_5gex_t_b_vdj_t_clonotypes.csv")
+
+# Ler informações de TCR para cada célula
+tcr <- read.csv(paste0(mydir,"/vdj_v1_hs_nsclc_multi_5gex_t_b_vdj_t_all_contig_annotations.csv"))
+
+# Leia as informações do clonotype 
+# lembre-se de que muitas células podem compartilhar o mesmo clonotype, ou sequência TCR
+clono <- read.csv(paste0(mydir,"/vdj_v1_hs_nsclc_multi_5gex_t_b_vdj_t_clonotypes.csv"))
+
+# Remova o -1 no final de cada barcode.
+# Subconjuntos para que apenas a primeira linha do barcode de cada célula seja mantida
+# para que possamos analisar apenas um clonotype para cada célula.
+tcr$barcode <- gsub("-1", "", tcr$barcode)
+tcr <- tcr[!duplicated(tcr$barcode), ]
+
+# Remova também o -1 no final da linha do objeto Seurat
+seurat.raw = RenameCells(seurat.raw,new.names = gsub("-1", "", colnames(seurat.raw)))
+
+# Mantenha apenas as colunas de barcode e clonotype. Ajuste o nome de "raw_clonotype_id" para "clonotype_id":
+tcr <- tcr[,c("barcode", "raw_clonotype_id")]
+names(tcr)[names(tcr) == "raw_clonotype_id"] <- "clonotype_id"
+
+# Mescle as tabelas TCR e clonotype para que tenhamos a sequência de aminoácidos TCR para cada célula
+tcr <- merge(tcr, clono[, c("clonotype_id", "cdr3s_aa")])
+
+# Reordene para que os códigos de barras sejam a primeira coluna, defina-os como nomes de linhas e remova a coluna extra desnecessária de barcodes
+tcr <- tcr[, c(2,1,3)]
+rownames(tcr) <- tcr[,1]
+tcr[,1] <- NULL
+
+# Adicione aos metadados do objeto Seurat.
+seurat.raw <- AddMetaData(object=seurat.raw, metadata=tcr)
+
+# Confirme se temos informações de TCR nos metadados
+head(seurat.raw@meta.data)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gere um histograma de frequências de clones a partir da tabela clono
+# Qual é um bom limite para distinguir clones expandidos de não expandidos?
+barplot(table(clono$frequency), xlab = "Número de células no clone") 
+
+# A função barplot() cria um gráfico de barras.
+# A função table() cria uma tabela de contingência das contagens em cada valor único de clono$frequency.
+# clono$frequency acessa a coluna de frequência no quadro de dados clono
+
+
+# Identificar clones expandidos, sinalizar nos metadados e rotular no UMAP
+# Quantos clones expandidos existem? Tente alterar o limite e compare os resultados.
+Nexpand = 1  
+# # Este é o limite que usaremos para distinguir clones expandidos de não expandidos.
+length(which(clono$frequency>1))
+# which(clono$frequency > 1): Retorna os índices das linhas onde a frequência é maior que 1.
+# length(which(clono$frequency > 1)): Conta o número de elementos (clones) que têm uma frequência maior que 1. 
+# Isso fornece o número de clones expandidos.
+
+expanded_clones = clono$clonotype_id[clono$frequency>1] 
+# clono$clonotype_id[clono$frequency > 1]: Seleciona os valores de clonotype_id onde a frequência correspondente é maior que 1.
+# expanded_clones: Armazena os IDs de clonotype dos clones expandidos em uma nova variável.
+
+
+# Adicione uma nova coluna de metadados indicando quais células fazem parte de um clone expandido
+seurat.raw = AddMetaData(seurat.raw,metadata = rep("no",ncol(seurat.raw)),col.name="TCR_expanded") 
+# Este comando adiciona uma nova coluna de metadados ao objeto Seurat.raw.
+# Neste novo metadado, onde cada célula é "no", e então alterando o valor das células expandidas para "yes"
+
+seurat.raw@meta.data$TCR_expanded[seurat.raw@meta.data$clonotype_id %in% expanded_clones] = "yes" 
+# Este comando atualiza a coluna de metadados TCR_expanded.
+# seurat.raw@meta.data$TCR_expanded: acessa a coluna TCR_expanded nos metadados.
+# seurat.raw@meta.data$clonotype_id %in% expanded_clones: Verifica quais células possuem valores de clonotype_id que estão na lista expanded_clones.
+# = "yes": Define o valor como "yes" para células que pertencem a clones expandidos
+
+# Observe o UMAP para verificar se os clones expandidos têm expressão gênica semelhante
+DimPlot(seurat.raw, reduction = "umap", group.by = "TCR_expanded", label = T)
+
+# As células T expandidas têm genes expressos diferentes em comparação com as células T não expandidas?
+
+# Para fazer esta pergunta, vamos primeiro separar as células T do restante do objeto.
+# Verifique seu agrupamento para ver qual deles parece conter células T.
+
+Idents(seurat.raw) = "seurat_clusters" # Isso significa que as operações subsequentes usarão as identidades de cluster atribuídas a cada célula para seurat_clusters.
+seurat.t = subset(seurat.raw, idents = "1") # é o novo objeto Seurat contendo apenas as células do cluster 1.
+seurat.t # Verifique o número de amostras (células) para ver com quantas células T temos para trabalhar.
+
+Idents(seurat.t) = "TCR_expanded" # Este comando define a classe de identidade ativa no objeto seurat.t como TCR_expanded.
+deg_expanded = FindMarkers(seurat.t,ident.1="yes",ident.2="no",logfc.threshold = 0.25,min.pct = 0.1)
+# Este comando identifica genes diferencialmente expressos entre dois grupos de células
+# Aqueles marcados como "sim" nos metadados TCR_expanded e aqueles marcados como "não".
+# logfc.threshold: Limite mínimo de alteração de log2 para identificar genes diferencialmente expressos.
+# min.pct: Porcentagem mínima de células nas quais o gene é detectado.
+
+
+# Visualiza a expressão dos principais genes DE para cada subconjunto de células anotado.
+top30genes <- deg_expanded %>% filter(avg_log2FC > 0) %>% top_n(30, avg_log2FC)
+# deg_expanded %>% filter(avg_log2FC > 0): Filtra os genes diferencialmente expressos (deg_expanded)
+# para incluir apenas aqueles com alteração de log2 média positiva (avg_log2FC > 0).
+# top_n(30, avg_log2FC): Dos genes filtrados, seleciona os 30 principais genes com a maior variação média de log2.
+
+genes <- rownames(top30genes)
+seurat.t <- ScaleData(seurat.t, features = genes, do.center = T, do.scale = T)
+# Escolanoa os dados de expressão para os genes selecionados (features = genes) no objeto seurat.t.
+# do.center = T: Centraliza os dados subtraindo a expressão média de cada gene.
+# do.scale = T: Escolona os dados dividindo pelo desvio padrão de cada gene
+
+DoHeatmap(seurat.t, features = genes) 
+# Cria um mapa de calor dos dados de expressão
+                </code></pre>
+                </div>
+            </section>
+                <br>
+            </div>
+        </section>
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

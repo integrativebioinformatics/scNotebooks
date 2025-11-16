@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno10/cuaderno10.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../en/module10/module10.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno10/cuaderno10.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../en/module10/module10.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Introdução a Transcriptômica Espacial
+                    </h1>
+                    <p class="hero-text">
+                        A transcriptômica espacial é um campo em rápida evolução que busca fornecer um perfil de expressão gênica espacialmente resolvido de um tecido ou órgão. Essa tecnologia tem o potencial de avançar nossa compreensão de processos biológicos complexos e ajudar na identificação de novos biomarcadores para diagnóstico e tratamento de doenças. O principal objetivo da transcriptômica espacial é capturar o perfil de expressão gênica de células individuais (ou de uma pequena mistura de células em uma determinada região) em seu contexto nativo no tecido, permitindo a identificação dos tipos celulares e sua distribuição espacial. Essas informações podem então ser utilizadas para criar mapas detalhados de expressão gênica dentro dos tecidos, fornecendo insights sobre interações celulares, processos de desenvolvimento e progressão de doenças. Neste notebook, abordaremos etapas práticas para configurar um pipeline de análise de transcriptômica espacial utilizando o pacote Seurat. Serão cobertas análises básicas para recuperar a expressão gênica em diferentes regiões, bem como abordagens de deconvolução de tipos celulares.
+                    </p>
+                    <br>
+                <hr/>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading text xl">Transcriptômica Espacial</h2>
+                    <h3>Links para Tutoriais</h3>
+                    <p>Explore os seguintes tutoriais para começar a analisar a transcriptômica espacial:</p>
+                    <ul.a>
+                        <li>Características Espaciais <a href="https://ludvigla.github.io/STUtility_web_site/Spatial_Features.html#Matrix_factorization">STUtilit</a>. Este tutorial aborda a extração e a análise de características espaciais usando o pacote STUtility.</li>
+                        <li><a href="https://satijalab.org/seurat/articles/spatial_vignette.html">Aprenda com a Vinheta Espacial Seurat</a>. Como realizar análises transcriptômicas espaciais usando o pacote Seurat.</li>
+                        <li>Controle de Qualidade <a href="https://ludvigla.github.io/STUtility_web_site/Quality_Control.html">STUtility</a>. Este tutorial se concentra nas etapas de controle de qualidade para dados de transcriptômica espacial usando o pacote STUtility.</li>
+                    </ul.a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Baixe os Dados Brutos e o Código Utilizado no Artigo</h2>
+                    <p>Para acessar os dados brutos e o código utilizado no artigo relevante, acesse o seguinte link: <a href="https://zenodo.org/record/4751624#.Y17sri_pMUF">Zenodo Dataset</a></p>
+                    <br>
+                    <p>Estes recursos fornecerão uma compreensão abrangente da transcriptômica espacial e o irão guiar pelo processo de análise.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Baixe o script da URL especificada e o salva como "add_cranapt_jammy.sh"
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh", 
+              "add_cranapt_jammy.sh")
+Sys.chmod("add_cranapt_jammy.sh", "0755") # Concede permissões de execução (rwxr-xr-x) ao script
+system("./add_cranapt_jammy.sh")  # Executa o script baixado no shell do sistema
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instale diversas bibliotecas de desenvolvimento para renderização de texto, gerenciamento de fontes e operações criptográficas.
+system("apt install libfontconfig1-dev libharfbuzz-dev libfribidi-dev libcairo2-dev libgmp-dev libcurl3-gnutls -y")  
+
+# Instale bibliotecas de processamento de imagens (JPEG, PNG, TIFF) e a Biblioteca Científica GNU (GSL).
+system("apt install libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libbz2-dev libgsl-dev gsl-bin -y")  
+
+system("apt update")  # Atualize a lista de pacotes para garantir que as versões mais recentes estejam disponíveis.
+
+# Instale os arquivos de desenvolvimento do ImageMagick, necessários para manipulação de imagens
+system("apt install libmagick++-dev -y")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Retorna detalhes sobre a versão instalada do R, incluindo versões principais/secundárias, data de lançamento e arquitetura do sistema.
+R.Version()
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define um limite de tempo limite maior para evitar interrupções durante downloads de pacotes.
+options(timeout=1000)
+
+# Instala o pacote "STUtility" do GitHub com atualização forçada
+remotes::install_github("jbergenstrahle/STUtility", upgrade=T, force = TRUE)
+
+# Instala o "SPOTlight" do GitHub sem atualizar as dependências existentes.
+remotes::install_github("https://github.com/MarcElosua/SPOTlight", upgrade=F)
+
+# Verifica se o "BiocManager" está instalado; caso contrário, instala-o
+if (!require("BiocManager", silent = TRUE))
+install.packages("BiocManager", quiet = T)
+
+# Instala o "ReactomePA" para análise de enriquecimento de caminho.
+BiocManager::install("ReactomePA", update = TRUE, quiet = T)
+
+# Instala "ggpubr", uma extensão do ggplot2 para gráficos prontos para publicação
+install.packages("ggpubr")
+
+# Instala "clustree", um pacote para visualização de árvores de cluster
+install.packages("clustree", quiet = T)
+
+# Instala o banco de dados de anotação de genes humanos do Bioconductor
+BiocManager::install("org.Hs.eg.db", update = FALSE, quiet = T)
+
+# Instala "enrichR" para análise de enriquecimento gênico
+install.packages("enrichR", quiet = T)
+
+# Instala "SingleCellExperiment" para análise de RNA-sequenciamento de células individuais.
+BiocManager::install('SingleCellExperiment', update = FALSE, quiet = T)
+
+# Instala "hdf5r", usado para ler e escrever arquivos HDF5.
+install.packages("hdf5r", quiet = T)
+
+# Instala vários pacotes: DT (tabelas interativas), ggcorrplot (gráficos de correlação) e scatterpie (gráficos de dispersão com gráficos de pizza).
+install.packages(c('DT','ggcorrplot','scatterpie'), quiet = T)
+
+# Instala uma versão específica (1.5-3) do pacote "Matrix" diretamente dos arquivos do CRAN.
+install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+suppressPackageStartupMessages({  # Suprime mensagens de carregamento de pacotes para manter a saída limpa.
+library(Seurat)  # Estrutura de análise de sequenciamento de RNA de célula única.
+library(data.table)  # Manipulação eficiente de grandes conjuntos de dados.
+library(ggplot2)  # Pacote para contrução de gráficos.
+library(plotly)  # Visualizações interativas.
+library(RColorBrewer)  # Paletas de cores predefinidas.
+library(dplyr)  # Pacote de manipulação de dados.
+library(STutility)  # Kit de ferramentas de transcriptômica espacial.
+library(clustree)  # Visualização de resoluções de cluster.
+library(ReactomePA)  # Análise de vias biológicas
+library(org.Hs.eg.db)  # Banco de dados de anotações de genes humanos.
+library(ggpubr)  # Visualizações publication-ready.
+library(enrichR)  # Análise de enriquecimento gênico.
+library(stringr)  # Manipulação de strings.
+library(patchwork)  # Combina múltiplos gráficos.
+library(SingleCellExperiment)  # Estrutura para dados de single-cell.
+library(SPOTlight)  # Deconvolução de dados transcriptômicos espaciais.
+})
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Baixar o conjunto de dados</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Execute um comando shell e captura a saída.
+shell_call <- function(command, ...) {  
+  result <- system(command, intern = TRUE, ...) 
+  cat(paste0(result, collapse = "\n"))  # Imprima a saída em um formato legível.
+}
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Auemnte o tempo limite para downloads grandes.
+options(timeout=1000)
+
+# Baixe um arquivo ZIP contendo exercícios de transcriptômica espacial.
+download.file('https://iauchile-my.sharepoint.com/:u:/g/personal/adolfo_rh_postqyf_uchile_cl/EfjJEURo--BOiy13A9w1FwgBcFnFIUTccVr4F6G-hBcHBg?e=VTLZb7&download=1', 
+              'ST_Exercises.zip')  
+
+# Liste os arquivos no diretório atual com tamanhos de arquivo legíveis por humanos.
+shell_call("ls -lh")
+
+# Descompacte o arquivo baixado.
+shell_call("unzip ST_Exercises.zip")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>RECUPERAR AS ANOTAÇÕES DO PATOLOGISTA</h2>
+                    <h3>Carregar o conjunto de dados</h3>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Carrege um objeto Seurat.
+load(file = "ST_Exercises/Exercise1_dataset.RData")
+# Obtém algumas informações sobre o conjunto de dados
+# Este comando recupera o ensaio padrão atual para o objeto Seurat Her2p
+DefaultAssay(Her2p)
+# Exiba o número de características (genes) e células.
+dim(Her2p)
+# Este comando gera uma tabela de frequência da coluna ids no slot de metadados do objeto Seurat Her2p.
+table(Her2p@meta.data$ids)
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Gráficos de Controle de Qualidade (Quality Control - QC)</h2>
+                    <p>Crie a paleta de cores</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crie uma função de paleta de cores usando a função colorRampPalette do pacote grDevices e as cores da paleta "Set1" do pacote RColorBrewer.
+getPalette = colorRampPalette(brewer.pal(8, "Set1"))
+color = getPalette(6)
+VlnPlot(Her2p, # Gera um gráfico de violino
+       features = "nCount_RNA", # Especifica a informação a ser plotada
+       group.by = "ids", # Agrupa os dados pela coluna de metadados "ids".
+       pt.size = 0.1, # Define o tamanho dos pontos no gráfico.
+       cols = color) + # Especifica as cores a serem usadas para os diferentes grupos.
+  stat_summary(fun.y=mean, geom="point", shape=95, size=15, color = "black") + NoLegend()
+# Adiciona uma camada ao gráfico usando stat_summary para calcular e exibir a média da feição.
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Gráfico das métricas</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gráfico de violino com valores das médias adicionados.
+VlnPlot(Her2p, features = "nCount_RNA", group.by = "ids", 
+        pt.size = 0.1, cols = color) +
+  stat_summary(fun.y=mean, geom="point", shape=95, 
+              size=15, color = "black") + NoLegend()
+
+# Gráfico de dispersão comparando contagens de RNA com o número de características (features = genes).
+FeatureScatter(object = Her2p, feature1 = "nCount_RNA", 
+feature2 = "nFeature_RNA", group.by = "ids", cols = color)
+
+# Sobrepõe a distribuição da contagem de RNA em coordenadas espaciais.
+FeatureOverlay(Her2p, features = c("nCount_RNA"),
+               sampleids = 1:3,
+               pt.size = 2.5,
+               add.alpha = TRUE,
+               ncol = 3, min.cutoff = 0, max.cutoff = 2000)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercício: Salvar a imagem em um arquivo
+                </code></pre>
+                </div>
+            </section>
+                    
+                    <h3>NOTA: Normalização, PCA, redução de dimensionalidade e UMAP já aplicados neste objeto</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Agrupamento</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Exibe a versão instalada do pacote Matrix
+packageVersion("Matrix")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Executa o agrupamento baseado no gráfico de Seurat
+# Encontra os vizinhos mais próximos para cada célula usando a Fatoração de Matrizes Não Negativas 
+# Non-negative Matrix Factorization (NMF)
+Her2p <- FindNeighbors(object = Her2p, 
+                      dims = 1:10, # Indica que as 10 primeiras dimensões do método de redução especificado serão usadas.
+                     reduction = "NMF", # Especifica que a NMF foi usada como método de redução de dimensionalidade.
+                     verbose = FALSE) # Suprime a saída detalhada
+
+# Especifica uma sequência de resoluções variando de 0 a 2, com um incremento de 0,1
+Her2p <- FindClusters(Her2p, resolution = seq(0, 2, by = 0.1),
+                      verbose = FALSE)
+
+# Visualiza os resultados do agrupamento em diferentes resoluções usando Clustree
+clustree(Her2p, prefix = "SCT_snn_res.")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cria um gráfico UMAP agrupado por "ids", sem rótulos de cluster
+color = getPalette(9) # Gere um vetor de 9 cores usando a função getPalette.
+DimPlot(Her2p, reduction = "umap", label = FALSE, group.by = "ids",
+        pt.size = 2, cols=color, label.size=13)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot apenas a lâmina 3 do paciente G
+# Sobrepõe a expressão de uma ou mais características em coordenadas espaciais.
+FeatureOverlay(Her2p, # The Seurat object containing your data.
+               features = c("SCT_snn_res.0.5"), # Especifica as características a serem sobrepostas nas coordenadas espaciais. Resolução de agrupamento 0,5
+               sampleids = 2, # Indica que apenas a lâmina com ID 2 deve ser usada para este gráfico.
+               pt.size = 3.5,
+               cols = color,
+               add.alpha = TRUE, # Adiciona transparência aos pontos
+               ncol = 1)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plotar apenas os 3 slides do paciente G
+FeatureOverlay(Her2p, features = c("SCT_snn_res.0.4"),
+               sampleids = 1:3, , # Usar os ID 1 a 3
+               pt.size = 3.5,
+               cols = color,
+               add.alpha = TRUE,
+               ncol = 3) # Organizar os gráficos em 3 colunas
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercício: Salvar a imagem em um arquivo
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Trace os clusters sem o HE
+ST.FeaturePlot(object = Her2p, features = "SCT_snn_res.0.4", 
+               cols = color, pt.size = 4, ncol = 3)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Dividir a visualização para cada cluster
+ST.FeaturePlot(object = Her2p, features = "SCT_snn_res.0.4", pt.size = 4,
+               split.labels = T, # Dividir a visualização por títulos dos clusters
+               indices = 2, # Selecionar um conjunto específico de índices
+               show.sb = FALSE, # Ocultar barras de escala
+               ncol = 4, 
+               cols = color)
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Genes diferencialmente expressos (DEGs)</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+DefaultAssay(Her2p) # Verifica o ensaio ativo para o objeto Seurat Her2p
+Idents(Her2p) <- "SCT_snn_res.0.4" # Define a classe de identidade para o objeto Seurat Her2p com base na resolução de agrupamento "SCT_snn_res.0.4".
+
+# Comparação de todos os clusters vs. todos os clusters
+Her2p.markers <- FindAllMarkers(object = Her2p, # Identifica DEGS em Her2p
+                                only.pos = TRUE, # Somente marcadores positivos que são regulados positivamente no cluster
+                                min.pct = 0.10, # Os genes devem ser expressos em pelo menos 10% das células em qualquer um dos dois grupos sendo comparados
+                                logfc.threshold = 0.10) # Define o limite para identificar DEGs
+
+# Filtra marcadores com um valor de p ajustado < 0,05
+Her2p.markers = Her2p.markers[which(Her2p.markers$p_val_adj<0.05),] # Filtra os marcadores identificados para reter apenas aqueles com um valor de p ajustado
+
+# Conta o número de DEGs por cluster
+table(Her2p.markers[, "cluster"]) # Quantos DEGs por cluster?
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Selecione os 10 primeiros DEGs de cada cluster
+Her2p.markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_log2FC) -> top10
+
+# Gere um gráfico de pontos para os genes selecionados
+DotPlot(Her2p, features = unique(top10$gene), 
+        group.by = "SCT_snn_res.0.4", cols = c('#b8d8d8', '#e71d36'),
+        dot.scale = 6, col.min = 0) + 
+        theme(axis.text.x = element_text(face = "bold", color = c("black"), 
+        size = 15,angle = 90))
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercício: Salvar a imagem em um arquivo
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plotar genes-chave no gráfico de ridge
+RidgePlot(Her2p, assay = "SCT", 
+          features = c("IFI27","IFI6"), # Genes de interesse
+          ncol = 2, group.by = "SCT_snn_res.0.4", 
+          cols = color)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualização em UMAP e Mapa de Calor
+# Definir gradiente de cores para o mapa de calor
+heatmap.colors <- c("lightgray", "mistyrose", "red", "darkred", "black")
+fts <- c("EPN2", "AGR3") # Lista de genes a serem visualizados
+# Gerar gráficos UMAP para as características selecionadas
+p.fts <- lapply(fts, function(ftr) {
+  FeaturePlot(Her2p, features = ftr, reduction = "umap", order = TRUE, cols = heatmap.colors, pt.size = )
+})
+# Expressão de características transformadas em Ṕlot nas coordenadas do Visium
+p3 <- ST.FeaturePlot(Her2p, features = fts, ncol = 2, grid.ncol = 1, cols = heatmap.colors, pt.size = 2, show.sb = FALSE)
+# Combinar todos os gráficos em uma única figura
+cowplot::plot_grid(cowplot::plot_grid(plotlist = p.fts, ncol = 1), p3, ncol = 2, rel_widths = c(1, 1.3))
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gerar um gráfico de violino para a expressão dos genes "EPN2" e "AGR3"
+# no objeto Seurat 'Her2p', agrupando pela resolução de cluster "SCT_snn_res.0.4" 
+VlnPlot(Her2p, features = c("EPN2", "AGR3"),   
+        group.by = "SCT_snn_res.0.4", # Define a variável de agrupamento (resolução do cluster 0,4) 
+        pt.size = 0,  # Define o tamanho do ponto como 0 para evitar plotar pontos individuais
+        cols = color, # Usa cores predefinidas para grupos  
+        ncol = 2) +  # Organiza os gráficos em duas colunas 
+
+  # Sobrepõe uma estatística de resumo (média) como uma barra horizontal 
+  stat_summary(fun.y = mean, geom = "point", shape = 95,   
+               size = 15, color = "black") +  
+
+  # Remove a legenda do gráfico
+  NoLegend()  
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Visualização 3D</h2>
+
+                    <h3>Não funciona no Colab</h3>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Atualizar caminhos de imagem no objeto Seurat
+Her2p@tools$Staffli@imgs <- gsub("//", "/", Her2p@tools$Staffli@imgs)
+Her2p@tools$Staffli@imgs <- gsub("../data/", "ST_Exercises/her2st-master/data/", Her2p@tools$Staffli@imgs)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Amontoar os dados 3D de transcriptômica espacial
+Her2p <- Create3DStack(Her2p)
+
+# Extrair dados do gráfico de dispersão para visualização espacial
+stack_3d <- setNames(GetStaffli(Her2p)@scatter.data, c("x", "y", "z", "grid.cell"))
+
+# Visualizar a distribuição espacial de pontos em seções z
+ggplot(stack_3d, aes(x, 2e3 - y)) +
+  geom_point(size = 0.1, color = "gray") +
+  facet_wrap(~z, ncol = 1) +
+  theme_void()
+
+# Interpolar dados para visualização 3D da expressão gênica
+interpolated.data <- FeaturePlot3D(Her2p, features = "IFI6", return.data = TRUE)
+
+# Gráfico dos níveis de expressão gênica interpolados
+ggplot(interpolated.data, aes(x, 2e3 - y, color = val)) +
+  geom_point(size = 0.1) +
+  facet_wrap(~z, ncol = 1) +
+  theme_void() +
+  ggtitle("IFI6") +
+  scale_color_gradientn(colours = c("black", "dark blue", "cyan", "yellow", "red", "dark red"))
+
+# Visualização 3D baseada na estimativa de núcleos HE
+FeaturePlot3D(Her2p, features = "IFI6", pt.size = 1.6, pts.downsample = 5e4)
+
+#remova o caractere "#"" abaixo para visualizar clusters em 3D usando o gráfico HSV
+# selected.factors <- paste0("factor_", c(1:10))
+# HSVPlot3D(Her2p, features = selected.factors, pt.size = 3, add.margins = 1, mode = "spots")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Termos de Ontologia Genética (Gene Ontology - GO)</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Selecionar genes diferencialmente expressos (DEGs) do cluster 6
+geneList = Her2p.markers[which(Her2p.markers$cluster == 6), "gene"]
+length(geneList)  # Exibe o número de genes selecionados
+
+# Converter símbolos gênicos em IDs de Entrez
+columns(org.Hs.eg.db)  # Exibe as colunas de conversão disponíveis no banco de dados de anotações
+
+symbol <- mapIds(org.Hs.eg.db,
+                 keys = geneList,      # Lista de símbolos gênicos a serem convertidos
+                 column = "ENTREZID",  # Converter para IDs de Entrez
+                 keytype = "SYMBOL",   # Tipo de entrada: símbolo do gênico
+                 multiVals = "first")  # Em caso de múltiplas correspondências, usar a primeira
+
+symbol = as.vector(symbol)  # Converter para o formato vetorial
+
+# Remover genes com IDs de Entrez ausentes
+geneList = symbol
+geneList = geneList[which(geneList != "NA")]
+length(geneList)  # Exibe o número de genes após a filtragem
+
+# Realizar análise de enriquecimento de vias usando ReactomePA
+x <- enrichPathway(gene = geneList, 
+                   organism = "human", 
+                   pvalueCutoff = 0.05, 
+                   readable = TRUE, 
+                   pAdjustMethod = "bonferroni")
+
+head(as.data.frame(x))  # Mostrar os primeiros resultados
+
+# Ordenar os resultados por valor de p ajustado (crescente)
+x@result = x@result[order(x@result$p.adjust, decreasing = FALSE),]
+
+# Selecionar as 30 vias mais significativas
+x@result = x@result[1:30,]
+
+# Ordenar as vias pelo número de genes envolvidos (crescente)
+x@result = x@result[order(x@result$Count, decrease = FALSE),]
+
+# Armazenar os resultados ordenados em um novo quadro de dados
+newbar.dt = x@result
+
+# Criar um gráfico de barras de enriquecimento de vias biológicas
+cluster6_enrichpathway <- ggbarplot(newbar.dt, x = "Description", y = "Count",
+          fill = "Count",  # Colorir barras com base na contagem de genes
+          color = "white",  # Definir cores das bordas das barras para branco
+          sort.val = "asc",  # Classificar por valor em ordem crescente
+          sort.by.groups = FALSE, # Não classificar dentro de cada grupo
+          x.text.angle = 90,  # Girar rótulos do eixo x para melhor visibilidade
+          xlab = "Pathways",
+          ylab = "Number of genes",
+          legend.title = "Counts",
+          rotate = TRUE,
+          ggtheme = theme_minimal()
+) + scale_fill_continuous(low = "#bde0fe", high = color[4]) + 
+  theme(text = element_text(size = 20))
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Análise de vias biológicas com EnrichR</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# List available databases in EnrichR
+listEnrichrSites()
+dbs <- listEnrichrDbs() # armazena a lista no objeto dbs
+
+# Classificar os bancos de dados por nome
+dbs %>% dplyr::arrange(libraryName)
+
+# Selecionar bancos de dados de vias específicas para análise de enriquecimento
+dbs <- c("Cancer_Cell_Line_Encyclopedia",
+         "Elsevier_Pathway_Collection",
+         "KEGG_2021_Human",
+         "CellMarker_Augmented_2021",
+         "Reactome_2016",
+         "GO_Biological_Process_2018",
+         "GO_Cellular_Component_2018",
+         "GO_Molecular_Function_2018",
+         "InterPro_Domains_2019")
+
+# O EnrichR requer símbolos de genes (não IDs do Ensembl)
+geneList = Her2p.markers[which(Her2p.markers$cluster == 6), "gene"]
+length(geneList)  # Exibe o número de genes selecionados
+
+# Executar a análise de enriquecimento com EnrichR
+enriched.Paths <- enrichr(geneList, dbs)
+
+# Exibe resultados dos bancos de dados selecionados
+enriched.Paths[[1]]  # Cancer_Cell_Line_Encyclopedia
+enriched.Paths[[2]]  # Elsevier_Pathway_Collection
+enriched.Paths[[3]]  # KEGG_2021_Human
+enriched.Paths[[4]]  # CellMarker_Augmented_2021
+enriched.Paths[[5]]  # Reactome_2016
+enriched.Paths[[6]]  # GO_Biological_Process_2018
+enriched.Paths[[7]]  # GO_Cellular_Component_2018
+enriched.Paths[[8]]  # GO_Molecular_Function_2018
+enriched.Paths[[9]]  # InterPro_Domains_2019
+
+# Selecione os resultados da via em CellMarker_Augmented_2021
+Rpath = enriched.Paths[[4]]
+
+# Conte o número de genes por via
+Gene_Count = c()
+for(x in 1:dim(Rpath)[1]){
+  Gene_Count = c(Gene_Count, str_split(Rpath$Overlap[x], pattern = "/" )[[1]][1])
+}
+
+Rpath$Gene_Count = as.numeric(Gene_Count)
+
+# Ordene por valor de p ajustado (crescente)
+Rpath = Rpath[order(Rpath$Adjusted.P.value, decreasing = FALSE),]
+
+# Filtre por significante vias (valor de p ajustado < 0,05)
+Rpath = Rpath[Rpath$Adjusted.P.value < 0.05,]
+
+# Selecionar as 20 primeiras vias
+Rpath = Rpath[1:20,]
+
+# Ordenar as vias por contagem de genes (em ordem decrescente)
+Rpath = Rpath[order(Rpath$Gene_Count, decreasing = TRUE),]
+
+# Criar um gráfico de barras com as vias enriquecidas
+cluster6_enrichR <- ggbarplot(Rpath, x = "Term", y = "Gene_Count",
+          fill = "Gene_Count",  # Colorir as barras com base na contagem de genes
+          color = "white",  # Definir as cores das bordas das barras para branco
+          sort.val = "asc",  # Classificar por valor em ordem crescente
+          sort.by.groups = FALSE,  # Não classificar dentro de cada grupo
+          x.text.angle = 90,  # Girar as legendas do eixo x para melhor visibilidade
+          xlab = "Pathways",
+          ylab = "Number of genes",
+          legend.title = "Counts",
+          rotate = TRUE,
+          ggtheme = theme_minimal()
+) + scale_fill_continuous(low = "#bde0fe", high = color[4]) + 
+  theme(text = element_text(size = 18))
+
+# Exibe o gráfico
+cluster6_enrichR
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>DECONVOLUÇÃO DE TIPOS CELULARES</h2>
+                    <h3>Carregar o conjunto de dados SC</h3>
+                    
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Carregar o conjunto de dados de scRNA-seq
+SC.data = readRDS("ST_Exercises/scRNASeq_pac2_processed.rds")
+
+# Definir identidades de células com base no tipo de célula
+Idents(SC.data) = "cellType"
+
+# Visualização UMAP de tipos de células
+DimPlot(object = SC.data, reduction = 'umap', label = TRUE, label.size = 6,
+        group.by = "cellType", pt.size = 1.5)
+
+# Identificar DEGs em todos os clusters
+SC.markers <- FindAllMarkers(object = SC.data, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.10) 
+# min.pct = 0.10: Este argumento define a porcentagem mínima de células que expressam o gene em 10%.
+# logfc.threshold = 0.10: Define o limite mínimo de alteração do logaritmo em 0.10 para que um gene seja considerado um marcador.
+
+SC.markers = SC.markers[which(SC.markers$p_val_adj < 0.05 & SC.markers$avg_log2FC > 0.5),]
+# SC.markers$p_val_adj < 0,05: Esta condição seleciona marcadores com um valor de p ajustado menor que 0,05, o que significa que são estatisticamente significativos.
+# SC.markers$avg_log2FC > 0,5: Esta condição seleciona marcadores com uma variação média de log2 vezes maior que 0,5
+
+# Conta o número de DEGs por cluster
+table(SC.markers$cluster)
+
+DefaultAssay(SC.data) # Retorna o nome do ensaio atualmente definido como padrão para o objeto Seurat
+
+# Carrega amostra Visium FFPE 10X
+SP = Load10X_Spatial(data.dir = "ST_Exercises/10X_Spatial_T_Breast_Block_A_Section1",
+                     filename = "V1_Breast_Cancer_Block_A_Section_1_filtered_feature_bc_matrix.h5")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    A normalização é uma etapa crucial do pré-processamento na análise de dados de scRNA-seq. Ela envolve o ajuste dos dados brutos de expressão gênica para levar em conta variações técnicas e diferenças na profundidade do sequenciamento entre as células. Essas comparações devem ajudar a compreender os pontos fortes e fracos de cada método de normalização.</p>
+                    <br>
+                    <p>Método de Normalização</p>
+                    <br>
+                    <ul.a>
+                        <li>SCTransform: Um método mais avançado que utiliza regressão binomial negativa para remover a variabilidade técnica e estabilizar a variância, fornecendo uma normalização robusta para dados unicelulares.</li>
+                        <li>Log-Normalização: Escala os valores de expressão gênica e aplica uma transformação logarítmica, o que ajuda a estabilizar a variância e a tornar os dados mais adequados para análise posterior.</li>
+                        <br>
+                        <p>Remoção da Variabilidade Técnica</p>
+                        <br>
+                        <li>SCTransform: Mais robusto na remoção da variabilidade técnica, tornando-o ideal para conjuntos de dados com variação significativa.</li>
+                        <li>NormalizeData: Eficaz, mas menos sofisticado que o SCTransform no tratamento da variabilidade técnica.</li>
+                        <br>
+                        <p>Complexidade e Tempo de Execução</p>
+                        <br>
+                        <li>SCTransform: Mais complexo e demorado devido aos cálculos de regressão e à transformação de estabilização da variância.</li>
+                        <li>NormalizeData: Mais simples e rápido, tornando-o adequado para análises rápidas e grandes conjuntos de dados.</li>
+                        <br>
+                        <p>Manipulando Covariáveis</p>
+                        <br>
+                        <li>SCTransform: Permite a inclusão de covariáveis ​​(por exemplo, número de genes detectados por célula) para regressão, melhorando a qualidade dos dados normalizados.</li>
+                        <li>NormalizeData: Normalmente não incorpora covariáveis ​​diretamente no processo de normalização.</li>
+                        <br>
+                        <p>Estabilização de Variância</p>
+                        <br>
+                        <li>SCTransform: Estabiliza a variância, tornando os dados mais adequados para análises posteriores, como agrupamento e identificação de marcadores.</li>
+                        <li>NormalizeData: Utiliza a transformação logarítmica para estabilizar parcialmente a variância, mas não tão eficazmente quanto o SCTransform.</li>
+                        <br>
+                        <p>Flexibilidade</p>
+                        <br>
+                        <li>SCTransform: Focado principalmente no processamento de dados de RNA-seq de célula única com métodos de normalização robustos.</li>
+                        <li>NormalizeData: Flexível com diferentes métodos de normalização (por exemplo, LogNormalize), permitindo ajustes com base nas necessidades específicas da análise..</li>
+                        <br>
+                        <p>Escalabilidade</p>
+                        <br>
+                        <li>SCTransform: Pode lidar com grandes conjuntos de dados, mas pode ser mais lento devido à sua complexidade.</li>
+                        <li>NormalizeData: Lida com grandes conjuntos de dados com eficiência devido à sua simplicidade e velocidade.</li>
+                    </ul.a>
+
+                    </div>
+            </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plota o número de leituras por ponto no espaço
+plot1 <- VlnPlot(SP, features = "nCount_Spatial", pt.size = 0.1) + NoLegend() # cria um gráfico de violino
+plot2 <- SpatialFeaturePlot(SP, features = "nCount_Spatial") + theme(legend.position = "right") # Gera um gráfico de características espaciais para o objeto Seurat
+wrap_plots(plot1, plot2) # Esta função do pacote patchwork combina vários gráficos (plot1 e plot2) em um único layout unificado
+
+# Normaliza dados usando SCTransform
+SP <- SCTransform(SP, assay = "Spatial", verbose = FALSE, return.only.var.genes = FALSE)
+
+# Normaliza dados usando LogNormalize com um fator de escala
+SP <- NormalizeData(object = SP, assay = "Spatial", normalization.method = "LogNormalize", 
+                    scale.factor = median(SP@meta.data$nCount_Spatial))
+
+# Compare os métodos de normalização (LogNormalize vs SCTransform)
+SP <- GroupCorrelation(SP, group.assay = "Spatial", assay = "Spatial", slot = "data", do.plot = FALSE)
+SP <- GroupCorrelation(SP, group.assay = "Spatial", assay = "SCT", slot = "scale.data", do.plot = FALSE)
+
+# Gere os gráficos de comparação
+p1 <- GroupCorrelationPlot(SP, assay = "Spatial", cor = "nCount_Spatial_cor") + ggtitle("Log Normalization")
+p2 <- GroupCorrelationPlot(SP, assay = "SCT", cor = "nCount_Spatial_cor") + ggtitle("SCTransform Normalization")
+
+# Exiba ambos os gráficos lado a lado
+p1 + p2
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Pipeline de deconvolução</h2>
+                    <p>A deconvolução é uma técnica computacional usada para inferir e quantificar as proporções de diferentes tipos de células em uma população mista de células. Como os dados de scRNA-seq frequentemente provêm de tecidos complexos contendo múltiplos tipos de células, a deconvolução ajuda a identificar e isolar os perfis de expressão gênica específicos para cada tipo de célula dentro da mistura.</p>
+                    <br>
+                    <p>Por que a deconvolução é importante?</p>
+                    <br>
+                    <ul.a>
+                        <li>Identificação de Tipos de Células: A deconvolução permite que os pesquisadores determinem a presença e a abundância de vários tipos de células em uma amostra de tecido heterogênea.</li>
+                        <li>Compreensão da Composição Celular: Ajuda a elucidar a composição celular dos tecidos, revelando como diferentes tipos de células contribuem para processos biológicos e estados patológicos.</li>
+                        <li>Aprimoramento a Interpretação de Dados: Ao separar os sinais de expressão gênica de diferentes tipos de células, a deconvolução aumenta a precisão e a interpretabilidade dos dados de scRNA-seq, levando a insights biológicos mais precisos.</li>
+                    </ul.a>
+                    
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Instale os pacotes R necessários 
+# execute somente se eles não estiverem instalados
+install.packages(c('DT', 'ggcorrplot', 'scatterpie'))
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Converte o objeto Seurat em um objeto SingleCellExperiment (SCE)
+spe = SP  # Conjunto de dados transcriptômicos espaciais
+sce = as.SingleCellExperiment(SC.data) # Converte dados scRNA-seq para o formato SCE
+
+# Define genes altamente variáveis ​​(highly variable genes - HVGs) usando genes diferencialmente expressos (DEGs)
+hvg = unique(SC.markers$gene)  # Seleciona DEGs únicos
+colLabels(sce) <- colData(sce)$cellType # Atribui rótulos de tipo de célula ao objeto SCE
+
+# Reduz a amostragem de células para um máximo de 100 por identidade celular
+# Isso evita a super-representação de qualquer tipo de célula específico
+idx <- split(seq(ncol(sce)), sce$cellType) # Divide os índices de células por identidade
+n_cells <- 100  # Define o número máximo de células por tipo
+
+cs_keep <- lapply(idx, function(i) {
+  n <- length(i)
+  if (n < n_cells)  # Se um tipo de célula tiver menos de 100 células, use todas elas
+    n_cells <- n
+  sample(i, n_cells)  # Amostragem aleatória de células
+})
+
+sce <- sce[, unlist(cs_keep)]  # Subdivide o conjunto de dados com as células subamostradas
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Realize a deconvolução transcriptômica espacial usando SPOTlight
+res <- SPOTlight(
+  x = sce,  # conjunto de dados de referência scRNA-seq
+  y = spe@assays$SCT@counts,  # Contagens transcriptômicas espaciais (normalizadas por SCT)
+  groups = sce$cellType,  # Anotações de tipo de célula de scRNA-seq
+  mgs = SC.markers,  # Genes marcadores da análise de scRNA-seq
+  hvg = hvg,  # Genes altamente variáveis (Highly variable genes or DEGs)
+  weight_id = "avg_log2FC",  # Peso baseado na alteração de log2 fold change
+  group_id = "cluster",  # Informações do cluster
+  gene_id = "gene"  # Identificador da coluna de genes
+)
+
+# Extrair a matriz de deconvolução resultante
+head(mat <- res$mat)[, seq_len(3)]  # Exibir as primeiras linhas e as 3 primeiras colunas
+
+# Verificar metadados transcriptômicos espaciais
+head(spe@meta.data)
+
+# Extrair o ajuste do modelo  de fatoração de matriz não negativa (Non-Negative Matrix Factorization - NMF)
+mod <- res$NMF
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Estrutura de exibição da matriz de deconvolução
+str(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Avalie o quão específica é cada assinatura para cada identidade de célula
+plotTopicProfiles(
+  x = mod,  # modelo NMF do SPOTlight
+  y = sce$cellType, # legendas para os tipos celulares do scRNA-seq
+  facet = FALSE,  # mostre tudo em um único gráfico
+  min_prop = 0.01,  # proporção mínima a ser plotada
+  ncol = 1  # número de colunas no gráfico
+) +
+  theme(aspect.ratio = 1) # mantenha a proporção
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Garanta que todas as células da mesma identidade celular compartilhem um perfil de semelhante
+plotTopicProfiles(
+  x = mod,  # modelo NMF
+  y = sce$cellType,  # legendas para os tipos celulares
+  facet = TRUE,  # Separate os gráficos de cada tipo celular
+  min_prop = 0.01,  # proporção mínima a ser plotada
+  ncol = 4  # separe os gráficos em 4 colunas
+)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extrair a matriz base do modelo NMF
+# Esta matriz indica quais genes são mais relevantes para cada tópico
+sign <- NMF::basis(mod)
+colnames(sign) <- paste0("Topic", seq_len(ncol(sign))) # Renomeie colunas
+
+# Exibir as primeiras linhas de genes marcadores para cada tópico
+head(sign)
+
+# Crie uma tabela interativa para explorar genes marcadores por tópico
+DT::datatable(sign, fillContainer = TRUE, filter = "top")
+
+# Gere uma matriz de correlação espacial entre os tipos de células
+plotCorrelationMatrix(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Nomes de tipos de células
+ct <- colnames(mat)
+
+# Defina um limite para filtrar proporções baixas
+mat[mat < 0.1] <- 0
+
+# Defina uma paleta de cores para os tipos de células
+paletteMartin <- c("#000000", "#004949", "#009292", "#ff6db6", "#ffb6db", 
+                   "#490092", "#006ddb", "#b66dff", "#6db6ff", "#b6dbff", 
+                   "#920000", "#924900", "#db6d00", "#24ff24", "#ffff6d")
+
+# Crie uma paleta de gradiente usando as cores definidas
+pal <- colorRampPalette(paletteMartin)(length(ct))
+names(pal) <- ct # Atribua cores a cada tipo de célula
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Converta a matriz de deconvolução para um formato de matriz padrão
+m2 = as.matrix(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Gere um gráfico de transcriptômica espacial com gráficos de pizza para proporções de células
+plotSpatialScatterpie(
+  x = spe,  # Objeto de transcriptômica espacial
+  y = mat,  # Resultados da deconvolução (proporções de tipos de células)
+  cell_types = unique(sce$cellType), # Tipos de células únicos
+  img = FALSE,  # Não sobrepor imagem histológica
+  scatterpie_alpha = 1,  # Opacidade total
+  pie_scale = 0.4  # Ajustar tamanho do gráfico de pizza
+) +
+  scale_fill_manual(
+    values = pal,  # Atribuir cores aos tipos de células
+    breaks = names(pal)  # Manter as legendas consistentes
+  )
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Salve o gráfico como um arquivo PDF
+ggsave("Deconvolution.pdf", width = 12, height = 12)
+                </code></pre>
+                </div>
+            </section>
+
+                    <br>
+
+                </div>
+            </div>
+        </section>
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+
+        <!--Foootnote-->
+            <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

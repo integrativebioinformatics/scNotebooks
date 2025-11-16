@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno04/cuaderno04.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module04/module04.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno04/cuaderno04.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module04/module04.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Controle de Qualidade, Redução de Dimensionalidade e Expressão Diferencial
+                    </h1>
+                    <p class="hero-text">
+                        Nesta seção, utilizaremos o pacote Seurat para processar e analisar dados de scRNA-seq, cobrindo etapas essenciais como importação de dados, filtragem e visualização preliminar para garantir o controle de qualidade adequado antes das análises subsequentes.
+                        <br/>
+                        Uma parte fundamental da análise de scRNA-seq é a identificação de genes e transcritos com padrões de expressão distintos em diferentes condições. Essas diferenças podem revelar processos biológicos subjacentes que impulsionam a heterogeneidade celular. Para refinar o conjunto de dados, avaliaremos sua qualidade utilizando métricas-chave, aplicaremos técnicas de normalização para mitigar variabilidade técnica e implementaremos métodos de clustering para agrupar células com base nos padrões de expressão gênica.
+                        <br/>
+                        Além disso, realizaremos análises de expressão diferencial, anotação de tipos celulares e técnicas de enriquecimento funcional para investigar mecanismos de regulação gênica, identificar marcadores importantes e explorar vias envolvidas na diferenciação celular e em estados de doença. Em conjunto, essas abordagens fornecem uma estrutura abrangente para interpretar dados de transcriptômica de célula única e extrair insights biológicos significativos.
+                    </p>
+                    <br>
+                    <hr/>
+                    </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Configurar</h2>
+                <p>Nesta seção, configuraremos o ambiente de computação necessário para executar as análises para esta parte. A configuração envolve usar Shell e R dentro deste notebook.</p>
+                <br>
+                <p>Primeiro, criaremos uma função chamada shell_call para executar scripts de shell diretamente.</p>
+                <br>
+                <p>Depois disso, instalaremos e configuraremos o R para garantir que ele esteja pronto para uso.</p>
+                <br>
+                <p><b>R</b> é uma linguagem de programação e ambiente de software para análise de dados, estatísticas e gráficos. É amplamente utilizado em pesquisa científica, aprendizado de máquina, bioinformática e ciência de dados devido à sua flexibilidade e vasta coleção de pacotes. R é de código aberto e oferece ferramentas para manipulação de dados, modelagem estatística, visualização e integração com outras linguagens, como Python e C++.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# https://stackoverflow.com/questions/70025153/how-to-access-the-shell-in-google-colab-when-running-the-r-kernel
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)
+  cat(paste0(result, collapse = "\n"))
+}
+loadPackages = function(pkgs){
+  myrequire = function(...){
+    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
+  }
+  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE)
+  if (!all(ok)){
+    message("There are missing packages: ", paste(pkgs[!ok], collapse=", "))
+  }
+}
+
+# Install curl if missing
+shell_call("apt update -qq")
+shell_call("apt install -y --no-install-recommends curl ca-certificates")
+# Run apt script
+
+shell_call("curl https://raw.githubusercontent.com/Bioconductor/bioc2u/devel/apt_setup.sh | sudo bash")
+bspm::enable()
+options(bspm.version.check=FALSE)
+## Install the R packages
+cranPkgs2Install = c("BiocManager", "ggpubr", "Seurat", "cowplot",
+                     "Rtsne", "hdf5r", "clustree")
+install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+biocPkgs2Install = c("clusterProfiler", "preprocessCore", "rols",
+                     "scDblFinder","clusterExperiment", "SingleR",
+                     "celldex", "org.Hs.eg.db")
+BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# https://stackoverflow.com/questions/70025153/how-to-access-the-shell-in-google-colab-when-running-the-r-kernel
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)
+  cat(paste0(result, collapse = "\n"))
+}
+
+loadPackages = function(pkgs){
+  myrequire = function(...){
+    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
+  }
+  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE)
+  if (!all(ok)){
+    message("There are missing packages: ", paste(pkgs[!ok], collapse=", "))
+  }
+}
+
+## Setup R2U
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+Sys.chmod("add_cranapt_jammy.sh", "0755")
+shell_call("./add_cranapt_jammy.sh")
+bspm::enable()
+options(bspm.version.check=FALSE)
+shell_call("rm add_cranapt_jammy.sh")
+
+## Install the R packages
+cranPkgs2Install = c("BiocManager", "ggpubr", "Seurat", "cowplot",
+                     "Rtsne", "hdf5r", "clustree")
+install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+biocPkgs2Install = c("clusterProfiler", "preprocessCore", "rols",
+                     "scDblFinder","clusterExperiment", "SingleR",
+                     "celldex", "org.Hs.eg.db")
+BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+                </code></pre>
+                </div>
+            </section>
+
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h3>Pacotes no R</h3>
+                            <br>
+                            <p>Um pacote em R é uma coleção de funções, dados e documentação agrupados. Pacotes ajudam a estender a funcionalidade principal do R ao fornecer ferramentas específicas para diferentes tarefas, como análise de dados, visualização de gráficos, estatísticas avançadas, etc.</p>
+                            <br>
+                            <h3>Instalação</h3>
+                            <br>
+                            <p>Antes de usar um pacote, ele deve ser instalado no seu ambiente. Isso é feito apenas uma vez (a menos que precise ser atualizado) com o comando:</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+install.packages("nome_do_pacote")
+                </code></pre>
+                </div>
+                </section>
+
+                            <h3>Biblioteca</h3>
+                            <br>
+                            <p>Uma vez instalado, o pacote precisa ser carregado em cada sessão em que você deseja usá-lo. O comando verifica se o pacote mencionado está instalado. Se o pacote estiver instalado, ele estará carregado e pronto para uso. Se o pacote não estiver instalado, o R retornará um erro.</p>
+                            <br>
+                            <p>É aqui que entra a função library():</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+library(nome_do_pacote)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Para simplificar o carregamento de pacotes, criamos a função loadPackages().
+# Mas, se você não tiver a função, você deve usar 'library(nome_do_pacote)'
+pkgs = c("Rtsne", "Seurat", "tidyverse", "cowplot",
+"scDblFinder", "clustree", "preprocessCore",
+"clusterProfiler", "celldex")
+loadPackages(pkgs)
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Em seguida, carregue as bibliotecas que você instalou anteriormente.</p>
+
+                            <ul.a>
+                                <li><a href="https://jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">Rtsne</a>: pacote em R que implementa a técnica t-SNE para redução de dimensionalidade e visualização de dados.</li>
+                                <li><a href="https://satijalab.org/seurat/articles/get_started.html">Seurat:</a> Seurat é um pacote R projetado para controle de qualidade, análise e exploração de dados de RNA-seq de célula única.</li>
+                                <li><a href="https://bioconductor.org/packages/release/bioc/html/scDblFinder.html">scDblFinder:</a> O pacote scDblFinder reúne vários métodos para a detecção e manipulação de dupletos/múltiplos em dados de sequenciamento de células únicas (ou seja, várias células capturadas dentro da mesma gota ou volume de reação)</li>
+                                <li><a href="https://wilkelab.org/cowplot/articles/introduction.html">Cowplot</a> Fornece vários recursos que ajudam a criar figuras com qualidade de publicação com ggplot2, como um conjunto de temas, funções para alinhar gráficos e organizá-los em figuras compostas complexas e funções que facilitam a anotação de gráficos e/ou a mistura de gráficos com imagens.</li>
+                                <li><a href="https://lazappi.github.io/clustree/">Clustree</a>Esta visualização mostra as relações entre clusters em múltiplas resoluções, permitindo que os pesquisadores vejam como as amostras se movem conforme o número de clusters aumenta.</li>
+                                <li><a href="https://bioconductor.org/packages/release/bioc/html/preprocessCore.html">PreprocessCore:</a> Uma coleção de funções de pré-processamento</li>
+                            </ul.a>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Entrada de dados, matriz de contagem UMI esparsa</h2>
+                            <p>Referência: <a href="https://www.nature.com/articles/s41591-020-0901-9">https://www.nature.com/articles/s41591-020-0901-9</a></p>
+
+                        <section class="video">
+                            <div class="container-md">
+                                <div class="video-content">
+                                    <img src="geo_dataset.jpg" alt="img" class="video-preview">
+                                </div>
+                            </div>
+                        </section>
+
+                        <p>Download dados brutos do GEO</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Este comando em R baixa um arquivo da internet e o salva localmente
+download.file('https://www.ncbi.nlm.nih.gov/geo/download/?acc=GSE145926&format=file','GSE145926_RAW.tar')
+
+# Este comando usa a função personalizada shell_call para executar um comando shell.
+# O comando tar -xf é usado para extrair o conteúdo de um arquivo compactado no formato .tar.
+shell_call("tar -xf GSE145926_RAW.tar")
+
+# rm é um comando shell para excluir arquivos, liberar espaço e manter o diretório organizado.
+shell_call("rm GSE145926_RAW.tar")
+
+# ls é usado para listar arquivos.
+# -l: Exibe detalhes do arquivo (permissões, proprietário, tamanho, data, etc.).
+# -h: Formata tamanhos de arquivo em um formato legível por humanos, como KB, MB ou GB.
+shell_call("ls -lh")
+                </code></pre>
+                </div>
+            </section>
+
+                        <p>Separe os arquivos scRNA e TCRseq.</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crie um diretório
+shell_call("mkdir -p TCRseq")
+
+# mv é o comando shell para mover ou renomear arquivos.
+# O padrão *_filtered_contig_annotations.csv.gz usa o caractere curinga * 
+# para encontrar todos os arquivos que terminam com _filtered_contig_annotations.csv.gz.
+shell_call("mv *_filtered_contig_annotations.csv.gz TCRseq/")
+
+shell_call("mkdir -p scRNAseq")
+
+# Este comando move todos os arquivos que têm _filtered_ em seus nomes para o diretório scRNAseq/.
+shell_call("mv *_filtered_* scRNAseq/")
+shell_call("ls -lh")
+                </code></pre>
+                </div>
+            </section>
+
+                        <p>Agora vamos ler dados para uma amostra. Os dados do 10X Genomics são geralmente armazenados no formato HDF5 (Hierarchical Data Format versão 5), um formato de arquivo projetado para armazenar e organizar grandes volumes de dados de forma eficiente, que é um formato científico de alto desempenho.
+
+                        O comando Read10X_h5() é capaz de importar esses dados e carregá-los no R, usando um tipo especial de matriz, que tem uma maneira eficiente de representar dados com muitos zeros.</p>
+                        <br>
+                        <p>The Read10X_h5() command is able to import this data and load it into R, using a special type of matrix, which has an efficient way of representing data with lots of zeroes.</p>
+                        <br>
+                        <p>Como esses arquivos foram criados?</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Read10X_h5 lê os arquivos da 10x em h5
+# '<-' direciona para onde armazenar o valor
+# sc armazena o arquivo
+sc <- Read10X_h5("scRNAseq/GSM4339769_C141_filtered_feature_bc_matrix.h5")
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Tem algo de especial nessa matriz?
+sc[33493:33500,1:3]
+                </code></pre>
+                </div>
+            </section>
+
+                        <p>Em dados de sequenciamento de RNA de célula única (scRNA-seq), a maioria dos valores na matriz são zeros (0), representando genes sem moléculas detectadas em muitas células. Para lidar com isso de forma eficiente, Seurat usa uma representação de matriz esparsa sempre que possível.</p>
+                        <br>
+                        <p>Matrizes esparsas armazenam apenas os valores diferentes de zero e suas localizações, reduzindo significativamente o uso de memória e melhorando a velocidade de processamento para conjuntos de dados como Drop-seq, inDrop ou dados 10x Genomics.</p>
+                        <br>
+                        <p>Por exemplo, converter uma matriz densa (~1600 MB) em uma matriz esparsa reduz seu tamanho para menos de 160 MB — uma redução de 10 vezes. Essa otimização é crucial ao trabalhar com conjuntos de dados scRNA-seq em larga escala.</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Converte o objeto sc, uma matriz esparsa de um conjunto de dados scRNA-seq, em uma matriz densa
+dense.size <- object.size(as.matrix(sc))
+
+# Calcula o tamanho do objeto sc sem convertê-lo em uma matriz densa.
+sparse.size <- object.size(sc)
+
+# Retorna o tamanho da matriz densa e da matriz esparsa em MB.
+format(dense.size, "MB")
+format(sparse.size, "MB")
+
+# Calcula a proporção do tamanho da matriz densa para o tamanho da matriz esparsa.
+density.size/sparse.size
+                </code></pre>
+                </div>
+            </section>
+
+                        <p>Usamos os comandos usuais de matriz para manipular uma matriz esparsa. Veja abaixo como:</p>
+                        <br>
+                        <p>Conhecer as dimensões da matriz; Identificar a classe de uma matriz esparsa; Selecionar linhas e colunas de uma matriz esparsa usando índices numéricos; Extrair os nomes das colunas (ou das linhas); Selecionar linhas (ou colunas) de uma matriz esparsa usando os nomes das linhas (ou colunas)</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Quantas características?
+# Quantas células?
+dim(sc)
+
+# Qual é a classe: matriz esparsa
+class(sc)
+
+# Selecione algumas linhas e algumas colunas
+# Há algo especial sobre esta matriz?
+sc[33495:33500,1:3]
+
+# Selecione usando rownames (colnames)
+sc[c("MIR1302-2HG","FAM138A","OR4F5"), 1:30]
+
+# Quais são os nomes dos genes
+rownames(sc)[1:3]
+
+# Extraia os nomes das células
+colnames(sc)[1:3]
+                </code></pre>
+                </div>
+            </section>
+
+                        <p>Qual é o tamanho desta tabela de contagem?</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Mostrar as dimensões de sc
+print(dim(sc))
+
+# Mostrar a classe de sc
+print(class(sc))
+                </code></pre>
+                </div>
+            </section>
+                            
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Controle de Qualidade</h2>
+
+                            <ul.a>
+                                Agora criaremos um objeto Seurat para continuar com a análise. Nesta etapa, aplicaremos alguns filtros:
+                                <li>Remover genes que são detectados em menos de 3 células.</li>
+                                <li>Remover células que expressam menos de 200 genes.</li>
+                            </ul.a>
+                            <br>
+                            <p>Essas etapas de filtragem ajudam a limpar os dados excluindo genes e células com expressão mínima, o que pode não ser informativo. No entanto, esses filtros são opcionais — você pode ajustar os limites ou pular esta etapa completamente, se preferir.</p>
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- CreateSeuratObject(counts = sc, project="sampleA", min.cells=3, min.features=200)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Méticas de QC para as primeiras 5 células
+head(sampleA@meta.data, 5)
+                </code></pre>
+                </div>
+            </section>
+                            <p>O que sabemos sobre o objeto sampleA?</p>
+                            <br>
+                            <p>Quantos genes e quantas células o objeto Seurat tem?</p>
+                            <br>
+                            <p>Além disso, por que esses números são diferentes?</p>
+                            <br>
+                            <p>Lembre-se de que criamos o objeto Seurat especificando que cada gene tinha que estar presente em, pelo menos, 3 células (caso contrário, o gene é removido). Também especificamos que cada célula precisa ter, pelo menos, 200 genes.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Vamos verificar as dimensões da matriz original (sc)
+## e comparar com o objeto Seurat (sampleA)
+dim(sc)
+dim(sampleA)
+dim(sc) - dim(sampleA)
+                </code></pre>
+                </div>
+            </section>
+                        <p>Qual é o tamanho do nosso objeto Seurat e quantos genes e células foram removidos da tabela original?</p>
+                        </div>
+                    </section>
+                    
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Identificando Doublets</h2>
+
+                            <p>Doublets ocorrem quando duas ou mais células são capturadas por engano juntas no mesmo poço, o que é um problema comum no sequenciamento de RNA de célula única. Isso pode acontecer quando a suspensão de células está muito concentrada.</p>
+                            <br>
+                            <p>Para resolver esse problema, usaremos o método scDblFinder para identificar e remover doublets do nosso conjunto de dados. Este método requer um objeto da classe SingleCellExperiment, que faz parte da infraestrutura do Bioconductor.</p>
+                            <br>
+                            <ul.a>
+                               Etapas:  
+                                <li>Prepare the Prepare o objeto SingleCellExperiment: isso é necessário antes de aplicar o método scDblFinder.</li>
+                                <li>Aplique scDblFinder: o método usa uma abordagem probabilística para detectar doublets, portanto os resultados podem variar ligeiramente entre as execuções.</li>
+                                <li>Garanta a reprodutibilidade: para evitar variabilidade nos resultados, definiremos uma semente aleatória usando a função <span class="code-inline-light">set.seed()</span>. Isso garante que o método produza os mesmos resultados sempre que for executado.</li>
+                            </ol>
+                            <br>
+                            <p>Ao definir a semente, tornamos o processo reproduzível, ajudando a confirmar que os resultados são consistentes em diferentes execuções.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sce <- as.SingleCellExperiment(sampleA)
+sce
+
+# Precisamos definir.seed() porque o comando scDblFinder usa uma estratégia probabilística para identificar doublets.
+# Isso significa que, toda vez que executarmos o comando, ele produzirá resultados ligeiramente diferentes.
+# O comando set.seed() garantirá os mesmos resultados todas as vezes.
+set.seed(123)
+results <- scDblFinder(sce, returnType = 'table') %>%
+as.data.frame() %>%
+filter(type == 'real')
+head(results)
+                </code></pre>
+                </div>
+            </section>
+                            <p>Observe que a tabela de resultados inclui uma coluna chamada class, que categoriza as células em dois tipos: singlet e doublet. Conforme mostrado abaixo, as células doublet são aquelas que devem ser removidas do conjunto de dados antes de prosseguir com análises posteriores. Em outras palavras, queremos manter apenas as células sinalizadas como singlet, que representam células individuais, e remover os doublets.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+results %>%
+  dplyr::count(class)
+                </code></pre>
+                </div>
+                </section>
+
+                <p>Salve os resultados de scDblFinder() para reutilizar mais tarde</p>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Esta função é usada para criar um caminho de arquivo de forma robusta e independente do sistema operacional (funciona no Windows, Linux, etc.)
+outfile = file.path('dataset1_control.txt')
+
+# Esta função grava os dados de um data frame ou matriz em um arquivo de texto.
+write.table(results, outfile, sep='\t', quote=F,
+            col.names=TRUE, row.names=TRUE)
+                </code></pre>
+                </div>
+                </section>
+        
+                            <p>Vamos encontrar os doublets e removê-los da nossa matriz, ou seja, vamos manter apenas os singlets.</p>
+                            <br>
+                            <p>Lembre-se de que, nesta sessão, estamos focando no objeto Seurat (sampleA), e é por isso que trabalharemos com subconjunto deste objeto.</p>
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+keep = results %>%
+  dplyr::filter(class == "singlet") %>%
+  rownames()
+sampleA = sampleA[, keep]
+sampleA
+                </code></pre>
+                </div>
+                </section>    
+                            <p>A porcentagem de leituras mitocondriais não é calculada automaticamente pelo Cell Ranger. Então, primeiro temos que fazer isso. Usamos essa oportunidade para incluir a porcentagem de leituras MT como metadados para o objeto Seurat (sampleA). Lembre-se de que uma alta porcentagem de leituras mitocondriais é geralmente associada a células de alto estresse e baixa qualidade. Veja qual o formato está anotado as leituras mitocondriais da sua referência</p>
+
+ <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA[["percent.mt"]] <- PercentageFeatureSet(sampleA, pattern="^MT-")
+                </code></pre>
+                </div>
+                </section>                           
+
+                            <p>Esta função permite calcular facilmente a porcentagem de contagens que pertencem a um subconjunto específico de características para cada célula. Por exemplo, você pode usá-la para calcular a porcentagem de transcrições que mapeiam para genes mitocondriais. O cálculo é feito somando as contagens (UMIs) para as características no subconjunto (por exemplo, genes mitocondriais) e dividindo essa soma pela soma total de contagens para todas as características (todos os genes) em cada célula. O resultado é então multiplicado por 100 para obter a porcentagem.</p>
+                            <br>
+                            <p>Neste exemplo, a função adiciona uma nova coluna chamada percent.mt aos metadados associados à amostra (aqui, sampleA). Esta coluna contém a porcentagem calculada para cada célula.</p>
+                            <br>
+                            <i>Esclarecimento de terminologia:</i>
+                            <p><b>Features (Característica):</b> Refere-se a genes neste contexto.</p>
+                            <p><b>Contagem:</b> Refere-se às contagens de UMI (Identificadores Moleculares Únicos) para cada gene.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA@meta.data %>% head()
+                </code></pre>
+                </div>
+                </section>
+
+                            <p>O código fornecido é usado para gerar um gráfico de violino para visualizar a distribuição de certos recursos no conjunto de dados usando o pacote Seurat em R.</p>
+                            
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Esta função é usada para criar gráficos de violino, que exibem a distribuição de valores para um determinado recurso em células em um conjunto de dados.
+scPlot <- VlnPlot(sampleA, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol=3)
+scPlot
+#ggsave("01-VlnPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>
+
+                            <p>Gráficos de violino unidimensionais são frequentemente difíceis de interpretar a distribuição inteira, então vamos tentar alguns histogramas. Esta é também uma demonstração de como fazer gráficos sem usar os comandos de visualização de Seurat.</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA.qc <- FetchData(sampleA,
+                        vars=c("nFeature_RNA","nCount_RNA","percent.mt"))
+scPlot <- sampleA.qc %>%
+          ggplot() +
+          geom_histogram(aes(x=nCount_RNA), bins=100)
+scPlot
+#ggsave("2-histogram.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>    
+
+                            <p>Tente extrair a média de nCounts_RNA</p>
+
+                       <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+summary(sampleA.qc$nCount_RNA)
+                </code></pre>
+                </div>
+                </section>    
+
+                            <p>Vemos muito claramente que a célula típica tem cerca de 20.000 UMIs, mas isso varia de apenas algumas dezenas a mais de 60.000</p>
+                            <br>
+                            <p>Vamos ampliar a extremidade de contagem baixa do espectro apenas para ver se podemos identificar alguma estrutura (por exemplo, bimodalidade)</p>
+
+                         <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+          ggplot() +
+          geom_histogram(aes(x=nCount_RNA), bins=100) +
+          xlim(0,1500)
+scPlot
+#ggsave("03-histogram.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>   
+
+                            <p>Dada a grande faixa dinâmica, talvez uma escala logarítmica seja útil</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+          ggplot() +
+          geom_histogram(aes(x=nCount_RNA), bins=200) +
+          scale_x_log10()
+scPlot
+#ggsave("04-histogram.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>    
+
+                    <p>Agora vamos olhar para o número médio de genes por célula</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+median(sampleA.qc$nFeature_RNA)
+                </code></pre>
+                </div>
+                </section>    
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+    ggplot() +
+    geom_histogram(aes(x=nFeature_RNA), bins=200) +
+    geom_vline(xintercept = 3096,color="red")
+scPlot
+#ggsave("05-histogram.png",plot = scPlot, bg = 'white')
+scPlot <- sampleA.qc %>%
+    ggplot() +
+    geom_histogram(aes(x=nFeature_RNA), bins=200) +
+    geom_vline(xintercept = 10^(3.491),color="red") +
+    scale_x_log10()
+scPlot
+#ggsave("06-histogram.png",plot = scPlot, bg = 'white')
+summary(sampleA.qc$nFeature_RNA)
+                </code></pre>
+                </div>
+                </section>  
+
+                            <p>Parece que a célula típica tem dados sobre cerca de 3000 genes, variando de 200 (o mínimo que definimos quando criamos o objeto Seurat) a mais de 9000</p>
+                            <br>
+                            <p>E quanto à porcentagem de leituras mitocondriais?</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+          ggplot() +
+          geom_histogram(aes(x=percent.mt), bins=100) +
+          geom_vline(xintercept = 10,color="red")
+scPlot
+#ggsave("07-histogram.png",plot = scPlot, bg = 'white')
+summary(sampleA.qc$percent.mt)s
+                </code></pre>
+                </div>
+                </section>
+
+                            <p>A maioria das células está abaixo de 5%, mas algumas estão acima de 50%</p>
+                            <br>
+                            <p>Frequentemente é mais útil olhar para várias métricas de QC juntas em vez de individualmente. Vamos tentar alguns gráficos de dispersão 2D simples</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeatureScatter(sampleA, feature1="nCount_RNA", feature2="percent.mt")
+scPlot
+#ggsave("08-FeatureScatter.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>    
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeatureScatter(sampleA, feature1="nCount_RNA", feature2="nFeature_RNA")
+scPlot
+#ggsave("09-FeatureScatter.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>    
+
+                            <p>Lembre-se: não precisamos usar apenas ferramentas de plotagem Seurat.</p>
+                            <br>
+
+                            <p>ggplot2 é uma ferramenta de visualização poderosa, que lida bem com tabelas para criar gráficos. Verifique o gráfico acima (nFeature vs. nCount) e considere que pode ser interessante entender como os dados se comportam em função da porcentagem de leituras de MT.</p>
+                         <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+          ggplot() +
+          geom_point(aes(nCount_RNA, nFeature_RNA, colour=percent.mt), alpha=.50) +
+          scale_x_log10() +
+          scale_y_log10()
+scPlot
+#ggsave("10-FeatureScatter.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>   
+                            
+
+                            <p>A maior parte deste QC parece bem legal. Não vemos subpopulações de células notavelmente diferentes por essas métricas de QC. Só por segurança, vamos remover células com mais de 10% de leituras mitocondriais, o que pode ser um sinal de dano ex-vivo durante o manuseio da amostra e geração da biblioteca</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Filter using more than one variable
+sampleA <- subset(sampleA, nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt < 10)
+                </code></pre>
+                </div>
+                </section>    
+
+                            <p>Vamos reutilizar o gráfico que criamos no último exercício e criar uma nova coluna (chamada keep) usando a tabela de metadados. Esta coluna identificará as células que removemos acima.</p>
+
+                         <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA.qc %>%
+          mutate(keep = if_else(nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt < 10, "keep", "remove")) %>%
+          ggplot() +
+          geom_point(aes(nCount_RNA, nFeature_RNA, colour=keep), alpha=.50) +
+          scale_x_log10() +
+          scale_y_log10()
+scPlot
+#ggsave("11-point.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>   
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#sampleA <- subset(sampleA, subset = percent.mt < 10)
+scPlot <- FeatureScatter(sampleA, feature1="nCount_RNA", feature2="percent.mt")
+scPlot
+#ggsave("12-FeatureScatter.png",plot = scPlot, bg = 'white')
+print(dim(sc))
+print(dim(sampleA))
+                </code></pre>
+                </div>
+                </section>   
+
+                            
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Identificar genes variáveis</h2>
+                            <p>Para ter uma ideia dos padrões de mudança de expressão genética entre células, vamos começar a explorar algumas visualizações</p>
+                            <br>
+                            <p>O primeiro passo na análise é identificar os genes que mostram a maior variabilidade no conjunto de dados. Genes que não variam muito entre células têm menos probabilidade de fornecer informações úteis para análises posteriores, então vamos nos concentrar nos 2000 genes mais variáveis.</p>
+                            <br>
+                            <p>Para fazer isso, primeiro aplicaremos uma transformação de estabilização de variância (vst). Essa transformação ajuda a ajustar a relação entre a média e a variância dos valores de expressão gênica, facilitando a comparação de genes com diferentes níveis de expressão. O objetivo da vst é reduzir o efeito de genes com altos níveis de expressão, que tendem a ter maior variabilidade, e tornar a variabilidade dos genes mais consistente em diferentes níveis de expressão. Essa etapa garante que possamos identificar com mais precisão os genes que realmente variam entre as células e provavelmente são biologicamente significativos.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- FindVariableFeatures(sampleA, selection.method = "vst", nfeatures = 2000)
+                </code></pre>
+                </div>
+                </section>
+
+                            <p>Vamos ver agora os nomes dos genes mais variáveis</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+top10 <- head(VariableFeatures(sampleA), 10)
+top10
+                </code></pre>
+                </div>
+                </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- code block -->
+                <pre><code class="language-r">
+'CAPS'
+'C20orf85'
+'GSTA1'
+'C9orf24'
+'IGFBP7'
+'C2orf40'
+'SAA1'
+'LCN2'
+'HAMP'
+'MT1G'
+                </code></pre>
+                </div>
+                </section>
+
+                            <p>Agora vamos traçar a variância (após vst) versus a média de expressão para cada gene, colorindo os 2000 primeiros e rotulando os 10 primeiros.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+plot1 <- VariableFeaturePlot(sampleA)
+scPlot <- LabelPoints(plot=plot1, points = top10, repel=T, xnudge=0, ynudge=0) + theme(legend.position="none")
+scPlot
+#ggsave("13-VariableFeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Escalando a expressão gênica</h2>
+                            <p>A próxima etapa da análise é escalar a expressão de cada gene entre as células. Isso significa ajustar os valores de expressão para que cada gene tenha uma expressão média de 0 e uma variância de 1. Essa etapa de escala é importante porque os genes geralmente têm diferentes níveis de expressão (magnitude) e, se não escalarmos os dados, genes com níveis de expressão mais altos podem dominar a análise.</p>
+                            <br>
+                            <p>Ao escalar a expressão, todos os genes contribuirão igualmente para análises posteriores, independentemente de seus níveis de expressão iniciais. Essa é uma técnica comum usada em muitos campos de big data para garantir que recursos (como genes neste caso) com diferentes escalas ou magnitudes possam ser comparados ou usados ​​juntos de forma eficaz.</p>
+                            <br>
+                            <p>No Seurat, o processo de escala não substitui os valores de expressão originais e não escalados. Em vez disso, os valores de expressão escalados são armazenados separadamente no objeto Seurat em sampleA[["RNA"]]@scale.data. Dessa forma, tanto os valores de expressão brutos quanto os dimensionados são preservados, permitindo que você use qualquer versão dependendo da análise ou visualização que estiver realizando.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Escalone os dados                   
+sampleA = NormalizeData(sampleA)
+all.genes <- rownames(sampleA)
+sampleA <- ScaleData(sampleA, features = all.genes)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA[["RNA"]]$data[1:10,1:10]
+                </code></pre>
+                </div>
+            </section>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Redução de Dimensão</h2>
+                            <h3>PCA</h3>
+
+                            <p>Nós identificamos os genes mais variáveis ​​e padronizamos suas escalas. Agora, vamos executar nossa primeira redução de dimensionalidade e visualização usando PCA (Análise de Componentes Principais).</p>
+                            <br>
+                            <p>PCA é uma técnica usada para reduzir o número de dimensões (características) em um conjunto de dados, preservando o máximo de variabilidade (informação) possível. Ela faz isso encontrando novas variáveis, chamadas componentes principais, que são combinações das características originais. Esses componentes capturam os padrões mais importantes nos dados. Em termos simples, PCA ajuda a simplificar dados complexos, transformando-os em um conjunto menor de componentes significativos, tornando-os mais fáceis de visualizar e interpretar.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- RunPCA(sampleA, features = VariableFeatures(sampleA))
+scPlot <- DimPlot(sampleA, reduction="pca")
+scPlot
+#ggsave("14-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Hmm, isso não mostra muita estrutura. Parece que a grande maioria da variação entre células vem de uma direção no espaço de expressão genética. Talvez possamos aprender algo observando quais genes contribuem para esse PC.</p>
+                            <br>
+                            <p>A variância explicada por cada componente principal é a razão entre cada autovalor e a soma de todos os autovalores. Precisamos lembrar que Seurat não computa todos os componentes principais, porque é computacionalmente pesado. No nosso caso, ele calculou os primeiros 50 PCs, então toda a inferência deve ser condicional a esses 50 PCs (e não a todos os 3894 PCs possíveis).</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+pca = sampleA[["pca"]]
+
+## get the eigenvalues
+evs = pca@stdev^2
+total.var = pca@misc$total.variance
+varExplained = evs/total.var
+pca.data = data.frame(PC=factor(1:length(evs)),
+                      percVar=varExplained*100)
+pca.var = cumsum(pca.data$percVar)
+######
+pca.data$cumulVar = pca.var
+# pca.data$cumulVar = cumsum(pca.data$percVar) <- retire '#' para funcionar
+
+head(pca.data, 20)
+
+scPlot <- pca.data[1:10,] %>%
+          ggplot(aes(x=PC, y=percVar)) +
+          geom_bar(stat='identity') +
+          geom_hline(yintercept = 1, colour="red", linetype=3) +
+          labs(title="Variance Explanation by PCA") +
+          xlab("Principal Components") +
+          ylab("Percentage of Explained Variance") +
+          theme_bw()
+scPlot
+#ggsave("15-geom_bar.png",plot = scPlot, bg = 'white')
+
+scPlot <- pca.data[1:10,] %>%
+          ggplot(aes(x=PC, y=cumulVar)) +
+          geom_bar(stat='identity') +
+          geom_hline(yintercept = 50, colour="red", linetype=3) +
+          labs(title="Cumulative Variance Explanation by PCA") +
+          xlab("Principal Components") +
+          ylab("Cumulative Percentage of Explained Variance") +
+          theme_bw()
+scPlot
+#ggsave("16-geom_bar.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Observando o PC1, parece que ele é responsável pelo sinal geral por célula. Não conseguimos ver grupos claros de diferentes conjuntos de genes (ao contrário do PC2).</p>
+                            <br>
+                            <p>Os outros PCs parecem estar medindo a expressão relativa de diferentes genes. Se o PC1 for apenas o sinal total por célula, talvez possamos visualizar isso diretamente.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#png("17-DimHeatmap.png", re#png("17-DimHeatmap.png", res= 300, height = 1920, width = 1920)
+DimHeatmap(sampleA, dims = 1:2)
+#dev.off()
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Calcule a variância para cada componente para encontrar uma explicação</p>
+                            <br>
+                            <p>Parece que <b>PC1</b> tem apenas pesos positivos de um monte de genes. Isso sugere que ele não está equilibrando a expressão de diferentes conjuntos de genes, está apenas medindo o sinal geral. Como são os outros PCs?</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#png("18-DimHeatmap.png", res= 300, height = 1920, width = 1920)
+DimHeatmap(sampleA, dims = 1:5, cells = 500, balanced=T)
+#dev.off()
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Os outros PCs, em vez disso, parecem estar medindo a expressão relativa de genes diferentes. Se PC1 for apenas o sinal total por célula, talvez possamos visualizar isso diretamente.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features="nCount_RNA")
+scPlot
+#ggsave("19-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Esse definitivamente parece ser o caso. Essa grande variação no RNA total por célula provavelmente está influenciando os resultados. Observamos isso em nossas etapas de QC e, como ainda não corrigimos, é importante abordar esse problema agora.</p>
+                            <br>
+                            <p>Uma maneira comum e direta de corrigir isso é normalizar os dados. Faremos isso dividindo as contagens de cada gene pela contagem total de UMI (Unique Molecular Identifier) ​​para aquela célula específica. Esta etapa ajusta a eficiência variável de captura de RNA entre as células, garantindo que os níveis de expressão sejam comparáveis ​​em todas as células, independentemente do seu conteúdo total de RNA.</p>
+                            <br>
+                            <p>Após a normalização, aplicaremos uma transformação logarítmica. Isso é feito para tornar os dados mais gerenciáveis ​​e reduzir o impacto de genes com expressão muito alta, que podem dominar a análise.</p>
+                            <br>
+                            <p>Além disso, multiplicaremos as contagens normalizadas por um fator de escala de 10.000 antes de aplicar a transformação logarítmica. Esse fator é um tanto arbitrário, mas é comumente usado na prática. O fator de escala garante que os valores resultantes não sejam muito pequenos e sejam mais fáceis de manipular computacionalmente. Embora o fator exato não seja crítico, usar um valor padrão como 10.000 torna o processo consistente e permite uma comparação mais fácil entre conjuntos de dados.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA = NormalizeData(sampleA, normalization.method="LogNormalize",
+                        scale.factor=10000)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA = FindVariableFeatures(sampleA, selection.method="vst",
+                               nfeatures=2000)
+top10 = head(VariableFeatures(sampleA), 10)
+top10
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+plot1 = VariableFeaturePlot(sampleA)
+scPlot <- LabelPoints(plot=plot1, points=top10, repel=TRUE, xnudge=1, ynudge=1) +
+          theme(legend.position="none")
+scPlot
+#ggsave("20-VariableFeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- ScaleData(sampleA, features = all.genes)
+# perform PCA
+sampleA <- RunPCA(sampleA, features = VariableFeatures(sampleA))
+scPlot <- DimPlot(sampleA, reduction="pca")
+scPlot
+#ggsave("21-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- ScaleData(sampleA, features = all.genes)
+# rode o PCA
+sampleA <- RunPCA(sampleA, features = VariableFeatures(sampleA))
+scPlot <- DimPlot(sampleA, reduction="pca")
+scPlot
+#ggsave("21-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Não parece melhor, mas é isso, é possível melhorar?</p>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>UMAP</h2>
+                            <p>UMAP (Uniform Manifold Approximation and Projection) é uma técnica de redução de dimensionalidade não linear que é frequentemente usada para visualizar conjuntos de dados complexos, como dados de RNA-seq de célula única. Ao contrário do PCA, que é uma transformação linear, o UMAP é capaz de capturar relacionamentos não lineares mais complexos entre pontos de dados. Isso torna o UMAP especialmente útil quando os dados têm estruturas intrincadas que não podem ser capturadas por métodos lineares.</p>
+                            <br>
+                            <p>O recurso do UMAP é que ele preserva estruturas locais e globais nos dados. Isso significa que o UMAP não apenas mantém os relacionamentos entre pontos próximos, mas também tenta manter a estrutura geral mais ampla do conjunto de dados, o que o torna ótimo para visualização.</p>
+                            <br>
+                            <p>No entanto, o problema ou limitação do UMAP é que ele é computacionalmente caro e pode ser ruidoso ao lidar com dados de alta dimensão diretamente. Para resolver isso, geralmente realizamos a redução de dimensionalidade inicial usando PCA antes de aplicar o UMAP. O PCA reduz o número de dimensões identificando os componentes mais importantes nos dados, o que simplifica a estrutura e acelera os cálculos do UMAP. Além disso, o PCA pode ajudar a remover algum ruído, melhorando a qualidade dos resultados do UMAP.</p>
+                            <br>
+                            <p>Em resumo, o UMAP é uma ferramenta poderosa para visualizar dados complexos, e usá-lo após o PCA pode tornar o processo mais eficiente e produzir resultados mais claros.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Para usar PCA para redução de dimensionalidade, temos que escolher quantos componentes principais usar.
+# Como o PCA é linear e ortogonal, os valores de PC são simples de interpretar como explicação de uma fração da variação total nos dados.
+# Vamos dar uma olhada nos PCs principais.
+scPlot <- ElbowPlot(sampleA)
+scPlot
+#ggsave("23-ElbowPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Por padrão, vemos os 20 primeiros, mas podemos pedir mais se quisermos.
+scPlot <- ElbowPlot(sampleA, ndims=50)
+scPlot
+#ggsave("24-ElbowPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Observe que o RunPCA anterior calculou apenas os 50 primeiros. Se quisermos analisar mais valores de componentes principais, precisamos calculá-los primeiro.
+# Poderíamos voltar e executar novamente o PCA, mas, por uma questão de tempo, vamos usar apenas os 50 primeiros
+
+# Embora não haja um corte claro (raramente há), não parece que todos os 50 primeiros serão essenciais.
+# Nossos cálculos serão mais rápidos se usarmos apenas 2 PCs, vamos ver que efeito isso tem.
+sampleA <- RunUMAP(sampleA, dims=1:2, verbose=F)
+scPlot <- DimPlot(sampleA, label=T) + NoLegend()
+scPlot
+#ggsave("25-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Isso parece suspeito. Não corresponde de forma alguma às nossas expectativas sobre a expressão genética
+# perfis de subconjuntos de PBMC devem ser. Vamos ver se é um padrão robusto, ou se
+# muda muito quando adicionamos apenas mais um PC.
+
+sampleA <- RunUMAP(sampleA, dims=1:3, verbose=F)
+scPlot <- DimPlot(sampleA, label=T) + NoLegend()
+scPlot
+#ggsave("26-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# De fato, mudou bastante! Ainda não corresponde realmente ao que poderíamos esperar
+# para PBMCs. Além disso, o gráfico de valores de PC acima não atinge um platô até algum lugar
+# na faixa de 10-20. Vamos usar os 15 primeiros.
+
+sampleA <- RunUMAP(sampleA, dims=1:15, verbose=F)
+scPlot <- DimPlot(sampleA, label=T) + NoLegend()
+scPlot
+#ggsave("26-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Tem alguns clusters legais! Primeiro, vamos garantir que nenhum deles seja controlado por artefatos de QC.
+
+scPlot <- FeaturePlot(sampleA, features=c("percent.mt"))
+scPlot
+#ggsave("25-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=c("nCount_RNA"))
+scPlot
+#ggsave("26-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Isso parece bom. Não parece que nem a porcentagem de leituras mitocrônicas nem o UMI total por célula estejam dominando nenhuma das estruturas que vemos no UMAP.
+
+# Enquanto exploramos, vamos ver os principais PCs.
+# Enquanto o UMAP e o PCA estão, de certa forma, tentando encontrar variações naturais nos dados.
+# Eles são cálculos muito diferentes em detalhes e não devemos presumir que eles são (ou não) relacionados.
+scPlot <- FeaturePlot(sampleA, features=c("PC_1"))
+scPlot
+#ggsave("27-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# PC1 parece estar separando as células na extrema direita das outras.
+scPlot <- FeaturePlot(sampleA, features=c("PC_2"))
+scPlot
+#ggsave("28-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# PC2 parece estar definindo principalmente um gradiente apenas através das células dentro da nuvem no canto superior esquerdo
+# Agora vamos olhar para alguns genes individuais. Para uma abordagem não supervisionada, poderíamos começar com alguns dos genes mais variáveis
+top10
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- code block -->
+                <pre><code class="language-r">
+'CAPS'
+'C20orf85'
+'GSTA1'
+'C9orf24'
+'IGFBP7'
+'C2orf40'
+'SAA1'
+'LCN2'
+'HAMP'
+'MT1G'
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=top10[1:4], ncol=2)
+scPlot
+#ggsave("29-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=top10[5:8], ncol=2)
+scPlot
+#ggsave("30-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=top10[9:10], ncol=1)
+scPlot
+#ggsave("31-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# We can also look at some of the genes from top PCs
+print(sampleA[["pca"]], dims=1:5, nfeatures=2)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=c("CTSC", "CD52", "LRRIQ1", "EFCAB1"))
+scPlot
+#ggsave("32-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=c("CD68", "SERPING1", "IL32", "CD3E"))
+scPlot
+#ggsave("33-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Agrupamento</h2>
+                            <p>Clustering é um método usado em análise de dados para agrupar objetos (como células, genes ou outras entidades) com base em suas similaridades. No contexto do scRNA-seq, o clustering ajuda a identificar populações celulares distintas agrupando células com perfis de expressão genética semelhantes. Agora, vamos realizar o clustering formal nesses dados. Embora existam vários algoritmos de clustering disponíveis, usaremos uma abordagem de gráfico de vizinho mais próximo combinada com o algoritmo de Louvain para identificar clusters ou comunidades dentro dos dados.</p>
+                            <br>
+                            <p>Este método funciona construindo um gráfico onde cada ponto de dados (célula) é conectado aos seus vizinhos mais próximos, e então o algoritmo de Louvain é usado para encontrar grupos de pontos que são densamente conectados entre si, indicando clusters.</p>
+                            <br>
+                            <p>Uma vantagem dessa abordagem é que ela depende de métricas de distância para os vizinhos mais próximos, tornando-a relativamente robusta à maldição da dimensionalidade. Isso significa que ela tem melhor desempenho do que alguns outros algoritmos ao trabalhar com dados de alta dimensão, como dados de RNA-seq de célula única, onde muitas variáveis ​​podem complicar o clustering. Portanto, o gráfico do vizinho mais próximo e o algoritmo de Louvain são uma boa escolha para detectar clusters significativos em conjuntos de dados complexos.</p>
+                            <br>
+                            <p>Calcularemos distâncias nas primeiras 20 dimensões.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- FindNeighbors(sampleA, dims=1:20)
+sampleA <- FindClusters(sampleA)
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Agora visualizaremos a associação de clusters no espaço UMAP.</p>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- DimPlot(sampleA, reduction="umap")
+scPlot
+#ggsave("34-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+                </section>
+
+                             <p>Quase todos os algoritmos de clustering têm algum tipo de parâmetro livre que controla quantos clusters são identificados.</p>
+                             <br>
+                             <p>No algoritmo de Louvain, temos a resolução que, mantendo todos os outros parâmetros (como as dimensões, o número de vizinhos mais próximos, etc.) constantes, controla o número de clusters. Valores baixos (altos) para resultion dão números baixos (altos) de clusters.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Vamos explorar isso.
+sampleA <- FindClusters(sampleA, resolution=0.01)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- DimPlot(sampleA, reduction="umap")
+scPlot
+#ggsave("35-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- FindClusters(sampleA, resolution=10)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- DimPlot(sampleA)
+scPlot
+#ggsave("36-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <p>Pode ser útil ver como clusters correspondentes a um valor de resolução correspondem àqueles de outra resolução. O pacote clustree faz um bom trabalho de visualização disso sobre os clusterings que já realizamos.</p>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+head(sampleA[[]])
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- clustree(sampleA,prefix="RNA_snn_res.")
+scPlot
+#ggsave("37-clustree.png",plot = scPlot, bg = 'white', width = 16, height = 9)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- FindClusters(sampleA, resolution=seq(0.1, 2, by=0.1))
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- clustree(sampleA,prefix="RNA_snn_res.")
+scPlot
+#ggsave("38-clustree.png",plot = scPlot, bg = 'white', width = 16, height = 9)
+                </code></pre>
+                </div>
+            </section>
+
+                             <p>Agora vamos voltar à resolução que nos deu três clusters</p>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- FindClusters(sampleA,resolution=0.01)
+scPlot <- DimPlot(sampleA)
+scPlot
+#ggsave("39-DimPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <p>Veja como podemos identificar genes marcadores para o cluster 0</p>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+cluster0.markers <- FindMarkers(sampleA, ident.1=0, min.pct=0.25)
+head(cluster0.markers)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA,features="C1QA")
+scPlot
+#ggsave("40-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <p>Como não especificamos, o cálculo anterior nos deu genes significativamente super ou subexpressos em nossa população de interesse. Às vezes, queremos apenas genes superexpressos, o que é fácil de filtrar.</p>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+cluster0.markers <- FindMarkers(sampleA, ident.1=0, min.pct=0.25,only.pos=T)
+head(cluster0.markers, 10)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features="RBP7")
+scPlot
+#ggsave("41-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=c("C1QC"))
+scPlot
+#ggsave("42-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features=c("PTAFR"))
+scPlot
+#ggsave("43-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# It's always good to try multiple different visualizations.
+scPlot <- VlnPlot(sampleA, features=c("PTAFR", "C1QB", "RBP7"))
+scPlot
+#ggsave("44-VlnPlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- sampleA %>%
+          FetchData(vars=c("C1QB", "seurat_clusters")) %>%
+          ggplot() +
+          geom_histogram(aes(x=C1QB), bins=100) +
+          facet_wrap(. ~ seurat_clusters)
+scPlot
+#ggsave("45-histogram.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Now let's find over-expressed marker genes for all clusters.
+sampleA.markers = FindAllMarkers(sampleA, only.pos=TRUE,
+                            min.pct=0.25, logfc.threshold=0.25)
+head(sampleA.markers)
+topMarkers <- sampleA.markers %>%
+  group_by(cluster) %>%
+  top_n(n=5, wt=avg_log2FC)
+scPlot <- DoHeatmap(sampleA, features = topMarkers$gene) + NoLegend()
+scPlot
+#ggsave("46-DoHeatmap.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# If we crank up the resolution a little we get some finer-grained separation
+# of the UMAP clouds.
+sampleA <- FindClusters(sampleA, resolution=0.2)
+                </code></pre>
+                </div>
+            </section>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- DimPlot(sampleA)
+scPlot
+#ggsave("47-DoHeatmap.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Expressão diferencial</h2>
+                            <p>Expressão diferencial refere-se ao processo de identificação de genes que mostram diferenças significativas em níveis de expressão entre diferentes grupos de células ou condições. Essa análise ajuda a descobrir genes que são expressos exclusivamente em tipos de células específicas, estados ou em resposta a certos tratamentos ou fatores ambientais.</p>
+
+                        <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Let's see if cluster 2 and cluster 0 really have different gene expression
+# patterns and, if so, whether those match any biology we already know and
+# might expect to see in PBMCs.
+cluster1vs0 <- FindMarkers(sampleA, ident.1 = 2, ident.2 = 0)
+head(cluster1vs0, 20)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features="MCEMP1")
+scPlot
+#ggsave("48-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- FeaturePlot(sampleA, features="CXCL11")
+scPlot
+#ggsave("49-FeaturePlot.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Observe que CXCL11 também é expresso em outro grupo. Nós tínhamos
+# ignorado eles ao procurar por genes diferencialmente expressos entre clusters
+# 2 e 0, então isso não deveria ser surpreendente.
+sampleA.markers = FindAllMarkers(sampleA, only.pos=TRUE, min.pct=0.25)
+topMarkers = sampleA.markers %>%
+group_by(cluster) %>%
+top_n(n=5, wt=avg_log2FC)
+scPlot <- DoHeatmap(sampleA, features = topMarkers$gene) + NoLegend()
+scPlot
+#ggsave("50-DoHeatmap.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+                            
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+topMarkers = sampleA.markers %>%
+  group_by(cluster) %>%
+  top_n(n=5, wt=avg_log2FC)
+scPlot <- DoHeatmap(sampleA, features = c("CXCL11", topMarkers$gene)) + NoLegend()
+scPlot
+#ggsave("51-DoHeatmap.png",plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+
+            </section>
+
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Anotação de tipos de células</h2>
+                            <p>A interpretação dos resultados da análise de dados de células individuais costuma ser a parte mais desafiadora do processo. Para obter uma compreensão mais profunda além dos clusters que identificamos, podemos anotar os tipos de células comparando os perfis de expressão de nossos dados a um conjunto de dados de referência. Essa abordagem nos permite fornecer interpretações mais significativas dos clusters.</p>
+                            <br>
+                            <p>Para começar, carregaremos um conjunto de dados de referência que inclui os tipos de células que esperamos encontrar em nossas amostras. O pacote celldex oferece vários conjuntos de dados de referência bem selecionados e bem anotados. Embora a maioria desses conjuntos de dados seja originária de experimentos de RNA-Seq em massa e microarray, eles ainda são muito úteis para anotar conjuntos de dados de células individuais. No nosso caso, usaremos os conjuntos de dados de referência Blueprint e ENCODE, que são comumente usados ​​para tais propósitos. Esses conjuntos de dados nos ajudarão a combinar os perfis de expressão genética de nossos dados de células individuais com tipos de células conhecidos, aumentando nossa capacidade de interpretar os clusters de forma significativa.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+library(celldex)
+ref = BlueprintEncodeData()
+ref
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Então, para usar a função SingleR(), precisamos converter o objeto Seurat em um objeto SingleCellExperiment Bioconductor. A função SingleR() pega nosso conjunto de dados, o conjunto de dados de referência e os rótulos do conjunto de dados de referência.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+library(SingleR)
+my.sce = as.SingleCellExperiment(sampleA)
+pred = SingleR(my.sce, ref=ref, labels=ref$label.main)
+table(pred$labels)
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Podemos usar um mapa de calor (heatmap) para visualizar a anotação do tipo de célula resultante. No topo do mapa de calor, vemos o código de cores que identifica os diferentes tipos de células</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#png("52-plotScoreHeatmap.png", res = 300, width = 1920, height = 1920)
+plotScoreHeatmap(pred)
+#dev.off()
+                </code></pre>
+                </div>
+            </section>
+
+                            <p>Um mapa de calor também pode ser usado para mostrar a distribuição dos tipos de células pelos clusters que identificamos usando Seurat.</p>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+my.table = table(Assigned = pred$pruned.labels, cluster = my.sce$seurat_clusters)
+my.table
+library(pheatmap)
+pheatmap(log2(my.table + 1), filename = "53-pheatmap.png")
+                </code></pre>
+                </div>
+            </section>
+                        </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Análises de enriquecimento GO</h2>
+                            <p>A análise de enriquecimento é uma ferramenta poderosa para extrair informações biologicamente relevantes de conjuntos de dados de células únicas, facilitando a descoberta de genes, vias e processos celulares importantes. No scRNA-seq, os pesquisadores geralmente lidam com tecidos complexos compostos de vários tipos de células. Essa análise pode revelar novos insights biológicos destacando associações inesperadas entre conjuntos de genes e termos da Ontologia Genética (GO), fornecendo uma compreensão mais profunda das funções celulares e mecanismos de doenças.</p>
+                            <br>
+                            <p>A Análise de Enriquecimento GO é um método usado para identificar termos GO super-representados em um conjunto de genes. Essa análise ajuda a determinar se certos processos biológicos, funções moleculares ou componentes celulares estão significativamente associados aos genes de interesse.</p>
+
+                            <p>A Ontologia Genética (GO) é um sistema abrangente que categoriza genes em categorias hierárquicas com base em:</p>
+
+                            <ul.a>
+                                <li>Processos Biológicos (Biological Processes - BP): Os objetivos biológicos para os quais o gene contribui, como ciclo celular, apoptose ou metabolismo.</li>
+                                <li>Funções Moleculares (Molecular Functions - MF): As atividades moleculares realizadas pelo produto do gene, como ligação ou atividade catalítica.</li>
+                                <li>Componentes Celulares (Cellular Components - CC): O local dentro da célula onde o produto do gene é ativo, como o núcleo ou a mitocôndria.</li>
+                            </ul.a>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Filter genes
+my.genes = sampleA.markers %>%
+  filter(abs(avg_log2FC) > 1, # This condition retains rows where the absolute value of the average log2 fold change is greater than 1
+         p_val_adj < 0.10) %>% # This condition retains rows where the adjusted p-value is less than 0.10
+  dplyr::select(gene) %>% # The select function from the dplyr package is used to select the gene column from the filtered data frame.
+  pull() # The pull function extracts the values from the selected gene column as a vector
+
+# Display the firsts few rows
+head(my.genes)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+nrow(sampleA.markers) # This function returns the number of rows
+genes <- sampleA.markers %>% arrange(desc(avg_log2FC)) # Sort the data frame in descending order based on the average log2 fold change column.
+# Display the firsts few rows
+head(genes)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+library(clusterProfiler) # Provides functions for biological term classification and enrichment analysis.
+
+#Convert Gene Identifiers
+my.map = bitr(my.genes, # This function converts gene identifiers from one type to another
+              fromType="SYMBOL", # Specifies that the input gene identifiers are gene symbols
+              toType="ENTREZID", # Specifies that the output should be Entrez IDs
+              OrgDb="org.Hs.eg.db") # Specifies the organism database for human genes
+# Display the First Few Entries
+head(my.map)
+
+# Calculate the Number of Genes Not Mapped
+length(my.genes) - nrow(my.map)
+                </code></pre>
+                </div>
+            </section>
+
+                            <h3>Classificação do GO</h3>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## subontologies: Biological Process (BP), Molecular Function (MF), Cellular Component (CC)
+library(org.Hs.eg.db) # library, which contains annotations for human genes.
+# groups genes based on their GO terms
+ggo_bp = groupGO(gene     = my.map$ENTREZID, # Specifies the list of gene ENTREZ ID to be grouped
+                 OrgDb    = org.Hs.eg.db, 
+                 ont      = "BP", # Specifies that the GO grouping should be based on the "Biological Process" subontology.
+                 readable = TRUE) # Converts the Entrez IDs to gene symbols for easier interpretation.
+
+# displays the first few entries of the ggo_bp object
+head(ggo_bp)  
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## subontologies: BP, MF, CC
+ggo_mf = groupGO(gene     = my.map$ENTREZID,
+                 OrgDb    = org.Hs.eg.db,
+                 ont      = "MF", # Specifies that the GO grouping should be based on the "Molecular Function" subontology.
+                 readable = TRUE)
+
+# displays the first few entries of the ggo_mf object
+head(ggo_mf)
+                </code></pre>
+                </div>
+            </section>
+                            
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## subontologies: BP, MF, CC
+ggo_cc = groupGO(gene     = my.map$ENTREZID,
+                 OrgDb    = org.Hs.eg.db,
+                 ont      = "CC", # Specifies that the GO grouping should be based on the "Cellular Component" subontology.
+                 readable = TRUE)
+
+
+# displays the first few entries of the ggo_cc object
+head(ggo_cc)
+                </code></pre>
+                </div>
+            </section>
+
+                            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# This function performs GO enrichment analysis on a given set of genes.
+ego <- enrichGO(gene          = my.map$ENTREZID,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "BP",
+                pAdjustMethod = "BH", # The method used for adjusting p-values to control the false discovery rate (FDR)
+                pvalueCutoff  = 0.01, # The p-value threshold for significance
+                qvalueCutoff  = 0.05, # The q-value threshold for significance
+        readable      = TRUE)
+head(ego)
+                </code></pre>
+                </div>
+            </section>
+                            <br>
+                        </div>
+                    </section>
+                
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

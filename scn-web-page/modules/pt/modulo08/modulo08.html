@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno08/cuaderno08.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module08/module08.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno08/cuaderno08.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../en/module08/module08.html">
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Análises de Dados Multimodais
+                    </h1>
+                    <p class="hero-text">
+                        Este notebook explora a integração de dados multimodais em nível de célula única, combinando medições transcriptômicas com quantificação de proteínas. Utilizando um conjunto de dados de 8.617 células mononucleares do sangue do cordão umbilical (CBMCs), seguimos um tutorial do Seurat para analisar as relações entre a expressão de RNA e proteínas de superfície. Ao carregar matrizes de contagem para RNA e etiquetas derivadas de anticorpos (ADT), investigamos padrões de expressão celular e suas implicações biológicas. Além dos conceitos teóricos, este notebook inclui atividades práticas para baixar dados do NCBI GEO e executar análises fundamentais.
+                    </p>
+                    <br>
+                    <hr/>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Carregue as bibliotecas e ajuste o caminho para o diretório</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Função para executar comandos shell de dentro do R
+## Útil ao executar R no Google Colab ou outros ambientes onde chamadas de sistema são necessárias
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)  # Execute o comando shell e capture a saída
+  cat(paste0(result, collapse = "\n"))  # Imprima o resultado em um formato legível
+}
+
+## Função para carregar pacotes R necessários
+## Se um pacote não estiver instalado, ele será notificado
+loadPackages = function(pkgs){
+  myrequire = function(...){
+    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
+  }
+  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE)  # Verifica se os pacotes estão disponíveis
+  if (!all(ok)){
+    message("There are missing packages: ", paste(pkgs[!ok], collapse=", "))  # Informar o usuário sobre pacotes não instalados
+  }
+}
+
+## Configure o R2U (gerenciador de pacotes R otimizado para Ubuntu) para instalação mais rápida de pacotes
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")  #Baixe o script de instalação
+Sys.chmod("add_cranapt_jammy.sh", "0755")  # Conceda permissões de execução ao script
+shell_call("./add_cranapt_jammy.sh")  # Rode o script
+bspm::enable()  # Habilite BSPM (Bridge to System Package Manager) para instalar pacotes R
+options(bspm.version.check=FALSE)  # Desabilite a verificação de versão do BSPM
+shell_call("rm add_cranapt_jammy.sh")  # Remova o script de instalação após a execução
+
+## Instale os pacotes R necessários do CRAN
+cranPkgs2Install = c("dplyr", "ggpubr", "Seurat", "cowplot",
+                     "Rtsne", "hdf5r", "patchwork")
+install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+## Para simplificar o carregamento de pacotes, criamos a função loadPackages()
+## Se você não tiver essa função, deverá carregar os pacotes usando library(nome_do_pacote)
+pkgs = c("Seurat", "dplyr","patchwork","ggplot2")
+loadPackages(pkgs)  # Carregar os pacotes especificados
+
+# Importante
+# Atualize o diretório scw01 para corresponder ao seu diretório de usuário pessoal
+# Para corresponder ao seu diretório de usuário pessoal. É aqui que você lê e salva dados
+mydir <- "/content"
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Análises de Dados Multimodal</h2>
+
+                <p>Neste notebook, vamos embarcar na emocionante jornada de análise de dados multimodais, com foco específico nos níveis de expressão de RNA e proteínas em células individuais. Seremos guiados por um tutorial abrangente do Seurat, que você pode encontrar em detalhes <a href="https://satijalab.org/seurat/articles/multimodal_vignette.html">aqui</a>.</p>
+                <br>
+                <p>O conjunto de dados com o qual trabalharemos consiste em 8.617 células mononucleares do sangue do cordão umbilical (CBMCs). Essas células foram meticulosamente analisadas para fornecer medições transcriptômicas e estimativas de abundância para 11 proteínas de superfície. Os níveis de proteína foram quantificados usando anticorpos com código de barras de DNA, permitindo dados precisos e confiáveis.</p>
+                <br>
+                <p>Para iniciar nossas análises, carregaremos duas matrizes de contagem: uma contendo as medições de RNA e a outra contendo as etiquetas derivadas de anticorpos (ADT). Esse conjunto duplo de dados nos permitirá explorar e compreender as complexas relações entre a expressão de RNA e os níveis de proteína nessas células individuais.</p>
+                <br>
+                <p>Aqui está uma breve visão geral do nosso conjunto de dados, conforme descrito pelo Seurat: > "Nesta análise, examinamos um conjunto de dados de 8.617 células mononucleares do sangue de cordão umbilical (CBMCs), onde as medições transcriptômicas são pareadas com estimativas de abundância para 11 proteínas de superfície, quantificadas usando anticorpos com código de barras de DNA. Inicialmente, carregamos duas matrizes de contagem: uma para as medições de RNA e outra para as etiquetas derivadas de anticorpos (ADT)."</p>
+                <br>
+                <p>Neste tutorial, pretendemos obter insights sobre os mecanismos biológicos em questão e as interações entre as expressões de RNA e proteínas no nível de uma única célula.</p>
+                <br>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Baixe os dados brutos de RNA-seq de célula única e ADT (marcação derivada de anticorpo) do banco de dados NCBI GEO
+shell_call("wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz")
+shell_call("wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Carregue a matriz UMI de RNA
+# Observação: O conjunto de dados também contém ~5% de células de camundongo, que podemos usar como controles negativos para as medições de proteína.
+# Por esse motivo, a matriz de expressão gênica tem HUMAN_ ou MOUSE_ anexado ao início de cada gene.
+cbmc.rna <- as.sparse(read.csv(file = paste0(mydir,"/GSE100866_CBMC_8K_13AB_10X-RNA_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1))
+# read.csv: lê um arquivo CSV em um data frame, o argumento file especifica o caminho para o arquivo CSV.
+# o paste0 concatena o diretório armazenado em mydir com o nome do arquivo.
+# sep = ",": indica que o delimitador usado no arquivo CSV é uma vírgula.
+# header = TRUE: especifica que a primeira linha do arquivo CSV contém nomes de colunas.
+# row.names = 1: especifica que a primeira coluna do arquivo CSV deve ser usada como nomes de linhas.
+# as.sparse(): esta função converte o quadro de dados em uma matriz esparsa.
+# Matrizes esparsas são usadas para armazenar dados de forma eficiente com muitos valores zero, o que é comum em dados de RNA-seq de célula única.
+
+# Para facilitar um pouco a nossa vida daqui para frente, vamos descartar todos os genes de camundongo, exceto os 100 genes mais expressos, e remover o 'HUMAN_' do prefixo CITE-seq
+cbmc.rna <- CollapseSpeciesExpressionMatrix(cbmc.rna)
+
+# Este comando processa a matriz cbmc.rna para manipular ou compactar dados de expressão gênica de espécies potencialmente múltiplas, garantindo que a matriz esteja formatada corretamente para análises posteriores.
+
+# Carregue a matriz ADT UMI (para medições de nível de proteína)
+cbmc.adt <- as.sparse(read.csv(file = paste0(mydir,"/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz"), sep = ",", header = TRUE, row.names = 1))
+
+# Nota: Certifique-se de que as matrizes RNA e ADT tenham nomes de colunas idênticos (ou seja, as mesmas células).
+# Este comando é usado para comparar os nomes das colunas de dois quadros de dados.
+all.equal(colnames(cbmc.rna), colnames(cbmc.adt))  # Deve retornar TRUE
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Crie um objeto Seurat para os dados scRNA-seq
+cbmc <- CreateSeuratObject(counts = cbmc.rna)
+
+# Verifique o ensaio disponível (por padrão, é "RNA"). O objeto cbmc contém um ensaio que armazena medições de RNA.
+Assays(cbmc)
+
+# Crie um novo ensaio para armazenar informações de ADT
+adt_assay <- CreateAssayObject(counts = cbmc.adt)
+
+# Adicione o ensaio ADT ao objeto Seurat
+cbmc[["ADT"]] <- adt_assay
+
+# Verifique se o objeto Seurat agora contém ensaios de RNA e ADT
+Assays(cbmc)
+
+# Extraia uma lista de características (anticorpos) medidas no ensaio ADT
+rownames(cbmc[["ADT"]])
+
+# Nota: Podemos alternar facilmente entre os dois ensaios para especificar o padrão para visualização e análises
+
+# Listar o ensaio padrão atual (deve ser RNA)
+DefaultAssay(cbmc)
+
+# Mude o ensaio padrão para ADT
+DefaultAssay(cbmc) <- "ADT"
+DefaultAssay(cbmc)  # Deve retornar "ADT"
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Agrupamento</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Observe que todas as operações abaixo são realizadas no conjunto de ensaios de RNA e verifique se
+# O ensaio padrão é RNA
+DefaultAssay(cbmc) <- "RNA" # Este comando define o ensaio padrão para o objeto cbmc ser o ensaio de RNA
+DefaultAssay(cbmc) # Veja o Ensaio
+
+# Execute as etapas de visualização e agrupamento
+cbmc <- NormalizeData(cbmc) # Este comando normaliza os dados de expressão genética no objeto cbmc
+cbmc <- FindVariableFeatures(cbmc) # Este comando identifica características mais variáveis ​​nos dados
+cbmc <- ScaleData(cbmc) # Este comando dimensiona os dados, ajustando a média da expressão genética para 0 e a variância para 1.
+cbmc <- RunPCA(cbmc, verbose = FALSE) # Este comando executa uma Análise de Componentes Principais (PCA) nos dados
+cbmc <- FindNeighbors(cbmc, dims = 1:30) # Este comando encontra os vizinhos mais próximos de cada célula com base nas primeiras 30 dimensões resultantes do PCA
+cbmc <- FindClusters(cbmc, resolution = 0.8, # Este comando realiza o agrupamento das células usando os vizinhos mais próximos identificados anteriormente
+verbose = FALSE)
+cbmc <- RunUMAP(cbmc, dims = 1:30) # Este comando executa a projeção UMAP (Uniform Manifold Approximation and Projection) para visualizar os dados em um espaço de dimensão inferior
+DimPlot(cbmc, label = TRUE) # Este comando gera um gráfico de dispersão das células no espaço UMAP, onde cada ponto representa uma célula
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Visualize múltiplas modalidades lado a lado</h2>
+
+                <p>Agora que agrupamos com sucesso nossos perfis de scRNA-seq, podemos prosseguir para a visualização da expressão de moléculas de proteína ou RNA em nosso conjunto de dados. O Seurat oferece diversos métodos para alternar entre diferentes modalidades e especificar qual modalidade você deseja analisar ou visualizar.</p>
+                <br>
+                <p>Isso é especialmente importante porque, em alguns casos, a mesma característica pode estar presente em múltiplas modalidades. Por exemplo, em nosso conjunto de dados, temos medições independentes do marcador de células B CD19, tanto em nível de proteína quanto de RNA. A capacidade de alternar entre essas modalidades nos permite explorar e compreender de forma abrangente o significado biológico dessas características.</p>
+                <br>
+                <p>Ao aproveitar os recursos do Seurat, podemos obter insights mais profundos sobre as relações e interações entre as expressões de RNA e proteínas em células individuais, aprimorando, em última análise, nossa compreensão dos processos biológicos subjacentes.</p>
+                <br>
+                <p>Se você tiver alguma dúvida ou precisar de mais ajuda com a análise, sinta-se à vontade para perguntar!</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Normalize os dados ADT 
+DefaultAssay(cbmc) <- "ADT" # Este comando define o ensaio padrão para o objeto cbmc como o ensaio de etiquetas derivadas de anticorpos (ADT)
+cbmc <- NormalizeData(cbmc, normalization.method = "CLR", margin = 2)
+# Este comando normaliza os dados ADT no objeto cbmc usando o método CLR (Centered Log Ratio). O parâmetro margin = 2 indica que a normalização será aplicada às colunas (genes/proteínas).
+DefaultAssay(cbmc) <- "RNA" # Este comando redefine o ensaio padrão para o objeto cbmc para ser o ensaio de RNA.
+
+# Perceba que o comando a seguir é uma alternativa, mas retorna o mesmo resultado
+cbmc <- NormalizeData(cbmc, normalization.method = "CLR", margin = 2, assay = "ADT")
+
+# Agora, vamos visualizar os níveis de CD14 para RNA e proteína. Ao definir o ensaio padrão, podemos visualizar um ou outro
+DefaultAssay(cbmc) <- "ADT"
+p1 <- FeaturePlot(cbmc, "CD19", cols = c("lightgrey", "darkgreen")) 
++ ggtitle("CD19 protein") # Este comando cria um FeaturePlot da proteína CD19 nos dados ADT, colorindo células com baixos níveis de expressão em cinza claro e altos níveis em verde escuro
+DefaultAssay(cbmc) <- "RNA" # Este comando redefine o ensaio padrão para RNA.
+p2 <- FeaturePlot(cbmc, "CD19") + ggtitle("CD19 RNA") # Este comando cria um FeaturePlot do RNA CD19 nos dados do RNA
+
+# Coloque os gráficos lado a lado
+p1 | p2 # Este comando coloca os dois gráficos lado a lado para comparação visual da expressão da proteína CD19 e do RNA.
+
+
+# Alternativamente, podemos usar chaves de ensaio específicas para especificar uma modalidade específica. Identifique a chave para os ensaios de RNA e proteína.
+Key(cbmc[["RNA"]])
+Key(cbmc[["ADT"]])
+# Estes comandos identificam as chaves para os ensaios de RNA e ADT, respectivamente. As chaves são prefixos usados ​​para diferenciar modalidades ao especificar características.
+
+# Agora, podemos incluir a chave no nome das características, que substitui o ensaio padrão
+p1 <- FeaturePlot(cbmc, "adt_CD19", cols = c("lightgrey", "darkgreen")) + ggtitle("CD19 protein")
+p2 <- FeaturePlot(cbmc, "rna_CD19") + ggtitle("CD19 RNA")
+p1 | p2 # visualize os gráficos p1 e p2 simultaneamente 
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Identifique marcadores de superficie celular para agrupamentos de scRNA-seq</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Como sabemos, o CD19 é um marcador de células B, podemos identificar o cluster 6 como expressando CD19 na superfície
+VlnPlot(cbmc, "adt_CD19") # Crie um gráfico de violino
+
+# Também podemos identificar marcadores alternativos de proteínas e RNA para este cluster por meio de expressão diferencial
+adt_markers <- FindMarkers(cbmc, ident.1 = 6, assay = "ADT") # Esta função identifica marcadores diferencialmente expressos para o cluster 6 usando o ensaio ADT
+rna_markers <- FindMarkers(cbmc, ident.1 = 6, assay = "RNA") # Esta função identifica marcadores diferencialmente expressos para o cluster 6 usando o ensaio de RNA
+#ident.1 = 6: Especifica que o cluster 6 é o grupo de interesse para o qual os marcadores estão sendo identificados.
+#assay: Indica que os dados do ensaio ADT/RNA devem ser usados ​​para a análise.
+#adt/rna_markers: Armazena os resultados da identificação do marcador para o ensaio ADT/RNA.
+
+# Exibe os principais marcadores
+head(adt_markers)
+head(rna_markers)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Visualizções adicionais de dados multimodais</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Desenhar gráficos de dispersão ADT (como gráficos biaxiais para FACS). Observe que você pode até mesmo "selecionar" células, se desejar, usando HoverLocator e FeatureLocator.
+FeatureScatter(cbmc, feature1 = "adt_CD19", feature2 = "adt_CD3")
+
+# Visualize a relação entre proteína e RNA
+FeatureScatter(cbmc, feature1 = "adt_CD3", feature2 = "rna_CD3E")
+
+FeatureScatter(cbmc, feature1 = "adt_CD4", feature2 = "adt_CD8")
+
+# Vamos observar as contagens brutas (não normalizadas) de ADT. Você pode ver que os valores são bastante altos, especialmente em comparação com os valores de RNA. Isso ocorre devido ao número significativamente maior de cópias de proteínas nas células, o que reduz significativamente a 'perda' nos dados de ADT.
+FeatureScatter(cbmc, feature1 = "adt_CD4", feature2 = "adt_CD8", slot = "counts")
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Carregando dados da 10X de experimentos multimodais</h2>
+                <h3>NOTA: NÃO RODE ESTA ETAPA</h3>
+
+                <p>Estamos incluindo isso para sua referência caso você precise processar dados multimodais 10x a partir de dados brutos.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Carregue o conjunto de dados 10X Genomics PBMC do diretório especificado
+# Esses dados incluem informações sobre expressão gênica e captura de anticorpos
+pbmc10k.data <- Read10X(data.dir = "../data/pbmc10k/filtered_feature_bc_matrix/")
+
+# Limpe os nomes das linhas dos dados de Captura de Anticorpos para remover sufixos indesejados,
+# especificamente os prefixos '_TotalSeqB' e 'control'
+rownames(x = pbmc10k.data[["Antibody Capture"]]) <- gsub(pattern = "_[control_]*TotalSeqB", replacement = "",
+    x = rownames(x = pbmc10k.data[["Antibody Capture"]]))
+
+# Crie um objeto Seurat para os dados de expressão gênica,
+# Filtragem para manter genes detectados em pelo menos 3 células e células com pelo menos 200 genes
+pbmc10k <- CreateSeuratObject(counts = pbmc10k.data[["Gene Expression"]], min.cells = 3, min.features = 200)
+
+# Normalizar os dados de expressão genética usando a normalização de log
+pbmc10k <- NormalizeData(pbmc10k)
+
+# Adicione os dados ADT (Antibody Derived Tags) ao objeto Seurat como um ensaio separado
+# Isso garante que possamos analisar a expressão de proteínas juntamente com os dados de RNA
+pbmc10k[["ADT"]] <- CreateAssayObject(pbmc10k.data[["Antibody Capture"]][, colnames(x = pbmc10k)])
+
+# Normalize the ADT data using CLR (Centered Log Ratio) normalization method
+# Isso é importante para corrigir a variação técnica nos dados de expressão de proteínas
+pbmc10k <- NormalizeData(pbmc10k, assay = "ADT", normalization.method = "CLR")
+
+# Crie gráficos de dispersão para visualizar a relação entre diferentes características:
+# Gráfico 1: Expressão da proteína CD19 vs. CD3
+plot1 <- FeatureScatter(pbmc10k, feature1 = "adt_CD19", feature2 = "adt_CD3", pt.size = 1)
+
+# Gráfico 2: Expressão da proteína CD4 vs. CD8a
+plot2 <- FeatureScatter(pbmc10k, feature1 = "adt_CD4", feature2 = "adt_CD8a", pt.size = 1)
+
+# Gráfico 3: Expressão da proteína CD3 vs. expressão do RNA CD3E
+plot3 <- FeatureScatter(pbmc10k, feature1 = "adt_CD3", feature2 = "CD3E", pt.size = 1)
+
+# Combine os três gráficos de dispersão em uma figura e remova a legenda para maior clareza
+(plot1 + plot2 + plot3) & NoLegend()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

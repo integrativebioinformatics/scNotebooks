@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo05/modulo05.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno05/cuaderno05.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo04/modulo04.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno04/cuaderno04.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Integrating single-cell transcriptomes from multiple samples
+                    </h1>
+                    <p class="hero-text">
+                        As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
+
+                        Computational methods help eliminate unwanted variation, ensuring biologically meaningful signals. Batch correction requires two key decisions: selecting the appropriate method and its parameters, and defining the batch covariate based on the integration objective.
+
+                        In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
+                    </p>
+                    <br>
+                    <hr/>
+
+                    </div>  
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Install the required libraries</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+Sys.chmod("add_cranapt_jammy.sh", "0755")
+system("./add_cranapt_jammy.sh")
+bspm::enable()
+options(bspm.version.check=FALSE)
+                </code></pre>
+                </div>
+            </section>
+                <p>We will create an R function to performs system calls</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)
+  cat(paste0(result, collapse = "\n"))
+}
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Install required libraries</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Install the R.utils package
+install.packages("R.utils")
+
+# Install a specific commit/version of the Seurat Wrappers package from GitHub
+remotes::install_github('satijalab/seurat-wrappers@d28512f804d5fe05e6d68900ca9221020d52cf1d', upgrade = FALSE)
+
+# Install the Seurat Data package from GitHub
+remotes::install_github('satijalab/seurat-data')
+
+# Check if the BiocManager package is installed; if not, install it quietly
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager", quiet = TRUE)
+
+# Install the Harmony package for integrating single-cell datasets
+install.packages("harmony")
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Introduction</h2>
+
+                <p>Integration is a technique used to combine single cell data from different experiments or conditions into a single analysis space. This is especially useful where data from different batches or conditions can be integrated to identify common biological patterns. In this example of integrating multiple datasets representing, for example, different biological conditions, sample handling, or experimental protocols, we will explore the integration performed by Seurat and Harmony separately.</p>
+
+               <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load libraries
+library(Seurat)
+library(SeuratData)
+library(SeuratWrappers)
+library(cowplot)
+library(harmony)
+# If the time is over than 2000 seconds, the work will break
+options(timeout=2000)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2 class="hero-heading text xl">Loading data</h2>
+
+                <p>Here, we load the datasets necessary to perform an integration analysis.</p>
+
+                <p>This tutorial demonstrates the integration process using peripheral blood mononuclear cells (PBMCs) data from the study by <a href="https://www.nature.com/articles/nbt.4042">Kang et al, 2017.</a> The experiment involved splitting PBMCs into two groups: one control group and one stimulated group treated with interferon beta. The treatment induced cell type-specific gene expression changes, creating a challenge for joint analysis. Without integration, cells may cluster based on their stimulation condition rather than their intrinsic cell type identity, complicating the interpretation of results.</p>
+                <br>
+                <p>To clarify, the integration aims to align data from both groups into a common space where cells cluster by type rather than treatment condition. This process is essential for accurately identifying shared and unique features across the datasets while minimizing the influence of batch effects introduced by the experimental design.</p>
+                <br>
+                <p>Steps to follow:</p>
+                <ul.a>
+                    <li>Load the PBMC datasets: Use preprocessed gene expression data from the Kang study.</li>
+                    <li>Inspect the dataset composition: Verify that both control and stimulated groups are included and check for adequate cell type representation.</li>
+                    <li>Perform integration: Employ integration tools such as Seurat or Harmony to combine the datasets while accounting for batch effects.</li>
+                    <li>Visualize the results: Examine clustering to ensure cells group primarily by type rather than by treatment condition. These steps ensure a robust and biologically meaningful comparison of the control and stimulated PBMC groups.</li>
+                </ul.a>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# install dataset
+InstallData("ifnb")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# load dataset
+LoadData("ifnb")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Transfer ifnb data to sc_dataset
+sc_datasets <- ifnb)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# %>%: This is the operator from the dplyr package. It allows you to chain operations in a readable way, passing the result of one operation as input to the next.
+# glimpse is a function of the dplyr package that provides a quick and concise view of the dataset, showing the first values ​​of each column and the respective classes.
+
+sc_datasets %>% dplyr::glimpse()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Data preprocessing</h2>
+                <p>We preprocess the data to a point that is in common for both Seurat and Harmony data integration.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Update the Seurat object to the latest format, fixing compatibility issues with older Seurat objects
+sc_datasets <- UpdateSeuratObject(object = sc_datasets) 
+# If this step is skipped, an error occurs: 'no slot of name "images" for this object of class "Seurat"'
+
+# Normalize the gene expression data in the Seurat object
+sc_datasets <- Seurat::NormalizeData(sc_datasets, verbose = FALSE)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>The NormalizeData function in Seurat simplifies raw single-cell RNA sequencing (scRNA-seq) data into a standardized form, making it easier to compare cells and detect meaningful biological patterns. This process involves three main steps:</p>
+
+                <ol>
+                    <li>Scaling Counts: For each gene, the count in a given cell is divided by the total number of counts from all genes in that cell. This adjusts for differences in sequencing depth across cells, ensuring fair comparisons.</li>
+                    <li>Adjusting Scale: The result from the first step is multiplied by a scaling factor (commonly set to 10,000). This makes the normalized values more interpretable, roughly resembling counts per 10,000 reads.</li>
+                    <li>Log Transformation: Finally, the scaled counts are transformed using a logarithmic function. This step reduces the effect of extremely high or low values, making patterns in the data easier to detect.</li>
+                </ol>
+
+                <p>This method is essential because it ensures that any differences observed between cells reflect true biological variations, not technical differences from the sequencing process</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# View the structure of the Seurat object, including metadata and feature data
+dplyr::glimpse(sc_datasets)
+                </code></pre>
+                </div>
+            </section>       
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Run Seurat data integration</h2>
+
+                <p>The integration performed here with Seurat consists of using a Canonical Correlation Analysis to identify anchors between datasets, as indicated in the <a href="https://www.cell.com/cell/fulltext/S0092-8674(19">original paper</a>:</p>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                        <img src="integration.jpg" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+                <p>Split dataset into a list of datasets</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Identify the top 2000 variable features for each dataset in the list
+sc_datasets.list <- lapply(X = sc_datasets.list, FUN = function(x) {
+                    x <- FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
+                    })
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Find highly variable features for each condition separately</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Identify integration features to be used for aligning datasets
+features <- SelectIntegrationFeatures(object.list = sc_datasets.list)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Find the features that are repeatedly variable across datasets for integration (anchor features).</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Find integration anchors between the datasets using the selected features
+sc_datasets.anchors <- FindIntegrationAnchors(object.list = sc_datasets.list, anchor.features = features)
+
+# Below is the resume of the running process that will appear in your screen
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Integrate datasets - Creates an integrated data assay</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Integrate the datasets into a single Seurat object using the integration anchors
+sc_datasets.combined <- IntegrateData(anchorset = sc_datasets.anchors)
+
+# Below is the resume of the running process that will appear in your screen
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# View the structure of the integrated Seurat object
+dplyr::glimpse(sc_datasets.combined)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Run the standard workflow for visualization and clustering.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Scale the integrated data, run PCA, perform UMAP for dimensionality reduction, find neighbors, and cluster cells
+sc_datasets.combined <- ScaleData(sc_datasets.combined, verbose = FALSE) %>%
+                        RunPCA(npcs = 30, verbose = FALSE) %>%
+                        RunUMAP(reduction = "pca", dims = 1:30) %>%
+                        FindNeighbors(reduction = "pca", dims = 1:30) %>%
+                        FindClusters(resolution = 0.5)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set the size of the plots for visualization
+options(repr.plot.height = 5, repr.plot.width = 16)
+
+# Visualization: Create UMAP plots with different grouping or labeling options
+p1 <- DimPlot(sc_datasets.combined, reduction = "umap", group.by = "stim")  # Group cells by "stim" metadata
+p2 <- DimPlot(sc_datasets.combined, reduction = "umap", label = TRUE, repel = TRUE)  # Label clusters on the UMAP
+p3 <- DimPlot(sc_datasets.combined, reduction = "umap", group.by = "seurat_annotations")  # Group by annotations
+p1 + p2 + p3  # Combine the plots
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Run Harmony</h2>
+
+                <p>From the <a href="https://www.nature.com/articles/s41592-019-0619-0">original paper</a> of harmony: PCA embeds cells into a space with reduced dimensionality. Harmony accepts the cell coordinates in this reduced space and runs an iterative algorithm to adjust for dataset specific effects:</p>
+                <br>
+                <ul.a>
+                    <li>Harmony uses fuzzy clustering to assign each cell to multiple clusters, while a penalty term ensures that the diversity of datasets within each cluster is maximized.</li>
+                    <li>Harmony calculates a global centroid for each cluster, as well as dataset-specific centroids for each cluster.</li>
+                    <li>Within each cluster, Harmony calculates a correction factor for each dataset based on the centroids.</li>
+                    <li> Finally, Harmony corrects each cell with a cell-specific factor: a linear combination of dataset correction factors weighted by the cell’s soft cluster assignments made in step a. Harmony repeats steps a to d until convergence. The dependence between cluster assignment and dataset diminishes with each round. Datasets are represented with colors, cell types with different shapes.</li>
+                </ul.a>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                        <img src="harmony.png" alt="img" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set the plot dimensions for visualization
+options(repr.plot.height = 4, repr.plot.width = 6)
+
+# Find variable features, scale data, run PCA, and integrate using Harmony
+sc_datasets.harmony <- FindVariableFeatures(sc_datasets, selection.method = "vst", nfeatures = 2000) %>%
+                       ScaleData(verbose = FALSE) %>%
+                       RunPCA(npcs = 30, verbose = FALSE) %>%
+                       RunHarmony("stim", plot_convergence = TRUE)  # Integrate using "stim" as a batch variable
+                </code></pre>
+                </div>
+            </section>
+
+                <p>To directly access the harmonized embeddings:</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extract Harmony embeddings (low-dimensional representations) and display the first 5 rows and columns
+harmony_embeddings <- Embeddings(sc_datasets.harmony, 'harmony')
+harmony_embeddings[1:5, 1:5]
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Run UMAP using Harmony embeddings, find neighbors, and cluster cells
+sc_datasets.harmony <- RunUMAP(sc_datasets.harmony, reduction = "harmony", dims = 1:30) %>%
+                       FindNeighbors(reduction = "harmony", dims = 1:30) %>%
+                       FindClusters(resolution = 0.5)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set plot dimensions for visualization
+options(repr.plot.height = 5, repr.plot.width = 16)
+
+# Visualization: Create UMAP plots with different grouping or labeling options
+p1 <- DimPlot(sc_datasets.harmony, reduction = "umap", group.by = "stim")  # Group by "stim"
+p2 <- DimPlot(sc_datasets.harmony, reduction = "umap", label = TRUE, repel = TRUE)  # Label clusters
+p3 <- DimPlot(sc_datasets.harmony, reduction = "umap", group.by = "seurat_annotations")  # Group by annotations
+p1 + p2 + p3  # Combine the plots
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Integration metrics</h2>
+                <p>Inspect mixing within cluster</p>
+                <br>
+                <p>We will use a function to plot the batch composition of each cluster.</p>
+                <br>
+                <p>This function was borrowed from: <a href="https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R">https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R</a></p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define a custom function to visualize the distribution of clusters across datasets
+plot_integrated_clusters = function(srat, batchcolumn) {
+  ## Take an integrated Seurat object and plot distributions across the "batchcolumn"
+  library(Seurat)
+  library(patchwork)
+  library(ggplot2)
+  library(reshape2)
+  library(RColorBrewer)
+
+  # Create a table of cell counts by cluster and dataset
+  count_table <- table(srat@meta.data$seurat_clusters, srat@meta.data[[batchcolumn]])
+  count_mtx   <- as.data.frame.matrix(count_table)  # Convert table to a data frame
+  count_mtx$cluster <- rownames(count_mtx)  # Add cluster identifiers as a column
+  melt_mtx    <- melt(count_mtx)  # Reshape data for ggplot
+  melt_mtx$cluster <- as.factor(melt_mtx$cluster)  # Convert cluster column to a factor
+
+  # Calculate cluster sizes
+  cluster_size   <- aggregate(value ~ cluster, data = melt_mtx, FUN = sum)
+
+  # Sort clusters by size
+  sorted_labels <- paste(sort(as.integer(levels(cluster_size$cluster)), decreasing = TRUE))
+  cluster_size$cluster <- factor(cluster_size$cluster, levels = sorted_labels)
+  melt_mtx$cluster <- factor(melt_mtx$cluster, levels = sorted_labels)
+
+  colnames(melt_mtx)[2] <- "dataset"  # Rename column for clarity
+
+  # Plot the distribution of cells per cluster (log scale)
+  p1 <- ggplot(cluster_size, aes(y = cluster, x = value)) +
+        geom_bar(position = "dodge", stat = "identity", fill = "grey60") +
+        theme_bw() + scale_x_log10() + xlab("Cells per cluster, log10 scale") + ylab("")
+
+  # Plot the fraction of cells in each dataset for each cluster
+  p2 <- ggplot(melt_mtx, aes(x = cluster, y = value, fill = dataset)) +
+        geom_bar(position = "fill", stat = "identity") +
+        theme_bw() + coord_flip() +
+        scale_fill_brewer(palette = "Set2") +
+        ylab("Fraction of cells in each dataset") + xlab("Cluster number") + theme(legend.position = "top")
+
+  p2 + p1 + plot_layout(widths = c(3, 1))  # Combine plots
+}
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualize clusters for integrated datasets
+plot_integrated_clusters(sc_datasets.combined, 'stim')
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Visualize clusters for harmony
+plot_integrated_clusters(sc_datasets.harmony, 'stim')
+                </code></pre>
+                </div>
+            </section>
+
+                <p>This measures how well mixed a composite dataset is. According to this link, lower scores represent better mixing. See also this code</p>
+                <br>
+                <p>This metric evaluates whether the neighborhood of a cell is well mixed. In other words, whether it contains a small number of cells from each dataset (e.g., k=5).</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mixing metric for Seurat integrated data
+seurat_mixing <- MixingMetric(sc_datasets.combined,
+                              'seurat_clusters',  # Column to evaluate mixing
+                              reduction = "pca",  # Use PCA embeddings
+                              dims = 1:2,         # Evaluate the first two dimensions
+                              k = 5,              # Number of nearest neighbors
+                              max.k = 300,        # Maximum number of neighbors
+                              eps = 0,            # Tolerance for neighbor search
+                              verbose = TRUE      # Print progress
+                             )
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mean of the Seurat mixing metric
+mean(seurat_mixing)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mean of the Seurat mixing metric
+mean(seurat_mixing)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mixing metric for Harmony integrated data
+harmony_mixing <- MixingMetric(sc_datasets.harmony,
+                               'seurat_clusters',
+                               reduction = "harmony",
+                               dims = 1:2,
+                               k = 5,
+                               max.k = 300,
+                               eps = 0,
+                               verbose = TRUE
+                             )
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mean of the Harmony mixing metric
+mean(harmony_mixing)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Calculate the mean of the Harmony mixing metric
+mean(harmony_mixing)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Let's compare when using no integration, Seurat, and Harmony:</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Identify the top 2000 most variable features (genes) using the "vst" method.
+# These features are used for downstream analysis.
+sc_datasets <- FindVariableFeatures(sc_datasets, selection.method = "vst", nfeatures = 2000) %>%
+                
+                # Scale and center the data for the identified variable features.
+                # This standardizes the expression values across cells.
+                ScaleData(verbose = FALSE) %>%
+                
+                # Perform Principal Component Analysis (PCA) to reduce dimensionality.
+                # Retain the first 30 principal components for downstream analysis.
+                RunPCA(npcs = 30, verbose = FALSE) %>%
+                
+                # Apply Uniform Manifold Approximation and Projection (UMAP) for non-linear dimensionality reduction.
+                # Use the PCA results as input and the first 30 principal components.
+                RunUMAP(reduction = "pca", dims = 1:30) %>%
+                
+                # Compute a shared nearest neighbor (SNN) graph for clustering.
+                # This step identifies relationships between cells based on their UMAP embeddings.
+                FindNeighbors(reduction = "pca", dims = 1:30) %>%
+                
+                # Perform clustering of cells using the SNN graph.
+                # Resolution controls the granularity of the clusters (higher resolution = more clusters).
+                FindClusters(resolution = 0.5)
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set the size of the output visualization.
+options(repr.plot.height = 5, repr.plot.width = 16)
+
+# Create a UMAP plot grouping cells by the "stim" metadata column.
+p1 <- DimPlot(sc_datasets, reduction = "umap", group.by = "stim")
+
+# Create a UMAP plot for the integrated dataset, grouping cells by the "stim" metadata column.
+p2 <- DimPlot(sc_datasets.combined, reduction = "umap", group.by = "stim")
+
+# Create a UMAP plot for the Harmony-corrected dataset, grouping cells by the "stim" metadata column.
+p3 <- DimPlot(sc_datasets.harmony, reduction = "umap", group.by = "stim")
+
+# Combine the three UMAP plots (p1, p2, and p3) into a single visualization.
+p1 + p2 + p3
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Set the height and width of the output visualization.
+options(repr.plot.height = 5, repr.plot.width = 16)
+
+# Create a UMAP plot for the original sc_datasets object.
+# The 'label' parameter adds labels to the clusters in the plot.
+# The 'repel' parameter prevents text labels from overlapping.
+p1 <- DimPlot(sc_datasets, reduction = "umap", label = TRUE, repel = TRUE)
+
+# Create a UMAP plot for the combined sc_datasets object.
+p2 <- DimPlot(sc_datasets.combined, reduction = "umap", label = TRUE, repel = TRUE)
+
+# Create a UMAP plot for the harmony-corrected sc_datasets object.
+# This plot also uses UMAP, with labels and repelling to avoid overlaps.
+p3 <- DimPlot(sc_datasets.harmony, reduction = "umap", label = TRUE, repel = TRUE)
+
+p1 + p2 + p3 #Combine plots
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2 class="hero-heading text-xl">Extra Questions:</h2>
+                <ul.a>
+                        <li>How different are the results between the Seurat and Harmony integration?</li>
+                        <li>Why can this happen?</li>
+                        <li>Can you identify which markers changed in the clusters generated in one method vs the other?</li>
+                    </ul.a>
+                <br>
+            </div>
+        </section>
+
+                <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+        <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

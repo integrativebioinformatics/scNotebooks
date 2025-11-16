@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo03/modulo03.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno03/cuaderno03.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo03/modulo03.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno03/cuaderno03.html">
+                                Español
+                            </a>
+                        </li>
+                        <li>
+                            <a class="" href="#"></a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Processing raw scRNA-seq data
+                    </h1>
+                    <p class="hero-text">
+                        This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics. Processing scRNA-seq data is a crucial step in single-cell analysis. The chosen library preparation method determines whether RNA sequences are captured from transcript ends (e.g., 10X Genomics, Drop-seq) or full-length transcripts (e.g., Smart-seq), directly influencing downstream analysis and biological insights.
+                    </p>
+                    <br>
+                    <hr/>                    
+                    </div>
+                    <h2 class="hero-heading text-xl">
+                        Install Utilities
+                    </h2>
+                    <h3><i>SRAtoolkit</i></h3>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="sra-tool.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <h2 class="hero-heading text-xl">NOTICE: Shell comands</h2>
+                <br>
+                <p>Google Colab/Jupyter Noetbook using for default python as programming language.
+                It's permite to use another languages, like shell script.
+                <ul.a>
+                    <li>For this, in Google Colab we use <span class="code-inline-light">"!"</span> before the code.</li>
+                    <li>For the Jupyter Notebooks we use a magic cell with <span class="code-inline-light">%%bash</span> before to write our script.</li>
+                </ul.a>
+                </p>
+                
+                <p>This is a marker to Google Colab understand this is Shell's code. For your personal use, <span class="code-inline-light">"!"</span> is not necessary.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# A hashtag is a comment, this parte of the code is not using. However serve to importante annotations.
+# It is a good and common practice in code as a reminder and as a mechanism for reproduction.
+# We recommend to always comment your codes and script
+
+echo "Hello, world!"  
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Along this Jupyter Notebook you will see diferents command in shell. They will be explained, but here is a small set of the most common commands.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# make a folder.
+# In programming, folder is called directory. We will use the name directory from here on.
+# The name folder could be anything (e.g. folder1, folder_1, etc), try always to name directories that you remember what data are you saving on it
+mkdir folder 
+                </code></pre>
+                </div>
+            </section>
+     
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+#list of files and directories
+# In general, directories has a / in ending (e.g. /Documents/Files/scRNAseq_data/, here we have three directories
+ls
+                </code></pre>
+                </div>
+            </section>
+
+               
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# A command could be follow for arguments. Arguments specify your main code. There are could be - or -- or positional. 
+# It's a importante thing to know about a software that you want to use.
+ls -l
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# A command could be follow for arguments. Arguments specify your main code. There are could be - or -- or positional. 
+# It's a importante thing to know about a software that you want to use.
+ls -l
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command cd is used to move into a directory or out of a directory
+# If you want to move to another directory, you can use cd .. to move back forward or only cd to move forward
+cd 
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command mv is used to move your file to a specific directory
+# You only need to specify the path to the directory you want to move your file 
+mv your_arquive local_to_move/
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Also, mv could change names of directories or files. Try:
+mv folder/ directory/
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command cat shows the entire contents of your file
+cat
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# Also, you can concatenate two or more files using this command
+cat file_1 file_2 > file_3
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command head shows the first 10 lines of your file
+# Like a head of the "cat"
+head your_file
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command tail shows the last 10 lines of your file
+# Like a tail of the "cat"
+tail
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The command wget is used to download files
+# You can put a link next to the command to download data (e.g. an specific dataset of a database, here is an example of a RNA-seq sample from SRA)
+wget https://trace.ncbi.nlm.nih.gov/Traces/sra?run=SRR24765940
+                </code></pre>
+                </div>
+            </section>
+
+        </section>
+
+            
+        <section class="hero-modules">
+            <div class="container">
+                <h3>Installation</h3>
+               
+                <p>To begin, you must download SRAtoolkit in order to use the fastq-dump tool, which allows you to download SRA files.</p>
+
+                <p>The SRA Toolkit is a set of tools developed by the National Center for Biotechnology Information (NCBI) to access, download, and manipulate high-throughput data stored in the Sequence Read Archive (SRA)</p>
+
+                <p>The fastq-dump is one of the tools in the SRA Toolkit. It is used to extract data in FASTQ or FASTA format from SRA accessions. FASTQ is a common format for storing DNA and RNA sequencing data, which includes the sequence reads and their qualities. fastq-dump allows users to convert SRA files to FASTQ files, making it easier to process and analyze these data in other bioinformatics tools.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# The -q is for quit mode, to don't provide all the output of wget, just run silently.
+# The --output-document is to specify the name of the file where the downloaded content should be saved.
+wget -q --output-document sratoolkit.tar.gz https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/3.1.0/sratoolkit.3.1.0-ubuntu64.tar.gz
+
+# .tar.gz is a file that has been first packaged with tar and then compressed with gzip.
+# tar command is used to pack or unpack files on Unix/Linux systems. The name "tar" comes from "tape archive"
+# -xzf: Indicates that tar should extract the contents of a gzip-compressed archive.
+tar -xzf sratoolkit.tar.gz
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# list of archives
+ls
+                </code></pre>
+                </div>
+            </section>
+
+        </div>
+        </section>
+
+
+        <section class="hero-modules">
+            <div class="container">
+
+                <h2>Cell Ranger</h2>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="gen10x.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <h3>What is Cell Ranger?</h3>
+                <br>
+                <p>Cell Ranger is a software suite developed by 10x Genomics for analyzing single-cell RNA sequencing (scRNA-seq) data generated from their Chromium platform. It processes the raw sequencing data into meaningful insights, including gene expression matrices, cell clustering, and other downstream analyses.
+                <br>
+                <b>Note:</b>
+                <br>
+                Cell Ranger requires more than 12GB of RAM to run, it does not work with Colab.
+                <br>
+                <b>Download:</b>Update the <a href="https://www.10xgenomics.com/support/software/cell-ranger/downloads">link</a> if it has expired and then the relevant genomic reference.
+                </p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+# -O: name of output
+wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/cell-ranger/downloads"
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+wget -O cellranger-9.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-9.0.0.tar.gz?Expires=1735019868&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=jr1wurwScX~6D75pHB8jDbGMyGRI28tiLJAe9LUo0Xz5hqUgQlVpaRBz50wZewTz9lp2ozBI91iEQkZ7s2ZbOGbugctslStBOCkILh3gfkIiv63YBJRSDm0kPJjAvLXHm6BUf20bPTJPiuwLvRWZuSrri0tV7vzn9iCY24I3~tjGCy4377Dm-1oCuiQCuHjXlyZjEZVXQZuS9ghX9ZmmldDnf6wE9hqIE80PhiSclOyFWfqLg8v5OBGP0JqrdI5oNhGiRKKmezIpT2eZ-pfzSCGMcQu1r6irmsz4pgZxl4ElWIpLtzB7xJb2H2OvL~j3rsBX6Ay-idAxDOF31tMqyQ__"
+wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
+                </code></pre>
+                </div>
+            </section>
+             
+                <h3>Installation</h3>
+                <br>
+                <p>It merely has to be decompressed to be installed.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+tar -xzf cellranger-7.2.0.tar.gz
+tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
+                </code></pre>
+                </div>
+            </section>
+                <ul.a>
+                    It's recommend create a reference for Cell Ranger:
+                    <li>cellranger-7.2.0/bin/cellranger is a path to the software</li>
+                    <li>the mkref command is used to create custom reference packages</li>
+                    <li>--genome: Create a directory to outputs</li>
+                    <li>--fasta: Specify your genome of reference</li>
+                    <li>/genome/genome.fa: Is a PATH to your genome in .fa format</li>
+                    <li>--genes: Specify your GTF file of reference</li>
+                    <li>/gtf/genome.annotation.gtf: PATH to you annotation file</li>
+                </ul.a>
+
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+!cellranger-7.2.0/bin/cellranger mkref --genome=reference --fasta=/genome/genome.fa --genes=/rato/gencode.vM36.annotation.gtf
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+#shows the full path where you are working
+pwd
+                </code></pre>
+                </div>
+            </section>
+    
+                <h2>DO NOT RUN!</h2>
+                <ul.a>
+                    cellranger-7.2.0/bin/cellranger is a path to the software
+
+                    <li>count is used to count messenger RNA (mRNA) molecules</li>
+
+                    <li>--id= is a directory name for outputs</li>
+
+                    <li>--fastqs path to files to analyse</li>
+
+                    <li>--sample files to analyse</li>
+
+                    <li>--transcriptome is the reference</li>
+                </ul.a>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+#DO NOT RUN!
+#This \ break a line and continue the code in another line
+cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
+    --fastqs=SRR11537950 --sample=SRR11537950 \
+    --transcriptome=refdata-gex-GRCh38-2020-A 
+
+#--localcores=2 --localmem=12
+                </code></pre>
+                </div>
+            </section>
+
+                <b>Cellranger outputs running one sample</b>
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <ul.a>
+                    <li>The Cell Ranger software strives to maintain compatibility with common analysis tools by using standard output file formats whenever possible. For example, the barcoded BAM files can be viewed in standard genome browsers such as IGV to verify alignment quality and other features.</li>
+                </ul.a>
+
+                <p>The cellranger count pipeline outputs an interactive summary HTML file named web_summary.html that contains summary metrics and automated secondary analysis results. Let's check it out!</p>
+                <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary">
+                    <p>https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary</p>
+                </a>
+
+                <ul.a>
+                    <br>
+                    Understand the summary output:
+                    <li>Green text indicates that the key metrics are in the expected range.</li>
+                    <li>Red/Yellow text indicates errors/warnings.</li>
+                </ul.a>
+
+                <p>Barcode Rank Plot:
+                    <br>
+                    A steep drop-off is indicative of good separation between the cell-associated barcodes and the barcodes associated with empty GEMs.
+                </p>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output_cellranger.jpg" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="output_cellranger2.jpg" alt="video" class="video-preview">
+                    </div>
+                    <h4>The significate of t-SNE, clusters, features and others informations will be explain in others Modules.</h4>
+                </div>
+                </section>
+            </div>
+        </section>
+             
+
+        <!--Top Button -->
+         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+         <!--Foootnote-->
+        <footer class="footer bg-dark">
+                <div class="container">
+                    <div class="footer-grid">
+                        <div>
+                            <h4>Project</h4>
+                            <ul>
+                                <li><a href="#about">About Us</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="#">Research</a></li>
+                                <li><a href="#">Projects</a></li>
+                                <li><a href="#">Courses</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Contact Us</h4>
+                            <ul>
+                                <li><a href="#">sclearn@email.com</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <i class="fab fa-linkedin"></i>
+                            <i class="fab fa-x"></i>
+                            <i class="fab fa-instagram"></i>
+                            <i class="fab fa-youtube"></i>
+                            <i class="fab fa-github"></i>
+                            
+                        </div>
+                    </div>
+                </div>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>
