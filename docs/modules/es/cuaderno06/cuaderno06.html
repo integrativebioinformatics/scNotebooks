@@ -77,7 +77,6 @@
                     <hr/>
                     </div>
                 </div>
-            </div>
         </section>
 
         <section class="hero-modules">
@@ -185,7 +184,7 @@ remotes::install_github('cole-trapnell-lab/monocle3') # Instalar Monocle3 para i
                 <p>En este tutorial, aprenderemos a inferir trayectorias celulares y estimar el pseudotiempo —una medida del progreso relativo de las células a lo largo de una ruta de desarrollo— utilizando Monocle3. Al analizar datos de células individuales, podemos mapear cómo evolucionan las células a través de diferentes estados funcionales e identificar genes clave que impulsan estas transiciones.</p>
                 <br>
                 <p>Este tutorial está inspirado en y se basa en guías y estudios previos que han demostrado el poder de la inferencia de trayectorias en la biología de células individuales.</p>
-                <ul.a>
+                <ul class="a">
                     <a href="https://cole-trapnell-lab.github.io/monocle3/docs/trajectories/">
                         <li>Tutorial original de Monocle3</li>
                     </a>
@@ -195,7 +194,7 @@ remotes::install_github('cole-trapnell-lab/monocle3') # Instalar Monocle3 para i
                     <a href="https://rpubs.com/mahima_bose/Seurat_and_Monocle3_p">
                         <li>Tutorial que combina Seurat y Monocle3 por Mahima Bose</li>
                     </a>
-                </ul.a>
+                </ul>
 
                 <section class="video">
                 <div class="container-md">
@@ -247,7 +246,7 @@ library(ggplot2)       # Visualización de datos
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# escargar e instalar el conjunto de datos "ifnb", que contiene datos de RNA-seq de una sola célula
+# Descargar e instalar el conjunto de datos "ifnb", que contiene datos de RNA-seq de una sola célula
 InstallData("ifnb")
                 </code></pre>
                 </div>
@@ -263,7 +262,7 @@ InstallData("ifnb")
                 <!-- code block -->
                 <pre><code class="language-r">
 # Cargar el conjunto de datos "ifnb" previamente instalado
-LoadData("ifnb")/code></pre>
+LoadData("ifnb")</code></pre>
                 </div>
             </section>
 
@@ -302,6 +301,7 @@ testdata %>% dplyr::glimpse()
             </section>
             </div>
         </section>
+        
 
         <section class="hero-modules">
             <div class="container">
@@ -706,14 +706,13 @@ scPlot
         <section class="hero-modules">
             <div class="container">
                 <h2 class="hero-heading text-xl">Preguntas adicionales:</h2>
-                <ul.a>
+                <ul class="a">
                     <li>¿Cómo afecta la selección de diferentes células raíz al análisis?</li>
                     <li>Realiza el análisis para un tipo celular de interés. ¿Puedes identificar subtipos celulares?</li>
                     <li>¿Cambian los genes marcadores de este tipo celular a lo largo del pseudotiempo?</li>
-                </ul.a>
+                </ul>
                 <br>
             </div>
-
         </section>
 
         <!--Top Button -->
