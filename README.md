@@ -70,7 +70,7 @@ Additionally, we will explore the key steps in processing raw sequencing reads i
 - [versión en Español](Cuadernos_ES/Modulo03_ProcesamientoSecuenciasBrutas_CellRanger.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo03_ProcessamentoSequenciasBrutas_CellRanger.ipynb)
 
-### Module 04 - Quality Control, Differential expression, Cell Type Annotation, Clustering and Functional Data analysis
+### Module 04 - Quality Control, Clustering, Cell Type Annotation, Differential expression and abundace, and Functional Data analysis
 
 In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure proper quality control before downstream analysis.
 
