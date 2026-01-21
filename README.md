@@ -11,7 +11,7 @@ Our notebooks are available in **multilingual versions** and can be accessed in 
 
 #### Option 1: Open in Google Colab  
 You can run the notebooks directly in your browser using [Google Colab](https://colab.research.google.com/), with no need to install anything locally.  
-Just follow our step-by-step [multilingual tutorial](https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_Uploading_Notebooks_Colab.md) to learn how to:
+Just follow our step-by-step [multilingual tutorial](https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_Open_scNotebooks_Colab.md) to learn how to:
 - Manually upload `.ipynb` files
 - Clone the GitHub repository and open notebooks directly in Colab
 
@@ -24,7 +24,7 @@ Check out our [Docker tutorial](https://github.com/integrativebioinformatics/scN
 - Mounting local directories to save outputs and access reference files
 - Launching the Jupyter interface locally
 
-#### Option 3: Option 3: Run via Website
+#### Option 3: Option 3: Open Modules via Website
 If you prefer a simpler way to browse the notebooks without installing anything or creating an account, you can access them directly through [our official website](https://integrativebioinformatics.github.io/scNotebooks/).
 On the site you will find:
 - The same content available in the repository, organized by module, with accessibility in three languages (English, Spanish, and Portuguese)
@@ -70,13 +70,11 @@ Additionally, we will explore the key steps in processing raw sequencing reads i
 - [versión en Español](Cuadernos_ES/Modulo03_ProcesamientoSecuenciasBrutas_CellRanger.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo03_ProcessamentoSequenciasBrutas_CellRanger.ipynb)
 
-### Module 04 - Quality Control, Clustering, Cell Type Annotation, Differential expression and abundace, and Functional Data analysis
+### Module 04 - Quality Control, Clustering, Annotation, and Functional Analysis 
 
-In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure proper quality control before downstream analysis.
+In this section, we will use the Seurat package to process and analyze scRNA‑seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure quality control before downstream analysis. A central aspect of scRNA‑seq is identifying genes and transcripts with distinct expression patterns across conditions, which helps reveal biological processes driving cellular heterogeneity. To refine the dataset, we will evaluate quality metrics, apply normalization to reduce technical variability, and implement clustering methods to group cells by gene expression profiles.
 
-A key part of scRNA-seq analysis is identifying genes and transcripts with distinct expression patterns across different conditions. These differences can reveal underlying biological processes driving cellular heterogeneity. To refine the dataset, we will assess its quality using key metrics, apply normalization techniques to mitigate technical variability, and implement clustering methods to group cells based on gene expression patterns.
-
-Furthermore, we will do differential expression analysis, cell type annotation, and functional enrichment techniques to uncover gene regulation mechanisms, identify key markers, and explore pathways involved in cellular differentiation and disease states. Together, these approaches provide a comprehensive framework for interpreting single-cell transcriptomics data and extracting meaningful biological insights.
+We will then perform differential expression and abundance analysis, cell type annotation, and functional enrichment to uncover regulatory mechanisms, identify key markers, and explore pathways involved in differentiation and disease. Finally, the module includes a simple step showing how to remove ambient mRNA contamination, ensuring cleaner and more reliable results.
 
 - [English version](Notebooks_EN/Module04_QualityControl_ReductionDimensionality_DiferentialExpressionAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_ReducionDimensionalidad_AnalisisEspresionDiferencial.ipynb)
