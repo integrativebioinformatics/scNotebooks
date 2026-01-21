@@ -24,7 +24,7 @@ Check out our [Docker tutorial](https://github.com/integrativebioinformatics/scN
 - Mounting local directories to save outputs and access reference files
 - Launching the Jupyter interface locally
 
-#### Option 3: Option 3: Run via Website
+#### Option 3: Option 3: Open Modules via Website
 If you prefer a simpler way to browse the notebooks without installing anything or creating an account, you can access them directly through [our official website](https://integrativebioinformatics.github.io/scNotebooks/).
 On the site you will find:
 - The same content available in the repository, organized by module, with accessibility in three languages (English, Spanish, and Portuguese)
