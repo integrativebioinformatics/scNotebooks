@@ -2,7 +2,7 @@
 ## Option 1: Download the Module from GitHub
 
 
-Step 1: Choose the module you want to study. Example: Modulo01 [Cadernos_PT_BR/Modulo01_IntrocucaoNotebooks_e_BancosdeDados.ipynb]
+Step 1: Choose the module you want to study. Example: [Modulo01](Notebooks_EN/Module01_IntroductionNotebooks_Databases.ipynb)
 
 #### Note: It’s normal to see the message Unable to render code block in Module 01 due to the large number of embedded images.
 
@@ -35,7 +35,7 @@ Step 6: Click Search and open the notebook you want
 
 # Como Fazer Upload de Notebooks no Google Colab
 ## Opção 1: Baixar o Módulo Diretamente do GitHub
-Passo 1: Escolha o módulo que deseja estudar. Exemplo: Modulo01 [Cadernos_PT_BR/Modulo01_IntrocucaoNotebooks_e_BancosdeDados.ipynb]
+Passo 1: Escolha o módulo que deseja estudar. Exemplo: [Modulo01](Cadernos_PT_BR/Modulo01_IntrocucaoNotebooks_e_BancosdeDados.ipynb)
 
 ### Atenção: É normal aparecer a mensagem Unable to render code block nesse módulo por causa da quantidade de imagens.
 
@@ -69,7 +69,7 @@ Passo 6: Clique em Pesquisar e selecione o notebook que deseja abrir
 
 # Cómo Subir Notebooks en Google Colab
 ## Opción 1: Descargar el Módulo desde GitHub
-Paso 1: Elige el módulo que deseas estudiar. Ejemplo: Modulo01 [Cadernos_PT_BR/Modulo01_IntrocucaoNotebooks_e_BancosdeDados.ipynb]
+Paso 1: Elige el módulo que deseas estudiar. Ejemplo: [Modulo01](Cuadernos_ES/Modulo01_IntroducciónCuadernos_BasesDeDatos.ipynb)
 
 ### Nota: Es normal que aparezca el mensaje Unable to render code block en este módulo debido a la cantidad de imágenes.
 
