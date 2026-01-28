@@ -34,7 +34,7 @@ On the site you will find:
 > Please note: scNotebooks cannot be executed directly on the website; they are provided for browsing and copying code only.
 
 ---
-## *Community Support and Feedback*
+## Community Support and Feedback
 
 We value continuous improvement and collaboration. To support learners and researchers, we maintain a dedicated space in [GitHub Discussions](https://github.com/integrativebioinformatics/scNotebooks/discussions), where you can engage with us directly:
 - Ask Questions: Clarify workflows, tools, or concepts presented in the notebooks
