@@ -49,18 +49,18 @@ We value continuous improvement and collaboration. To support learners and resea
 ### Module 01 - Introduction to notebooks and Databases
 This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.
 
-> *This notebook has many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality or web site.*
+> **This notebook has many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality or web site.**
 
-- [English version](Notebooks_EN/Module01_IntroductionNotebooks_and_Databases.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo01_IntroducciónCuadernos_BasesDeDatos.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo01_IntroduçaoNotebooks_e_BancosdeDados.ipynb)
+- [English version](Notebooks_EN/Module01_IntroductionNotebooks_Databases.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo01_IntroduccionCuadernos_BasesDeDatos.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo01_IntrocuçaoNotebooks_BancosdeDados.ipynb)
 
 ### Module 02 - Introduction to R and Data Visualization with ggplot2
 This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.
 
 - [English version](Notebooks_EN/Module02_IntroductionToR.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo02_IntroduccionR.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo02_IntrocucaoR.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo02_IntroduçaoR.ipynb)
 
 ### Module 03 - Processing raw scRNA-seq data
 This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology.
@@ -76,9 +76,9 @@ In this section, we will use the Seurat package to process and analyze scRNA‑s
 
 We will then perform differential expression and abundance analysis, cell type annotation, and functional enrichment to uncover regulatory mechanisms, identify key markers, and explore pathways involved in differentiation and disease. Finally, the module includes a simple step showing how to remove ambient mRNA contamination, ensuring cleaner and more reliable results.
 
-- [English version](Notebooks_EN/Module04_QualityControl_ReductionDimensionality_DiferentialExpressionAnalysis.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_ReducionDimensionalidad_AnalisisEspresionDiferencial.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_ReducaoDimensionalidade_AnaliseExpressaoDiferencial.ipynb).
+- [English version](Notebooks_EN/Module04_Quality Control_Clustering_Annotation_FunctionalAnalysis.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_Agrupamiento_Anotacion_AnalisisFuncionales.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_Agrupamento_Anotaçao_AnalisesFuncionais.ipynb).
 
 ### Module 05 - Integrating single-cell transcriptomes from multiple samples:
 As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
@@ -87,9 +87,9 @@ Computational methods help eliminate unwanted variation, ensuring biologically m
 
 In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
 
-- [English version](Notebooks_EN/Module05_Dataset_Integration.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo05_IntegraciónDatos.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo05_IntegracaoMultiplasAmostras.ipynb)
+- [English version](Notebooks_EN/Module05_DatasetIntegration.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo05_IntegracionDatos.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo05_Integraçao_MultiplasAmostras.ipynb)
 
 ### Module 06 - Trajectory inference and pseudotemporal ordering
 
@@ -106,9 +106,9 @@ Cell-cell communication plays a crucial role in coordinating cellular activities
 In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. 
 In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
 
-- [English version](Notebooks_EN/Module07_CellCellCommunication.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo07_Comunicación_CelulaCelula.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo07_ComunicacaoCelulaCelula.ipynb)
+- [English version](Notebooks_EN/Module07_CellCell_Communication.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo07_Comunicacion_CelulaCelula.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo07_Comunicaçao_CelulaCelula.ipynb)
 
 
 ### Module 08 - Multimodal Single-Cell Analysis: 
@@ -116,7 +116,7 @@ In this notebook, main concepts and a general computational workflow will be cov
 This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
 
 - [English version](Notebooks_EN/Module08_MultimodalDataAnalysis.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo08_MultimodalDataAnalisis.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo08_Analisis_DatosMultimodales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo08_AnaliseDadosMultimodais.ipynb)
 
 ### Module 09 - TCR Profiling in Single-Cell Analysis: 
@@ -157,7 +157,7 @@ This module focuses on the bioinformatic analysis of Alternative Polyadenylation
 
 - [English version](Notebooks_EN/Module12_AlternativePoliA.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo12_PoliadenilacionAlternativa.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo12_PoliadenilacaoAlternativa.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo12_PoliadenilaçaoAlternativa.ipynb)
 
 ### Module 13 - Fair data and Sharing data
 
