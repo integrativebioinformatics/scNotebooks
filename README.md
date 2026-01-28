@@ -51,9 +51,15 @@ This module provides an introduction to Jupyter Notebooks and Google Colaborator
 
 > **This notebook has many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality or web site.**
 
+Module:
 - [English version](Notebooks_EN/Module01_IntroductionNotebooks_Databases.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo01_IntroduccionCuadernos_BasesDeDatos.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo01_IntrocuçaoNotebooks_BancosdeDados.ipynb)
+
+Site:
+- [English version](https://integrativebioinformatics.github.io/scNotebooks/modules/en/module01/module01.html)
+- [versión en Español](https://integrativebioinformatics.github.io/scNotebooks/modules/es/cuaderno01/cuaderno01.html)
+- [Versão em Português](https://integrativebioinformatics.github.io/scNotebooks/modules/pt/modulo01/modulo01.html)
 
 ### Module 02 - Introduction to R and Data Visualization with ggplot2
 This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.
