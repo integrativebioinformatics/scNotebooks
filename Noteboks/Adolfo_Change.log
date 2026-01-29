@@ -8,5 +8,5 @@ modulo 07 - [Solucionado con Downgrade de Seurat y Seuratobjects]Error con la li
 modulo 08 - pequeños cambios, falta un parentesis y habia un + mal puesto en la generacion de una imagen con ggplot
 modulo 09 - Solo cambiar slot por layer en GetAssayData(seurat.raw, layer = "counts")[8:10,13:14]
 modulo 10 - Se cambiaron bastantes cosas revisar con detencion, ya no se usa STUtility ni Spotlight, se reempplazaron por semla, solo se usa un dataset obtenido de 10x y otro rds previamente anotado, si es posible agregar mas comentarios
-modulo 11 - Se necesita configurar Macs2 "Could Not Find Macs2"
+modulo 11 - MACS2 arreglado, ya no es necesario almacenar el material completo ya que se descargan archivos desde NCBI, pero hay una parte en la que el colab falla y se reinicia el kernel
 modulo 12 - Se necesita configurar GPU
