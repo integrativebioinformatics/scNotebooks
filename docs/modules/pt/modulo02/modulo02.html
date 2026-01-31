@@ -737,7 +737,7 @@ round(3.14159, digits = 2)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Load the tidyverse package
+# Carregar o pacote tidyverse
 library(tidyverse)                    
                 </code></pre>
                 </div>
@@ -751,10 +751,10 @@ library(tidyverse)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Load the msleep dataset
+# Carregar o conjunto de dados msleep
 data(msleep)
 
-# Check the structure of the msleep dataset
+# Verificar a estrutura do conjunto de dados msleep
 str(msleep)                    
                 </code></pre>
                 </div>
@@ -768,9 +768,14 @@ str(msleep)
 
                 <!-- code block -->
                 <pre><code class="language-r">
+# Funções exploratórias básicas
+#nrow: número de linhas
+#ncol: número de colunas
+#head: primeiras linhas
+
 nrow(msleep)
 ncol(msleep)
-head(msleep)                    
+head(msleep)                   
                 </code></pre>
                 </div>
                 </section>
@@ -783,7 +788,7 @@ head(msleep)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Are there NA values? How many?
+# Existem valores NA? Quantos?
 any(is.na(msleep))
 sum(is.na(msleep))                    
                 </code></pre>
@@ -798,12 +803,12 @@ sum(is.na(msleep))
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Leave out any observation with NA values
-msleep %>%
-  drop_na()
+# Ignorar qualquer observação com valores NA
+msleep %>% 
+   drop_na()
 
-#Equal to do:
-#drop_na(msleep)                    
+# Equivalente a:
+#drop_na(msleep)                   
                 </code></pre>
                 </div>
                 </section>
@@ -816,11 +821,11 @@ msleep %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Is there a relationship between sleep total and sleep rem?
-# How can we check that?
-# Plotting maybe?
+# Existe alguma relação entre o tempo total de sono e o sono REM?
+# Como podemos verificar isso?
+# Talvez através de um gráfico?
 
-plot(msleep$sleep_total, msleep$sleep_rem)                    
+plot(msleep$sleep_total, msleep$sleep_rem)                   
                 </code></pre>
                 </div>
                 </section>
@@ -833,8 +838,8 @@ plot(msleep$sleep_total, msleep$sleep_rem)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Correlation coefficient can be computed using the functions cor()
-cor.test(msleep$sleep_total, msleep$sleep_rem, method = "pearson", use = "complete.obs")                    
+# O coeficiente de correlação pode ser calculado usando as funções cor()
+cor.test(msleep$sleep_total, msleep$sleep_rem, method = "pearson", use = "complete.obs")        
                 </code></pre>
                 </div>
                 </section>
@@ -847,7 +852,7 @@ cor.test(msleep$sleep_total, msleep$sleep_rem, method = "pearson", use = "comple
 
                 <!-- code block -->
                 <pre><code class="language-r">
-#Comparing means
+#Comparando médias
 t.test(msleep$sleep_total, msleep$sleep_rem)                    
                 </code></pre>
                 </div>
@@ -868,7 +873,7 @@ t.test(msleep$sleep_total, msleep$sleep_rem)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Using tidyverse
+# Usando tidyverse
 msleep %>%
   ggplot(aes(x = sleep_total, y = sleep_rem)) +
   geom_point()                    
@@ -884,9 +889,9 @@ msleep %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
-#Directly calling ggplot
+#Chamando o ggplot diretamente
 ggplot(msleep, aes(x = sleep_total, y = sleep_rem)) +
-  geom_point()                    
+  geom_point()                   
                 </code></pre>
                 </div>
                 </section>
@@ -899,7 +904,7 @@ ggplot(msleep, aes(x = sleep_total, y = sleep_rem)) +
 
                 <!-- code block -->
                 <pre><code class="language-r">
-#Saving plots
+# Salvando o gráfico
 g <- ggplot(msleep, aes(x = sleep_total, y = sleep_rem)) +
   geom_point()
 ggsave(filename = "test.pdf", plot = g)                    
@@ -915,7 +920,7 @@ ggsave(filename = "test.pdf", plot = g)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-#Other alternative
+# Outra alternativa
 pdf("test2.pdf")
 g
 dev.off()                    
@@ -931,12 +936,12 @@ dev.off()
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Add a custom y-axis title
+# Adicione um título personalizado para o eixo y
 msleep %>%
-  ggplot(aes(sleep_total, sleep_rem)) + # Implicit or explicit arguments?
+  ggplot(aes(sleep_total, sleep_rem)) + # Argumentos implícitos ou explícitos?
   geom_point() +
   xlab("Total sleep time (h)") +
-  ylab("REM sleep time (h)")                    
+  ylab("REM sleep time (h)")                   
                 </code></pre>
                 </div>
                 </section>
@@ -951,9 +956,9 @@ msleep %>%
                 <pre><code class="language-r">
 msleep %>%
   ggplot(aes(sleep_total, sleep_rem)) +
-  geom_point(color = "red") +  #visit: color-hex.com to select it
+  geom_point(color = "red") +  #Visite color-hex.com para selecionar
   xlab("Total sleep time (h)") +
-  ylab("REM sleep time (h)")                    
+  ylab("REM sleep time (h)")                   
                 </code></pre>
                 </div>
                 </section>
@@ -966,8 +971,8 @@ msleep %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# How can we colour the points by vore?
-str(msleep)                    
+#Como podemos colorir os pontos?
+str(msleep)                   
                 </code></pre>
                 </div>
                 </section>
@@ -1004,7 +1009,7 @@ msleep %>%
                 <!-- code block -->
                 <pre><code class="language-r">
 # Base R
-boxplot(sleep_total ~ vore, data = msleep)                    
+boxplot(sleep_total ~ vore, data = msleep)                   
                 </code></pre>
                 </div>
                 </section>
@@ -1018,9 +1023,11 @@ boxplot(sleep_total ~ vore, data = msleep)
                 <!-- code block -->
                 <pre><code class="language-r">
 # ggplot2
+# gemboxplot: plotar como boxplot
+
 msleep %>%
-  ggplot(aes(vore, sleep_total)) +
-      geom_boxplot()                    
+  ggplot(aes(vore, sleep_total)) + 
+      geom_boxplot()                   
                 </code></pre>
                 </div>
                 </section>
@@ -1033,10 +1040,13 @@ msleep %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
+# Filtrando valores NA
+# Fill: cores baseadas em categorias (vore)
+
 msleep %>%
   filter(!(is.na(msleep$vore))) %>%
   ggplot(aes(vore, sleep_total, fill = vore)) +
-  geom_boxplot()                    
+  geom_boxplot()                   
                 </code></pre>
                 </div>
                 </section>
@@ -1049,6 +1059,10 @@ msleep %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
+# geom_jitter: adicionar pontos individuais
+# Color: cores baseadas em categorias (vore)
+# labs: adicionar rótulos aos eixos e legenda
+
 msleep %>%
   filter(!(is.na(msleep$vore))) %>%
   ggplot(aes(vore, sleep_total)) +

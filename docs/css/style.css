@@ -29,7 +29,9 @@ ul {
 .container ul.a {
     list-style-type: circle;
     list-style-position: outside;
-    display: inline-block;
+    text-align: left;
+    padding-left: 20px;
+    /*display: inline-block;*/
 }
 
 img {

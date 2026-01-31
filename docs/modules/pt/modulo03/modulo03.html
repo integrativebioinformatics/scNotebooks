@@ -388,55 +388,54 @@ sratoolkit.3.1.0-ubuntu64/bin/fastq-dump -X 3 SRR11537950 --stdout
         </div>
         </section>
 
-        <p>Dowload do SRA</p>
-
-        <section class="">
-                <div class="code-container">
-                <!-- copy code -->
-                <button class="copy-btn" title="Copy code">
-                    <i class="fa-solid fa-copy"></i>
-                </button>
-
-                <!-- code block -->
-                <pre><code class="language-r">
-%%bash
-# Baixaremos os arquivos SRR11537950
-# sratoolkit.3.1.0-ubuntu64/bin/fastq-dump: Este é o PATH para o executável fastq-dump dentro da instalação do SRA Toolkit.
-# --split-files: Esta opção instrui o fastq-dump a dividir os arquivos de leitura de pares em dois arquivos separados.
-# --gzip: Esta opção compacta a saída no formato gzip, ou seja, reduz o tamanho do arquivo.
-# -X 1000000: Limita o número de leituras extraídas.
-sratoolkit.3.1.0-ubuntu64/bin/fastq-dump --split-files --gzip -X 1000000 SRR11537950
-
-# Crie um diretório com o mesmo número de acesso SRA
-mkdir -p SRR11537950
-
-# Mova tudo com as informações "SRR11537950" e ".fastq.gz" para uma pasta
-mv SRR11537950*.fastq.gz SRR11537950/
-
-# Renomeie os arquivos para nomes apropriados para o Cell Ranger.
-mv SRR11537950/SRR11537950_1.fastq.gz SRR11537950/SRR11537950_S1_L001_R1_001.fastq.gz
-mv SRR11537950/SRR11537950_2.fastq.gz SRR11537950/SRR11537950_S1_L001_R2_001.fastq.gz
-                </code></pre>
+        <section class="hero-modules">
+            <div class="container">
+                <p>Download do SRA</p>
+                <section class="">
+                        <div class="code-container">
+                        <!-- copy code -->
+                        <button class="copy-btn" title="Copy code">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        <!-- code block -->
+                        <pre><code class="language-r">
+                %%bash
+                # Baixaremos os arquivos SRR11537950
+                # sratoolkit.3.1.0-ubuntu64/bin/fastq-dump: Este é o PATH para o executável fastq-dump dentro da instalação do SRA Toolkit.
+                # --split-files: Esta opção instrui o fastq-dump a dividir os arquivos de leitura de pares em dois arquivos separados.
+                # --gzip: Esta opção compacta a saída no formato gzip, ou seja, reduz o tamanho do arquivo.
+                # -X 1000000: Limita o número de leituras extraídas.
+                sratoolkit.3.1.0-ubuntu64/bin/fastq-dump --split-files --gzip -X 1000000 SRR11537950
+                
+                # Crie um diretório com o mesmo número de acesso SRA
+                mkdir -p SRR11537950
+                
+                # Mova tudo com as informações "SRR11537950" e ".fastq.gz" para uma pasta
+                mv SRR11537950*.fastq.gz SRR11537950/
+                
+                # Renomeie os arquivos para nomes apropriados para o Cell Ranger.
+                mv SRR11537950/SRR11537950_1.fastq.gz SRR11537950/SRR11537950_S1_L001_R1_001.fastq.gz
+                mv SRR11537950/SRR11537950_2.fastq.gz SRR11537950/SRR11537950_S1_L001_R2_001.fastq.gz
+                        </code></pre>
+                        </div>
+                    </section>
+                    <section class="">
+                        <div class="code-container">
+                        <!-- copy code -->
+                        <button class="copy-btn" title="Copy code">
+                            <i class="fa-solid fa-copy"></i>
+                        </button>
+                        <!-- code block -->
+                        <pre><code class="language-r">
+                %%bash
+                # list of archives
+                ls
+                        </code></pre>
+                        </div>
+                    </section>
                 </div>
-            </section>
-
-            <section class="">
-                <div class="code-container">
-                <!-- copy code -->
-                <button class="copy-btn" title="Copy code">
-                    <i class="fa-solid fa-copy"></i>
-                </button>
-
-                <!-- code block -->
-                <pre><code class="language-r">
-%%bash
-# list of archives
-ls
-                </code></pre>
-                </div>
-            </section>
-
-        </div>
+                </section>
+            </div>
         </section>
 
 
