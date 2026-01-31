@@ -86,50 +86,6 @@
                 <br>
                 <p><b>R</b> is a programming language and software environment for data analysis, statistics, and graphics. It is widely used in scientific research, machine learning, bioinformatics, and data science due to its flexibility and vast collection of packages. R is open source and offers tools for data manipulation, statistical modeling, visualization, and integration with other languages ​​such as Python and C++.</p>
 
-                <section class="">
-                <div class="code-container">
-                <!-- copy code -->
-                <button class="copy-btn" title="Copy code">
-                    <i class="fa-solid fa-copy"></i>
-                </button>
-
-                <!-- code block -->
-                <pre><code class="language-r">
-# https://stackoverflow.com/questions/70025153/how-to-access-the-shell-in-google-colab-when-running-the-r-kernel
-shell_call <- function(command, ...) {
-  result <- system(command, intern = TRUE, ...)
-  cat(paste0(result, collapse = "\n"))
-}
-loadPackages = function(pkgs){
-  myrequire = function(...){
-    suppressWarnings(suppressMessages(suppressPackageStartupMessages(require(...))))
-  }
-  ok = sapply(pkgs, require, character.only=TRUE, quietly=TRUE)
-  if (!all(ok)){
-    message("There are missing packages: ", paste(pkgs[!ok], collapse=", "))
-  }
-}
-
-# Install curl if missing
-shell_call("apt update -qq")
-shell_call("apt install -y --no-install-recommends curl ca-certificates")
-# Run apt script
-
-shell_call("curl https://raw.githubusercontent.com/Bioconductor/bioc2u/devel/apt_setup.sh | sudo bash")
-bspm::enable()
-options(bspm.version.check=FALSE)
-## Install the R packages
-cranPkgs2Install = c("BiocManager", "ggpubr", "Seurat", "cowplot",
-                     "Rtsne", "hdf5r", "clustree")
-install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
-biocPkgs2Install = c("clusterProfiler", "preprocessCore", "rols",
-                     "scDblFinder","clusterExperiment", "SingleR",
-                     "celldex", "org.Hs.eg.db")
-BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
-                </code></pre>
-                </div>
-            </section>
-
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -139,7 +95,7 @@ BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# https://stackoverflow.com/questions/70025153/how-to-access-the-shell-in-google-colab-when-running-the-r-kernel
+# Original Tutorial: https://stackoverflow.com/questions/70025153/how-to-access-the-shell-in-google-colab-when-running-the-r-kernel
 shell_call <- function(command, ...) {
   result <- system(command, intern = TRUE, ...)
   cat(paste0(result, collapse = "\n"))
@@ -155,7 +111,8 @@ loadPackages = function(pkgs){
   }
 }
 
-## Setup R2U
+# Setup R2U for Ubuntu Jammy
+
 download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
               "add_cranapt_jammy.sh")
 Sys.chmod("add_cranapt_jammy.sh", "0755")
@@ -164,13 +121,17 @@ bspm::enable()
 options(bspm.version.check=FALSE)
 shell_call("rm add_cranapt_jammy.sh")
 
-## Install the R packages
+
+# Install required packages 
 cranPkgs2Install = c("BiocManager", "ggpubr", "Seurat", "cowplot",
-                     "Rtsne", "hdf5r", "clustree")
+                     "Rtsne", "hdf5r", "clustree", "SoupX")
+
 install.packages(cranPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
+
 biocPkgs2Install = c("clusterProfiler", "preprocessCore", "rols",
                      "scDblFinder","clusterExperiment", "SingleR",
-                     "celldex", "org.Hs.eg.db")
+                     "celldex", "org.Hs.eg.db", "DropletUtils",
+                     "miloR", "scran", "scater")
 BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
                 </code></pre>
                 </div>
@@ -232,9 +193,11 @@ library(name_of_package)
                 <pre><code class="language-r">
 # To simplify package loading, we created the loadPackages() function. 
 # But, if you don't have the function, you should use 'library(name_of_package)'
+
 pkgs = c("Rtsne", "Seurat", "tidyverse", "cowplot",
          "scDblFinder", "clustree", "preprocessCore",
-         "clusterProfiler", "celldex")
+         "clusterProfiler", "celldex", "SoupX",
+          "DropletUtils", "miloR", "scran", "scater")
 loadPackages(pkgs)
                 </code></pre>
                 </div>
@@ -242,14 +205,14 @@ loadPackages(pkgs)
 
                             <p>Then, load the libraries that you previously installed.</p>
 
-                            <ul.a>
+                            <ul class="a">
                                 <li><a href="https://jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">Rtsne</a>: package in R implements the t-SNE technique for dimensionality reduction and data visualization.</li>
                                 <li><a href="https://satijalab.org/seurat/articles/get_started.html">Seurat:</a> Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data.</li>
                                 <li><a href="https://bioconductor.org/packages/release/bioc/html/scDblFinder.html">scDblFinder:</a> The scDblFinder package gathers various methods for the detection and handling of doublets/multiplets in single-cell sequencing data (i.e. multiple cells captured within the same droplet or reaction volume)</li>
                                 <li><a href="https://wilkelab.org/cowplot/articles/introduction.html">Cowplot</a> Provides various features that help with creating publication-quality figures with ggplot2, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.</li>
                                 <li><a href="https://lazappi.github.io/clustree/">Clustree</a>This visualization shows the relationships between clusters at multiple resolutions, allowing researchers to see how samples move as the number of clusters increases.</li>
                                 <li><a href="https://bioconductor.org/packages/release/bioc/html/preprocessCore.html">PreprocessCore:</a> A collection of pre-processing functions.</li>
-                            </ul.a>
+                            </ul>
                         </div>
                     </section>
 
@@ -453,12 +416,11 @@ print(class(sc))
                     <section class="hero-modules">
                         <div class="container">
                             <h2>Quality control</h2>
-
-                            <ul.a>
+                            <ul class="a">
                                 We will now create a Seurat object to continue with the analysis. In this step, we will apply some filters:
                                 <li>Remove genes that are detected in fewer than 3 cells.</li>
                                 <li>Remove cells that express fewer than 200 genes.</li>
-                            </ul.a>
+                            </ul>
                             <br>
                             <p>These filtering steps help clean the data by excluding genes and cells with minimal expression, which might be uninformative. However, these filters are optional — you can adjust the thresholds or skip this step entirely if preferred.</p>
                             <section class="">
@@ -540,7 +502,7 @@ dim(sc) - dim(sampleA)
                             <br>
                             <p>To address this problem, we will use the scDblFinder method to identify and remove doublets from our dataset. This method requires an object of class SingleCellExperiment, which is part of the Bioconductor infrastructure.</p>
                             <br>
-                            <ul.a>
+                            <ol>
                                 Steps:
                                 <li>Prepare the SingleCellExperiment object: This is necessary before applying the scDblFinder method.</li>
                                 <li>Apply scDblFinder: The method uses a probabilistic approach to detect doublets, so results may vary slightly between runs.</li>
@@ -2122,7 +2084,21 @@ scPlot
                             <h2>Annotating Cell Types</h2>
                             <p>Interpreting the results from single-cell data analysis is often the most challenging part of the process. To gain a deeper understanding beyond just the clusters we identified, we can annotate cell types by comparing the expression profiles from our data to a reference dataset. This approach allows us to provide more meaningful interpretations of the clusters.</p>
                             <br>
+                            <p>Best practices recommend a hybrid approach, in which automated annotation is used as a starting point, followed by manual validation based on canonical markers and biological consistency. Using databases like <a href="https://www.google.com/url?q=https%3A%2F%2Fpanglaodb.se%2F">PanglaoDB</a>  and <a href="https://www.google.com/url?q=https%3A%2F%2Fcellxgene.cziscience.com%2F">CELLxGENE</a> can also be a useful alternative at this stage.
+                            <br>
+                            <p>For more information, please refer to our Module 01.</p>
+                            </p>
+                            <br>
+                            <h3>Automated annotation</h3>
                             <p>To start, we will load a reference dataset that includes the cell types we expect to encounter in our samples. The celldex package offers several well-curated and well-annotated reference datasets. Although most of these datasets originate from bulk RNA-Seq and microarray experiments, they are still very useful for annotating single-cell datasets. In our case, we will use the Blueprint and ENCODE reference datasets, which are commonly used for such purposes. These datasets will help us match the gene expression profiles from our single-cell data to known cell types, enhancing our ability to interpret the clusters meaningfully.</p>
+                            <br>
+                            <p>In R widely used tools include <a href="https://github.com/dviraran/SingleR">SingleR</a>, <a href="https://github.com/satijalab/azimuth">Azimuth</a>, and <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2Fscmap.html">scmap</a>, many of which integrate naturally with Seurat or the Bioconductor ecosystem.</p>
+                            <p>See the more information in:</p>
+                            <ul class="a">
+                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41590-018-0276-y">Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage</a></li>
+                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fazimuth.hubmapconsortium.org%2F">Azimuth HuBMAP Consortium</a></li>
+                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fnmeth.4644">scmap: projection of single-cell RNA-seq data across data sets</a></li>
+                            </ul>
 
                             <section class="">
                 <div class="code-container">
@@ -2195,8 +2171,589 @@ pheatmap(log2(my.table + 1), filename = "53-pheatmap.png")
                 </code></pre>
                 </div>
             </section>
+
+            <h3>Manual annotation</h3>
+                    <p>This aproach is based on set of known gene markers associated with a cell type. In this step, a robust set of marker genes and pior knowledge (based on literature or specialist, e.g pathologist, immunologist), as well annotation experience is ideal to work well. However this step is crital to risk of unclear cell type annotations, incomplete detection of gene marker during sequencing and subjetivity.
+                    <br>
+                    There are ways to work with manual annotations, including:</p>
+                    <ul class="a">
+                        <li>Annotation based on a set of marker genes from the cell populations that we expect to find in our data;</li>
+                        <li>Identifying the marker genes in each cluster to infer which cell type represents that population.</li>
+                    </ul>
+                    <p>As our dataset is represented by bronchoalveolar immune cells in patients with COVID-19. Then, we expect to find immune cells in our clusters.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+scPlot <- DimPlot(sampleA, label = TRUE) + NoLegend()
+scPlot
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Let's create a panel of known markers for cell populations that we expect to find in our dataset.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Select a set of marker genes for different cell types.
+# Create a list where each element corresponds to a cell population marker genes.
+
+genes_markers = list(
+  Fibroblast = c(
+    "LSAMP","LAMA2","CLMP","CLIC2","ABCA1","RUNX1T1","ABCC3","ZEB1",
+    "FBLN2","ZFP36","BNC2","COL3A1","PDGFRA","C1QC","CDH11","NAV3"
+  ),
+  Epithelial = c(
+    "CALN1","MUC6","CFTR","SLC4A4","PKHD1","ANXA4","GMDS","HNF1B",
+    "HNF4A","MUC5B","MUC5AC","PLAC8L1","SLC13A1","FRAS1","CHST9"
+  ),
+  Muscle = c(
+    "MYH11","TPM1","LMOD1","RYR2","CARMN","SOX5","DMD","RBPMS",
+    "PTN","TTN","CALD1","PRKG1","CACNA1C"
+  ),
+  Immune = c(
+    "DOCK2","ELMO1","MRC1","MS4A6A","PTPRC","IKZF1","THEMIS",
+    "ZEB2","ARHGAP15","F13A1","HSP90AA1"
+  ),
+  Neural = c(
+    "NRXN1","NCAM1","GRIK2","SORCS1","CADM2","PPP2R2B","SCN7A",
+    "FRMD5","NRXN3","ZNF536"
+  ),
+  Endothelial = c(
+    "TFPI","FLRT2","VAV3","CD36","UTRN","SMAD1","MMRN1","TSPAN5","ZNF521"
+  )
+)
+
+# Note that many of these markers may not appear in our datasets, however
+# the combination of these markers allows for more safe annotation.
+
+# Crate Dotplot
+
+scPlot <- DotPlot( object   = sampleA,
+              features = genes_markers,
+              group.by = "seurat_clusters")
+
+scPlot$data <- scPlot$data %>% 
+  dplyr::filter(pct.exp >= 5) # Filter out genes with more than 5% in each cluster
+
+scPlot <- scPlot +
+  scale_color_gradient2(
+  low = "#2c7bb6", # Assign a color scale to the dotplot in different levels
+  mid = "#b2182b",  
+  high = "#d7191c") +
+  theme_bw(base_size = 12) + # Change non-data graph display
+  theme(
+    axis.text.x  = element_text(angle = 90) # Change axis x angle
+  )
+
+# Change in the aspect ratio for a better view of the dotplot
+options(repr.plot.width=14, repr.plot.height=8) 
+scPlot
+
+#ggsave("dotplot_markers_facets.png", plot = scPlot, width = 23, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+            <p>As we expected, our dataset represents a set of immune cells. We can further differentiate their cell populations.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Select a set of marker genes for immune cells
+genes_markers = list(
+  Myeloid = c(
+    "LYZ","S100A8","S100A9","LGALS3","CTSS","MS4A7","LST1"
+  ),
+  Lymph_T = c(
+    "CD3D","CD3E","TRAC","TRBC1","IL7R","LTB"
+  ),
+  Lymph_B = c(
+    "MS4A1","CD79A","CD79B","CD74","HLA-DRA","CD37","CD19"
+  ),
+  Plasma = c(
+    "MZB1","XBP1","JCHAIN","SDC1","TNFRSF17","IGKC","IGHG1"
+  ),
+  DC = c(
+    "FCER1A","CLEC10A","CD1C","ITGAX","LILRA4","IRF7"
+  ),
+  NK = c(
+    "NKG7","KLRD1","GNLY","PRF1","TRDC"
+  ),
+  Erythrocytes = c(
+    "HBB","HBA1","HBA2","ALAS2","SLC4A1","AHSP","GYPA"
+  )
+)
+
+# Note that many of these markers may not appear in our datasets, however
+# the combination of these markers allows for more safe annotation.
+
+# Plot figure
+scPlot <- DotPlot(
+  object   = sampleA,
+  features = genes_markers,
+  group.by = "seurat_clusters",
+)
+
+scPlot$data = scPlot$data %>% # Filter out genes with more than 5% in each cluster
+  dplyr::filter(pct.exp >= 5)
+
+scPlot = scPlot +
+  scale_color_gradient2(
+  low = "#2c7bb6",
+  mid = "#b2182b",  # Assign a color scale to the dotplot in different levels
+  high = "#d7191c") +
+  theme_bw(base_size = 12) + # Change non-data graph display
+  theme(
+    axis.text.x  = element_text(angle = 90) # Change axis x angle
+  )
+
+options(repr.plot.width=14, repr.plot.height=8) 
+scPlot
+
+#ggsave("dotplot_immuneMarkers_facets.png", width = 23, plot = scPlot, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# It is often useful to visualize the top differentially expressed genes for each cluster.
+clt_markers <- sampleA.markers %>%
+  group_by(cluster) %>%
+  filter(cluster == "0") %>% # Modify the cluster number you plan to annotate.
+  top_n(n=6, wt=avg_log2FC) 
+
+options(repr.plot.width=15, repr.plot.height=10) 
+
+FeaturePlot(sampleA, features = clt_markers$gene, ncol = 3,
+                 col = c("lightgray", "#d7191c"), min.cutoff = "q10")
+
+VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
+                </code></pre>
+                </div>
+            </section>
+
                         </div>
                     </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Differential Abundance</h2>
+                            <p>In addition to changes in gene expression, alterations in cellular composition between experimental conditions (treated vs. control) represent an important mechanism to be explored in scRNA-seq studies. Differential abundance analysis aims to identify whether certain cell populations are enriched or not in a given group of interest, as implemented by the <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FmiloR.html">MiloR</a> package.</p>
+                            <br>
+                            <p>See original article <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41587-021-01033-z">Differential abundance testing on single-cell data using k-nearest neighbor graphs</a></p>
+                            <br>
+                            <p>Changes in abundance may occur even in the absence of changes in gene expression. MiloR infers differential abundance using KNNs, which is appropriate for detecting spatial variations in cell density associated with conditions, avoiding exclusive reliance on rigid clustering in isolation.</p>
+                            <br>
+                            <p>Milo is a tool for analysis of complex single cell datasets and diferential experimental conditions. While differential abundance is commonly quantified in discrete cell clusters, Milo uses partially overlapping neighbourhoods of cells on a KNN graph.</p>
+                            <p>Milo analysis consists of 4 steps:</p>
+                            <ul class="a">
+                                <li>Prepare the <span class="code-inline-light">SingleCellExperiment</span> object: This is necessary before applying the MiloR method.</li>
+                                <li>Sampling of representative neighbourhoods.</li>
+                                <li>Testing for differential abundance of conditions in all neighbourhoods.</li>
+                                <li>Accounting for multiple hypothesis testing using a weighted FDR procedure that accounts for the overlap of neighbourhoods.</li>
+                            </ul>
+
+                            <section class="video">
+                            <div class="container-xg">
+                                <div class="video-content">
+                                    <img src="da.png" alt="img" class="video-preview">
+                                </div>
+                            </div>
+                        </section>
+
+                        <h3>Do not run in Colab!</h3>
+                        <p>To didactic purposes in this step, we will download other samples from our dataset to calculate the differential abundance of cells between mild and severe COVID-19 patients. To avoid making this tutorial too lengthy, we will simplify some steps.</p>
+                        <br>
+                        <p>However, we strongly recommend that you follow the best practice guidelines developed in SampleA object for the other samples.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Bellow is the code to process and merge multiple scRNA-seq samples into a single Seurat object
+# we create a list to store individual Seurat objects for each sample
+# and then merge them into a single Seurat object.
+# To create this, we will loop through a list of filenames, read each file,
+# create a Seurat object, perform quality control filtering, and store the Seurat object in a list.
+
+
+# A loop means that we will repeat a set of commands multiple times,
+# one time for each item in a list o a vector.
+
+# List of files to process
+files <- c(
+  "GSM4339769_C141_filtered_feature_bc_matrix.h5",
+  "GSM4339770_C142_filtered_feature_bc_matrix.h5",
+  "GSM4339771_C143_filtered_feature_bc_matrix.h5",
+  "GSM4339773_C145_filtered_feature_bc_matrix.h5"
+)
+
+# Initialize an empty list to store Seurat objects
+sc_list <- list() 
+
+for (i in files){
+    sample_name <- strsplit(i, "_")[[1]][2]   # Extract sample name from the filename
+    sc_data <- Read10X_h5(paste0("scRNAseq/", i))   # Read the 10X data
+    sc_seurat <- CreateSeuratObject(counts = sc_data, project=sample_name, min.cells=3, min.features=200)   # Create Seurat object
+
+    sc_seurat[["percent.mt"]] <- PercentageFeatureSet(sc_seurat, pattern="^MT-")  # Calculate percentage of mitochondrial genes
+
+    sc_seurat <- subset(sc_seurat, nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt < 10)  # Filter cells based on QC metrics
+
+    sc_list[[sample_name]] <- sc_seurat # Store the Seurat object in the list with sample name as key
+}
+
+# Merge all Seurat objects in the list into a single Seurat object
+# x means the first Seurat object in the list
+# y means the rest of Seurat objects in the list
+# add.cell.ids assigns unique prefixes to cell barcodes from each sample to avoid duplication
+sc_merged <- merge(
+  x = sc_list[[1]], # sample 1
+  y = c(sc_list[[2]], sc_list[[3]], sc_list[[4]]), # sample 2, 3, and 4
+  add.cell.ids = names(sc_list) # Use sample names as cell ID prefixes
+)
+
+# Display the first few rows of the merged Seurat object metadata
+head(sc_merged)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Add a new metadata column 'condition' based on the sample identifiers
+# A if-else statement is used to classify samples C141 and C142 as 'mild' and others as 'severe'
+sc_merged$condition <- ifelse(grepl("^(C141|C142)", sc_merged$orig.ident), "mild", "severe")
+sc_merged
+
+# Check the number of cells from each sample
+table(sc_merged$orig.ident)
+table(sc_merged$condition)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Normalize and identify variable features for the merged dataset
+sc_merged <- FindVariableFeatures(sc_merged, selection.method = "vst", nfeatures = 3000)
+
+# Run the standard workflow for visualization and clustering
+sc_merged <- NormalizeData(sc_merged, verbose = FALSE)
+all.genes <- rownames(sc_merged)
+sc_merged <- ScaleData(sc_merged, features = all.genes, verbose = FALSE)
+sc_merged <- RunPCA(sc_merged, features = VariableFeatures(sc_merged), verbose = FALSE)
+sc_merged <- FindNeighbors(sc_merged, dims=1:30, verbose = FALSE)
+sc_merged <- FindClusters(sc_merged, resolution=0.8, verbose = FALSE)
+
+# Run UMAP for dimensionality reduction
+sc_merged <- RunUMAP(sc_merged, dims=1:30, verbose = FALSE)
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Harmony was applied to correct for batch effects using the <span class="code-inline-light">orig.ident</span> metadata column. This software enables the integration of multiple datasets and effectively removes batch effects in single‑cell RNA‑seq analysis. For a detailed walkthrough of integration strategies, see Module 05.</p>
+            <br>
+            <p>More information about Harmony can be found at the official Broad Institute portal: <a href="https://www.google.com/url?q=https%3A%2F%2Fportals.broadinstitute.org%2Fharmony%2F">Harmony</a></p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Join layers before running Harmony Integration
+sc_merged[["RNA"]] <- JoinLayers(sc_merged[["RNA"]], verbose = FALSE)
+
+# Run Harmony for integration
+sc_merged <- harmony::RunHarmony(sc_merged,
+                                "orig.ident", # correct for batch effects based on samples
+                                reduction.save = "pca", # save new PCA reduction
+                                verbose = FALSE)
+
+# Find neighbors based on Harmony PCA
+sc_merged <- FindNeighbors(sc_merged, dims = 1:30, verbose = FALSE) 
+
+# Find clusters in 0.8 resolution
+sc_merged <- FindClusters(sc_merged,resolution = 0.8, verbose = FALSE) 
+
+# Run UMAP on Harmony embeddings
+sc_merged <- RunUMAP(sc_merged, dims = 1:30, verbose = FALSE)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Dimplot colored by clusters and samples
+DimPlot(
+  sc_merged,
+  group.by = c("seurat_clusters", "orig.ident")
+)
+
+#ggsave("UMAP_COVID19_Clusters_Samples.png", width = 10, height = 5, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load miloR package
+library(miloR)
+
+# Convert Seurat object to SingleCellExperiment
+sce <- as.SingleCellExperiment(sc_merged)
+
+# Create a Milo object from the SingleCellExperiment
+milo <- miloR::Milo(sce)
+milo
+                </code></pre>
+                </div>
+            </section>
+
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Build the kNN graph for milo object
+milo <- buildGraph(milo,
+                    k = 20,  # number of nearest neighbors to use in our dataset
+                    d = 30,  # number of dimensions to use in our dataset
+                    reduced.dim = "PCA") # reduced dimension to use
+                </code></pre>
+                </div>
+            </section>
+
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define neighborhoods in the milo object
+milo <- makeNhoods(milo,
+                    prop = 0.1, # proportion of cells to include in each neighborhood
+                    knn = 20,   # number of nearest neighbors to use in our dataset
+                    d = 30,     # number of dimensions to use in our dataset
+                    refined = TRUE) # whether to refine neighborhoods
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot neighborhood size histogram
+plotNhoodSizeHist(milo)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Count cells in each neighborhood, adding metadata from the original Seurat object
+milo <- countCells(milo, meta.data = as.data.frame(colData(milo)),
+                   sample = "orig.ident") # specify the sample identifier column
+
+# Display the first few rows of neighborhood counts
+head(nhoodCounts(milo))
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a design data frame for differential abundance testing
+# design data frame contains sample identifiers and their corresponding conditions
+# and select relevant columns
+milo_design <- data.frame(colData(milo))[,c("orig.ident", "condition")] 
+
+# convert condition to factor (mild is a baseline)
+# set factor levels to ensure 'mild' is the baseline
+milo_design$condition <- factor(milo_design$condition, levels = c("mild", "severe")) 
+
+# Remove duplicate rows to ensure unique sample-condition pairs
+milo_design <- dplyr::distinct(milo_design)
+
+# set row names to sample identifiers
+rownames(milo_design) <- milo_design$orig.ident 
+
+# Return the milo_design data frame
+milo_design
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Perform differential abundance testing using miloR
+milo <- calcNhoodDistance(milo,
+                            d=30) # calculate neighborhood distances
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# ensure row names match sample identifiers in milo object
+rownames(milo_design) <- milo_design$orig.ident 
+
+# test for differential abundance
+da_results <- testNhoods(milo, design = ~ condition, design.df = milo_design) 
+
+# Display the first few rows of differential abundance results
+da_results %>%
+  arrange(- SpatialFDR) %>%
+  head()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Build neighborhood graph for visualization
+milo <- buildNhoodGraph(milo)
+
+# Plot UMAP with differential abundance results
+plotUMAP(milo) + 
+plotNhoodGraphDA(milo, da_results,
+                 alpha=0.05) +
+                 plot_layout(guides="collect")
+
+#ggsave("plotUMAP_with_DA_results.png", plot = last_plot(), width = 8, height = 6, bg = 'white')
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Understanding Key Terms in Abundance Differential Analysis</p>
+            <ul class="a">
+                <li>Fold Change (FC): Represents the magnitude of difference in abundance between conditions or groups. In this context, FC indicates how much a particular cell population is enriched or depleted when comparing experimental conditions.</li>
+                <li>False Discovery Rate (FDR): A statistical correction applied to p‑values to account for multiple testing. It helps control the proportion of false positives, ensuring that significant results are more reliable.</li>
+                <li>Cluster: Refers to a group of cells identified by unsupervised clustering methods. Each cluster represents a population with similar gene expression profiles, and abundance differential analysis tests whether the frequency of these clusters changes across conditions.</li>
+                <li>Together, these metrics allow us to interpret whether specific cell populations are significantly expanded or reduced, while maintaining statistical rigor and biological relevance.</li>
+            </ul>
+            <br>
+                        </div>
+                    </section>
+
+                       
+
 
                     <section class="hero-modules">
                         <div class="container">
@@ -2207,11 +2764,17 @@ pheatmap(log2(my.table + 1), filename = "53-pheatmap.png")
 
                             <p>Gene Ontology (GO) is a comprehensive system that categorizes genes into hierarchical categories based on:</p>
 
-                            <ul.a>
+                            <ul class="a">
                                 <li>Biological Processes (BP): The biological objectives the gene contributes to, such as cell cycle, apoptosis, or metabolism.</li>
                                 <li>Molecular Functions (MF): The molecular activities performed by the gene product, such as binding or catalytic activity.</li>
                                 <li>Cellular Components (CC): The location within the cell where the gene product is active, such as the nucleus or mitochondrion.</li>
-                            </ul.a>
+                            </ul>
+
+                            <p>Additionally, genes are commonly referenced using standardized identifiers:</p>
+                            <ul class="a">
+                                <li>Gene Symbol: A short, human‑readable abbreviation (e.g., TP53, ACTB) that represents the gene name.</li>
+                                <li>EntrezID: A unique numerical identifier assigned by NCBI’s Entrez Gene database, ensuring consistency across datasets and tools.</li>
+                            </ul>
 
                             <section class="">
                 <div class="code-container">
@@ -2366,8 +2929,226 @@ head(ego)
                 </code></pre>
                 </div>
             </section>
-                            <br>
+
+            <h2>GO enrichment in another organisms</h2>
+
+            <p>Importantly, pathway enrichment analysis is not restricted to human or animal models. For non-model organisms and plants, a wide range of dedicated databases and functional annotations are available, enabling robust interpretation of transcriptomic data across diverse species.</p>
+            <br>
+            <p>In plant research, enrichment analyses commonly rely on plant-specific pathway repositories and Gene Ontology annotations tailored to species such as Arabidopsis thaliana, rice, and maize. These resources are essential for investigating key biological processes, including plant development, stress and immune responses, hormone signaling, and metabolic adaptations to environmental cues.</p>
+            <br>
+            <p>From a technical perspective, any gene identifier type supported by an appropriate OrgDb object can be directly used in GO-based analyses within the Bioconductor ecosystem. This flexibility allows seamless functional annotation across multiple organisms and identifier systems.</p>
+            <ul class="a">
+                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.wikipathways.org%2F">WikiPathways</a> is an open, community-driven platform dedicated to the curation of biological pathways, offering broad organismal coverage ranging from vertebrates to bacteria and plants. By adopting a collaborative curation model, WikiPathways complements established pathway resources such as KEGG, Reactome, and Pathway Commons.</li>
+                <li>In the context of plant biology, <a href="https://www.google.com/url?q=https%3A%2F%2Fplantreactome.gramene.org%2F">Plant Reactome</a> provides an open-source, open-access, manually curated and peer-reviewed pathway database encompassing more than 100 plant species.</li>
+                <li>For organisms lacking a dedicated OrgDb package in Bioconductor (e.g., species without an available annotation database analogous to org.Mm.eg.db in mouse)</li>
+                <li>Users can retrieve organism-specific annotations—when available—through online resources such as <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.bioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FAnnotationHub.html">AnnotationHub</a>, ensuring that enrichment analyses remain accessible even for less-characterized species.</li>
+            </ul>
+            <br>
                         </div>
+                    </section>
+
+                    <section class="hero-modules">
+                        <div class="container">
+                            <h2>Ambient RNA Correction (Optional)</h2>
+                            <p>In some cases, there may be suspicion that the data contains contamination from cells that were destroyed and released their contents into the medium during library preparation, which could alter the RNA counts in intact cells. Tools, such as SoupX, analyze the barcodes detected as background and their RNA content to identify transcripts potentially increased by contamination in the barcodes detected as cells and correct for their effect.</p>
+                            <br>
+                            <p>See the original article <a href="https://www.google.com/url?q=https%3A%2F%2Fpubmed.ncbi.nlm.nih.gov%2F33367645%2F">SoupX removes ambient RNA contamination from droplet-based single-cell RNA sequencing data</a></p>
+
+                        <section class="video">
+                            <div class="container-md">
+                                <div class="video-content">
+                                    <img src="ambient.jpg" alt="img" class="video-preview">
+                                </div>
+                            </div>
+                        </section>
+
+                        <p>To show how simple this process can be, we will use a dataset generated with 10x technology and mapped with CellRanger (v8.0.1). This data corresponds to a sample from a head and neck cancer study.</p>
+                        <br>
+                        <p>Dataset vailable from NCBI/SRA: <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945">https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945</a></p>
+                        <p>The original article: <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC8184766%2F"></a>B cell signatures and tertiary lymphoid structures contribute to outcome in head and neck squamous cell carcinoma</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+download.file("https://github.com/integrativebioinformatics/scNotebooks/blob/main/scNotebooks-Resources/SRR10340945-Cellranger_outs_Folder.tar.gz","SRR10340945-Cellranger_outs_Folder.tar.gz")
+shell_call("tar -xvzf SRR10340945-Cellranger_outs_Folder.tar.gz")
+shell_call("ls -lh")
+                </code></pre>
+                </div>
+            </section>
+
+            <p>As can be seen in the following code, for 10x data the process is as simple as loading the results folder obtained from cellranger and executing the <span class="code-inline-light">autoEstCont()</span> function.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load SoupX and DropletUtils libraries
+library(SoupX)
+library(DropletUtils)
+
+# set a seed for reproducibility
+set.seed(123)
+
+# Load the 10X Genomics data using SoupX
+sc = load10X("Mapped_SRR10340945/outs/")
+
+# Execute automatic contamination estimation
+#png("SoupX_SRR10340945.png", width = 1080, height = 1080)
+sc = autoEstCont(sc)
+#dev.off()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Separate the estimated contamination fraction
+rhoEst <- sc$fit$rhoEst
+
+# Fraction of contamination estimated by SoupX
+print(rhoEst) 
+
+# Normale, counts are integers numbers, 
+# but for compatibility DropletUtils requires rounded values
+out = adjustCounts(sc, roundToInt = TRUE)
+
+# For exporting the data in a folder in the CellRanger output format
+DropletUtils:::write10xCounts("./SRR10340945_clean", out) 
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+shell_call("ls -lh SRR10340945_clean")
+                </code></pre>
+                </div>
+            </section>
+
+            <p>For data where the complete Cell Ranger output folder ("outs") is not accessible or where the data was not generated using 10x technology, SoupX can also be used by implementing a series of alternative steps. These steps involve generating a cluster, since the previous method uses the cluster generated by Cell Ranger, whose information is available in the "outs" folder, in addition to the account matrices.</p>
+            <br>
+            <p>In the following lines of code, you will see an example adapted from <a href="https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html">https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html</a> with the data we just used.</p>
+            <br>
+            <p>It is essential to have both matrices: the filtered account matrix and the raw account matrix.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+filt.matrix <- Read10X_h5("Mapped_SRR10340945/outs/SRR10340945.filtered_feature_bc_matrix.h5",use.names = T)
+raw.matrix  <- Read10X_h5("Mapped_SRR10340945/outs/SRR10340945.raw_feature_bc_matrix.h5",use.names = T)
+srat  <- CreateSeuratObject(counts = filt.matrix)
+
+# Create SoupChannel object from raw and filtered matrices
+soup.channel  <- SoupChannel(raw.matrix, filt.matrix)
+soup.channel
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Now we will execute the normalization steps up to the clustering required by SoupX. For simplicity and speed, we use <span class="code-inline-light">NormalizeData()</span>, but you can replace it with SCTransform() as implemented in the tutorial we adapted if you prefer.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+srat <- NormalizeData(srat, verbose = F)
+srat <- FindVariableFeatures(srat, verbose = F)
+srat <- ScaleData(srat, verbose = F)
+srat <- RunPCA(srat, verbose = F)
+srat <- RunUMAP(srat, dims = 1:30, verbose = F)
+srat <- FindNeighbors(srat, dims = 1:30, verbose = F)
+srat <- FindClusters(srat, verbose = T)
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Then we integrate the information obtained from the processing with seurat into the previously defined SoupChannel object</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+meta  <- srat@meta.data
+umap  <- srat@reductions$umap@cell.embeddings
+
+# Set cluster identities and UMAP coordinates in SoupChannel object
+soup.channel  <- setClusters(soup.channel, 
+                    setNames(meta$seurat_clusters, rownames(meta)))
+
+# Set UMAP coordinates in SoupChannel object
+soup.channel  <- setDR(soup.channel, umap)
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Finally, we can estimate the contamination and save our corrected data.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+soup.channel <- autoEstCont(soup.channel)
+
+# Adjust counts to remove contamination
+adj.matrix <- adjustCounts(soup.channel, roundToInt = T)
+
+# Write the adjusted counts to a 10X format directory
+DropletUtils:::write10xCounts("SRR10340945_cleanV2", adj.matrix)
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Other tools that can be used to implement this environmental RNA correction process, and which you can find more information about if you are interested, are <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC7059395%2F">DecontX</a> and <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41592-023-01943-7">CellBender</a></p>
+            <br>
+
+                    </div>
                     </section>
                 
         <!--Top Button -->
