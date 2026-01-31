@@ -91,10 +91,10 @@
                 <br>
                 <p>Google Colab/Jupyter Noetbook using for default python as programming language.
                 It's permite to use another languages, like shell script.
-                <ul.a>
+                <ul class="a">
                     <li>For this, in Google Colab we use <span class="code-inline-light">"!"</span> before the code.</li>
                     <li>For the Jupyter Notebooks we use a magic cell with <span class="code-inline-light">%%bash</span> before to write our script.</li>
-                </ul.a>
+                </ul>
                 </p>
                 
                 <p>This is a marker to Google Colab understand this is Shell's code. For your personal use, <span class="code-inline-light">"!"</span> is not necessary.</p>
@@ -414,7 +414,8 @@ ls
                 <pre><code class="language-r">
 %%bash
 # -O: name of output
-wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/cell-ranger/downloads"
+
+wget -O cellranger-10.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-10.0.0.tar.gz?Expires=1768912964&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=FMtot0YFitTbWXvsuYSTGPfxYIoqyGJwO1ejvl9r1HJP~NfxT34ffOIelVvXO-iHGLS62iMM3TUV1H7xsRTZ5tPVjH3pW-fEmVyiyKjxuG18vABH0bqXNiIj8QtmsUa-Cfnvotmk1vqk8cuSODH61jDxD-~hIDwW0Fwwtkru1GfZLLUKKxceVZuCQedlTULYQrxy1w4Lyx8E0duJvSjLWhhtw1ZJOOz~lsmdkiJXbkSDyILmMqafiqRxKWF1KGv6nt-bAscAXWgdAz8hA73mNcOVIOMbrHE863aK5qsTdKRiX99DNfIe8rV5VButQzHqvWWRUNNGAaSa6ZJXnJSteQ__"
                 </code></pre>
                 </div>
             </section>
@@ -429,15 +430,54 @@ wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/ce
                 <!-- code block -->
                 <pre><code class="language-r">
 %%bash
-wget -O cellranger-9.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-9.0.0.tar.gz?Expires=1735019868&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=jr1wurwScX~6D75pHB8jDbGMyGRI28tiLJAe9LUo0Xz5hqUgQlVpaRBz50wZewTz9lp2ozBI91iEQkZ7s2ZbOGbugctslStBOCkILh3gfkIiv63YBJRSDm0kPJjAvLXHm6BUf20bPTJPiuwLvRWZuSrri0tV7vzn9iCY24I3~tjGCy4377Dm-1oCuiQCuHjXlyZjEZVXQZuS9ghX9ZmmldDnf6wE9hqIE80PhiSclOyFWfqLg8v5OBGP0JqrdI5oNhGiRKKmezIpT2eZ-pfzSCGMcQu1r6irmsz4pgZxl4ElWIpLtzB7xJb2H2OvL~j3rsBX6Ay-idAxDOF31tMqyQ__"
 wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
                 </code></pre>
                 </div>
             </section>
-             
+
+            <p>Alternatively, you can also download version 10.0.0 from a GitHub repository we created as a backup, but first you need to remove the "#" symbol to uncomment it, as it's not necessary to run it if you click the download link from the 10x website.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+#wget https://github.com/integrativebioinformatics/scNotebooks/blob/main/scNotebooks-Resources/cellranger-10.0.0.tar.gz
+                </code></pre>
+                </div>
+            </section>
+
+            <h3>IMPORTANT:</h3>
+
+            <p>If your current version of cellranger is different from the one used in this Jupyter Notebook, you will need to update it in the code directory or download the backup from GitHub.
+            <br>
+            > Example: cellranger-9.0.1 --> cellranger-10.0.0</p>
+            <br>
+
                 <h3>Installation</h3>
                 <br>
-                <p>It merely has to be decompressed to be installed.</p>
+                <p>To work with certain organisms not available in the resources provided by 10x, such as bacteria, plants, and viruses, it is necessary to create a reference for CellRanger:</p>
+                <br>
+                <p>
+                    <ul class="a">
+                        <li>cellranger-10.0.0/bin/cellranger is the path to the software</li>
+                        <li>The mkref command is used to create custom reference packages</li>
+                        <li>--genome: Creates a directory for the output files</li>
+                        <li>--fasta: Specifies the reference genome</li>
+                        <li>/genome/genome.fa: Is the path to the genome in .fa format</li>
+                        <li>--genes: Specifies the reference GTF file</li>
+                        <li>/gtf/genome.annotation.gtf: Path to the annotation file</li>
+                    </ul>
+                </p>
+                <br>
+                <p>Here's a small example of how to generate a reference, in this case for chromosome 22, from the 10x reference human genome.</p>
+                <br>
+                <p>First, we install samtools to manipulate the FASTA genome file and select chromosome 22.</p>
 
                 <section class="">
                 <div class="code-container">
@@ -449,24 +489,15 @@ wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
                 <!-- code block -->
                 <pre><code class="language-r">
 %%bash
-tar -xzf cellranger-7.2.0.tar.gz
-tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
+#apt-get update
+apt-get install samtools -y
                 </code></pre>
                 </div>
             </section>
-                <ul.a>
-                    It's recommend create a reference for Cell Ranger:
-                    <li>cellranger-7.2.0/bin/cellranger is a path to the software</li>
-                    <li>the mkref command is used to create custom reference packages</li>
-                    <li>--genome: Create a directory to outputs</li>
-                    <li>--fasta: Specify your genome of reference</li>
-                    <li>/genome/genome.fa: Is a PATH to your genome in .fa format</li>
-                    <li>--genes: Specify your GTF file of reference</li>
-                    <li>/gtf/genome.annotation.gtf: PATH to you annotation file</li>
-                </ul.a>
 
+            <p>The `samtools faidx` function in particular extracts chromosome 22, and then we redirect the output to a file called GRCh38.CHR22.fa.</p>
 
-                <section class="">
+            <section class="">
                 <div class="code-container">
                 <!-- copy code -->
                 <button class="copy-btn" title="Copy code">
@@ -475,7 +506,8 @@ tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
 
                 <!-- code block -->
                 <pre><code class="language-r">
-!cellranger-7.2.0/bin/cellranger mkref --genome=reference --fasta=/genome/genome.fa --genes=/rato/gencode.vM36.annotation.gtf
+%%bash
+samtools faidx refdata-gex-GRCh38-2024-A/fasta/genome.fa chr22 > GRCh38.CHR22.fa
                 </code></pre>
                 </div>
             </section>
@@ -490,15 +522,45 @@ tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
                 <!-- code block -->
                 <pre><code class="language-r">
 %%bash
-#shows the full path where you are working
-pwd
+gunzip -c refdata-gex-GRCh38-2024-A/genes/genes.gtf.gz | grep "chr22" | gzip > CHR22.genes.gtf.gz
+
+# gunzip is for descompress archives gzip
+# -c: indicates that the decompressed output should be sent to standard output (stdout) instead of creating a decompressed file on the filesystem.
+# refdata-gex-GRCh38-2024-A/genes/genes.gtf: is the path to the compressed GTF file that contains the genomic annotations.
+# grep "chr22": filters the lines that contain "chr22", extracting them
+# gzip > CHR22.genes.gtf.gz: compresses the filtered lines and saves them to a new file called CHR22.genes.gtf.gz.
+# | (pipe) is an operator that takes the output of one command and uses it as input to another command.
                 </code></pre>
                 </div>
             </section>
+
+            <p>Finally, we have the necessary files to generate the new reference and we can run cellranger.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+cellranger-10.0.0/bin/cellranger mkref --genome=GRCh38-CHR22 --fasta=GRCh38.CHR22.fa --genes=CHR22.genes.gtf.gz
+
+# cellranger-10.0.0/bin/cellranger: is the path to the Cell Ranger executable.
+# --genome=GRCh38-CHR22: Name of the reference genome being created.
+# --fasta=GRCh38.CHR22.fa: Path to the FASTA file containing the reference genome sequences.
+# --genes=CHR22.genes.gtf.gz: Path to the GTF file containing the genomic annotations.
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Now, we have our new reference available, which we can work with.</p>
     
                 <h2>DO NOT RUN!</h2>
-                <ul.a>
-                    cellranger-7.2.0/bin/cellranger is a path to the software
+                <ul class="a">
+                <span class="code-inline-light">cellranger-10.0.0/bin/cellranger</span> is a path to the software
 
                     <li>count is used to count messenger RNA (mRNA) molecules</li>
 
@@ -509,7 +571,7 @@ pwd
                     <li>--sample files to analyse</li>
 
                     <li>--transcriptome is the reference</li>
-                </ul.a>
+                </ul>
 
                 <section class="">
                 <div class="code-container">
@@ -541,21 +603,21 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
                 </div>
                 </section>
 
-                <ul.a>
+                <ul class="a">
                     <li>The Cell Ranger software strives to maintain compatibility with common analysis tools by using standard output file formats whenever possible. For example, the barcoded BAM files can be viewed in standard genome browsers such as IGV to verify alignment quality and other features.</li>
-                </ul.a>
+                </ul>
 
                 <p>The cellranger count pipeline outputs an interactive summary HTML file named web_summary.html that contains summary metrics and automated secondary analysis results. Let's check it out!</p>
                 <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary">
                     <p>https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary</p>
                 </a>
 
-                <ul.a>
+                <ul>
                     <br>
                     Understand the summary output:
                     <li>Green text indicates that the key metrics are in the expected range.</li>
                     <li>Red/Yellow text indicates errors/warnings.</li>
-                </ul.a>
+                </ul>
 
                 <p>Barcode Rank Plot:
                     <br>
