@@ -80,6 +80,12 @@ img {
     margin-bottom: 50px;
 }
 
+.hero {
+    background: url("../images/ib_image.png") no-repeat;
+    background-size: contain;
+    background-position:center bottom;
+    height: 900px;
+}
 
 .hero .hero-content {
     width: 90%;
@@ -420,7 +426,6 @@ code {
 .footer-logos {
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px solid #333;
 
     display: flex;
     justify-content: center;
