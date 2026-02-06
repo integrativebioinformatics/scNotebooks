@@ -2140,19 +2140,19 @@ scPlot
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Anotação de Tipos Celulares</h2>
-                            <p>Interpretar os resultados da análise de dados de células individuais costuma ser a parte mais desafiadora do processo. Para obter uma compreensão mais profunda além dos agrupamentos identificados, podemos anotar os tipos celulares comparando os perfis de expressão dos nossos dados com um conjunto de dados de referência. Essa abordagem nos permite fornecer interpretações mais significativas dos agrupamentos.</p>
+                            <h2>Anotación de Tipos Celulares</h2>
+                            <p>Interpretar los resultados del análisis de datos celulares individuales suele ser la parte más difícil del proceso. Para comprender mejor los grupos identificados, podemos anotar los tipos celulares comparando los perfiles de expresión de nuestros datos con un conjunto de datos de referencia. Este enfoque nos permite ofrecer interpretaciones más significativas de los grupos.</p>
                             <br>
-                            <p>As melhores práticas recomendam uma abordagem híbrida, na qual a anotação automatizada é usada como ponto de partida, seguida pela validação manual com base em marcadores canônicos e consistência biológica. O uso de bancos de dados como o <a href="https://www.google.com/url?q=https%3A%2F%2Fpanglaodb.se%2F">PanglaoDB</a>  e <a href="https://www.google.com/url?q=https%3A%2F%2Fcellxgene.cziscience.com%2F">CELLxGENE</a> também pode ser uma alternativa útil nesta etapa.
+                            <p>Las mejores prácticas recomiendan un enfoque híbrido, donde la anotación automatizada se utiliza como punto de partida, seguida de una validación manual basada en marcadores canónicos y consistencia biológica. El uso de bases de datos como <a href="https://www.google.com/url?q=https%3A%2F%2Fpanglaodb.se%2F">PanglaoDB</a>  y <a href="https://www.google.com/url?q=https%3A%2F%2Fcellxgene.cziscience.com%2F">CELLxGENE</a> también puede ser una alternativa útil en esta etapa.
                             <br>
-                            <p>Para mais informações, consulte o nosso Módulo 01.</p>
+                            <p>Para más información, consulte nuestro Módulo 01.</p>
                             </p>
                             <br>
-                            <h3>Anotação automatizada</h3>
-                            <p>Para começar, carregaremos um conjunto de dados de referência que inclui os tipos celulares que esperamos encontrar em nossas amostras. O pacote celldex oferece diversos conjuntos de dados de referência bem curados e anotados. Embora a maioria desses conjuntos de dados seja originária de experimentos de RNA-Seq em massa e microarrays, eles ainda são muito úteis para a anotação de conjuntos de dados de células individuais. Em nosso caso, usaremos os conjuntos de dados de referência Blueprint e ENCODE, que são comumente usados ​​para esses fins. Esses conjuntos de dados nos ajudarão a correlacionar os perfis de expressão gênica de nossos dados de células individuais com tipos celulares conhecidos, aprimorando nossa capacidade de interpretar os agrupamentos de forma significativa.</p>
+                            <h3>Anotación Automatizada</h3>
+                            <p>Para comenzar, cargaremos un conjunto de datos de referencia que incluya los tipos celulares que esperamos encontrar en nuestras muestras. El paquete celldex ofrece varios conjuntos de datos de referencia bien seleccionados y anotados. Si bien la mayoría de estos conjuntos de datos provienen de experimentos masivos de RNA-Seq y microarrays, siguen siendo muy útiles para anotar conjuntos de datos celulares individuales. En nuestro caso, utilizaremos los conjuntos de datos de referencia Blueprint y ENCODE, comúnmente utilizados para estos fines. Estos conjuntos de datos nos ayudarán a correlacionar los perfiles de expresión génica de nuestros datos celulares individuales con los tipos celulares conocidos, lo que mejorará nuestra capacidad para interpretar los grupos de forma significativa.</p>
                             <br>
-                            <p>Em R, ferramentas amplamente utilizadas incluem <a href="https://github.com/dviraran/SingleR">SingleR</a>, <a href="https://github.com/satijalab/azimuth">Azimuth</a>, e <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2Fscmap.html">scmap</a>, muitas das quais se integram naturalmente com o Seurat ou o ecossistema Bioconductor.</p>
-                            <p>Veja mais informações em:</p>
+                            <p>En R, entre las herramientas más utilizadas se encuentran <a href="https://github.com/dviraran/SingleR">SingleR</a>, <a href="https://github.com/satijalab/azimuth">Azimuth</a>, y <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2Fscmap.html">scmap</a>, muchas de las cuales se integran de forma natural con Seurat o el ecosistema Bioconductor.</p>
+                            <p>Más información en:</p>
                             <ul class="a">
                                 <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41590-018-0276-y">Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage</a></li>
                                 <li><a href="https://www.google.com/url?q=https%3A%2F%2Fazimuth.hubmapconsortium.org%2F">Azimuth HuBMAP Consortium</a></li>
@@ -2175,7 +2175,7 @@ ref
                 </div>
             </section>
 
-                            <p>Então, para usar a função SingleR(), precisamos converter o objeto Seurat em um objeto SingleCellExperiment Bioconductor. A função SingleR() pega nosso conjunto de dados, o conjunto de dados de referência e os rótulos do conjunto de dados de referência.</p>
+                            <p>Luego, para usar la función SingleR(), necesitamos convertir el objeto Seurat a un objeto SingleCellExperiment de Bioconductor. La función SingleR() toma nuestro conjunto de datos, el conjunto de datos de referencia y las etiquetas del conjunto de datos de referencia.</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2187,14 +2187,20 @@ ref
                 <!-- code block -->
                 <pre><code class="language-r">
 library(SingleR)
-my.sce = as.SingleCellExperiment(sampleA)
-pred = SingleR(my.sce, ref=ref, labels=ref$label.main)
+
+# Convertir el objeto Seurat a SingleCellExperiment
+my.sce <- as.SingleCellExperiment(sampleA)
+
+# Executar SingleR para la anotación celular
+pred <- SingleR(my.sce, ref=ref, labels=ref$label.main)
+
+# Ver los resultados de la anotación
 table(pred$labels)
                 </code></pre>
                 </div>
             </section>
 
-                            <p>Podemos usar um mapa de calor (heatmap) para visualizar a anotação do tipo de célula resultante. No topo do mapa de calor, vemos o código de cores que identifica os diferentes tipos de células</p>
+                            <p>Podemos usar un mapa de calor (heatmap) para visualizar la anotación de tipo celular resultante. En la parte superior del heatmap, vemos el código de colores que identifica los diferentes tipos celulares.</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2212,7 +2218,7 @@ plotScoreHeatmap(pred)
                 </div>
             </section>
 
-                            <p>Um mapa de calor também pode ser usado para mostrar a distribuição dos tipos de células pelos clusters que identificamos usando Seurat.</p>
+                            <p>Un heatmap también puede usarse para mostrar la distribución de los tipos celulares por los clústeres que identificamos usando Seurat.</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2223,23 +2229,27 @@ plotScoreHeatmap(pred)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-my.table = table(Assigned = pred$pruned.labels, cluster = my.sce$seurat_clusters)
+# crear una tabla de contingencia entre las etiquetas asignadas por SingleR y los clústeres de Seurat
+my.table <- table(Assigned=pred$pruned.labels,
+                 cluster=my.sce$seurat_clusters)
 my.table
+
+# Visualizar la tabla de contingencia como un mapa de calor
 library(pheatmap)
 pheatmap(log2(my.table + 1), filename = "53-pheatmap.png")
                 </code></pre>
                 </div>
             </section>
 
-            <h3>Anotação manual</h3>
-                    <p>Esta abordagem baseia-se em um conjunto de marcadores genéticos conhecidos associados a um tipo celular. Nesta etapa, um conjunto robusto de genes marcadores e conhecimento prévio (baseado em literatura ou em especialistas, como patologistas e imunologistas), bem como experiência em anotação, são ideais para um bom resultado. No entanto, esta etapa é crítica devido ao risco de anotações de tipo celular imprecisas, detecção incompleta de marcadores genéticos durante o sequenciamento e subjetividade.
+            <h3>Anotación Manual</h3>
+                    <p>Este enfoque se basa en un conjunto de marcadores genéticos conocidos asociados a un tipo celular. En esta etapa, un conjunto sólido de genes marcadores y conocimientos previos (basados ​​en la literatura o en expertos como patólogos e inmunólogos), así como experiencia en anotación, son ideales para obtener un buen resultado. Sin embargo, este paso es crucial debido al riesgo de anotaciones inexactas del tipo celular, la detección incompleta de marcadores genéticos durante la secuenciación y la subjetividad.
                     <br>
-                    Existem maneiras de trabalhar com anotações manuais, incluindo:</p>
+                    Existen maneras de trabajar con anotaciones manuales, incluyendo:</p>
                     <ul class="a">
-                        <li>Anotação baseada em um conjunto de genes marcadores das populações celulares que esperamos encontrar em nossos dados;</li>
-                        <li>Identificação dos genes marcadores em cada cluster para inferir qual tipo celular representa essa população.</li>
+                        <li>Anotación basada en un conjunto de genes marcadores de las poblaciones celulares que esperamos encontrar en nuestros datos;</li>
+                        <li>Identificación de los genes marcadores en cada grupo para inferir qué tipo celular representa esa población.</li>
                     </ul>
-                    <p>Como nosso conjunto de dados é representado por células imunes broncoalveolares em pacientes com COVID-19, esperamos encontrar células imunes em nossos clusters.</p>
+                    <p>Dado que nuestro conjunto de datos está representado por células inmunitarias broncoalveolares en pacientes con COVID-19, esperamos encontrar células inmunitarias en nuestros grupos.</p>
 
                 <section class="">
                 <div class="code-container">
@@ -2256,7 +2266,7 @@ scPlot
                 </div>
             </section>
 
-            <p>Vamos criar um painel de marcadores conhecidos para populações celulares que esperamos encontrar em nosso conjunto de dados.</p>
+            <p>Creemos un panel de marcadores conocidos para las poblaciones de células que esperamos encontrar en nuestro conjunto de datos.</p>
 
             <section class="">
                 <div class="code-container">
@@ -2267,8 +2277,8 @@ scPlot
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Selecione um conjunto de genes marcadores para diferentes populações celulares
-# Crie uma lista onde cada elemento corresponde a genes marcadores de uma população celular.
+# Selectione un conjunto de genes marcadores para diferentes poblaciones celulares
+# Cree una lista donde cada elemento corresponde a genes marcadores de una población celular.
 
 genes_markers = list(
   Fibroblast = c(
@@ -2297,28 +2307,28 @@ genes_markers = list(
 )
 
 # Observe que alguns genes aparecem em mais de um marcador de população celular
-# a combinação de marcadores ajuda a aumentar a confiança na anotação das células.
+# la combinación de marcadores ayuda a aumentar la confianza en la anotación de las células.
 
-# Crie o Dotplot
+# Crie el Dotplot
 scPlot = DotPlot(
   object   = sampleA,
   features = genes_markers,
   group.by = "seurat_clusters")
 
 scPlot$data <- scPlot$data %>% 
-  dplyr::filter(pct.exp >= 5) # Filtre os genes com menos de 5% de expressão
+  dplyr::filter(pct.exp >= 5) # Filtre los genes con al menos 5% de expresión
 
 scPlot = scPlot +
   scale_color_gradient2(
-  low = "#2c7bb6", # escolha as cores em diferentes níveis
+  low = "#2c7bb6", # seleccione una color para cada nível del gradiente
   mid = "#b2182b",  
   high = "#d7191c") +
-  theme_bw(base_size = 12) + # Mude para o tema bw
+  theme_bw(base_size = 12) + # cambie el tema a tema_bw
   theme(
-    axis.text.x  = element_text(angle = 90) # Mude o ângulo do texto do eixo x
+    axis.text.x  = element_text(angle = 90) # Cambie la orientación del texto del eje x
   )
 
-# Mude o tamanho do gráfico
+# Cambie el tamaño del gráfico
 options(repr.plot.width=14, repr.plot.height=8) 
 scPlot
 
@@ -2327,7 +2337,7 @@ scPlot
                 </div>
             </section>
 
-            <p>Como esperado, nosso conjunto de dados representa um conjunto de células imunes. Podemos, portanto, diferenciar ainda mais suas populações celulares.</p>
+            <p>Como era de esperar, nuestro conjunto de datos representa un conjunto de células inmunitarias. Por lo tanto, podemos diferenciar mejor sus poblaciones celulares.</p>
 
             <section class="">
                 <div class="code-container">
@@ -2338,7 +2348,7 @@ scPlot
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Selecione um conjunto de genes marcadores para diferentes populações celulares imunes
+# Selectione un conjunto de genes marcadores para diferentes poblaciones celulares
 genes_markers = list(
   Myeloid = c(
     "LYZ","S100A8","S100A9","LGALS3","CTSS","MS4A7","LST1"
@@ -2365,9 +2375,9 @@ genes_markers = list(
 
 
 # Observe que alguns genes aparecem em mais de um marcador de população celular
-# a combinação de marcadores ajuda a aumentar a confiança na anotação das células.
+# la combinación de marcadores ayuda a aumentar la confianza en la anotación de las células.
 
-# Crie o Dotplot
+# Crie el Dotplot
 scPlot = DotPlot(
   object   = sampleA,
   features = genes_markers,
@@ -2425,20 +2435,20 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Abundância Diferencial</h2>
-                            <p>Além das alterações na expressão gênica, as mudanças na composição celular entre as condições experimentais (tratado vs. controle) representam um importante mecanismo a ser explorado em estudos de scRNA-seq. A análise de abundância diferencial visa identificar se certas populações celulares estão enriquecidas ou não em um determinado grupo de interesse, conforme implementado pelo pacote <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FmiloR.html">MiloR</a>.</p>
+                            <h2>Abundancia Diferencial</h2>
+                            <p>Más allá de los cambios en la expresión génica, los cambios en la composición celular entre condiciones experimentales (tratado vs. control) representan un mecanismo importante a explorar en los estudios de scRNA-seq. El análisis de abundancia diferencial busca identificar si ciertas poblaciones celulares están enriquecidas o no en un grupo de interés determinado, como lo implementa el paquete <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FmiloR.html">MiloR</a>.</p>
                             <br>
-                            <p>Veja o artigo original: <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41587-021-01033-z">Differential abundance testing on single-cell data using k-nearest neighbor graphs</a></p>
+                            <p>Consulte el artículo original:  <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41587-021-01033-z">Differential abundance testing on single-cell data using k-nearest neighbor graphs</a></p>
                             <br>
-                            <p>Alterações na abundância podem ocorrer mesmo na ausência de mudanças na expressão gênica. O MiloR infere a abundância diferencial usando KNNs, o que é apropriado para detectar variações espaciais na densidade celular associadas às condições, evitando a dependência exclusiva de agrupamentos rígidos isolados.</p>
+                            <p>Los cambios en la abundancia pueden ocurrir incluso en ausencia de cambios en la expresión génica. MiloR infiere la abundancia diferencial utilizando KNN, lo cual es adecuado para detectar variaciones espaciales en la densidad celular asociadas con las condiciones, evitando la dependencia exclusiva de grupos rígidos aislados.</p>
                             <br>
-                            <p>Milo é uma ferramenta para análise de conjuntos de dados complexos de células individuais e condições experimentais diferenciais. Enquanto a abundância diferencial é comumente quantificada em agrupamentos discretos de células, o Milo utiliza vizinhanças parcialmente sobrepostas de células em um grafo KNN.</p>
-                            <p>A análise com Milo consiste em 4 etapas:</p>
+                            <p>Milo es una herramienta para analizar conjuntos de datos complejos de células individuales y condiciones experimentales diferenciales. Si bien la abundancia diferencial se cuantifica comúnmente en grupos discretos de células, Milo utiliza vecindades de células parcialmente superpuestas en un grafo KNN.</p>
+                            <p>El análisis con Milo consta de 4 pasos:</p>
                             <ul class="a">
-                                <li>Preparar o objeto <span class="code-inline-light">SingleCellExperiment</span>  Isso é necessário antes de aplicar o método MiloR.</li>
-                                <li>Amostragem de vizinhanças representativas.</li>
-                                <li>Teste de abundância diferencial de condições em todas as vizinhanças.</li>
-                                <li>Consideração do teste de hipóteses múltiplas usando um procedimento FDR ponderado que leva em conta a sobreposição das vizinhanças.</li>
+                                <li>Preparar el objeto <span class="code-inline-light">SingleCellExperiment</span>: Esto es necesario antes de aplicar el método MiloR.</li>
+                                <li>Muestreo de vecindades representativas.</li>
+                                <li>Prueba de abundancia diferencial de condiciones en todas las vecindades.</li>
+                                <li>Considerar pruebas de hipótesis múltiples mediante un procedimiento FDR ponderado que considera la superposición de vecindades.</li>
                             </ul>
 
                             <section class="video">
@@ -2449,10 +2459,10 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
                             </div>
                         </section>
 
-                        <h3>Não execute no Colab!</h3>
-                        <p>Para fins didáticos nesta etapa, baixaremos outras amostras do nosso conjunto de dados para calcular a abundância diferencial de células entre pacientes com COVID-19 leve e grave. Para evitar que este tutorial fique muito extenso, simplificaremos algumas etapas.</p>
+                        <h3>¡No ejecutar en Colab!</h3>
+                        <p>Para fines didácticos, en este paso descargaremos otras muestras de nuestro conjunto de datos para calcular la abundancia diferencial de células entre pacientes con COVID-19 leve y grave. Para que este tutorial no sea demasiado largo, simplificaremos algunos pasos.</p>
                         <br>
-                        <p>No entanto, recomendamos fortemente que você siga as diretrizes de boas práticas desenvolvidas no objeto SampleA para as outras amostras.</p>
+                        <p>Sin embargo, le recomendamos encarecidamente que siga las recomendaciones prácticas desarrolladas en el objeto SampleA para las demás muestras.</p>
 
             <section class="">
                 <div class="code-container">
@@ -2463,18 +2473,16 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Abaixo está o código para processar e mesclar várias amostras de scRNA-seq em um único objeto Seurat
-# criamos uma lista para armazenar objetos Seurat individuais para cada amostra
-# e, em seguida, mesclamos eles em um único objeto Seurat.
-# Para criar isso, vamos fazer um loop através de uma lista de nomes de arquivos,
-# ler cada arquivo, criar um objeto Seurat, realizar filtragem de controle de qualidade
-# e armazenar o objeto Seurat em uma lista.
+# Abajo esta el código para procesar y fusionar múltiples muestras de scRNA-seq en un único objeto Seurat.
+# creamos una lista para almacenar objetos Seurat individuales para cada muestra y luego los fusionamos en un único objeto Seurat.
+# para crear esto, recorreremos una lista de nombres de archivo, 
+# dónde vamos lee cada archivo, crear un objeto Seurat, realizar un filtrado de control de calidad 
+# y almacenar el objeto Seurat en una lista.
 
-# Um loop significa que repetimos um conjunto de comandos várias vezes,
-# uma vez para cada item em uma lista ou vetor.
+# Un loop implica repetir un conjunto de comandos varias veces, 
+# una vez para cada elemento de una lista o vector.
 
-
-# Lista dos arquivos para processar
+# Lista de archivos a procesar
 files <- c(
   "GSM4339769_C141_filtered_feature_bc_matrix.h5",
   "GSM4339770_C142_filtered_feature_bc_matrix.h5",
@@ -2482,29 +2490,30 @@ files <- c(
   "GSM4339773_C145_filtered_feature_bc_matrix.h5"
 )
 
-# Inicite com uma lista vazia para armazenar objetos Seurat
+# Inicializar con una lista vacía para almacenar objetos Serat
 sc_list <- list()
 
 for (i in files){
-    sample_name <- strsplit(i, "_")[[1]][2]   # Extraia o nome da amostra do nome do arquivo
-    sc_data <- Read10X_h5(paste0("scRNAseq/", i))   # Carregue os dados 10X 
-    sc_seurat <- CreateSeuratObject(counts = sc_data, project=sample_name, min.cells=3, min.features=200)   # Crie um Seurat object
-    sc_seurat[["percent.mt"]] <- PercentageFeatureSet(sc_seurat, pattern="^MT-")  # Calcule a % de genes mitocondriais
-    sc_seurat <- subset(sc_seurat, nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt < 10)  # Filtre as células com base em critérios de QC
-    sc_list[[sample_name]] <- sc_seurat # Armazene o objeto Seurat na lista com o nome da amostra como chave
+    sample_name <- strsplit(i, "_")[[1]][2] # Extraer el nombre de la muestra del nombre del archivo
+    sc_data <- Read10X_h5(paste0("scRNAseq/", i)) # Cargar los datos 10 veces
+    sc_seurat <- CreateSeuratObject(counts = sc_data, project=sample_name, min.cells=3, min.features=200) # Crear un objeto Seurat
+    sc_seurat[["percent.mt"]] <- PercentageFeatureSet(sc_seurat, pattern="^MT-") # Calcular el porcentaje de genes mitocondriales
+    sc_seurat <- subset(sc_seurat, nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt < 10) # Filtrar las celdas según los criterios de control de calidad
+    sc_list[[sample_name]] <- sc_seurat # Almacenar el objeto Seurat en la lista con el nombre de la muestra como clave
 }
 
-# Junte todos os objetos Seurat na lista em um único objeto Seurat
-# x significa o primeiro objeto Seurat na lista
-# y significa o resto dos objetos Seurat na lista
-# add.cell.ids atribui prefixos únicos aos códigos de barras das células de cada amostra para evitar duplicação
+# Unir todos los objetos Seurat de la lista en un único objeto Seurat
+# x representa el primer objeto Seurat de la lista
+# y representa el resto de los objetos Seurat de la lista
+# add.cell.ids asigna prefijos únicos a los códigos de barras de cada celda de muestra para evitar duplicaciones
+
 sc_merged <- merge(
-  x = sc_list[[1]], # sample 1
-  y = c(sc_list[[2]], sc_list[[3]], sc_list[[4]]), # sample 2, 3, and 4
-  add.cell.ids = names(sc_list) # Use sample names as cell ID prefixes
+x = sc_list[[1]], # muestra 1
+y = c(sc_list[[2]], sc_list[[3]], sc_list[[4]]), # muestras 2, 3 y 4
+add.cell.ids = names(sc_list) # Usar los nombres de las muestras como prefijos de ID de celda
 )
 
-# Mostre as primeiras linhas do objeto Seurat mesclado
+# Mostrar las primeras filas del objeto Seurat fusionado
 head(sc_merged)
                 </code></pre>
                 </div>
@@ -2519,12 +2528,12 @@ head(sc_merged)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Adicione uma nova coluna de metadados 'condition' com base nos identificadores da amostra
-# Uma instrução if-else é usada para classificar as amostras C141 e C142 como 'mild' e outras como 'severe'
+# Agregar una nueva columna de metadatos 'condition' basada en los identificadores de las muestras
+# Una instrucción if-else se utiliza para clasificar las muestras C141 y C142 como 'mild' y otras como 'severe'
 sc_merged$condition <- ifelse(grepl("^(C141|C142)", sc_merged$orig.ident), "mild", "severe")
 sc_merged
 
-# Cheque o numero de células por amostra e condição
+# Verificar el número de células por muestra y condición
 table(sc_merged$orig.ident)
 table(sc_merged$condition)
                 </code></pre>
@@ -2540,10 +2549,10 @@ table(sc_merged$condition)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Normalize os dados e identifique as features variáveis
+# Normalizar los datos y encontrar las características variables
 sc_merged <- FindVariableFeatures(sc_merged, selection.method = "vst", nfeatures = 3000)
 
-# Execute o workflow padrão para visualização e clustering
+# Execute o workflow padron para visualización y clustering
 sc_merged <- NormalizeData(sc_merged, verbose = FALSE)
 all.genes <- rownames(sc_merged)
 sc_merged <- ScaleData(sc_merged, features = all.genes, verbose = FALSE)
@@ -2551,15 +2560,15 @@ sc_merged <- RunPCA(sc_merged, features = VariableFeatures(sc_merged), verbose =
 sc_merged <- FindNeighbors(sc_merged, dims=1:30, verbose = FALSE)
 sc_merged <- FindClusters(sc_merged, resolution=0.8, verbose = FALSE)
 
-# Execute UMAP para redução de dimensionalidade
+# Execute UMAP para reducir la dimensionalidad
 sc_merged <- RunUMAP(sc_merged, dims=1:30, verbose = FALSE)
                 </code></pre>
                 </div>
             </section>
 
-            <p>O Harmony foi utilizado para corrigir os efeitos de lote (batch effects) usando a coluna de metadados <span class="code-inline-light">orig.ident</span> . Esta ferramenta permite a integração de múltiplos conjuntos de dados e remove eficazmente os efeitos de lote na análise de RNA-seq de célula única. Para uma descrição detalhada das estratégias de integração, consulte o Módulo 05.</p>
+            <p>Se utilizó Harmony para corregir los efectos de lote mediante la columna de metadatos <span class="code-inline-light">orig.ident</span> . Esta herramienta permite la integración de múltiples conjuntos de datos y elimina eficazmente los efectos de lote en el análisis de secuenciación de ARN de una sola célula. Para una descripción detallada de las estrategias de integración, consulte el Módulo 05.</p>
             <br>
-            <p>Mais informações sobre o Harmony podem ser encontradas no portal oficial do Broad Institute: <a href="https://www.google.com/url?q=https%3A%2F%2Fportals.broadinstitute.org%2Fharmony%2F">Harmony</a></p>
+            <p>Puede encontrar más información sobre Harmony en el portal oficial del Instituto Broad: <a href="https://www.google.com/url?q=https%3A%2F%2Fportals.broadinstitute.org%2Fharmony%2F">Harmony</a></p>
 
             <section class="">
                 <div class="code-container">
@@ -2570,22 +2579,22 @@ sc_merged <- RunUMAP(sc_merged, dims=1:30, verbose = FALSE)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Juntar camadas antes de executar a integração Harmony
+# Unir capas antes de ejecutar la integración de Harmony
 sc_merged[["RNA"]] <- JoinLayers(sc_merged[["RNA"]], verbose = FALSE)
 
-# Execute o Harmony para integrar as amostras e corrigir os efeitos de lote
+# Ejecutar Harmony para integrar muestras y corregir los efectos del lote
 sc_merged <- harmony::RunHarmony(sc_merged,
-                                "orig.ident", # Corrija os efeitos de lote com base na coluna 'orig.ident'
-                                reduction.save = "pca", # salve a nova redução do PCA
+                                "orig.ident", # Corregir los efectos del lote según la columna 'orig.ident'
+                                reduction.save = "pca", # Guardar la nueva reducción de PCA
                                 verbose = FALSE)
 
-# Encontrar neighbors basedo no PCA do Harmony PCA
-sc_merged <- FindNeighbors(sc_merged, dims = 1:30, verbose = FALSE) 
+# Encontrar vecinos según el PCA de Harmony
+sc_merged <- FindNeighbors(sc_merged, dims = 1:30, verbose = FALSE)
 
-# Encontrar clusters em uma resolução de 0.8 
-sc_merged <- FindClusters(sc_merged,resolution = 0.8, verbose = FALSE) 
+# Encontrar clústeres con una resolución de 0.8
+sc_merged <- FindClusters(sc_merged,resolution = 0.8, verbose = FALSE)
 
-# Execute UMAP no Harmony embeddings
+# Ejecutar UMAP en Harmony embeddings
 sc_merged <- RunUMAP(sc_merged, dims = 1:30, verbose = FALSE)
                 </code></pre>
                 </div>
@@ -2600,7 +2609,7 @@ sc_merged <- RunUMAP(sc_merged, dims = 1:30, verbose = FALSE)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Dimplot colorido pelos clusters e amostras 
+# Dimplot con coloreado por clústeres y muestras
 DimPlot(
   sc_merged,
   group.by = c("seurat_clusters", "orig.ident")
@@ -2621,12 +2630,12 @@ DimPlot(
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Carregue o pacote miloR
+# Descaregar el paquete miloR
 library(miloR)
-# Converta o objeto Seurat para SingleCellExperiment
+# Convertir el objeto Seurat a SingleCellExperiment
 sce <- as.SingleCellExperiment(sc_merged)
 
-# Crie um objeto Milo a partir do SingleCellExperiment
+# Crear el objeto Milo a partir del objeto SingleCellExperiment
 milo <- miloR::Milo(sce)
 milo
                 </code></pre>
@@ -2643,11 +2652,11 @@ milo
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Constura um grafo kNN graph para o objeto milo
+# Construir un grafo kNN para el objeto milo
 milo <- buildGraph(milo,
-                    k = 20,  # número de vizinhos para o grafo kNN
-                    d = 30,  # número de dimensões para usar 
-                    reduced.dim = "PCA") # Redução dimensional a ser usada
+                   k = 20, # número de vecinos para el grafo kNN
+                   d = 30, # número de dimensiones a utilizar
+                   reduced.dim = "PCA") # Reducción dimensional a utilizar
                 </code></pre>
                 </div>
             </section>
@@ -2662,12 +2671,12 @@ milo <- buildGraph(milo,
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Definir a vizinhança para o objeto milo
+# Define la vecindad del objeto milo
 milo <- makeNhoods(milo,
-                    prop = 0.1, # proporção de células para incluir em cada vizinhança
-                    knn = 20,   # número de vizinhos para o grafo kNN
-                    d = 30,     # número de dimensões para usar 
-                    refined = TRUE) # se deve refinar as vizinhanças
+                   prop = 0.1, # proporción de celdas a incluir en cada vecindad
+                   knn = 20, # número de vecinos para el grafo kNN
+                   d = 30, # número de dimensiones a usar
+                   refined = TRUE) # si se refinan las vecindades
                 </code></pre>
                 </div>
             </section>
@@ -2681,8 +2690,8 @@ milo <- makeNhoods(milo,
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Criar histograma do tamanho das vizinhanças
-plotNhoodSizeHist(milo)
+# Crear un histograma de tamaños de vecindarios
+plot hoodSizeHist(milo)
                 </code></pre>
                 </div>
             </section>
@@ -2696,11 +2705,11 @@ plotNhoodSizeHist(milo)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Contar as células em cada vizinhança, adicionando metadados do objeto Seurat original
+# Contar las celulas en cada vecindario, agregando metadatos del objeto Serial original
 milo <- countCells(milo, meta.data = as.data.frame(colData(milo)),
-                   sample = "orig.ident") # Especifica a coluna de metadados a ser usada como amostra
+                   sample = "orig.ident") # Especifica la columna de metadatos que se usará como muestra
 
-# Mostrar as primeiras linhas da contagem de células por vizinhança
+# Mostrar las primeras filas del recuento de celdas por vecindario
 head(nhoodCounts(milo))
                 </code></pre>
                 </div>
@@ -2715,22 +2724,22 @@ head(nhoodCounts(milo))
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Cria um design data frame para o teste de abundância diferencial
-# design data frame contém identificadores de amostra e suas condições correspondentes
-# e seleciona colunas relevantes
-milo_design <- data.frame(colData(milo))[,c("orig.ident", "condition")] 
+# Crea diseño data frame para la prueba de abundancia diferencial
+# El diseño data frame contiene los identificadores de muestra y sus condiciones correspondientes
+# y selecciona las columnas relevantes
+milo_design <- data.frame(colData(milo))[,c("orig.ident", "condition")]
 
-# Converta a coluna 'condition' em um fator, 
-# definindo 'mild' como o nível de referência
+# Convierte la columna "condition" en un factor,
+# estableciendo "mild" como nivel de referencia
 milo_design$condition <- factor(milo_design$condition, levels = c("mild", "severe")) 
 
-# Remova linhas duplicadas para garantir pares únicos de amostra-condição
+# Elimina filas duplicadas para asegurar pares muestra-condición únicos
 milo_design <- dplyr::distinct(milo_design)
 
-# Coloque os nomes das linhas como os identificadores originais da amostra
-rownames(milo_design) <- milo_design$orig.ident 
+# Establece los nombres de fila con los identificadores de muestra originales
+rownames(milo_design) <- milo_design$orig.ident
 
-# Retorne o milo_design data frame
+# Devuelve el marco de datos milo_design
 milo_design
                 </code></pre>
                 </div>
@@ -2745,9 +2754,9 @@ milo_design
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Performar abundância diferencial teste usando milo
+# Realizar una prueba de abundancia diferencial con milo
 milo <- calcNhoodDistance(milo,
-                          d=30) # Cálcula a distância entre vizinhanças
+                          d=30) # Calcula la distancia entre vecindarios
                 </code></pre>
                 </div>
             </section>
@@ -2761,16 +2770,16 @@ milo <- calcNhoodDistance(milo,
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Garanta que os nomes das linhas correspondam aos identificadores de amostra no objeto milo
-rownames(milo_design) <- milo_design$orig.ident 
+# Asegurar que los nombres de las filas coincidan con los identificadores de muestra en el objeto milo
+rownames(milo_design) <- milo_design$orig.ident
 
-# Teste para abundância diferencial
-da_results <- testNhoods(milo, design = ~ condition, design.df = milo_design) 
+# Prueba de abundancia diferencial
+da_results <- testNhoods(milo, design = ~ condition, design.df = milo_design)
 
-# Mostre as primeiras linhas dos resultados do teste de abundância diferencial
+# Mostrar las primeras filas de los resultados de la prueba de abundancia diferencial
 da_results %>%
-  arrange(- SpatialFDR) %>%
-  head()
+    arrange(- SpatialFDR) %>%
+    head()
                 </code></pre>
                 </div>
             </section>
@@ -2784,11 +2793,11 @@ da_results %>%
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Construa o grafo de vizinhança para o objeto milo
+# Construir el grafo de vecindad para el objeto milo
 milo <- buildNhoodGraph(milo)
 
-# Crie um UMAP plot do objeto milo com os resultados do teste de abundância diferencial sobrepostos
-plotUMAP(milo) + 
+# Crear un gráfico UMAP del objeto milo con los resultados de la prueba de abundancia diferencial superpuestos
+plotUMAP(milo) +
 plotNhoodGraphDA(milo, da_results,
                  alpha=0.05) + 
                  plot_layout(guides="collect")
@@ -2798,12 +2807,12 @@ plotNhoodGraphDA(milo, da_results,
                 </div>
             </section>
 
-            <p>Entendendo os Termos Principais na Análise Diferencial de Abundância</p>
+            <p>Comprensión de los términos clave en el análisis de abundancia diferencial</p>
             <ul class="a">
-                <li>Fold Change (FC): Representa a magnitude da diferença na abundância entre condições ou grupos. Neste contexto, o FC indica o quanto uma determinada população celular é enriquecida ou reduzida ao comparar condições experimentais.</li>
-                <li>Taxa de Falsos Positivos (False Discovery Rate/FDR): Uma correção estatística aplicada aos valores de p para levar em conta testes múltiplos. Ela ajuda a controlar a proporção de falsos positivos, garantindo que os resultados significativos sejam mais confiáveis.</li>
-                <li>Cluster: Refere-se a um grupo de células identificado por métodos de agrupamento não supervisionados. Cada cluster representa uma população com perfis de expressão gênica semelhantes, e a análise diferencial de abundância testa se a frequência desses clusters muda entre as condições.</li>
-                <li>Juntas, essas métricas nos permitem interpretar se populações celulares específicas são significativamente expandidas ou reduzidas, mantendo o rigor estatístico e a relevância biológica.</li>
+                <li>Fold Change (FC): Representa la magnitud de la diferencia en abundancia entre condiciones o grupos. En este contexto, la CF indica cuánto se enriquece o reduce una población celular dada al comparar las condiciones experimentales.</li>
+                <li>Tasa de falsos descubrimientos ((False Discovery Rate/FDR): Corrección estadística aplicada a los valores p para tener en cuenta múltiples pruebas. Ayuda a controlar la proporción de falsos positivos, lo que garantiza que los resultados significativos sean más fiables.</li>
+                <li>Clúster: Se refiere a un grupo de células identificado mediante métodos de agrupamiento no supervisados. Cada clúster representa una población con perfiles de expresión génica similares, y el análisis de abundancia diferencial analiza si la frecuencia de estos clústeres cambia entre condiciones.</li>
+                <li>En conjunto, estas métricas nos permiten interpretar si poblaciones celulares específicas se expanden o reducen significativamente, manteniendo el rigor estadístico y la relevancia biológica.</li>
             </ul>
             <br>
                         </div>
@@ -2842,14 +2851,15 @@ plotNhoodGraphDA(milo, da_results,
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Filtrar genes
-my.genes = sampleA.markers %>%
-      filter(abs(avg_log2FC) > 1, # Esta condição retém as linhas onde o valor absoluto da média da variação log2 é maior que 1
-      p_val_adj < 0.10) %>%       # Esta condição retém as linhas onde o valor p ajustado é menor que 0,10
-      dplyr::select(gene) %>%     # A função select do pacote dplyr é usada para selecionar a coluna de genes do dataframe filtrado.
-      pull()  # A função pull extrai os valores da coluna de genes selecionada como um vetor
+# Filtrado de genes
 
-# Exibir as primeiras linhas
+my.genes = sampleA.markers %>%
+  filter(abs(avg_log2FC) > 1,  # Esta condición retiene las filas donde el valor absoluto del cambio promedio en log2 es mayor a 1
+         p_val_adj < 0.10) %>% # Esta condición retiene las filas donde el valor p ajustado es menor a 0.10
+  dplyr::select(gene) %>%      # La función select del paquete dplyr se usa para seleccionar la columna de genes de los datos filtrados.
+  pull() # La función pull extrae los valores de la columna seleccionada de genes como un vector
+
+# Mostrar las primeras filas
 head(my.genes)
                 </code></pre>
                 </div>
@@ -2864,10 +2874,10 @@ head(my.genes)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-nrow(sampleA.markers) # Essa função retorna o número de linhas no data frame
-genes <- sampleA.markers %>% arrange(desc(avg_log2FC)) # Organiza o data frame em ordem decrescente com base na coluna avg_log2FC
+nrow(sampleA.markers) # Esta función entrega el número de filas
+genes <- sampleA.markers %>% arrange(desc(avg_log2FC)) # Ordenar los datos en orden descendente basado en la columna que indica el promedio de cambio en log2.
 
-# Exibir as primeiras linhas
+# Mostrar las primeras filas
 head(genes)
                 </code></pre>
                 </div>
@@ -2882,24 +2892,24 @@ head(genes)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-library(clusterProfiler) # Fornece funções para classificação de termos biológicos e análise de enriquecimento.
+library(clusterProfiler) # Proporciona funciones para la clasificación de términos biológicos y el análisis de enriquecimiento.
 
-# Converter Identificadores de Genes
-my.map = bitr(my.genes, # Esta função converte identificadores de genes de um tipo para outro
-            fromType="SYMBOL", # Especifica que os identificadores de genes de entrada são Gene Symbol
-            toType="ENTREZID", # Especifica que a saída deve ser IDs Entrez
-            OrgDb="org.Hs.eg.db") # Especifica o banco de dados de organismos para genes humanos
+# Convertir identificadores de genes
+my.map = bitr(my.genes, # Esta función convierte los identificadores de genes de un tipo a otro
+              fromType="SYMBOL", # Especifica que los identificadores de genes de entrada son símbolos de genes
+              toType="ENTREZID", # Especifica que la salida debe ser en formato Entrez ID
+              OrgDb="org.Hs.eg.db") # Especifica la base de datos de organismos para genes humanos
 
-# Exibir as Primeiras Entradas
+# Mostrar las primeras entradas
 head(my.map)
 
-# Calcular o Número de Genes Não Mapeados
+# Calcular el número de genes no mapeados
 length(my.genes) - nrow(my.map)
                 </code></pre>
                 </div>
             </section>
 
-                            <h3>Classificação do GO</h3>
+                            <h3>Clasificación por términos GO</h3>
 
                             <section class="">
                 <div class="code-container">
@@ -2910,17 +2920,16 @@ length(my.genes) - nrow(my.map)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# subontologias: Biological Process (BP), Molecular Function (MF), Cellular Component (CC)
-library(org.Hs.eg.db) # Contém anotações genômicas para genes humanos
-
-# Grupos de genes baseados nos termos GO
-ggo_bp = groupGO(gene     = my.map$ENTREZID, # Especifique os IDs de genes Entrez para agrupar
+# Subontologías: Biological Process (BP; procesos biológicos), Molecular Function (MF; función molecular), Cellular Component (CC; componente celular)
+library(org.Hs.eg.db) # Librería que contiene anotaciones para genes humanos.
+# Agrupa los genes en función de sus términos GO
+ggo_bp = groupGO(gene     = my.map$ENTREZID, # Especifica la lista de ID de genes ENTREZ para agrupar
                  OrgDb    = org.Hs.eg.db, 
-                 ont      = "BP", # Especifique a ontologia GO como Processo Biológico (BP)
-                 readable = TRUE) # Converte os IDs de genes Entrez de volta para Gene Symbol legíveis
+                 ont      = "BP", # Especifica que el agrupamiento GO debe basarse en la subontología de "Proceso Biológico".
+                 readable = TRUE) # Convierte los IDs de Entrez a símbolos de genes para una interpretación más fácil.
 
-# Exibir as Primeiras Entradas fo objeto ggo_bp
-head(ggo_bp)  
+# Muestra las primeras entradas del objeto ggo_bp
+head(ggo_bp)
                 </code></pre>
                 </div>
             </section>
@@ -2934,13 +2943,13 @@ head(ggo_bp)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# subontologias: BP, MF, CC
-ggo_mf = groupGO(gene  = my.map$ENTREZID, # Especifique os IDs de genes Entrez para agrupar
-                 OrgDb    = org.Hs.eg.db, # Especifique o banco de dados de organismos para genes humanos
-                 ont      = "MF", # Especifique a ontologia GO como Função Molecular (MF)
-                 readable = TRUE) # Converte os IDs de genes Entrez de volta para Gene Symbol legíveis
+# Subontologías: BP, MF, CC
+ggo_mf = groupGO(gene = my.map$ENTREZID, # Especificar los genes de EntrezID para agrupar
+                 OrgDb    = org.Hs.eg.db, # Especificar la base de datos de organismos para genes humanos
+                 ont      = "MF", # Especificar la ontología GO como Función Molecular (MF)
+                 readable = TRUE) # Convertir los ID de los genes de Entrez de nuevo a símbolos genéticos legibles
 
-# Exibir as Primeiras Entradas fo objeto ggo_mf
+# Mostrar las primeras entradas del objeto ggo_mf
 head(ggo_mf)
                 </code></pre>
                 </div>
@@ -2955,20 +2964,19 @@ head(ggo_mf)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# subontologias: BP, MF, CC
-ggo_cc = groupGO(gene     = my.map$ENTREZID, # Especifique os IDs de genes Entrez para agrupar
-                 OrgDb    = org.Hs.eg.db,  # Especifique o banco de dados de organismos para genes humanos
-                 ont      = "CC",  # Especifique a ontologia GO como Componente Celular (CC)
-                 readable = TRUE) # Converte os IDs de genes Entrez de volta para Gene Symbol legíveis
+# Subontologias: BP, MF, CC
+ggo_cc = groupGO(gene = my.map$ENTREZID, # Especificar los genes de EntrezID para agrupar
+                 OrgDb   = org.Hs.eg.db, # Especificar la base de datos de organismos para genes humanos
+                 ont      = "CC", # Especificar la ontología GO como Componente Celular (CC)
+                 readable = TRUE) # Convertir los ID de los genes de Entrez de nuevo a símbolos genéticos legibles
 
-
-# Exibir as Primeiras Entradas do objeto ggo_cc
+# Muestra las primeras pocas entradas del objeto ggo_cc
 head(ggo_cc)
                 </code></pre>
                 </div>
             </section>
 
-            <h3>GO over-representation</h3>
+            <h3>Análisis de sobrerepresentación de términos GO</h3>
 
                             <section class="">
                 <div class="code-container">
@@ -2979,34 +2987,32 @@ head(ggo_cc)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Essa função realiza a análise de enriquecimento GO para os genes fornecidos
-ego <- enrichGO(gene   = my.map$ENTREZID, # Especifique os IDs de genes Entrez para a análise de enriquecimento
-                OrgDb  = org.Hs.eg.db, # Especifique o banco de dados de organismos para genes humanos
-                ont           = "BP", # Especifique a ontologia GO como Processo Biológico (BP)
-                pAdjustMethod = "BH", # O método de ajuste de p-valor é definido como Falso Discovery Rate de Benjamini-Hochberg (BH)
-                pvalueCutoff  = 0.01, # O valor de significância p-valor
-                qvalueCutoff  = 0.05, # O valor de significância q-valor
-                readable      = TRUE) # Converte os IDs de genes Entrez de volta para Gene Symbol legíveis
-                
-# Exibir as Primeiras Entradas fo objeto ego
+# Esta función realiza el análisis de enriquecimiento de términos GO en un set de genes dado.
+ego <- enrichGO(gene          = my.map$ENTREZID, # Especificar los genes de EntrezID para agrupar
+                OrgDb         = org.Hs.eg.db,  # Especificar la base de datos de organismos para genes humanos
+                ont           = "BP", # Especificar la ontología GO como Proceso Biológico (BP)
+                pAdjustMethod = "BH", # El método utilizado para ajustar los valores p para controlar el FDR de Benjamini-Hochberg (BH)
+                pvalueCutoff  = 0.01, # El umbral de valor p para significancia
+                qvalueCutoff  = 0.05, # El umbral de valor q para significancia
+                readable      = TRUE)
 head(ego)
                 </code></pre>
                 </div>
             </section>
 
-            <h2>Enriquecimento de GO em outros organismos</h2>
+            <h2>Enriquecimiento de Ontología Génica en Otros Organismos</h2>
 
-            <p>É importante ressaltar que a análise de enriquecimento de vias não se restringe a modelos humanos ou animais. Para organismos não-modelo e plantas, existe uma ampla gama de bancos de dados dedicados e anotações funcionais disponíveis, permitindo uma interpretação robusta de dados transcriptômicos em diversas espécies.</p>
+            <p>Es importante destacar que el análisis de enriquecimiento de vías metabólicas no se limita a modelos humanos o animales. Para organismos no modelo y plantas, existe una amplia gama de bases de datos especializadas y anotaciones funcionales, lo que permite una interpretación robusta de los datos transcriptómicos en diversas especies.</p>
             <br>
-            <p>Na pesquisa com plantas, as análises de enriquecimento geralmente se baseiam em repositórios de vias metabólicas específicos para plantas e anotações de Gene Ontology (GO) adaptadas a espécies como <i>Arabidopsis thaliana</i>, arroz e milho. Esses recursos são essenciais para investigar processos biológicos importantes, incluindo desenvolvimento vegetal, respostas ao estresse e imunológicas, sinalização hormonal e adaptações metabólicas a estímulos ambientais.</p>
+            <p>En la investigación vegetal, los análisis de enriquecimiento generalmente se basan en repositorios de vías metabólicas específicas de cada planta y anotaciones de Ontología Génica (OG) adaptadas a especies como Arabidopsis thaliana, arroz y maíz. Estos recursos son esenciales para investigar procesos biológicos importantes, como el desarrollo vegetal, las respuestas al estrés e inmunitarias, la señalización hormonal y las adaptaciones metabólicas a los estímulos ambientales.</p>
             <br>
-            <p>Do ponto de vista técnico, qualquer tipo de identificador de gene compatível com um objeto OrgDb apropriado pode ser usado diretamente em análises baseadas em GO dentro do ecossistema Bioconductor. Essa flexibilidade permite a anotação funcional contínua em múltiplos organismos e sistemas de identificação.</p>
-            <p>Diversos bancos de dados de vias tem curadoria que ampliam ainda mais o escopo das análises de enriquecimento entre táxons.</p>
+            <p>Desde un punto de vista técnico, cualquier tipo de identificador génico compatible con un objeto OrgDb apropiado puede utilizarse directamente en análisis basados ​​en OG dentro del ecosistema Bioconductor. Esta flexibilidad permite una anotación funcional continua en múltiples organismos y sistemas de identificación.</p>
+            <p>Varias bases de datos de vías han seleccionado recursos que amplían el alcance de los análisis de enriquecimiento entre taxones.</p>
             <ul class="a">
-                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.wikipathways.org%2F">WikiPathways</a> é uma plataforma aberta e colaborativa dedicada à curadoria de vias, oferecendo ampla cobertura de organismos, desde vertebrados a bactérias e plantas. Ao adotar um modelo de curadoria colaborativa, o WikiPathways complementa recursos já estabelecidos, como KEGG, Reactome e Pathway Commons.</li>
-                <li>No contexto da biologia vegetal, o <a href="https://www.google.com/url?q=https%3A%2F%2Fplantreactome.gramene.org%2F">Plant Reactome</a> fornece um banco de dados de vias feito em código aberto e disponível publicamente, curado manualmente e revisado por pares, abrangendo mais de 100 espécies de plantas.</li>
-                <li>Para organismos que não possuem um pacote OrgDb dedicado no Bioconductor (por exemplo, espécies sem um banco de dados de anotações disponível análogo ao org.Mm.eg.db em camundongos)</li>
-                <li>Os usuários podem recuperar anotações específicas do organismo — quando disponíveis — por meio de recursos online como o <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.bioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FAnnotationHub.html">AnnotationHub</a>, garantindo que as análises de enriquecimento permaneçam acessíveis mesmo para espécies menos caracterizadas.</li>
+                <li>El <a class="link" href="https://www.google.com/url?q=https%3A%2F%2Fwww.wikipathways.org%2F">WikiPathways</a> es una plataforma abierta y colaborativa dedicada a la selección de vías, que ofrece una amplia cobertura de organismos, desde vertebrados hasta bacterias y plantas. Al adoptar un modelo de selección colaborativa, WikiPathways complementa recursos ya consolidados como <span class="code-inline-light">KEGG</span>, <span class="code-inline-light">Reactome</span> y <span class="code-inline-light">Pathway Commons</span></li>
+                <li>En el contexto de la biología vegetal, o <a href="https://www.google.com/url?q=https%3A%2F%2Fplantreactome.gramene.org%2F">Plant Reactome</a> ofrece una base de datos de vías, de código abierto y pública, seleccionada manualmente y revisada por pares, que abarca más de 100 especies de plantas.</li>
+                <li>Para organismos que no cuentan con un paquete  OrgDb dedicado en Bioconductor (p. ej., especies sin una base de datos de anotaciones disponible, similar a org.Mm.eg.db en ratones).</li>
+                <li>Los usuarios pueden recuperar anotaciones específicas de cada organismo, cuando estén disponibles, a través de recursos en línea como <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.bioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FAnnotationHub.html">AnnotationHub</a>, lo que garantiza que los análisis de enriquecimiento permanezcan accesibles incluso para especies menos caracterizadas.</li>
             </ul>
             <br>
                         </div>
@@ -3014,10 +3020,10 @@ head(ego)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Correção de RNA Ambiental (Opcional)</h2>
-                            <p>Em alguns casos, pode haver suspeita de que os dados contenham contaminação por células que foram destruídas e liberaram seu conteúdo no meio durante a preparação da biblioteca, o que poderia alterar a contagem de RNA em células intactas. Ferramentas, como o SoupX, analisam os códigos de barras detectados como ruído de fundo e seu conteúdo de RNA para identificar transcritos potencialmente aumentados pela contaminação nos códigos de barras detectados como células e corrigir seu efeito.</p>
+                            <h2>Correccion de ARN Ambiental (Opcional)</h2>
+                            <p>En algunos casos puede existir sospecha de que los datos presenten contaminacion desde celulas que se destruyeron y liberaron su contenido al medio en el momento de preparar las librerias, lo que podria alterar las cuentas de ARNs en las celulas integras. Herramientas como SoupX se encargan de analizar los barcodes que se detectaron como background y su contenidos de ARNs, con la finalidad de identificar transcritos potencialmente incrementados por contaminacion en los barcodes detectados como celulas y corregir su efecto.</p>
                             <br>
-                            <p>Veja o artigo original <a href="https://www.google.com/url?q=https%3A%2F%2Fpubmed.ncbi.nlm.nih.gov%2F33367645%2F">SoupX removes ambient RNA contamination from droplet-based single-cell RNA sequencing data</a></p>
+                            <p>Consulte el artículo original <a href="https://www.google.com/url?q=https%3A%2F%2Fpubmed.ncbi.nlm.nih.gov%2F33367645%2F">SoupX removes ambient RNA contamination from droplet-based single-cell RNA sequencing data</a></p>
 
                         <section class="video">
                             <div class="container-md">
@@ -3027,10 +3033,10 @@ head(ego)
                             </div>
                         </section>
 
-                        <p>Para demonstrar a simplicidade desse processo, utilizaremos um conjunto de dados gerado com a tecnologia 10x e mapeado com o CellRanger (v8.0.1). Esses dados correspondem a uma amostra de um estudo sobre câncer de cabeça e pescoço.</p>
+                        <p>Para demostrar la simplicidad de este proceso, utilizaremos un conjunto de datos generado con tecnología 10x y mapeado con CellRanger (v8.0.1). Estos datos corresponden a una muestra de un estudio sobre cáncer de cabeza y cuello.</p>
                         <br>
-                        <p>Dataset disponível no NCBI/SRA: <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945">https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945</a></p>
-                        <p>Artigo original: <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC8184766%2F"></a>B cell signatures and tertiary lymphoid structures contribute to outcome in head and neck squamous cell carcinoma</p>
+                        <p>Conjunto de datos disponible en NCBI/SRA:  <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945">https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945</a></p>
+                        <p>Artículo original: <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC8184766%2F"></a>B cell signatures and tertiary lymphoid structures contribute to outcome in head and neck squamous cell carcinoma</p>
 
             <section class="">
                 <div class="code-container">
@@ -3048,7 +3054,7 @@ shell_call("ls -lh")
                 </div>
             </section>
 
-            <p>Como pode ser visto no código a seguir, para dados 10x o processo é tão simples quanto carregar a pasta de resultados obtida do cellranger e executar a função <span class="code-inline-light">autoEstCont()</span>.</p>
+            <p>Como se puede observar en el siguiente codigo, para datos de 10x el proceso es tan simple como cargar la carpeta de resultados de obtenidad desde cellranger y ejecutar la funcion <span class="code-inline-light">autoEstCont()</span>.</p>
 
             <section class="">
                 <div class="code-container">
@@ -3059,17 +3065,17 @@ shell_call("ls -lh")
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Carregar as bibliotecas SoupX e DropletUtils
+# Cargar las librerías necesarias
 library(SoupX)
 library(DropletUtils)
 
-# Definir uma semente para reprodutibilidade
+# Definir una semilla para la reproducibilidad
 set.seed(123)
 
-# Carregar os dados da 10X Genomics usando o SoupX
+# Cargar los datos de 10X desde la carpeta especificada
 sc = load10X("Mapped_SRR10340945/outs/")
 
-# Executar a estimativa automática de contaminação
+# Executar la estimación automática de la contaminación
 #png("SoupX_SRR10340945.png", width = 1080, height = 1080)
 sc = autoEstCont(sc)
 #dev.off()
@@ -3086,18 +3092,18 @@ sc = autoEstCont(sc)
 
                 <!-- code block -->
                 <pre><code class="language-r">
-# Separar a fração de contaminação estimada
+# Separar la fracción de contaminación estimada
 rhoEst <- sc$fit$rhoEst
 
-# Fração de contaminação estimada pelo SoupX
-print(rhoEst)
+# Fraccion de contaminacion estimada pelo SoupX
+print(rhoEst) 
 
-# Normalmente, as contagens são números inteiros, 
-# mas para compatibilidade, o DropletUtils requer valores arredondados
-out = adjustCounts(sc, roundToInt = TRUE)
+# Normalmente las cuentas usan numeros enteros, 
+# para compatibilidad posterior con otras herramientas aqui se redondea.
+out = adjustCounts(sc, roundToInt = TRUE) 
 
-# Para exportar os dados em uma pasta no formato de saída do CellRanger
-DropletUtils:::write10xCounts("./SRR10340945_clean", out)
+# Para exportar los datos en una carpeta en el formato de los resultados de cellranger
+DropletUtils:::write10xCounts("./SRR10340945_clean",out) 
                 </code></pre>
                 </div>
             </section>
@@ -3116,11 +3122,11 @@ shell_call("ls -lh SRR10340945_clean")
                 </div>
             </section>
 
-            <p>Para dados em que a pasta de saída completa do Cell Ranger ("outs") não está acessível ou em que os dados não foram gerados usando a tecnologia 10x, o SoupX também pode ser usado implementando uma série de etapas alternativas. Essas etapas envolvem a geração de um cluster, já que o método anterior usa o cluster gerado pelo Cell Ranger, cujas informações estão disponíveis na pasta "outs", além das matrizes de contas.</p>
+            <p>Para datos en los que no se tenga acceso a la carpeta de salida de cellranger completa ("outs") o no sean generados con tecnologia de 10x, tambien se puede emplear SoupX implementando una serie de pasos alternativos, que involucran generar un clustering, dado que en la manera anterior, se utiliza el clustering generado por cellranger cuya informacion esta disponible en la carpeta "outs", ademas de las matrices de cuentas.</p>
             <br>
-            <p>Nas linhas de código a seguir, você verá um exemplo adaptado de <a href="https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html">https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html</a> com os dados que acabamos de usar.</p>
+            <p>En las siguientes lineas de codigo veras un ejemplo adaptado desde <a href="https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html">https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html</a> con los datos que recien empleamos.</p>
             <br>
-            <p>É essencial ter ambas as matrizes: a matriz de contas filtrada e a matriz de contas bruta.</p>
+            <p>Lo indispensable es tener ambas matrices: matriz de cuentas filtradas y matriz de cuentas brutas.</p>
 
             <section class="">
                 <div class="code-container">
@@ -3135,14 +3141,14 @@ filt.matrix <- Read10X_h5("Mapped_SRR10340945/outs/SRR10340945.filtered_feature_
 raw.matrix  <- Read10X_h5("Mapped_SRR10340945/outs/SRR10340945.raw_feature_bc_matrix.h5",use.names = T)
 srat  <- CreateSeuratObject(counts = filt.matrix)
 
-# Criar um objeto SoupChannel usando as matrizes bruta e filtrada
+# crear el objeto SoupChannel usando las matrices crudas y filtradas
 soup.channel  <- SoupChannel(raw.matrix, filt.matrix)
 soup.channel
                 </code></pre>
                 </div>
             </section>
 
-            <p>Agora vamos executar as etapas de normalização até o agrupamento exigido pelo SoupX. Para simplificar e agilizar o processo, usamos <span class="code-inline-light">NormalizeData()</span>, mas você pode substituí-la por SCTransform() conforme implementado no tutorial que adaptamos, se preferir.</p>
+            <p>Ahora ejecutaremos los pasos de normalizacion hasta la clusterizacion requerida por SoupX, por simplicidad y rapidez utilizamos <span class="code-inline-light">NormalizeData()</span>, , pero puedes reemplazar por  SCTransform() como se implementaba en el tutorial que adaptamos si asi lo prefieres</p>
 
             <section class="">
                 <div class="code-container">
@@ -3153,18 +3159,18 @@ soup.channel
 
                 <!-- code block -->
                 <pre><code class="language-r">
-srat <- NormalizeData(srat, verbose = F)
-srat <- FindVariableFeatures(srat, verbose = F)
-srat <- ScaleData(srat, verbose = F)
-srat <- RunPCA(srat, verbose = F)
-srat <- RunUMAP(srat, dims = 1:30, verbose = F)
-srat <- FindNeighbors(srat, dims = 1:30, verbose = F)
-srat <- FindClusters(srat, verbose = T)
+srat    <- NormalizeData(srat, verbose = F)
+srat    <- FindVariableFeatures(srat, verbose = F)
+srat    <- ScaleData(srat, verbose = F)
+srat    <- RunPCA(srat, verbose = F)
+srat    <- RunUMAP(srat, dims = 1:30, verbose = F)
+srat    <- FindNeighbors(srat, dims = 1:30, verbose = F)
+srat    <- FindClusters(srat, verbose = T)
                 </code></pre>
                 </div>
             </section>
 
-            <p>Em seguida, integramos as informações obtidas do processamento com o Seurat no objeto SoupChannel previamente definido.</p>
+            <p>Luego integramos la informacion obtenida desde el procesamiento con Seurat al objeto SoupChannel antes definido</p>
 
             <section class="">
                 <div class="code-container">
@@ -3178,17 +3184,17 @@ srat <- FindClusters(srat, verbose = T)
 meta <- srat@meta.data
 umap <- srat@reductions$umap@cell.embeddings
 
-# Define as identidades dos clusters e as coordenadas UMAP no objeto SoupChannel
+# Define las identidades de clúster y coordenadas UMAP en el objeto SoupChannel
 soup.channel <- setClusters(soup.channel,
 setNames(meta$seurat_clusters, rownames(meta)))
 
-# Define as coordenadas UMAP no objeto SoupChannel
-soup.channel <- setDR(soup.channel, umap))
+# Define coordenadas UMAP en el objeto SoupChannel
+soup.channel <- setDR(soup.channel, umap)
                 </code></pre>
                 </div>
             </section>
 
-            <p>Finalmente já podemos estimar a contaminação e guardar os nossos dados corrigidos</p>
+            <p>Finalmente ya podremos estimar la contaminacion y guardar nuestros datos corregidos</p>
 
             <section class="">
                 <div class="code-container">
@@ -3201,16 +3207,16 @@ soup.channel <- setDR(soup.channel, umap))
                 <pre><code class="language-r">
 soup.channel <- autoEstCont(soup.channel)
 
-# Contagem ajustada após a remoção da contaminação
+# Recuento ajustado después de la eliminación de la contaminación
 adj.matrix <- adjustCounts(soup.channel, roundToInt = T)
 
-# Salvar as contagens ajustadas no formato 10X
+# Salvar la matriz ajustada en formato 10X
 DropletUtils:::write10xCounts("SRR10340945_cleanV2", adj.matrix)
                 </code></pre>
                 </div>
             </section>
 
-            <p>Outras ferramentas que podem ser usadas para implementar esse processo de correção de RNA ambiental, e sobre as quais você pode encontrar mais informações se estiver interessado, são <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC7059395%2F">DecontX</a> e <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41592-023-01943-7">CellBender</a></p>
+            <p>Otras herramientas con las que se puede implementar este proceso de corrección de RNA ambiental y de las que puedes buscar mas informacion si estas interesado son <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC7059395%2F">DecontX</a> y <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41592-023-01943-7">CellBender</a></p>
             <br>
 
                     </div>
@@ -3225,39 +3231,18 @@ DropletUtils:::write10xCounts("SRR10340945_cleanV2", adj.matrix)
          <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
          <!--Foootnote-->
         <footer class="footer bg-dark">
-                <div class="container">
-                    <div class="footer-grid">
-                        <div>
-                            <h4>Project</h4>
-                            <ul>
-                                <li><a href="#about">About Us</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Resources</h4>
-                            <ul>
-                                <li><a href="#">Research</a></li>
-                                <li><a href="#">Projects</a></li>
-                                <li><a href="#">Courses</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Contact Us</h4>
-                            <ul>
-                                <li><a href="#">sclearn@email.com</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <i class="fab fa-linkedin"></i>
-                            <i class="fab fa-x"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-youtube"></i>
-                            <i class="fab fa-github"></i>
-                            
-                        </div>
-                    </div>
-                </div>
-        </footer>
+    <div class="container">
+
+
+        <!-- Institutions -->
+        <div class="footer-logos">
+            <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
+            <img src="../../../images/uchile.png" alt="chile">
+            <img src="../../../images/accdis.png" alt="UTEM">
+            <img src="../../../images/utem.png" alt="SUS">
+        </div>
+    </div>
+</footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
         <script src="../../../js/main.js"></script>

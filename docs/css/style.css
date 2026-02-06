@@ -17,9 +17,15 @@ body {
     --light-color: #f4f4f6;
     --dark-color: #111;
 }
-a {
+a.home {
     text-decoration: none;
     color: #333;
+}
+
+a {
+  color: #044d8c;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 ul {
