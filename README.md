@@ -169,9 +169,9 @@ This module focuses on the bioinformatic analysis of Alternative Polyadenylation
 
 This module explain the principles of FAIR data (Findable, Accessible, Interoperable, Reusable) and teaches how to organize metadata consistently to ensure reproducibility and transparency. Learners are guided through preparing submissions to central repositories such as GEO, SRA, SCEA, HCA Data Portal, and CellxGene, with emphasis on the standard file formats required.
 
-- [English version](Notebooks_EN/Modulo13_FAIRdata_DataSharing.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo13_FAIRData_IntercambioDatos.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo13_DadosFAIR_CompartilhamentoDados.ipynb)
+- [English version](Notebooks_EN/Modulo13_PrinciplesFAIR_DataSharing.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo13_PrinciplesFAIR_IntercambioDatos.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo13_PrincipiosFAIR_CompartilhamentoDados.ipynb)
 
 ---
 ### Authorship and Acknowledgments:
