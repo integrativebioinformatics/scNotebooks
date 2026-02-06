@@ -34,6 +34,7 @@ ul {
     /*display: inline-block;*/
 }
 
+
 img {
     max-width: 80%;
 }
@@ -76,15 +77,34 @@ img {
 }
 
 /* Hero */
-.hero {
-    margin-bottom: 50px;
+.hero{
+  position: relative;
+  min-height: 100vh;
+              
+  background-image: url("../images/ib_image.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
 }
 
-.hero {
-    background: url("../images/ib_image.png") no-repeat;
-    background-size: contain;
-    background-position:center bottom;
-    height: 900px;
+.hero-content{
+  position: relative;
+  z-index: 1;
+  padding-top: 120px;
+  padding-bottom: 120px; 
+}
+
+.hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.9) 40%,
+    rgba(255,255,255,0.0) 75%
+  );
+  z-index: 0;
 }
 
 .hero .hero-content {
