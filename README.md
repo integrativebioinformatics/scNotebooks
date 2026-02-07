@@ -82,7 +82,7 @@ In this section, we will use the Seurat package to process and analyze scRNA‑s
 
 We will then perform differential expression and abundance analysis, cell type annotation, and functional enrichment to uncover regulatory mechanisms, identify key markers, and explore pathways involved in differentiation and disease. Finally, the module includes a simple step showing how to remove ambient mRNA contamination, ensuring cleaner and more reliable results.
 
-- [English version](Notebooks_EN/Module04_Quality Control_Clustering_Annotation_FunctionalAnalysis.ipynb)
+- [English version](Notebooks_EN/Module04_QualityControl_Clustering_Annotation_FunctionalAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_Agrupamiento_Anotacion_AnalisisFuncionales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_Agrupamento_Anotaçao_AnalisesFuncionais.ipynb).
 
