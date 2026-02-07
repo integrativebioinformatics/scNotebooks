@@ -33,6 +33,16 @@ On the site you will find:
   
 > Please note: scNotebooks cannot be executed directly on the website; they are provided for browsing and copying code only.
 
+#### Option 4: View PDFs with Outputs
+If you prefer to see the executed results directly, you can access the notebooks in [PDF format.](https://github.com/integrativebioinformatics/scNotebooks/tree/main/PDF)
+On the PDFs you will find:
+- All code cells already run, with outputs displayed alongside the code
+- Figures, plots, and tables rendered in their final form
+- A static, easy‑to‑browse format that does not require installation or login
+
+> Please note: PDFs are currently available only in English, but they can be easily translated using any online translation tool. They are read‑only and cannot be edited or re‑executed, serving as a resource for reviewing outputs and understanding the workflow without running the code yourself.
+
+
 ---
 ## Community Support and Feedback
 
