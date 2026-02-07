@@ -33,6 +33,16 @@ On the site you will find:
   
 > Please note: scNotebooks cannot be executed directly on the website; they are provided for browsing and copying code only.
 
+#### Option 4: View PDFs with Outputs
+If you prefer to see the executed results directly, you can access the notebooks in [PDF format.](https://github.com/integrativebioinformatics/scNotebooks/tree/main/PDF)
+On the PDFs you will find:
+- All code cells already run, with outputs displayed alongside the code
+- Figures, plots, and tables rendered in their final form
+- A static, easy‑to‑browse format that does not require installation or login
+
+> Please note: PDFs are currently available only in English, but they can be easily translated using any online translation tool. They are read‑only and cannot be edited or re‑executed, serving as a resource for reviewing outputs and understanding the workflow without running the code yourself.
+
+
 ---
 ## Community Support and Feedback
 
@@ -82,7 +92,7 @@ In this section, we will use the Seurat package to process and analyze scRNA‑s
 
 We will then perform differential expression and abundance analysis, cell type annotation, and functional enrichment to uncover regulatory mechanisms, identify key markers, and explore pathways involved in differentiation and disease. Finally, the module includes a simple step showing how to remove ambient mRNA contamination, ensuring cleaner and more reliable results.
 
-- [English version](Notebooks_EN/Module04_Quality Control_Clustering_Annotation_FunctionalAnalysis.ipynb)
+- [English version](Notebooks_EN/Module04_QualityControl_Clustering_Annotation_FunctionalAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_Agrupamiento_Anotacion_AnalisisFuncionales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_Agrupamento_Anotaçao_AnalisesFuncionais.ipynb).
 
