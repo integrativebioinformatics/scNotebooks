@@ -24,7 +24,7 @@ Check out our [Docker tutorial](https://github.com/integrativebioinformatics/scN
 - Mounting local directories to save outputs and access reference files
 - Launching the Jupyter interface locally
 
-#### Option 3: Option 3: Open Modules via Website
+#### Option 3: Open Modules via Website
 If you prefer a simpler way to browse the notebooks without installing anything or creating an account, you can access them directly through [our official website](https://integrativebioinformatics.github.io/scNotebooks/).
 On the site you will find:
 - The same content available in the repository, organized by module, with accessibility in three languages (English, Spanish, and Portuguese)
@@ -169,9 +169,9 @@ This module focuses on the bioinformatic analysis of Alternative Polyadenylation
 
 This module explain the principles of FAIR data (Findable, Accessible, Interoperable, Reusable) and teaches how to organize metadata consistently to ensure reproducibility and transparency. Learners are guided through preparing submissions to central repositories such as GEO, SRA, SCEA, HCA Data Portal, and CellxGene, with emphasis on the standard file formats required.
 
-- [English version](Notebooks_EN/Modulo13_FAIRdata_DataSharing.ipynb)
-- [versión en Español](Cuadernos_ES/Modulo13_FAIRData_IntercambioDatos.ipynb)
-- [Versão em Português](Cadernos_PT_BR/Modulo13_DadosFAIR_CompartilhamentoDados.ipynb)
+- [English version](Notebooks_EN/Modulo13_PrinciplesFAIR_DataSharing.ipynb)
+- [versión en Español](Cuadernos_ES/Modulo13_PrinciplesFAIR_IntercambioDatos.ipynb)
+- [Versão em Português](Cadernos_PT_BR/Modulo13_PrincipiosFAIR_CompartilhamentoDados.ipynb)
 
 ---
 ### Authorship and Acknowledgments:

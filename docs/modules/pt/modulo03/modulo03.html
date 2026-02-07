@@ -96,10 +96,10 @@
                 <p>Google Colab/Jupyter Notebook usando phyton como linguagem de programação padrão.
 
                 É permitido usar outras linguagens, como shell script.
-                <ul.a>
+                <ul class="a">
                     <li>Para isso, no Google Colab usamos <span class="code-inline-light">"!"</span> antes do código.</li>
                     <li>Para os Jupyter Notebooks usamos uma célula de código com <span class="code-inline-light">%%bash</span> antes para escrever nosso script.</li>
-                </ul.a>
+                </ul>
                 </p>
                 
                 <p>Este é um marcador para o Google Colab entender que este é o código do Shell. Para seu uso pessoal, "!" não é necessário.</p>
@@ -474,7 +474,8 @@ sratoolkit.3.1.0-ubuntu64/bin/fastq-dump -X 3 SRR11537950 --stdout
                 <pre><code class="language-r">
 %%bash
 # -O: nome do arquivo de saída
-wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/cell-ranger/downloads"
+
+wget -O cellranger-10.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-10.0.0.tar.gz?Expires=1768912964&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=FMtot0YFitTbWXvsuYSTGPfxYIoqyGJwO1ejvl9r1HJP~NfxT34ffOIelVvXO-iHGLS62iMM3TUV1H7xsRTZ5tPVjH3pW-fEmVyiyKjxuG18vABH0bqXNiIj8QtmsUa-Cfnvotmk1vqk8cuSODH61jDxD-~hIDwW0Fwwtkru1GfZLLUKKxceVZuCQedlTULYQrxy1w4Lyx8E0duJvSjLWhhtw1ZJOOz~lsmdkiJXbkSDyILmMqafiqRxKWF1KGv6nt-bAscAXWgdAz8hA73mNcOVIOMbrHE863aK5qsTdKRiX99DNfIe8rV5VButQzHqvWWRUNNGAaSa6ZJXnJSteQ__"
                 </code></pre>
                 </div>
             </section>
@@ -489,42 +490,37 @@ wget -O cellranger-9.0.0.tar.gz "https://www.10xgenomics.com/support/software/ce
                 <!-- code block -->
                 <pre><code class="language-r">
 %%bash
-wget -O cellranger-9.0.0.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-9.0.0.tar.gz?Expires=1735019868&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA&Signature=jr1wurwScX~6D75pHB8jDbGMyGRI28tiLJAe9LUo0Xz5hqUgQlVpaRBz50wZewTz9lp2ozBI91iEQkZ7s2ZbOGbugctslStBOCkILh3gfkIiv63YBJRSDm0kPJjAvLXHm6BUf20bPTJPiuwLvRWZuSrri0tV7vzn9iCY24I3~tjGCy4377Dm-1oCuiQCuHjXlyZjEZVXQZuS9ghX9ZmmldDnf6wE9hqIE80PhiSclOyFWfqLg8v5OBGP0JqrdI5oNhGiRKKmezIpT2eZ-pfzSCGMcQu1r6irmsz4pgZxl4ElWIpLtzB7xJb2H2OvL~j3rsBX6Ay-idAxDOF31tMqyQ__"
 wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
                 </code></pre>
                 </div>
             </section>
-             
+
+            <p>Alternativamente, você também pode baixar a versão 10.0.0 de um repositório do GitHub que criamos como backup, mas primeiro você precisa remover o símbolo "#" para descomentá-lo, pois não é necessário executá-lo se você clicar no link de download do site da 10x.</p>
+
+            <h3>IMPORTANTE:</h3>
+            <br>
+            <p>Se a sua versão atual do celltanger for diferente da usada neste Jupyter Notebook, você precisará atualizá-la no diretório do código ou baixar o backup do GitHub.
+            <br>
+            > Exemplo: cellranger-9.0.1 --> cellranger-10.0.0</p>
+            <br>
                 <h3>Instalação</h3>
                 <br>
-                <p>Ele só precisa ser descompactado para ser instalado.</p>
+                <p>Para trabalhar com certos organismos não disponíveis nos recursos fornecidos pelo 10x, como bactérias, plantas e vírus, é necessário criar uma referência para o CellRanger:</p>
 
-                <section class="">
-                <div class="code-container">
-                <!-- copy code -->
-                <button class="copy-btn" title="Copy code">
-                    <i class="fa-solid fa-copy"></i>
-                </button>
-
-                <!-- code block -->
-                <pre><code class="language-r">
-%%bash
-tar -xzf cellranger-7.2.0.tar.gz
-tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
-                </code></pre>
-                </div>
-            </section>
-                <ul.a>
+                <ul class="a">
                     É recomendável criar uma referência para o Cell Ranger:
-                    <li>cellranger-7.2.0/bin/cellranger é um caminho para o software</li>
+                    <li>cellranger-10.0.0/bin/cellranger é o caminho para o software</li>
                     <li>o comando mkref é usado para criar pacotes de referência personalizados</li>
                     <li>--genome: Cria um diretório para saídas</li>
                     <li>--fasta: Especifique seu genoma de referência</li>
                     <li>/genome/genome.fa: Caminho e nome do seu genoma no formato .fa</li>
                     <li>--genes: Especifique seu arquivo GTF de referência</li>
                     <li>/gtf/genome.annotation.gtf: caminho e nome do arquivo de anotação</li>
-                </ul.a>
+                </ul>
 
+                <p>Aqui está um pequeno exemplo de como gerar uma referência, neste caso para o cromossomo 22, a partir do genoma humano de referência 10x.  
+                <br>
+                Primeiro, instalamos o samtools para manipular o arquivo FASTA do genoma e selecionamos o cromossomo 22.</p>
 
                 <section class="">
                 <div class="code-container">
@@ -535,7 +531,26 @@ tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
 
                 <!-- code block -->
                 <pre><code class="language-r">
-!cellranger-7.2.0/bin/cellranger mkref --genome=reference --fasta=/genome/genome.fa --genes=/rato/gencode.vM36.annotation.gtf
+%%bash
+#apt-get update
+apt-get install samtools -y # intalar samtools
+                </code></pre>
+                </div>
+            </section>
+
+            <p>A função <span class="code-inline-light">samtools faidx</span> em particular extrai o cromossomo 22 e, em seguida, redirecionamos a saída para um arquivo chamado GRCh38.CHR22.fa.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+samtools faidx refdata-gex-GRCh38-2024-A/fasta/genome.fa chr22 > GRCh38.CHR22.fa
                 </code></pre>
                 </div>
             </section>
@@ -550,15 +565,46 @@ tar -xzf refdata-gex-GRCh38-2020-A.tar.gz
                 <!-- code block -->
                 <pre><code class="language-r">
 %%bash
-#Mostra o caminho completo
-pwd
+gunzip -c refdata-gex-GRCh38-2024-A/genes/genes.gtf.gz | grep "chr22" | gzip > CHR22.genes.gtf.gz
+
+# gunzip é para descomprimir arquivos gzip
+# -c: indica que a saída descomprimida deve ser enviada à saída padrão (stdout) em vez de criar um arquivo descomprimido no sistema de arquivos.
+# refdata-gex-GRCh38-2024-A/genes/genes.gtf: é o caminho para o arquivo GTF comprimido que contém as anotações genômicas.
+# grep "chr22": filtra as linhas que contêm "chr22", extraindo-as
+# gzip > CHR22.genes.gtf.gz: comprime as linhas filtradas e as salva em um novo arquivo chamado CHR22.genes.gtf.gz.
+# | (pipe) é um operador que toma a saída de um comando e a utiliza como entrada para outro comando.
                 </code></pre>
                 </div>
             </section>
+
+            <p>Finalmente, temos os arquivos necessários para gerar a nova referência e podemos executar o cellranger.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+%%bash
+cellranger-10.0.0/bin/cellranger mkref --genome=GRCh38-CHR22 --fasta=GRCh38.CHR22.fa --genes=CHR22.genes.gtf.gz
+
+# cellranger-10.0.0/bin/cellranger: é o caminho para o executável do Cell Ranger.
+# --genome=GRCh38-CHR22: Nome do genoma de referência que se está criando.
+# --fasta=GRCh38.CHR22.fa: Caminho para o arquivo FASTA que contém as sequências do genoma de referência.
+# --genes=CHR22.genes.gtf.gz: Caminho para o arquivo GTF que contém as anotações genômicas.
+                </code></pre>
+                </div>
+            </section>
+
+            <p>Agora temos nossa nova referência disponível, com a qual podemos trabalhar.</p>
     
                 <h2>NÃO EXECUTE</h2>
-                <ul.a>
-                    cellranger-7.2.0/bin/cellranger é um caminho para o software
+                <ul class="a">
+                    <span class="code-inline-light">cellranger-10.0.0/bin/cellranger</span> é o caminho para o software.
+
 
                     <li>count é usado para contar moléculas de RNA mensageiro (mRNA)</li>
 
@@ -569,7 +615,7 @@ pwd
                     <li>--sample arquivos a serem analisados</li>
 
                     <li>--transcriptome é a referência</li>
-                </ul.a>
+                </ul>
 
                 <section class="">
                 <div class="code-container">
@@ -601,21 +647,21 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
                 </div>
                 </section>
 
-                <ul.a>
+                <ul class="a">
                     <li>O software Cell Ranger se esforça para manter a compatibilidade com ferramentas de análise comuns usando formatos de arquivo de saída padrão sempre que possível. Por exemplo, os arquivos BAM com código de barras podem ser visualizados em navegadores de genoma padrão, como o IGV, para verificar a qualidade do alinhamento e outros recursos.</li>
-                </ul.a>
+                </ul>
 
                 <p>O pipeline de contagem cellranger gera um arquivo HTML de resumo interativo chamado web_summary.html que contém métricas de resumo e resultados de análise secundária automatizados. Vamos dar uma olhada!</p>
                 <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary">
                     <p>https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary</p>
                 </a>
 
-                <ul.a>
+                <ul class="a">
                     <br>
                     Entenda a saída do resumo:
                     <li>O texto verde indica que as métricas principais estão no intervalo esperado.</li>
                     <li>O texto vermelho/amarelo indica erros/avisos.</li>
-                </ul.a>
+                </ul>
 
                 <p>Gráfico de classificação de código de barras:
                     <br>
@@ -646,39 +692,18 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
          <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
          <!--Foootnote-->
         <footer class="footer bg-dark">
-                <div class="container">
-                    <div class="footer-grid">
-                        <div>
-                            <h4>Project</h4>
-                            <ul>
-                                <li><a href="#about">About Us</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Resources</h4>
-                            <ul>
-                                <li><a href="#">Research</a></li>
-                                <li><a href="#">Projects</a></li>
-                                <li><a href="#">Courses</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Contact Us</h4>
-                            <ul>
-                                <li><a href="#">sclearn@email.com</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <i class="fab fa-linkedin"></i>
-                            <i class="fab fa-x"></i>
-                            <i class="fab fa-instagram"></i>
-                            <i class="fab fa-youtube"></i>
-                            <i class="fab fa-github"></i>
-                            
-                        </div>
-                    </div>
-                </div>
-        </footer>
+    <div class="container">
+
+
+        <!-- Institutions -->
+        <div class="footer-logos">
+            <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
+            <img src="../../../images/uchile.png" alt="chile">
+            <img src="../../../images/accdis.png" alt="UTEM">
+            <img src="../../../images/utem.png" alt="SUS">
+        </div>
+    </div>
+</footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script>
         <script src="../../../js/main.js"></script>
