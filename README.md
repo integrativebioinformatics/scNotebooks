@@ -112,7 +112,7 @@ In this notebook, we explore core concepts and methods for data integration and 
 Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest to understand changes in the cellular functions. In each of these states, some genes get activated and others silenced. 
 By using scRNA-seq data, computational tools such as Monocle3 can infer the single-cell trajectories that cells undergo when transitioning across the different functional states. Thus, the developmental history (ontogeny) of differentiated cell types can be traced. This notebook will cover the key concepts and methods related to inferring cell-state trajectory and pseudotime ordering, followed by hands-on activities that illustrate the use of Monocle3, a tool devised for this purpose.
 
-- [English version](Notebooks_EN/Module06_Pseudotime_Analysis.ipynb)
+- [English version](Notebooks_EN/Module06_PseudotimeAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo06_AnalisisPseudotiempo.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo06_Pseudotempo.ipynb)
 
