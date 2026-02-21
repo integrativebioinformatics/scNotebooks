@@ -57,7 +57,8 @@ We value continuous improvement and collaboration. To support learners and resea
 ## Summary of Notebook Contents
 
 ### Module 01 - Introduction to notebooks and Databases
-This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.
+
+Jupyter Notebooks and Google Colaboratory provide interactive environments that combine code and explanatory text, supporting reproducible analysis. In this module, learners will explore their structure, including code and text cells, and gain familiarity with key public databases for single‑cell and gene expression data across humans and other organisms. Hands‑on exercises guide users through accessing, exploring, and analyzing these resources, building essential skills in biological data manipulation.
 
 > **This notebook has many embedded images may not render properly on GitHub. We recommend opening them directly in Colab for full functionality or web site.**
 
@@ -72,6 +73,7 @@ Site:
 - [Versão em Português](https://integrativebioinformatics.github.io/scNotebooks/modules/pt/modulo01/modulo01.html)
 
 ### Module 02 - Introduction to R and Data Visualization with ggplot2
+
 This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.
 
 - [English version](Notebooks_EN/Module02_IntroductionToR.ipynb)
@@ -79,29 +81,22 @@ This module introduces the R programming language, widely used in data science a
 - [Versão em Português](Cadernos_PT_BR/Modulo02_IntroduçaoR.ipynb)
 
 ### Module 03 - Processing raw scRNA-seq data
-This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology.
-Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics. Processing scRNA-seq data is a crucial step in single-cell analysis. The chosen library preparation method determines whether RNA sequences are captured from transcript ends (e.g., 10X Genomics, Drop-seq) or full-length transcripts (e.g., Smart-seq), directly influencing downstream analysis and biological insights.
-
+This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics.
 - [English version](Notebooks_EN/Module03_Processing_RawSeqs_CellRanger.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo03_ProcesamientoSecuenciasBrutas_CellRanger.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo03_ProcessamentoSequenciasBrutas_CellRanger.ipynb)
 
 ### Module 04 - Quality Control, Clustering, Annotation, and Functional Analysis 
 
-In this section, we will use the Seurat package to process and analyze scRNA‑seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure quality control before downstream analysis. A central aspect of scRNA‑seq is identifying genes and transcripts with distinct expression patterns across conditions, which helps reveal biological processes driving cellular heterogeneity. To refine the dataset, we will evaluate quality metrics, apply normalization to reduce technical variability, and implement clustering methods to group cells by gene expression profiles.
-
-We will then perform differential expression and abundance analysis, cell type annotation, and functional enrichment to uncover regulatory mechanisms, identify key markers, and explore pathways involved in differentiation and disease. Finally, the module includes a simple step showing how to remove ambient mRNA contamination, ensuring cleaner and more reliable results.
+Single‑cell RNA‑seq analysis requires a structured workflow to ensure data quality and biological interpretability. In this module, learners will use Seurat to import raw data, apply filtering, and perform preliminary visualization as part of quality control. Key steps include evaluating quality metrics, normalizing to reduce technical variability, and clustering cells by gene expression profiles to reveal underlying heterogeneity. Building on this foundation, users will conduct differential expression and abundance analysis, annotate cell types, and perform functional enrichment to uncover regulatory mechanisms and pathways involved in development and disease. The module also introduces practical strategies for identifying marker genes and removing ambient mRNA contamination, ensuring cleaner datasets and more reliable downstream results. Through these exercises, participants gain both conceptual understanding and hands‑on skills for comprehensive scRNA‑seq analysis.
 
 - [English version](Notebooks_EN/Module04_QualityControl_Clustering_Annotation_FunctionalAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_Agrupamiento_Anotacion_AnalisisFuncionales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_Agrupamento_Anotaçao_AnalisesFuncionais.ipynb).
 
-### Module 05 - Integrating single-cell transcriptomes from multiple samples:
-As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
+### Module 05 - Integrating single-cell transcriptomes from multiple samples
 
-Computational methods help eliminate unwanted variation, ensuring biologically meaningful signals. Batch correction requires two key decisions: selecting the appropriate method and its parameters, and defining the batch covariate based on the integration objective.
-
-In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
+Data integration and batch correction are essential for reliable single‑cell analysis, ensuring that biological signals are not obscured by technical or donor‑specific variation. In this module, learners will investigate how differences in protocols, platforms, or sample origin generate batch effects, and how defining batch covariates influences integration outcomes. Practical exercises with Seurat and Harmony provide hands‑on experience in applying correction methods, tuning parameters, and evaluating integration quality. Benchmarking activities allow users to compare strategies, highlighting trade‑offs between reducing unwanted variation and preserving meaningful biological information. By combining theoretical concepts with applied workflows, participants gain the skills needed to select and implement effective integration approaches in diverse single‑cell studies.
 
 - [English version](Notebooks_EN/Module05_DatasetIntegration.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo05_IntegracionDatos.ipynb)
@@ -109,37 +104,32 @@ In this notebook, we explore core concepts and methods for data integration and 
 
 ### Module 06 - Trajectory inference and pseudotemporal ordering
 
-Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest to understand changes in the cellular functions. In each of these states, some genes get activated and others silenced. 
-By using scRNA-seq data, computational tools such as Monocle3 can infer the single-cell trajectories that cells undergo when transitioning across the different functional states. Thus, the developmental history (ontogeny) of differentiated cell types can be traced. This notebook will cover the key concepts and methods related to inferring cell-state trajectory and pseudotime ordering, followed by hands-on activities that illustrate the use of Monocle3, a tool devised for this purpose.
+This module explores how single‑cell RNA‑seq can be used to reconstruct cell‑state trajectories. Learners will study how gene expression changes dynamically during development and differentiation, and how computational tools infer these transitions. Hands‑on activities with Monocle3 demonstrate pseudotime ordering and trajectory inference, allowing users to trace developmental histories and interpret functional shifts in cellular states.
 
 - [English version](Notebooks_EN/Module06_PseudotimeAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo06_AnalisisPseudotiempo.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo06_Pseudotempo.ipynb)
 
-### Module 07 - Deciphering cell-cell communication in single-cell transcriptomics data:
+### Module 07 - Deciphering cell-cell communication in single-cell transcriptomics data
 
-Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit signals, exchange information, and coordinate their behaviors, ultimately contributing to essential biological processes such as development, immune response, and tissue homeostasis. 
-In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. 
-In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
+Cell–cell communication is fundamental for coordinating activities in multicellular systems, shaping processes such as development, immune response, and tissue homeostasis. In this module, learners will examine how signaling and interaction sustain these functions and explore strategies for inferring interactions from single‑cell gene expression data, with emphasis on curated ligand–receptor resources. Hands‑on activities with LIANA provide practical experience, applying multiple state‑of‑the‑art methods within a unified workflow to compare predictions and interpret biological relevance. Through these exercises, users gain both conceptual understanding and applied skills for studying cellular coordination in complex tissues.
 
 - [English version](Notebooks_EN/Module07_CellCell_Communication.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo07_Comunicacion_CelulaCelula.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo07_Comunicaçao_CelulaCelula.ipynb)
 
 
-### Module 08 - Multimodal Single-Cell Analysis: 
+### Module 08 - Multimodal Single-Cell Analysis
 
-This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
+Multimodal single‑cell analysis combines transcriptomic and protein measurements to provide a more comprehensive view of cellular states. In this module, learners will analyze umbilical cord blood mononuclear cells (CBMCs) using Seurat to explore relationships between RNA and surface protein expression. Working with RNA and antibody‑derived tag (ADT) count matrices, users investigate expression patterns and their biological implications. Hands‑on activities include downloading data from NCBI GEO and performing key analyses, reinforcing both theoretical concepts and practical skills.
 
 - [English version](Notebooks_EN/Module08_MultimodalDataAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo08_Analisis_DatosMultimodales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo08_AnaliseDadosMultimodais.ipynb)
 
-### Module 09 - TCR Profiling in Single-Cell Analysis: 
+### Module 09 - TCR Profiling in Single-Cell Analysis
 
-T cell receptor (TCR) profiling and Cellular Indexing of Transcriptomes and Epitopes by Sequencing (CITE-Seq) are pivotal techniques in single-cell research, offering unparalleled insights into the adaptive immune system and cellular heterogeneity. TCR profiling enables a deep dive into the repertoire and diversity of T cell populations, highlighting the specificity and uniqueness of T cell responses. On the other hand, CITE-Seq facilitates the concurrent assessment of transcriptomic data and protein expression within individual cells, creating a comprehensive portrayal of cellular states.
-
-In this module, participants will explore the profound implications of TCR profiling in understanding immune responses and the synergies it can achieve when coupled with CITE-Seq. We'll initiate with core concepts and theories, and swiftly transition into practical applications using advanced computational tools. Through this hands-on approach, attendees will master the nuances of TCR profiling and CITE-Seq, equipping them with valuable tools for their immunological and single-cell research pursuits.
+T cell receptor (TCR) profiling and CITE‑Seq are powerful techniques for single‑cell immunology, offering complementary insights into adaptive immune responses and cellular heterogeneity. In this module, learners will explore how TCR profiling reveals the diversity and specificity of T cell repertoires, while CITE‑Seq integrates transcriptomic and protein measurements to provide a multimodal view of cellular states. Core concepts are followed by hands‑on activities using computational tools, where participants apply these methods to study immune repertoires and interpret complex datasets. Through this approach, users gain both theoretical grounding and practical skills for investigating adaptive immunity in single‑cell research.
 
 - [English version](Notebooks_EN/Module09_TCRsequence.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo09_SecuenciaTCR.ipynb)
@@ -147,9 +137,7 @@ In this module, participants will explore the profound implications of TCR profi
 
 ### Module 10 - An introduction to Spatial Transcriptomics approaches
 
-Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to advance our understanding of complex biological processes and help identify new biomarkers for disease diagnosis and treatment. 
-The main goal of spatial transcriptomics is to capture the gene expression profile of individual cells (or a mini mixture of cells in a given region) in their native tissue context, allowing for the identification of cell types and their spatial distribution. This information can then be used to create detailed maps of gene expression within tissues, providing insights into cellular interactions, developmental processes, and disease progression. 
-In this notebook, we will cover practical steps in setting up a spatial transcriptomics analysis pipeline using the Seurat package. We will cover the basic analysis to recover gene expression in different regions as well as cell type deconvolution approaches.
+Spatial transcriptomics provides a way to map gene expression directly within tissues, revealing cell types, their distribution, and interactions in native contexts. In this module, learners will examine how spatially resolved profiles advance our understanding of development and disease. Practical activities with Seurat guide users through building an analysis pipeline, recovering gene expression across regions, and applying cell type deconvolution methods to interpret spatial organization.
 
 - [English version](Notebooks_EN/Module10_SpatialTranscriptomics.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo10_TranscriptomicaEspacial.ipynb)
@@ -157,11 +145,7 @@ In this notebook, we will cover practical steps in setting up a spatial transcri
 
 ### Module 11 - An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq): 
 
-scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the genome that are open and potentially active, meaning they can be bound by transcription factors to regulate gene activity.
-
-This method helps researchers understand gene regulation, identify enhancers and promoters, and explore epigenetic variations across different cell types or disease conditions. In this notebook, we utilize data from [Kumegawa et al. (2022)](https://biosignaling.biomedcentral.com/articles/10.1186/s12964-022-01029-5#:~:text=In%20this%20study%2C%20we%20identify%20genomic%20binding%20sites,GRHL2%20peaks%20is%20associated%20with%20ER%20binding%20sites.), which examined over 10,000 cells from 16 patients across different subtypes, including luminal, luminal-HER2, HER2+, and triple-negative. The study identified the GRHL2 transcription factor, which interacts with FOXA1 in endocrine resistance, regulating genes associated with metastasis and poor prognosis.
-
-Using ArchR, an optimized tool for scATAC-seq analysis, we will process raw sequencing data, identify accessible chromatin regions, analyze transcription factor activity, and integrate scATAC-seq with scRNA-seq to explore gene regulation mechanisms. The notebook also includes a benchmarking step to compare integration methods, ensuring accurate data interpretation.
+scATAC‑seq enables the study of chromatin accessibility at single‑cell resolution, revealing regulatory regions such as enhancers and promoters and providing insights into epigenetic variation across cell types and disease states. In this module, learners will work with data from [Kumegawa et al. (2022)](https://biosignaling.biomedcentral.com/articles/10.1186/s12964-022-01029-5#:~:text=In%20this%20study%2C%20we%20identify%20genomic%20binding%20sites,GRHL2%20peaks%20is%20associated%20with%20ER%20binding%20sites.), which profiled over 10,000 cells from breast cancer subtypes and identified GRHL2 as a key transcription factor in endocrine resistance. Hands‑on activities with ArchR guide users through processing raw sequencing data, identifying accessible regions, analyzing transcription factor activity, and integrating scATAC‑seq with scRNA‑seq. Benchmarking exercises compare integration strategies, ensuring accurate interpretation of gene regulation mechanisms.
 
 - [English version](Notebooks_EN/Module11_scATACseq.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo11_scATACseq.ipynb)
@@ -169,7 +153,7 @@ Using ArchR, an optimized tool for scATAC-seq analysis, we will process raw sequ
 
 ### Module 12 – Understanding Alternative Polyadenylation (APA)
 
-This module focuses on the bioinformatic analysis of Alternative Polyadenylation (APA) using SCAPE-APA, a specialized computational tool designed for single-cell RNA-seq data. Learners will explore the principles behind APA detection, quantification, and interpretation in a high-throughput context. The module introduces the structure and workflow of SCAPE-APA, including input formats, preprocessing steps, and output interpretation. Through guided exercises, users will apply SCAPE-APA to real datasets, visualize APA dynamics across cell types, and extract biologically meaningful insights from polyadenylation site usage. This hands-on approach equips learners with essential skills for analyzing transcriptomic complexity at single-cell resolution.
+Alternative polyadenylation (APA) shapes transcript diversity by altering poly(A) site usage, with important implications for gene regulation. In this module, learners will use SCAPE‑APA, a specialized tool for single‑cell RNA‑seq data, to detect, quantify, and interpret APA events. The workflow introduces input formats, preprocessing steps, and strategies for visualizing APA dynamics across cell types. Guided exercises provide hands‑on experience applying SCAPE‑APA to real datasets, enabling users to extract biologically meaningful insights and develop practical skills for analyzing transcriptomic complexity at single‑cell resolution.
 
 - [English version](Notebooks_EN/Module12_AlternativePoliA.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo12_PoliadenilacionAlternativa.ipynb)
@@ -177,7 +161,7 @@ This module focuses on the bioinformatic analysis of Alternative Polyadenylation
 
 ### Module 13 - Fair data and Sharing data
 
-This module explain the principles of FAIR data (Findable, Accessible, Interoperable, Reusable) and teaches how to organize metadata consistently to ensure reproducibility and transparency. Learners are guided through preparing submissions to central repositories such as GEO, SRA, SCEA, HCA Data Portal, and CellxGene, with emphasis on the standard file formats required.
+FAIR principles (Findable, Accessible, Interoperable, Reusable) provide the foundation for transparent and reproducible data sharing. In this module, learners will practice organizing metadata consistently and preparing submissions to public repositories such as GEO, SRA, SCEA, HCA Data Portal, and CellxGene. Emphasis is placed on understanding standard file formats and workflows, ensuring that datasets can be effectively reused and integrated across platforms.
 
 - [English version](Notebooks_EN/Modulo13_PrinciplesFAIR_DataSharing.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo13_PrinciplesFAIR_IntercambioDatos.ipynb)
