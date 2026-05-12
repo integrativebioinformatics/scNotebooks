@@ -5,9 +5,33 @@ Single-cell sequencing technologies are powerful tools used to assess genomic, t
 The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/) is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
 
 ---
+### Cite Us | Cite-nos | Cítanos
+
+Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. et al.  
+*The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.*  
+Nature Genetics, 2026, Volume 58, Issue 5, Pages 789–795.  
+ISSN: 1061-4036  
+https://doi.org/10.1038/s41588-026-02584
+
+---
+### Tell Us | Conte-nos | Cuéntanos
+
+If you used the scNotebooks for training, courses, or studies, please let us know!  
+Send us a message in the **GitHub Discussions forum** or through GitHub — we would love to hear from you.  
+If you would like to help translate the notebooks into another language, feel free to reach out so we can expand the project together.  
+
+Se você utilizou os scNotebooks para treinamento, cursos ou estudos, nos deixe saber!  
+Mande uma mensagem no **fórum do GitHub Discussions** ou pelo GitHub — adoraríamos saber.  
+Se quiser ajudar a traduzir os notebooks para outra língua, entre em contato para que possamos expandir o projeto juntos.  
+
+Si utilizaste los scNotebooks para capacitación, cursos o estudios, ¡déjanos saber!  
+Envíanos un mensaje en el **foro de GitHub Discussions** o por GitHub — nos encantaría saberlo.  
+Si deseas ayudar a traducir los notebooks a otro idioma, ponte en contacto para que podamos ampliar el proyecto juntos.
+
+---
 ### How to Use
 
-Our notebooks are available in **multilingual versions** and can be accessed in two simple ways:
+Our notebooks are available in **multilingual versions** and can be accessed in three simple ways:
 
 #### Option 1: Open in Google Colab  
 You can run the notebooks directly in your browser using [Google Colab](https://colab.research.google.com/), with no need to install anything locally.  
