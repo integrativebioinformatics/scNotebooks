@@ -5,7 +5,7 @@ Single-cell sequencing technologies are powerful tools used to assess genomic, t
 The establishment of collaborative scientific endeavors like the [Human Cell Atlas](https://www.humancellatlas.org/) or the [LatinCells Project](https://www.latincells.org/) is a testament to the surging enthusiasm and curiosity in this domain. Yet, when we look towards Latin America, we find a gap in the necessary infrastructure, financial support, and subject matter expertise required to harness these cutting-edge technologies. Recognizing this, our workshop is designed to bridge this gap. We provide participants with hands-on experience in the laboratory and in-depth bioinformatics training, ensuring that the region advances in its capabilities with single-cell methodologies.
 
 ---
-### Please Cite Us | Por favor, cite-nos | Por favor, cítanos
+### Cite Us | Cite-nos | Cítanos
 
 Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. et al.  
 *The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.*  
@@ -31,7 +31,7 @@ Si deseas ayudar a traducir los notebooks a otro idioma, ponte en contacto para 
 ---
 ### How to Use
 
-Our notebooks are available in **multilingual versions** and can be accessed in two simple ways:
+Our notebooks are available in **multilingual versions** and can be accessed in three simple ways:
 
 #### Option 1: Open in Google Colab  
 You can run the notebooks directly in your browser using [Google Colab](https://colab.research.google.com/), with no need to install anything locally.  
