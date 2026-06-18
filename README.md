@@ -66,8 +66,6 @@ On the PDFs you will find:
 
 > Please note: PDFs are currently available only in English, but they can be easily translated using any online translation tool. They are read‑only and cannot be edited or re‑executed, serving as a resource for reviewing outputs and understanding the workflow without running the code yourself.
 
-
----
 ## Community Support and Feedback
 
 We value continuous improvement and collaboration. To support learners and researchers, we maintain a dedicated space in [GitHub Discussions](https://github.com/integrativebioinformatics/scNotebooks/discussions), where you can engage with us directly:
@@ -90,6 +88,7 @@ Module:
 - [English version](Notebooks_EN/Module01_IntroductionNotebooks_Databases.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo01_IntroduccionCuadernos_BasesDeDatos.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo01_IntrocuçaoNotebooks_BancosdeDados.ipynb)
+- [中文版](Notebooks_ZH_CN/模块01_笔记本与数据库介绍.ipynb)
 
 Site:
 - [English version](https://integrativebioinformatics.github.io/scNotebooks/modules/en/module01/module01.html)
@@ -103,12 +102,14 @@ This module introduces the R programming language, widely used in data science a
 - [English version](Notebooks_EN/Module02_IntroductionToR.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo02_IntroduccionR.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo02_IntroduçaoR.ipynb)
+- [中文版](Notebooks_ZH_CN/模块02_R语言与ggplot2入门.ipynb)
 
 ### Module 03 - Processing raw scRNA-seq data
 This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics.
 - [English version](Notebooks_EN/Module03_Processing_RawSeqs_CellRanger.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo03_ProcesamientoSecuenciasBrutas_CellRanger.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo03_ProcessamentoSequenciasBrutas_CellRanger.ipynb)
+- [中文版](Notebooks_ZH_CN/模块03_CellRanger处理原始测序数据.ipynb)
 
 ### Module 04 - Quality Control, Clustering, Annotation, and Functional Analysis 
 
@@ -117,6 +118,7 @@ Single‑cell RNA‑seq analysis requires a structured workflow to ensure data q
 - [English version](Notebooks_EN/Module04_QualityControl_Clustering_Annotation_FunctionalAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo04_ControlCalidad_Agrupamiento_Anotacion_AnalisisFuncionales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo04_ControleQualidade_Agrupamento_Anotaçao_AnalisesFuncionais.ipynb).
+- [中文版](Notebooks_ZH_CN/模块04_质控聚类注释与功能分析.ipynb)
 
 ### Module 05 - Integrating single-cell transcriptomes from multiple samples
 
@@ -125,6 +127,7 @@ Data integration and batch correction are essential for reliable single‑cell a
 - [English version](Notebooks_EN/Module05_DatasetIntegration.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo05_IntegracionDatos.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo05_Integraçao_MultiplasAmostras.ipynb)
+- [中文版](Notebooks_ZH_CN/模块05_多样本整合与批次校正.ipynb)
 
 ### Module 06 - Trajectory inference and pseudotemporal ordering
 
@@ -133,6 +136,7 @@ This module explores how single‑cell RNA‑seq can be used to reconstruct cell
 - [English version](Notebooks_EN/Module06_PseudotimeAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo06_AnalisisPseudotiempo.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo06_Pseudotempo.ipynb)
+- [中文版](Notebooks_ZH_CN/模块06_轨迹推断与伪时间分析.ipynb)
 
 ### Module 07 - Deciphering cell-cell communication in single-cell transcriptomics data
 
@@ -141,6 +145,7 @@ Cell–cell communication is fundamental for coordinating activities in multicel
 - [English version](Notebooks_EN/Module07_CellCell_Communication.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo07_Comunicacion_CelulaCelula.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo07_Comunicaçao_CelulaCelula.ipynb)
+- [中文版](Notebooks_ZH_CN/模块07_细胞间通讯分析.ipynb)
 
 
 ### Module 08 - Multimodal Single-Cell Analysis
@@ -150,6 +155,7 @@ Multimodal single‑cell analysis combines transcriptomic and protein measuremen
 - [English version](Notebooks_EN/Module08_MultimodalDataAnalysis.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo08_Analisis_DatosMultimodales.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo08_AnaliseDadosMultimodais.ipynb)
+- [中文版](Notebooks_ZH_CN/模块08_多模态单细胞数据分析.ipynb)
 
 ### Module 09 - TCR Profiling in Single-Cell Analysis
 
@@ -158,6 +164,7 @@ T cell receptor (TCR) profiling and CITE‑Seq are powerful techniques for singl
 - [English version](Notebooks_EN/Module09_TCRsequence.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo09_SecuenciaTCR.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo09_SequenciamentoCelulaT.ipynb)
+- [中文版](Notebooks_ZH_CN/模块09_TCR测序与免疫克隆分析.ipynb)
 
 ### Module 10 - An introduction to Spatial Transcriptomics approaches
 
@@ -166,6 +173,7 @@ Spatial transcriptomics provides a way to map gene expression directly within ti
 - [English version](Notebooks_EN/Module10_SpatialTranscriptomics.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo10_TranscriptomicaEspacial.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo10_TranscriptomicaEspacial.ipynb)
+- [中文版](Notebooks_ZH_CN/模块10_空间转录组入门.ipynb)
 
 ### Module 11 - An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq): 
 
@@ -174,6 +182,7 @@ scATAC‑seq enables the study of chromatin accessibility at single‑cell resol
 - [English version](Notebooks_EN/Module11_scATACseq.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo11_scATACseq.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo11_scATACseq.ipynb)
+- [中文版](Notebooks_ZH_CN/模块11_scATACseq染色质开放性分析.ipynb)
 
 ### Module 12 – Understanding Alternative Polyadenylation (APA)
 
@@ -182,6 +191,7 @@ Alternative polyadenylation (APA) shapes transcript diversity by altering poly(A
 - [English version](Notebooks_EN/Module12_AlternativePoliA.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo12_PoliadenilacionAlternativa.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo12_PoliadenilaçaoAlternativa.ipynb)
+- [中文版](Notebooks_ZH_CN/模块12_单细胞APA分析.ipynb)
 
 ### Module 13 - Fair data and Sharing data
 
@@ -190,6 +200,7 @@ FAIR principles (Findable, Accessible, Interoperable, Reusable) provide the foun
 - [English version](Notebooks_EN/Modulo13_PrinciplesFAIR_DataSharing.ipynb)
 - [versión en Español](Cuadernos_ES/Modulo13_PrinciplesFAIR_IntercambioDatos.ipynb)
 - [Versão em Português](Cadernos_PT_BR/Modulo13_PrincipiosFAIR_CompartilhamentoDados.ipynb)
+- [中文版](Notebooks_ZH_CN/模块13_FAIR原则与数据共享.ipynb)
 
 ---
 ### Authorship and Acknowledgments:
