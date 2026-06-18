@@ -209,6 +209,18 @@ This comprehensive material has been a result of collaborative efforts since 202
 
 We appreciate the continuous support and feedback from participants, mentors, and institutions that have made this endeavor possible. Together, we strive to advance the understanding and application of single-cell genomics in Latin America and the Caribbean.
 
+---
+### Community Acknowledgments
+
+We would like to express our gratitude to the individuals who voluntarily dedicated their time to improve and expand this project.
+
+[Yu Hong](https://github.com/hyouo), from Westlake University, in Hangzhou, China, for generously translating the material into Simplified Chinese. This contribution has been fundamental in broadening accessibility, allowing researchers and students from new regions to engage with the content and significantly strengthening the global reach of the initiative.
+
+In addition, attentive feedback from the community—such as identifying discrepancies in titles—illustrates how active participation helps refine and enhance the quality of the project.
+
+Together, these contributions exemplify the collaborative spirit that sustains this initiative, ensuring that the resource continues to evolve and serve the bioinformatics and single-cell genomics communities worldwide.
+
+---
 **List of Contributors - Listed Alphabetically:**
 
 - Alex K. Shalek
@@ -235,6 +247,7 @@ We appreciate the continuous support and feedback from participants, mentors, an
 - Sergio Triana
 - Vinicius Maracaja-Coutinho
 - Yesid Cuesta-Astroz
+- Yu Hong
 
 
 ******
