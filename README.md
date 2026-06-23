@@ -17,15 +17,15 @@ https://doi.org/10.1038/s41588-026-02584
 ### Tell Us | Conte-nos | Cuéntanos
 
 If you used the scNotebooks for training, courses, or studies, please let us know!  
-Send us a message in the **GitHub Discussions forum** or through GitHub — we would love to hear from you.  
+Send us a message in the **GitHub Discussions forum** or through GitHub, we would love to hear from you.  
 If you would like to help translate the notebooks into another language, feel free to reach out so we can expand the project together.  
 
 Se você utilizou os scNotebooks para treinamento, cursos ou estudos, nos deixe saber!  
-Mande uma mensagem no **fórum do GitHub Discussions** ou pelo GitHub — adoraríamos saber.  
+Mande uma mensagem no **fórum do GitHub Discussions** ou pelo GitHub, adoraríamos saber.  
 Se quiser ajudar a traduzir os notebooks para outra língua, entre em contato para que possamos expandir o projeto juntos.  
 
 Si utilizaste los scNotebooks para capacitación, cursos o estudios, ¡déjanos saber!  
-Envíanos un mensaje en el **foro de GitHub Discussions** o por GitHub — nos encantaría saberlo.  
+Envíanos un mensaje en el **foro de GitHub Discussions** o por GitHub, nos encantaría saberlo.  
 Si deseas ayudar a traducir los notebooks a otro idioma, ponte en contacto para que podamos ampliar el proyecto juntos.
 
 ---
