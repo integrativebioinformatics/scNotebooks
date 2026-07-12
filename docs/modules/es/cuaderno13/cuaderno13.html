@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,59 +65,59 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-heading">
-                        FAIR data and sharing data
+                        Principles FAIR y Intercambio del Datos
                     </h1>
                     <p>
-                         In this notebook, learners practice structuring and documenting metadata using consistent standards and assemble submission-ready packages for public repositories and data portals. The notebooks emphasize common file formats, required metadata fields and practical submission workflows, helping ensure that datasets remain discoverable, interoperable and readily reusable across platforms and studies.
+                         En este cuaderno, los estudiantes practican la estructuración y documentación de metadatos utilizando estándares consistentes y ensamblan paquetes listos para su envío a repositorios públicos y portales de datos. Los cuadernos enfatizan formatos de archivo comunes, campos de metadatos requeridos y flujos de trabajo prácticos de envío, ayudando a garantizar que los conjuntos de datos permanezcan localizables, interoperables y fácilmente reutilizables en diferentes plataformas y estudios.
                     </p>
                     <hr>
-                    <h2>Transcriptomic Data Submission Guide</h2>
+                    <h2>Guía para el Envío de Datos Transcriptómicos</h2>
                     <br>
-                    <p>This document provides guidance on how to prepare metadata and submit transcriptomic data to the NCBI (National Center for Biotechnology Information) in the SCEA (Single Cell Expression Atlas) and the HCA Data Portal (Human Cell Atlas Data Portal), and is applicable to single-cell, bulk RNA-Seq, and spatial transcriptomics, following the FAIR (Findable, Accessible, Interoperable, Reusable) principles.</p>
+                    <p>Este documento proporciona orientación sobre cómo preparar metadatos y enviar datos transcriptómicos al NCBI (National Center for Biotechnology Information), en el SCEA (Single Cell Expression Atlas) y el Portal de datos HCA (Human Cell Atlas Data Portal), es aplicable a la transcriptómica de células individuales, ARN-Seq en masa y espacial, siguiendo los principios FAIR(Findable, Accessible, Interoperable, Reusable).</p>
 
                     <br>
 
-                    <h2>Metadata in transcriptomic data</h2>
+                    <h2>Metadatos en Datos Transcriptómicos</h2>
                     <br>
-                    <p>Metadata is data that describes the data. In other words, it is descriptive information that accompanies the raw and processed data, allowing them to be understood, contextualized, and reused. It can be tables with information about individuals, patients, a supplementary file with details of sample and file processing, etc.</p>
+                    <p>Los metadatos describen los datos. Es decir, constituyen información descriptiva que acompaña a los datos brutos y procesados, lo que permite su comprensión, contextualización y reutilización, etc.</p>
 
-                    <p>In transcriptomic studies, whether bulk RNA-seq, single-cell, or spatial, metadata must capture both biological and technical aspects. This includes:</p>
+                    <p>En los estudios transcriptómicos, ya RNA-Seq bulk, de células individuales o espaciales, los metadatos deben capturar tanto los aspectos biológicos como los técnicos. Esto incluye:</p>
                     <ul class="a">
-                        <li>Biological information: organism, tissue, cell type, experimental condition, treatment, collection time, clinical or environmental characteristics.</li>
-                        <li>Technical information: sequencing platform, library protocol, capture parameters (e.g., 10x Genomics, Smart-seq2, Visium), RNA quality, software and versions used.</li>
-                        <li>Experimental context: study design, comparison groups, replicates, batch factors, controls.</li>
-                        <li>Processed data: output files such as count matrices, normalized files, spatial coordinates; as well as scripts and pipelines used.</li>
+                        <li>Información biológica: organismo, tejido, tipo celular, condición experimental, tratamiento, momento de recolección, características clínicas o ambientales</li>
+                        <li>Información técnica: plataforma de secuenciación, protocolo de la biblioteca, parámetros de captura (p. ej., 10x Genomics, Smart-seq2, Visium), calidad del ARN, software y versiones utilizadas.</li>
+                        <li>Contexto experimental: diseño del estudio, grupos de comparación, réplicas, factores de lote, controles.</li>
+                        <li>Datos procesados: archivos de salida como matrices de contagem, archivos normalizados, coordenadas espaciales, así como scripts y pipelines utilizados.</li>
                     </ul>
                     <br>
-                    <p>Well-structured metadata is essential to ensure that other researchers can correctly interpret the data, validate results, and integrate them into comparative analyses or reference databases.</p>
+                    <p>Metadatos bien estructurados es esencial para garantizar que otros investigadores puedan interpretar correctamente los datos, validar los resultados e integrarlos en análisis comparativos o bases de datos de referencia.</p>
                     <br>
-                    <h2>FAIR Metadata</h2>
+                    <h2>Metadatos FAIR</h2>
                     <br>
-                    <p>For metadata to fully fulfill its role, it must exhibit a series of characteristics that guarantee its usefulness and quality. In this sense, the FAIR principles offer a set of best practices that help organize and make metadata more effective.</p>
+                    <p>Para que los metadatos cumplan plenamente su función, deben presentar una serie de características que garanticen su utilidad y calidad. En este sentido, los principios FAIR ofrecen un conjunto de buenas prácticas que ayudan a organizar y aumentar la eficacia de los metadatos.</p>
                     <ul class="a">
-                        <li>Findable: use of persistent identifiers, e.g. for articles, DOIs are used. For data and metadata, identifiers such as BioProject, BioSample, SRA, and GEO, in addition to standardized keywords that facilitate searching.</li>
-                        <li>Accessible: availability in public repositories, in open and machine-readable formats, ensuring broad and transparent access.</li>
-                        <li>Interoperable: adoption of recognized vocabularies and ontologies (e.g., Cell Ontology, Uberon, Disease Ontology), allowing integration between different databases and consistent data recognition.</li>
-                        <li>Reusable: Complete metadata, with clear protocols and sufficient documentation to allow for reanalysis and comparisons, while also ensuring the preservation of the coding and anonymization of individuals.</li>
+                        <li>Findable (Localizables): uso de identificadores persistentes. Para los artículos, se utilizan DOI; para los datos y metadatos, identificadores como BioProject, BioSample, SRA y GEO, además de palabras clave estandarizadas que facilitan la búsqueda.</li>
+                        <li>Accessible (Accesibles): disponibilidad en repositorios públicos, en formatos abiertos y legibles por máquina, lo que garantiza un acceso amplio y transparente.</li>
+                        <li>Interoperable (Interoperables): adopción de vocabularios y ontologías reconocidos (p. ej., Cell Ontology, Uberon, Disease Ontology), lo que permite la integración entre diferentes bases de datos y un reconocimiento consistente de los datos.</li>
+                        <li>Reusable (Reutilizables): metadatos completos, con protocolos claros y documentación suficiente para permitir el reanálisis y las comparaciones, garantizando al mismo tiempo la preservación de la codificación y la anonimización de las personas.</li>
                     </ul>
                     <br>
-                    <p>Although not mandatory, following these principles is highly recommended to increase the visibility, accessibility, and reuse of data.</p>
+                    <p>Aunque no es obligatorio, es muy recomendable seguir estos principios para aumentar la visibilidad, la accesibilidad y la reutilización de los datos.</p>
                     <br>
-                    <h2>File formats for submission</h2>
+                    <h2>Formatos de archivo para el envío</h2>
                     <br>
-                    <p>Before understanding the NCBI submission workflow, it's important to know the most common file formats. Each extension carries a type of information and has specific uses in RNA-seq analyses (bulk, single-cell, or spatial).</p>
+                    <p>Antes de comprender el diagrama de flujo de envío del NCBI, es importante conocer los formatos de archivo más comunes. Cada extensión contiene un tipo de información y tiene usos específicos en los RNA-seq (bulk, single-cell ou spatial).</p>
                     <br>
-                    <h3>File .csv (Comma-Separated Values)</h3>
+                    <h3>Archivo .csv (Comma-Separated Values)</h3>
                     <br>
-                    <p>A file where fields are separated by commas. It is widely accepted in spreadsheet and analysis software. Frequently used for counting files.</p>
-                    <p>Caution: May cause conflicts if there are commas in the text.</p>
+                    <p>Un archivo donde los campos se separan por comas. Es ampliamente aceptado en hojas de cálculo y software de análisis. Se utiliza comúnmente para contar archivos.</p>
+                    <p>Precaución: Las comas en el texto pueden causar conflictos.</p>
                     <ul class="a">
-                        <li>Excel: File > Save As > csv</li>
-                        <li>Google Sheets: File > Download > csv</li>
+                        <li>Excel: Archivo > Guardar como > CSV</li>
+                        <li>Hojas de cálculo de Google: Archivo > Descargar > CSV</li>
                     </ul>
-                    <h3>File .tsv (Tab-Separated Values)</h3>
-                    <p>A text file where each column is separated by tabs (TAB) and each line represents an entry (e.g., sample or gene).</p>
-                    <p>Very commonly used for metadata and count matrices, as it avoids conflicts with commas in the text.</p>
+                    <h3>Archivo .tsv (Tab-Separated Values)</h3>
+                    <p>Un archivo de texto donde cada columna está separada por una tabulación (TAB) y cada línea representa una entrada (p. ej., muestra o gen).</p>
+                    <p>Se usa con frecuencia para metadatos y matrices de recuento, ya que evita conflictos con comas en el texto.</p>
                     <br>
 <table>
   <thead>
@@ -128,64 +128,42 @@
   </thead>
   <tbody>
     <tr>
-      <td>Uses commas between fields</td>
-      <td>Uses tabulation (TAB)</td>
+      <td>Usa comas entre campos</td>
+      <td>Usa tabulación (TAB)</td>
     </tr>
     <tr>
-      <td>May cause conflicts with commas in the text</td>
-      <td>Safer for textual metadata</td>
+      <td>Puede causar conflictos con comas en el texto</td>
+      <td>Más seguro para metadatos textuales</td>
     </tr>
     <tr>
-      <td>Extension: .csv</td>
-      <td>Extension: .tsv</td>
+      <td>Extensión: .csv</td>
+      <td>Extensión: .tsv</td>
     </tr>
   </tbody>
 </table>     
                 <br>
                 <ul class="a">
-                    <p>How to save:</p>
-                    <li>Excel: File > Save As > Text (tab delimited) (.txt) → rename to .tsv (if necessary)</li>
-                    <li>Google Sheets: File > Download > Tab delimited values ​​(.tsv)</li>
+                    <p>Cómo guardar:</p>
+                    <li>Excel: Archivo > Guardar como > Texto (delimitado por tabulaciones) (.txt) → renombrar a .tsv (si es necesario)</li>
+                    <li>Hojas de cálculo de Google: Archivo > Descargar > Valores delimitados por tabulaciones (.tsv)</li>
                 </ul>
                 <br>
-                <h3>File .txt (Plain Text)</h3>
-                <p>A plain text file, typically used for sample counts or basic metadata. It can be structured as a table (with tabs or spaces) or as a list.</p>
+                <h3>Archivo .txt (Plain Text)</h3>
+                <p>Un archivo de texto sinple, generalmente utilizado para recuentos de muestras o metadatos básicos. Puede estructurarse como una tabla (con tabulaciones o espacios) o como una lista.</p>
                 <br>
-                <h3>File .rds (R Data Serialization)</h3>
-                <p>It is a binary format specific to R. It allows saving complex objects (such as normalized arrays, Seurat objects, or SingleCellExperiments) while maintaining structure and metadata. Ideal for direct reuse in R analyses.</p>
+                <h3>Archivo .rds (R Data Serialization)</h3>
+                <p>Es un formato binario específico de R. Permite guardar objetos complejos (como matrices normalizadas, objetos Seurat o SingleCellExperiments) conservando la estructura y los metadatos. Ideal para la reutilización directa en análisis de R.</p>
                 <br>
-                <h3>File .R (R Script)</h3>
-                <p>A code file written in R (an R Script). Used to share analysis pipelines, including normalization, DESeq2, Seurato, etc.</p>
+                <h3>Archivo .R (R Script)</h3>
+                <p>Un archivo de código escrito en R (un script de R). Se utiliza para compartir procesos de análisis, incluyendo normalización, DESeq2, Seurat, etc.</p>
                 <br>
-                <h3>File .sh (Shell Script)</h3>
-                <p>It's a shell script, a terminal script (bash/shell). Used to automate processing steps, such as alignment, format conversion, or job submission to servers.</p>
+                <h3>Archivo .sh (Shell Script)</h3>
+                <p>Es un script de shell, un script de terminal (bash/shell). Se utiliza para automatizar pasos de procesamiento, como la alineamiento, la conversión de formato o el envío de trabajos a servidores.</p>
                 <br>
-                <h3>File .ipynb (Jupyter Notebook)</h3>
-                <p>Interactive file that combines code (Python, R, etc.), results, and documentation. Very useful for reproducibility, as it shows the analysis step by step. Accepted by GEO as a way to share complete pipelines.</p>
+                <h3>Archivo .ipynb (Jupyter Notebook)</h3>
+                <p>Archivo interactivo que combina código (Python, R, etc.), resultados y documentación. Muy útil para la reproducibilidad, ya que muestra el análisis paso a paso. Aceptado por GEO para compartir pipelines completos.</p>
                 <br>
-                <h2>NCBI Submission Workflow</h2>
-<table>
-  <thead>
-    <tr>
-      <th>.csv</th>
-      <th>.tsv</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Uses commas between fields</td>
-      <td>Uses tabulation (TAB)</td>
-    </tr>
-    <tr>
-      <td>May cause conflicts with commas in the text</td>
-      <td>Safer for textual metadata</td>
-    </tr>
-    <tr>
-      <td>Extension: .csv</td>
-      <td>Extension: .tsv</td>
-    </tr>
-  </tbody>
-</table> 
+                <h2>Flujo de trabajo de envió para NCBI</h2>
 
 <section>
   <div class="code-container">
@@ -201,36 +179,36 @@
     </code></pre>
   </div>
 </section>
-                <p>The NCBI uses a hierarchical structure that connects different levels of information:</p>
+                <p>El NCBI utiliza una estructura jerárquica que conecta diferentes niveles de información:</p>
                 <ul class="a">
-                    <li><b>BioProject</b>: is the highest level, representing the study as a whole. Each project receives a unique identifier (e.g., PRJNA123456) and groups all related samples and experiments.</li>
-                    <li><b>BioSample</b>: describes each individual biological sample within the project. This includes information such as organism, tissue, cell type, experimental condition, treatment, and collection site. Each BioSample receives its own code (e.g., SAMN45678901).</li>
-                    <li><b>SRA (Sequence Read Archive)</b>: stores raw sequencing data, such as FASTQ or BAM files. Each submission generates an identifier SRRxxxxxxx.</li>
-                    <li><b>GEO (Gene Expression Omnibus)</b>: stores processed data, such as count matrices, normalized files, and expression metadata. Each submission receives an identifier GSExxxxxx.</li>
+                    <li><b>BioProject</b>: es el nivel más alto y representa el estudio ao todo. Cada proyecto recibe un identificador único (p. ej., PRJNA123456) y agrupa todas las muestras y experimentos relacionados.</li>
+                    <li><b>BioSample</b>: describe cada muestra biológica individual dentro del proyecto. Esto incluye información como organismo, tejido, tipo celular, condición experimental, tratamiento y sitio de recolección. Cada BioSample recibe su propio código (ex.: SAMN45678901).</li>
+                    <li><b>SRA (Sequence Read Archive)</b>: guarda datos brutos de secuenciación, como archivos FASTQ o BAM. Cada envío genera un identificador SRRxxxxxxx.</li>
+                    <li><b>GEO (Gene Expression Omnibus)</b>: guarda datos procesados, como matrices de recuento, archivos normalizados y metadatos de expresión. Cada envío recibe un identificador GSExxxxxx.</li>
                 </ul>
                 <br>
-                <h3>Creating the BioProject</h3>
-                <p>BioProject groups all samples and data from a study. Create only one BioProject per study.</p>
+                <h3>Creando el BioProject</h3>
+                <p>BioProject agrupa todas las muestras y datos de un estudio. Cree solo un BioProject por estudio.</p>
                 <br>
-                <p>You need to create an NCBI login to do this.</p>
+                <p>Para ello, necesita crear una cuenta de NCBI.</p>
                 <br>
-                <p>Include title, description, organism, and data type.</p>
+                <p>Incluya título, descripción, organismo y tipo de dato.</p>
                 <br>
-                <p>Example:</p>
-                <p>project_title: Single-cell transcriptomic atlas of PBMCs during CHIKV infection</p>
-                <p>data_type: Transcriptome (bulk + single-cell + spatial)</p>
+                <p>Ejemplo:</p>
+                <p>título_del_proyecto: Atlas transcriptómico unicelular de PBMC durante la infección por CHIKV</p>
+                <p>tipo_de_dato: Transcriptoma (bulk + single-cell + spatial)</p>
                 <ul class="a">
-                    <li>Create via the website: <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a></li>
-                    <li>When submitted, it generates a PRJNAxxxxx code (e.g., PRJNA123456)</li>
+                    <li>Crear a través del sitio web: <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a></li>
+                    <li>Al enviar, se genera un código PRJNAxxxxx (e.g., PRJNA123456)</li>
                 </ul>
                 <br>
-                <h3>Creating the BioSample</h3>
+                <h3>Creando el BioSample</h3>
                 <br>
-                <p>Each biological sample receives a unique ID. For transcriptomic samples, describe:</p>
+                <p>Cada muestra biológica recibe un identificador único. Para muestras transcriptómicas, describa:</p>
                 <br>
                 <p>sample_name, organism, tissue, cell_type, disease, treatment, time_point, geo_loc_name</p>
                 <br>
-                <p>Additional fields: sequencing_protocol, dissociation_method, library_prep, cell_capture_platform (e.g., 10x Genomics Chromium, Smart-seq2)</p>
+                <p>Campos adicionales: sequencing_protocol, dissociation_method, library_prep, cell_capture_platform (ex.: 10x Genomics Chromium, Smart-seq2)</p>
 <div class="table-wrapper">
     <table>
       <thead>
@@ -259,9 +237,9 @@
       </tbody>
     </table>
 </div>
-                <p>Create BioSamples linked to your BioProject through the same portal <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a>, , or prepare a batch upload with .tsv files.</p>
+                <p>Cree BioSamples vinculados a su BioProject a través del mismo portal <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a>, o prepare una carga por lotes con archivos .tsv</p>
                 <br>
-                <p>Preferably use more complete tables, such as:</p>
+                <p>Dar preferencia a tablas más completas, como:</p>
 
   <div class="table-wrapper">
     <table>
@@ -306,9 +284,9 @@
       </table>
   </div>
 
-                <p>This table can be saved as biosample_metadata.tsv</p>
+                <p>Esta tabla se puede guardar como biosample_metadata.tsv</p>
                 <br>
-                <p>After submission, the system returns accessions for each sample as:</p>
+                <p>Tras el envío, el sistema devuelve las accesiones de cada muestra como:</p>
 <section>
 <div class="code-container">
     <button class="copy-btn">
@@ -320,17 +298,17 @@ SAMN45678902
     </code></pre>
   </div>
 </section>
-                <b>All metadata, whether from BioSample, SRA, or GEO, must include the BioProject code to which they belong.</b>
+                <b>Todos los metadatos, ya sean de BioSample, SRA o GEO, deben incluir obligatoriamente el código del BioProject al que pertenecen.</b>
                 <br>
-                <p>This ensures proper linking between the different levels of submission and allows the data to be navigated in an integrated manner. The BioProject serves as the primary identifier of the study, and without it, there is no way to relate samples, raw data, and processed data.</p>
+                <p>Esto garantiza la correcta vinculación entre los diferentes niveles del envío y permite navegar por los datos de forma integrada. El BioProject actúa como el identificador principal del estudio y, sin él, es imposible relacionar muestras, datos brutos y datos procesados.</p>
                 <br>
-                <h2>SRA Metadata</h2>
+                <h2>Metadatos SRA</h2>
                 <br>
-                <p>The metadata table needs to describe the raw sequencing files and how they were generated. In addition to the basic fields, it is essential to include the BioProject and BioSamples codes to ensure correct linking.</p>
+                <p>La tabla de metadatos debe describir los archivos de secuenciación sin procesar y cómo se generaron. Además de los campos básicos, es esencial incluir los códigos de BioProject y BioSamples para garantizar una correcta vinculación.</p>
                 <ul class="a">
-                    <li>Bulk RNA-seq: paired or single-end .fastq.gz files or aligned .bam files.</li>
-                    <li>Single-cell RNA-seq: .fastq.gz files per library/cell, with platform metadata.</li>
-                    <li>Spatial transcriptomics: .fastq.gz per capture/library, accompanied by platform‑specific metadata (e.g., spot or coordinate matrices).</li>
+                    <li>Bulk RNA-seq: archivos .fastq.gz pareados ou single-end oo archivos .bam alineados.</li>
+                    <li>Single-cell RNA-seq: archivos .fastq.gz por biblioteca/célula, con metadatos de la plataforma.</li>
+                    <li>Spatial: archivos .fastq.gz por captura/biblioteca, acompañados de metadatos específicos de la plataforma (p. ej., matrices de puntos o coordenadas).</li>
                 </ul>
                 <br>
   <div class="table-wrapper">
@@ -400,14 +378,14 @@ SAMN45678902
       </tbody>
       </table>
   </div>
-            <b>Attention: Note that .fastq.gz files must be named consistently in the correct field.</b>
+            <b>Atención: tenga en cuenta que los archivos .fastq.gz estén nombrados de manera consistente en el campo correspondiente.</b>
             <br>
-            <p>Add other fields if you want more details (e.g., basecaller, alignment software). Save as sra_metadata.tsv</p>
+            <p>Agregue otros campos si desea más detalles (p. ej., basecaller, software de alineamento). Guárdelo como sra_metadata.tsv.</p>
             <br>
 
-            <h2>GEO Metadata</h2>
+            <h2>Metadatos GEO</h2>
             <br>
-            <p>GEO is a public repository from the NCBI focused on processed gene expression data, including:</p>
+            <p>GEO es un repositorio público del NCBI centrado en datos procesados ​​de expresión genética, que incluye:</p>
 
 <table>
   <thead>
@@ -446,7 +424,7 @@ SAMN45678902
   </tbody>
 </table>
                 <br>
-                <p>You can also include experimental flow diagrams, batch factors, and even RIN and RNA concentration.</p>
+                <p>También puede incluir diagramas de flujo experimentales, factores de lote e incluso RIN y concentración de ARN.</p>
                 <br>
   <div class="table-wrapper">
     <table>
@@ -478,9 +456,9 @@ SAMN45678902
       </tbody>
       </table>
   </div>
-                <p>Prepare based on GEO submission templates:<a href="https://www.ncbi.nlm.nih.gov/geo/info/submission.html?form=MG0AV3">https://www.ncbi.nlm.nih.gov/geo/info/submission.html?form=MG0AV3</a></p>
+                <p>Preparar según GEO submission templates:<a href="https://www.ncbi.nlm.nih.gov/geo/info/submission.html?form=MG0AV3">https://www.ncbi.nlm.nih.gov/geo/info/submission.html?form=MG0AV3</a></p>
                 <br>
-                <p>A more complete example</p>
+                <p>Un ejemplo más completo:</p>
 <div class="table-wrapper">
     <table>
       <thead>
@@ -533,9 +511,9 @@ SAMN45678902
       </tbody>
       </table>
   </div>
-            <p>The characteristics_ch1 field in GEO is extremely flexible and powerful; it allows you to describe various biological, clinical, or technical characteristics of your sample, in addition to the disease.</p>
+            <p>El campo characteristics_ch1 en GEO es extremadamente flexible y poderoso; le permite describir varias características biológicas, clínicas o técnicas de su muestra, además de la enfermedad.</p>
             <br>
-            <p>Another example of how it can be more complete:</p>
+            <p>Otro ejemplo de cómo puede ser más completo:</p>
 
 <div class="table-wrapper">
     <table>
@@ -577,7 +555,7 @@ SAMN45678902
       </tbody>
       </table>
   </div>
-                <h3>Simplified submission flowchart</h3>
+                <h3>Flujo de envío simplificado</h3>
 <section>
 <div class="code-container">
     <button class="copy-btn">
@@ -594,17 +572,17 @@ PRJNA123456   (BioProject)
     </code></pre>
   </div>
 </section>
-                <p>1. Create your BioProject</p>
+                <p>1. Cree su BioProject</p>
                 <ul class="a">
-                    <li>Access: <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a></li>
-                    <li>Fill in the study information (title, organism, type) as explained above</li>
-                    <li>When submitted, it generates a code like: PRJNA123456</li>
+                    <li>Acceda a: <a href="https://submit.ncbi.nlm.nih.gov/subs/bioproject">https://submit.ncbi.nlm.nih.gov/subs/bioproject</a></li>
+                    <li>Complete la información del estudio (título, organismo, tipo) como se explicó anteriormente.</li>
+                    <li>Al enviarlo, se genera un código como: PRJNA123456</li>
                 </ul>
-                <p>2.Submit your BioSamples</p>
+                <p>2.Envíe sus BioSamples</p>
                 <ul class="a">
-                    <li>Go to: <a href="https://submit.ncbi.nlm.nih.gov/subs/biosample"></a></li>
+                    <li>Visite: <a href="https://submit.ncbi.nlm.nih.gov/subs/biosample"></a></li>
                 </ul>
-                <p>When filling in each line (via form or .tsv), include the field:</p>
+                <p>Al completar cada línea (mediante formulario o archivo .tsv), incluya el campo:</p>
 
 <section>
 <div class="code-container">
@@ -618,14 +596,14 @@ PRJNA123456
   </div>
 </section>
 
-                <p>Each sample receives a code like: SAMN45678901</p>
+                <p>Cada muestra recibe un código como: SAMN45678901</p>
                 <br>
-                <p>Each BioSample must have a unique name (e.g., CHIKV_01), and this same name will be used in the SRA and GEO metadata.</p>
-                <p>3. Submission to the SRA (raw data)</p>
+                <p>Cada BioSample debe tener un nombre único (por ejemplo, CHIKV_01), y este mismo nombre se utilizará en los metadatos SRA y GEO.</p>
+                <p>3. Envió a la SRA (datos brutos)</p>
                 <ul class="a">
-                    <li>Access: <a href="https://submit.ncbi.nlm.nih.gov/subs/sra">https://submit.ncbi.nlm.nih.gov/subs/sra</a></li>
-                    <li>Upload the .fastq.gz files</li>
-                    <li>In your .tsv file or form, include:</li>
+                    <li>Acceda a <a href="https://submit.ncbi.nlm.nih.gov/subs/sra">https://submit.ncbi.nlm.nih.gov/subs/sra</a></li>
+                    <li>Sube los archivos .fastq.gz.</li>
+                    <li>En tu archivo o formulario .tsv, include:</li>
                 </ul>
                 <br>
 <table>
@@ -643,13 +621,13 @@ PRJNA123456
   </tbody>
 </table> 
                 <br>
-                <p>The SRA will use this to link your .fastq.gz file to the correct sample.</p>
+                <p>SRA usará esto para vincular su archivo .fastq.gz a la muestra correcta.</p>
                 <br>
-                <p>4.Submission to GEO</p>
+                <p>4.Envió al GEO</p>
                 <br>
                 <ul class="a">
-                    <li>Go to: <a href="https://submit.ncbi.nlm.nih.gov/subs/geo">https://submit.ncbi.nlm.nih.gov/subs/geo</a></li>
-                    <li>In sample_metadata.tsv, include:</li>
+                    <li>Acceda a: <a href="https://submit.ncbi.nlm.nih.gov/subs/geo">https://submit.ncbi.nlm.nih.gov/subs/geo</a></li>
+                    <li>En el sample_metadata.tsv, incluir:</li>
                 </ul>
 <section>
 <div class="code-container">
@@ -663,33 +641,33 @@ SAMN45678901      PRJNA123456
   </div>
 </section>
                 <br>
-                <p>Review and submit for review. After submission, you will receive a temporary GSE ID (e.g., GSE123456), and the NCBI team will curate it.</p>
+                <p>Revisar y enviar para su revisión. Tras el envío, recibirá un ID GSE temporario (p. ej., GSE123456) y el equipo del NCBI lo gestionará.</p>
                 <br>
-                <p>When everything is correctly linked, anyone (or reviewer!) will be able to:</p>
+                <p>Una vez que todo esté correctamente vinculado, cualquier persona (o revisor!) podrá:</p>
                 <br>
-                <p>Log in to BioProject → View the BioSamples → Access the data in SRA → View the processed files in GEO, as if it were a single interconnected study.</p>
+                <p>Iniciar sesión en BioProject → Ver las BioSamples → Acceder a los datos en SRA → Ver los archivos procesados ​​en GEO, como si se tratara de un único estudio interconectado.</p>
                 <br>
-                <p>To submit processed files (e.g., gene counts):</p>
+                <p>Para enviar archivos procesados: (p. ej., recuentos genéticos):</p>
                 <br>
-                <p>Go to: <a href="https://submit.ncbi.nlm.nih.gov/subs/geo/">https://submit.ncbi.nlm.nih.gov/subs/geo/</a></p>
-                <p>1.Create a new submission</p>
-                <p>2.Choose: Processed Data Submission (GSE)</p>
-                <p>3. Upload:</p>
+                <p>Visite: <a href="https://submit.ncbi.nlm.nih.gov/subs/geo/">https://submit.ncbi.nlm.nih.gov/subs/geo/</a></p>
+                <p>1.Crear un nuevo envío</p>
+                <p>2.Seleccionar: Processed Data Submission (GSE)</p>
+                <p>3. Cargar:</p>
                 <ul class="a">
-                    <li>The processed files (.tsv, .rds, etc.)</li>
-                    <li>The metadata spreadsheet</li>
-                    <li>The scripts or supplementary materials</li>
+                    <li>Los archivos procesados ​​(.tsv, .rds, etc.)</li>
+                    <li>La planilha de metadatos</li>
+                    <li>Los scripts o materiales complementarios</li>
                 </ul>
                 <br>
-                <p>4. Fill in the study description, protocol, objectives, etc.</p>
+                <p>4. Completar la descripción del estudio, el protocolo, los objetivos, etc.</p>
 
                 <hr>
 
-                <h2>Workflow for submission to the Single Cell Expression Atlas (SCEA)</h2>
+                <h2>Flujo de trabajo para el envío al Single Cell Expression Atlas (SCEA)</h2>
                 <br>
-                <p>The Single Cell Expression Atlas is a public repository of EMBL-EBI that brings together single-cell RNA-seq and spatial transcriptomics data, reprocessed with standardized pipelines and enriched with ontologies. Submission follows the MAGE-TAB standard (IDF and SDRF files) and undergoes curation before being integrated into the Atlas.</p>
+                <p>El Single Cell Expression Atlas es un repositorio público de EMBL-EBI que recopila datos de ARN-seq y transcriptómica espacial de células individuales, reprocesados ​​mediante procesos estandarizados y enriquecidos con ontologías. El envío sigue el estándar MAGE-TAB (archivos IDF y SDRF) y se somete a un proceso de selección antes de integrarse en el Atlas.</p>
                 <br>
-                <p>This is the <a href="https://github.com/ebi-gene-expression-group/expression-atlas-curation-guide/blob/master/pages/single_cell_technical_guide.md?form=MG0AV3&utm_source=copilot.com">official technical guide</a>, There are also <a href="https://www.ebi.ac.uk/gxa/sc/help.html?form=MG0AV3&utm_source=copilot.com">additional instructions</a>; here is a simplified version of the process: The workflow is similar to NCBI</p>
+                <p>Esta es la <a href="https://github.com/ebi-gene-expression-group/expression-atlas-curation-guide/blob/master/pages/single_cell_technical_guide.md?form=MG0AV3&utm_source=copilot.com"> guía técnica oficial</a>,  também há <a href="https://www.ebi.ac.uk/gxa/sc/help.html?form=MG0AV3&utm_source=copilot.com"> instruções adicionais</a>; y aquí hay una versión simplificada del proceso: El flujo de trabajo es similar al del NCBI.</p>
 <section>
 <div class="code-container">
     <button class="copy-btn">
@@ -705,36 +683,36 @@ SAMN45678901      PRJNA123456
   </div>
 </section>
                 <ul class="a">
-                    <li>ArrayExpress: submission entry point.</li>
-                    <li>ENA (European Nucleotide Archive)/SRA: stores raw sequencing data.</li>
-                    <li>SCEA: receives processed data, metadata, and pipelines, and integrates them into the portal.</li>
+                    <li>ArrayExpress: punto de entrada para el envío.</li>
+                    <li>ENA (European Nucleotide Archive)/SRA: guarda datos de secuenciación sin procesar.</li>
+                    <li>SCEA: recibe datos procesados, metadatos y secuencias de procesamiento, y los integra en el portal.</li>
                 </ul>
                 <br>
-                <h3>Required Data</h3>
-                <p>Raw data: FASTQ or BAM files → submitted to ENA/SRA.</p>
+                <h3>Datos requeridos</h3>
+                <p>Datos brutos: Archivos FASTQ o BAM → enviados a ENA/SRA.</p>
                 <br>
-                <p>Processed data: Expression matrices (genes × cells), cell metadata (clusters, cell types, QC, mitochondrial percentage), normalized files.</p>
+                <p>Datos procesados: Matrices de expresión (genes × células), metadatos celulares (clústeres, tipos celulares, control de calidad, porcentaje mitocondrial), archivos normalizados.</p>
                 <br>
-                <p>Scripts/pipelines: .R, .ipynb, .sh files used for analysis.</p>
+                <p>Scripts/pipelines: Archivos .R, .ipynb, .sh utilizados para el análisis.</p>
                 <br>
-                <p>Metadata: Complete tables describing samples, cells, and experimental conditions. Similar to BioSample.</p>
+                <p>Metadatos: Tablas completas que describen muestras, células y condiciones experimentales. Similar a BioSample.</p>
                 <br>
-                <p>Accepted formats: .tsv, .h5ad, .loom, plus supplementary files such as .R, .ipynb.</p>
+                <p>Formatos aceptados: .tsv, .h5ad, .loom, además de archivos complementarios como .R, .ipynb.</p>
                 <br>
-                <h3>Creating MAGE-TAB Files</h3>
+                <h3>Creación de archivos MAGE-TAB</h3>
                 <br>
-                <p>SCEA uses the MAGE-TAB standard for metadata, which is mandatory and consists of two main files:</p>
+                <p>SCEA utiliza el estándar MAGE-TAB para metadatos; es obligatorio y consta de dos archivos principales:</p>
                 <p>IDF (Investigation Description File):</p>
                 <ul class="a">
-                    <li>describes the study: title, abstract, contacts, associated publications.</li>
-                    <li>Example fields: Investigation Title, Experiment Description, Submitter Email.</li>
+                    <li>describe el estudio: título, resumen, contactos, publicaciones asociadas.</li>
+                    <li>Campos de ejemplo: Título de la investigación, Descripción del experimento, Correo electrónico del remitente.</li>
                 </ul>
                 <p>SDRF (Sample and Data Relationship File):</p>
                 <ul class="a">
-                    <li>detailed table relating samples, cells, files, and biological/technical characteristics.</li>
-                    <li>Important fields: Sample Name, Organism, Cell Type, Library Prep, Sequencing Protocol, File Name (FASTQ, counting matrix, etc.).</li>
+                    <li>Tabla detallada que relaciona muestras, células, archivos y características biológicas/técnicas.características biológicas/técnicas.</li>
+                    <li>Campos importantes: Nombre de la muestra, Organismo, Tipo de célula, Preparación de la biblioteca, Protocolo de secuenciación, Nombre del archivo (FASTQ, matriz de recuento, etc.).</li>
                 </ul>
-                <p>Simplified example of an SDRF:</p>
+                <p>Ejemplo simplificado de SDRF:</p>
 <div class="table-wrapper">
     <table>
       <thead>
@@ -763,11 +741,11 @@ SAMN45678901      PRJNA123456
       </tbody>
       </table>
   </div>
-                <p>It should also include dissociation information, capture platform (e.g., 10x Genomics, Smart-seq2), and experimental conditions.</p>
+                <p>También debe incluir información sobre disociación, plataforma de captura (p. ej., 10x Genomics, Smart-seq2) y condiciones experimentales.</p>
                 <br>
-                <h2>Submission to ArrayExpress</h2>
+                <h2>Envío a ArrayExpress</h2>
                 <br>
-                <p>ArrayExpress is the EMBL-EBI repository used as an entry point for transcriptomic data. All submissions of single-cell RNA-seq or spatial transcriptomics go through it before being integrated into SCEA.</p>
+                <p>ArrayExpress es el repositorio EMBL-EBI que se utiliza como punto de entrada para datos transcriptómicos. Todos los envíos single-cell RNA-seq o transcriptómica espacial pasan por él antes de integrarse en SCEA.</p>
 <section>
 <div class="code-container">
     <button class="copy-btn">
@@ -780,61 +758,59 @@ SAMN45678901      PRJNA123456
     </code></pre>
   </div>
 </section>
-                <h3>Required Data</h3>
-                <p>Raw data: FASTQ or BAM, sent to ENA.</p>
+                <h3>Datos requeridos</h3>
+                <p>Datos brutos: FASTQ o BAM, enviados a ENA.</p>
                 <br>
-                <p>Processed data: expression matrices (genes × cells), cell metadata (clusters, cell types, QC), normalized files.</p>
+                <p>Datos procesados: matrices de expresión (genes × células), metadatos celulares (clústeres, tipos celulares, control de calidad), archivos normalizados.</p>
                 <br>
-                <p>Scripts/pipelines: .R, .ipynb, .sh to guarantee reproducibility.</p>
+                <p>Scripts/pipelines: .R, .ipynb, .sh para garantizar la reproducibilidad.</p>
                 <br>
-                <p>Metadata: complete tables describing samples, cells, and experimental conditions.</p>
+                <p>Metadatos: tablas completas que describen muestras, células y condiciones experimentales.</p>
                 <br>
-                <h3>Creating MAGE-TAB files</h3>
+                <h3>Criar arquivos MAGE-TAB</h3>
                 <br>
-                <p>Equal to what was described previously</p>
+                <p>Similar ao que foi descrito anteriormente</p>
                 <br>
-                <h3>Workflow</h3>
-                <p>1.Create an account on EMBL-EBI.</p>
-                <p>2.Prepare the MAGE-TAB files (IDF + SDRF).</p>
-                <p>3.Send raw data to ENA.</p>
-                <p>4.Link BioProject and BioSample IDs.</p>
-                <p>5.Submit metadata and processed data to ArrayExpress.</p>
-                <p>6.Upload of .tsv, .h5ad, .loom, and .rds files.</p>
-                <p>7.Upload of scripts/pipelines.</p>
-                <p>8.Curation: The Atlas team reviews the metadata, applies ontologies, and reprocesses the data.</p>
-                <p>9.Publication: The dataset receives a public identifier (e.g., E-MTAB-12345) and is integrated into the Single Cell Expression Atlas.</p>
+                <h3>Flujo de trabajo</h3>
+                <p>1.Crear una cuenta en EMBL-EBI.</p>
+                <p>2.Preparar los archivos MAGE-TAB (IDF + SDRF).</p>
+                <p>3.Enviar datos brutos a ENA.</p>
+                <p>4.Vincular los ID de BioProject y BioSample.</p>
+                <p>5.Enviar metadatos y datos procesados ​​a ArrayExpress.</p>
+                <p>6.Carga de archivos .tsv, .h5ad, .loom y .rds.</p>
+                <p>7.Carga de scripts/pipelines.</p>
+                <p>8.Curación: El equipo del Atlas revisa los metadatos, aplica ontologías y reprocesa los datos.</p>
+                <p>9.Publicación: El conjunto de datos recibe un identificador público (p. ej.,E-MTAB-12345) y se integra en el Atlas de Expresión de Células Únicas.</p>
                 <br>
-                <h3>Curation and Integration</h3>
+                <h3>Curación e Integración</h3>
                 <br>
-                <p>The Atlas team reprocesses the data using standardized pipelines (e.g., alignment, normalization, clustering).</p>
+                <p>El equipo de Atlas reprocesa los datos mediante procesos estandarizados (p. ej., alineamiento, normalización, clustering).</p>
                 <br>
-                <p>The metadata is harmonized with ontologies (Cell Ontology, Uberon, Disease Ontology).</p>
+                <p>Los metadatos se armonizan con ontologías(Cell Ontology, Uberon, Disease Ontology).</p>
                 <br>
-                <p>The dataset receives a public identifier (E-MTAB-12345) and becomes searchable on the portal.</p>
+                <p>El conjunto de datos recibe un identificador público (E-MTAB-12345) y se puede buscar en el portal.</p>
                 <br>
-                <h2>Workflow for submission to the Human Cell Atlas Data Portal (HCA Data Portal)</h2>
+                <h2>Flujo de trabajo para el envío al Human Cell Atlas Data Portal (HCA Data Portal)</h2>
                 <br>
-                <p>The HCA Data Portal does not function as an "open repository for any data from anyone"; there are well-defined criteria for submission. They accept single-cell and spatial transcriptomics data (scRNA-seq, ATAC-seq, multi-omics, spatial RNA-seq), including raw data (FASTQ/BAM) and processed data (AnnData .h5ad matrices). It must be accompanied by structured metadata following the official schemas (Tier 1 and Tier 2).</p>
+                <p>El HCA Data Portal no funciona como un repositorio abierto para datos de cualquier persona; existen criterios de envío bien definidos. Acepta datos unicelulares y de transcriptómica espacial (scRNA-seq, ATAC-seq, multiómica, RNA-seq espacial), incluyendo datos sin procesar (FASTQ/BAM) y procesados ​​(matrices AnnData .h5ad). Deben ir acompañados de metadatos estructurados que sigan los esquemas oficiales (Tier 1 e Tier 2). Y deben provenir de estudios de alta calidad, con protocolos claros y documentación suficiente para permitir su reutilización.</p>
                 <br>
-                <p>And it must be from high-quality studies, with clear protocols and sufficient documentation to allow reuse.</p>
-                <br>
-                <p>And it must be from high-quality studies, with clear protocols and sufficient documentation to allow reuse.</p>
-                <br>
-                <p>Restrictions:</p>
+                <p>Restricciones:</p>
                 <br>
                 <ul class="a">
-                    <li>They do not accept any uncurated data: datasets undergo technical review to ensure consistency and quality.</li>
-                    <li>Privacy: human data must be anonymized. Sensitive information (Tier 2, such as age, sex, clinical condition) is controlled and only accessible in secure environments.</li>
-                    <li>Format: only standardized formats are accepted (FASTQ, BAM, AnnData .h5ad, metadata in structured tables).</li>
-                    <li>Scope: the focus is on single-cell and spatial data. Bulk RNA-seq data, for example, are not included in the HCA Data Portal.</li>
+                    <li>No se aceptan datos sin procesar: los conjuntos de datos se someten a una revisión técnica para garantizar su consistencia y calidad.</li>
+                    <li>Privacidad: los datos humanos deben ser anonimizados. La información sensible (Tier 2, como edad, sexo, condición clínica) está controlada y solo se puede acceder a ella en entornos seguros.</li>
+                    <li>Formato: Solo se aceptan formatos estandarizados (FASTQ, BAM, AnnData .h5ad, metadatos en tablas estructuradas).</li>
+                    <li>Alcance: El enfoque se centra en datos unicelulares y espaciales. Los datos de RNA-seq bulk, por ejemplo, no se incluyen en el HCA Data Portal.</li>
                 </ul>
                 <br>
                 <h3>Tiers</h3>
-                <p>Metadata is organized into two levels (tiers) to separate technical information from more sensitive information</p>
+                <p>Los metadatos se organizan en dos niveles (tiers) para separar la información técnica de la información más sensible.</p>
                 <br>
-                <h4>Tier 1 Metadata: technical and experimental information necessary to interpret the data.</h4>
-                <p>This ensures that the data is FAIR (findable, accessible, interoperable, and reusable). This data is publicly available through the HCA Data Portal and on platforms such as CellxGene Discover.</p>
-                <p>Examples of fields:</p>
+                <h4>Tier 1 Metadata: información técnica y experimental necesaria para interpretar los datos.</h4>
+                <p>Esto garantiza que los datos sean FAIR (localizables, accesibles, interoperables y reutilizables). Estos datos están disponibles públicamente a través del HCA Data Portal y en plataformas como CellxGene Discover.</p>
+                <p>Ejemplos de campos:
+
+</p>
                 <ul class="a">
                     <li>Organism</li>
                     <li>Tissue / Organ</li>
@@ -844,9 +820,9 @@ SAMN45678901      PRJNA123456
                     <li>File names (FASTQ, BAM, AnnData .h5ad)</li>
                 </ul>
                 <br>
-                <h4>Tier 2 Metadata: Additional information that may include sensitive or clinical data</h4>
-                <p>This can enrich biological interpretation while maintaining anonymization and privacy. This metadata has controlled access, where some information may be restricted or anonymized to protect donors.</p>
-                <p>Examples of fields:</p>
+                <h4>Tier 2 Metadata: Información adicional que puede incluir datos sensibles o clínicos</h4>
+                <p>Esto puede enriquecer la interpretación biológica, manteniendo el anonimato y la privacidad. Estos metadatos tienen acceso controlado, por lo que cierta información puede estar restringida o anonimizada para proteger a los donantes.</p>
+                <p>Ejemplos de campos:</p>
                 <ul class="a">
                     <li>Donor age</li>
                     <li>Sex</li>
@@ -855,14 +831,14 @@ SAMN45678901      PRJNA123456
                     <li>Treatment history</li>
                 </ul>
                 <br>
-                <p>Full documentation is available on the HCA Data Portal and in the data ingestion guide:</p>
+                <p>La documentación completa está disponible en el HCA Data Portal y en la guía de ingesta de datos:</p>
                 <br>
                 <p>HCA Data Portal – <a href="https://github.com/integrativebioinformatics/scNotebooks/blob/4f023540cc852ef0c164c9ea268fee471028a61f/Notebooks_EN/contribute.data.humancellatlas.org">Contribube</a></p>
                 <p><a href="https://data.humancellatlas.org/metadata?form=MG0AV3&utm_source=copilot.com">HCA Metadata Schema</a></p>
                 <p><a href="https://www.humancellatlas.org/wp-content/uploads/2025/04/Data-Ingestion-Instructions_250225_published_v1.1.1.pdf">HCA Data Ingestion Instructions PDF</a></p>
                 <br>
-                <h3>Structure</h3>
-                <p>The HCA organizes data into different layers to ensure accessibility and protection of sensitive information:</p>
+                <h3>Estructura</h3>
+                <p>EL HCA Data Portal organiza los datos en diferentes capas para garantizar la accesibilidad y la protección de la información confidencial:</p>
 <section>
 <div class="code-container">
     <button class="copy-btn">
@@ -877,54 +853,54 @@ SAMN45678901      PRJNA123456
   </div>
 </section>
                 <ul class="a">
-                    <li>HCA Data Repository: stores raw files (FASTQ) and Tier 2 metadata (may contain personal or sensitive information).</li>
-                    <li>CellxGene Discover: stores expression matrices in AnnData format (.h5ad) and Tier 1 metadata (technical information such as capture protocol, cell enrichment, QC).</li>
-                    <li>Data Coordination Platform (DCP): entry point for submission, where you register the project, submit datasets, and receive an accession ID.</li>
+                    <li>HCA Data Repository: guarda archivos brutos (FASTQ) y metadatos de Tier 2 (pueden contener información personal o confidencial).</li>
+                    <li>CellxGene Discover: guarda matrices de expresión en formato AnnData (.h5ad) y metadatos de Tier 1 (información técnica como protocolo de captura, enriquecimiento celular y control de calidad).</li>
+                    <li>Data Coordination Platform (DCP): punto de entrada para el envío de datos, donde se registra el proyecto, se envían los conjuntos de datos y se recibe un ID de acceso.</li>
                 </ul>
                 <br>
-                <h3>Required Data</h3>
+                <h3>Datos requeridos</h3>
                 <br>
-                <p>Raw data: FASTQ or BAM files to be submitted to the HCA Data Repository.</p>
-                <p>Processed data: Expression matrices (genes × cells) in AnnData format (.h5ad).</p>
-                <p>Tier 1 Metadata: Technical information</p>
+                <p>Datos brutos: Archivos FASTQ o BAM que se enviarán al HCA Data Repository.</p>
+                <p>Datos procesados: Matrices de expresión (genes × células) en formato AnnData(.h5ad).</p>
+                <p>Metadados Tier 1: Información técnica</p>
                 <ul class="a">
-                    <li>Capture platform</li>
-                    <li>Dissociation method</li>
-                    <li>Library protocol</li>
-                    <li>QC</li>
+                    <li>Plataforma de captura</li>
+                    <li>Método de disociación</li>
+                    <li>Protocolo de la biblioteca</li>
+                    <li>Control de calidad</li>
                 </ul>
                 <br>
-                <p>Tier 2 Metadata: More detailed information</p>
+                <p>Metadados Tier 2: Información más detallada</p>
                 <ul class="a">
-                    <li>Clinical data</li>
-                    <li>Age</li>
-                    <li>Sex</li>
-                    <li>Clinical condition</li>
+                    <li>Datos clínicos</li>
+                    <li>Edad</li>
+                    <li>Sexo</li>
+                    <li>Estado clínico</li>
                 </ul>
                 <br>
-                <h3>Submission process</h3>
+                <h3>Proceso de envío</h3>
                 <br>
-                <p>1.Register the project in <a href="https://contribute.data.humancellatlas.org/?form=MG0AV3&utm_source=copilot.com">HCA Data Coordination Platform</a></p>
+                <p>1.Registrar el proyecto en el <a href="https://contribute.data.humancellatlas.org/?form=MG0AV3&utm_source=copilot.com">HCA Data Coordination Platform</a></p>
                 <ul class="a">
-                    <li>Create a new project and provide a title, summary, and contact information.</li>
-                    <li>Link the raw data (FASTQ/BAM) already submitted to ENA/SRA.</li>
+                    <li>Crear un nuevo proyecto e incluir el título, el resumen y la información de contacto.</li>
+                    <li>Vincular los datos brutos (FASTQ/BAM) ya enviados a ENA/SRA.</li>
                 </ul>
                 <br>
-                <p>2.Prepare Tier 1 and Tier 2 metadata according to the official ingestion guide.</p>
+                <p>2.Preparar los metadatos de Tier 1 y Tier 2 según la guía oficial de ingesta.</p>
                 <br>
-                <p>3.Submit raw data to the HCA Data Repository.</p>
+                <p>3.Enviar los datos sin procesar al HCA Data Repository.</p>
                 <br>
-                <p>4.Submit processed matrices (AnnData .h5ad) to the HCA portal.</p>
+                <p>4.Enviar las matrices procesadas (AnnData .h5ad) al portal de HCA</p>
                 <ul class="a">
-                    <li>The file will be validated against the official schema (checking for required)</li>
-                    <li>After curation, the dataset will be integrated into <a href="https://cellxgene.cziscience.com/discover?form=MG0AV3&utm_source=copilot.com">CellxGene Discover</a>.</li>
+                    <li>El archivo se validará con el esquema oficial (verificando los campos obligatorios).</li>
+                    <li>Tras la curación, el conjunto de datos se integrará en <a href="https://cellxgene.cziscience.com/discover?form=MG0AV3&utm_source=copilot.com">CellxGene Discover</a>.</li>
                 </ul>
                 <br>
-                <p>5.Receive accession ID and track curation.</p>
+                <p>5.Recibir un ID de acceso y supervisar el proceso de curación.</p>
                 <br>
-                <p>6.Publication: the data is integrated into the portal, the dataset receives a public identifier (e.g., HCA12345).</p>
+                <p>6.Publicación: Los datos se integran en el portal y el conjunto de datos recibe un identificador público (p. ej., HCA12345).</p>
                 <ul class="a">
-                    <li>It becomes searchable and viewable on CellxGene Discover, with filters by organism, tissue, cell type, disease, etc.</li>
+                    <li>Se podrán buscar y visualizar en CellxGene Discover, con filtros por organismo, tejido, tipo celular, enfermedad, etc.</li>
                 </ul>
 
 
