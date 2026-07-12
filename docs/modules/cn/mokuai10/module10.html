@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo10/modulo10.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno10/cuaderno10.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo10/modulo10.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno10/cuaderno10.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        An introduction to Spatial Transcriptomics approaches
+                    </h1>
+                    <p class="hero-text">
+                        Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to advance our understanding of complex biological processes and help identify new biomarkers for disease diagnosis and treatment. The main goal of spatial transcriptomics is to capture the gene expression profile of individual cells (or a mini mixture of cells in a given region) in their native tissue context, allowing for the identification of cell types and their spatial distribution. This information can then be used to create detailed maps of gene expression within tissues, providing insights into cellular interactions, developmental processes, and disease progression. In this notebook, we will cover practical steps in setting up a spatial transcriptomics analysis pipeline using the Seurat package. We will cover the basic analysis to recover gene expression in different regions as well as cell type deconvolution approaches.
+                    </p>
+                    <br>
+                <hr/>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-heading text xl">Spatial transcriptomics</h2>
+                    <h3>Tutorial links</h3>
+                    <p>Explore the following tutorials to get started with spatial transcriptomics analysis:</p>
+                    <ul.a>
+                        <li>Spatial Features <a href="https://ludvigla.github.io/STUtility_web_site/Spatial_Features.html#Matrix_factorization">STUtilit</a>. This tutorial covers the extraction and analysis of spatial features using the STUtility package.</li>
+                        <li><a href="https://satijalab.org/seurat/articles/spatial_vignette.html">Seurat Spatial Vignette Learn</a>. How to perform spatial transcriptomics analysis using the Seurat package.</li>
+                        <li>Quality Control <a href="https://ludvigla.github.io/STUtility_web_site/Quality_Control.html">STUtility</a>. This tutorial focuses on quality control steps for spatial transcriptomics data using the STUtility package.</li>
+                    </ul.a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Download the Raw Data and Code Used in the Paper</h2>
+                    <p>To access the raw data and the code used in the relevant paper, visit the following link: <a href="https://zenodo.org/record/4751624#.Y17sri_pMUF">Zenodo Dataset</a></p>
+                    <br>
+                    <p>These resources will provide you with a comprehensive understanding of spatial transcriptomics and guide you through the analysis process.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Downloads the script from the specified URL and saves it as "add_cranapt_jammy.sh"
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh", 
+              "add_cranapt_jammy.sh")
+Sys.chmod("add_cranapt_jammy.sh", "0755")  # Grants execute permissions (rwxr-xr-x) to the script
+system("./add_cranapt_jammy.sh")  # Executes the downloaded script in the system shell
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Installs various development libraries for text rendering, font management, and cryptographic operations.
+system("apt install libfontconfig1-dev libharfbuzz-dev libfribidi-dev libcairo2-dev libgmp-dev libcurl3-gnutls -y")  
+
+# Installs image processing libraries (JPEG, PNG, TIFF) and the GNU Scientific Library (GSL).
+system("apt install libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev libbz2-dev libgsl-dev gsl-bin -y")  
+
+system("apt update")  # Updates the package list to ensure the latest versions are available.
+
+# Installs ImageMagick development files, required for image manipulation.
+system("apt install libmagick++-dev -y")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Returns details about the installed R version, including major/minor versions, release date, and system architecture.
+R.Version()
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Sets a higher timeout limit to avoid interruptions during package downloads.
+options(timeout=1000)
+
+# Installs the "STUtility" package from GitHub with forced upgrade
+remotes::install_github("jbergenstrahle/STUtility", upgrade=T, force = TRUE)  
+
+# Installs "SPOTlight" from GitHub without upgrading existing dependencies.
+remotes::install_github("https://github.com/MarcElosua/SPOTlight", upgrade=F)  
+
+# Checks if "BiocManager" is installed; if not, installs it
+if (!require("BiocManager", quietly = TRUE))  
+    install.packages("BiocManager", quiet = T)  
+
+# Installs "ReactomePA" for pathway enrichment analysis.
+BiocManager::install("ReactomePA", update = TRUE, quiet = T)  
+
+# Installs "ggpubr", an extension of ggplot2 for easy publication-ready plots
+install.packages("ggpubr")
+
+# Installs "clustree", a package for visualizing cluster trees
+install.packages("clustree", quiet = T)
+
+# Installs the human gene annotation database from Bioconductor
+BiocManager::install("org.Hs.eg.db", update = FALSE, quiet = T)  
+
+# Installs "enrichR" for gene enrichment analysis
+install.packages("enrichR", quiet = T)
+
+# Installs "SingleCellExperiment" for single-cell RNA-seq analysis.
+BiocManager::install('SingleCellExperiment', update = FALSE, quiet = T)
+
+# Installs "hdf5r", used for reading and writing HDF5 files.
+install.packages("hdf5r", quiet = T)
+
+# Installs multiple packages: DT (interactive tables), ggcorrplot (correlation plots), and scatterpie (scatter plots with pie charts).
+install.packages(c('DT','ggcorrplot','scatterpie'), quiet = T)  
+
+# Installs a specific version (1.5-3) of the "Matrix" package directly from CRAN archives.
+install.packages("https://cran.r-project.org/src/contrib/Archive/Matrix/Matrix_1.5-3.tar.gz", repos=NULL, type="source")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Suppresses package loading messages to keep output clean.
+suppressPackageStartupMessages({  
+library(Seurat)  # Single-cell RNA-seq analysis framework.
+library(data.table)  # Efficient handling of large datasets.
+library(ggplot2)  # Grammar of graphics-based visualization.
+library(plotly)  # Interactive visualizations.
+library(RColorBrewer)  # Predefined color palettes.
+library(dplyr)  # Data manipulation package.
+library(STutility)  # Spatial transcriptomics toolkit.
+library(clustree)  # Visualization of cluster resolutions.
+library(ReactomePA)  # Pathway analysis.
+library(org.Hs.eg.db)  # Human gene annotation database.
+library(ggpubr)  # Publication-ready visualizations.
+library(enrichR)  # Gene enrichment analysis.
+library(stringr)  # String manipulation.
+library(patchwork)  # Combine multiple plots.
+library(SingleCellExperiment)  # Framework for single-cell data.
+library(SPOTlight)  # Deconvolution of spatial transcriptomics data.
+})
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Download the data</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Executes shell command and captures output.
+shell_call <- function(command, ...) {  
+  result <- system(command, intern = TRUE, ...) 
+  cat(paste0(result, collapse = "\n"))  # Prints the output in a readable format.
+}
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Prevents timeouts for large downloads.
+options(timeout=1000)
+
+# Downloads a ZIP file containing spatial transcriptomics exercises.
+download.file('https://iauchile-my.sharepoint.com/:u:/g/personal/adolfo_rh_postqyf_uchile_cl/EfjJEURo--BOiy13A9w1FwgBcFnFIUTccVr4F6G-hBcHBg?e=VTLZb7&download=1', 
+              'ST_Exercises.zip')  
+
+# Lists files in the current directory with human-readable file sizes.
+shell_call("ls -lh")
+
+# Unzips the downloaded file.
+shell_call("unzip ST_Exercises.zip")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>RECOVER THE PATHOLOGIST ANNOTATIONS</h2>
+                    <h3>Load the data set</h3>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Loads a Seurat object.
+load(file = "ST_Exercises/Exercise1_dataset.RData")
+# Get some informations about the dataset
+# This command retrieves the current default assay for the Seurat object Her2p
+DefaultAssay(Her2p)
+# Displays the number of features (genes) and cells.
+dim(Her2p)
+# This command generates a frequency table of the ids column in the metadata slot of the Seurat object Her2p.
+table(Her2p@meta.data$ids)
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Quality control (QC) plots</h2>
+                    <p>Create the color palette</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a color palette function using the colorRampPalette function from the grDevices package, and colors from the "Set1" palette from the RColorBrewer package.
+getPalette = colorRampPalette(brewer.pal(8, "Set1"))
+color = getPalette(6)
+VlnPlot(Her2p, # Generates a violin plot
+       features = "nCount_RNA", # Specifies the feature to plot
+       group.by = "ids", # Groups the data by the ids metadata column.
+       pt.size = 0.1, # Sets the size of the points in the plot.
+       cols = color) + # Specifies the colors to use for the different groups.
+  stat_summary(fun.y=mean, geom="point", shape=95, size=15, color = "black") + NoLegend()
+  # Adds a layer to the plot using stat_summary to calculate and display the mean of the feature.
+                </code></pre>
+                </div>
+            </section>
+
+                    <p>Plot the metrics</p>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Violin plot with mean values added.
+VlnPlot(Her2p, features = "nCount_RNA", group.by = "ids", 
+        pt.size = 0.1, cols = color) +
+  stat_summary(fun.y=mean, geom="point", shape=95, 
+              size=15, color = "black") + NoLegend()
+
+# Scatter plot comparing RNA counts to the number of features (genes).
+FeatureScatter(object = Her2p, feature1 = "nCount_RNA", 
+feature2 = "nFeature_RNA", group.by = "ids", cols = color)
+
+# Overlays RNA count distribution on spatial coordinates.
+FeatureOverlay(Her2p, features = c("nCount_RNA"),
+               sampleids = 1:3,
+               pt.size = 2.5,
+               add.alpha = TRUE,
+               ncol = 3, min.cutoff = 0, max.cutoff = 2000)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercice: Save the image to a file
+                </code></pre>
+                </div>
+            </section>
+                    
+                    <h3>NOTE: Normalization, PCA, dimensionality reduction, and UMAP already applied on this object</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Clustering</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display the installed version of the Matrix package
+packageVersion("Matrix")
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Perform the Seurat graph-based clustering
+# Find the nearest neighbors for each cell using Non-negative Matrix Factorization (NMF)
+Her2p <- FindNeighbors(object = Her2p, 
+                      dims = 1:10, # Indicates that the first 10 dimensions from the specified reduction method will be used.
+                     reduction = "NMF", # Specifies that Non-negative Matrix Factorization (NMF) was used as the dimensionality reduction method.
+                     verbose = FALSE) #Suppresses the detailed output
+
+# Specifies a sequence of resolutions ranging from 0 to 2, with an increment of 0.1
+Her2p <- FindClusters(Her2p, resolution = seq(0, 2, by = 0.1),
+                      verbose = FALSE)
+
+# Visualize clustering results at different resolutions using Clustree
+clustree(Her2p, prefix = "SCT_snn_res."))
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Create a UMAP plot grouped by "ids", without cluster labels
+color = getPalette(9) # Generates a vector of 9 colors using the getPalette function defined earlier.
+DimPlot(Her2p, reduction = "umap", label = FALSE, group.by = "ids",
+        pt.size = 2, cols=color, label.size=13)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot only the slide 3 of the patient G
+# Overlay the expression of one or more features onto spatial coordinates.
+FeatureOverlay(Her2p, # The Seurat object containing your data.
+               features = c("SCT_snn_res.0.5"), # Specifies the features to overlay on the spatial coordinates. Clustering resolution 0.5
+               sampleids = 2, # Indicates that only the slide with ID 2 should be used for this plot.
+               pt.size = 3.5,
+               cols = color,
+               add.alpha = TRUE, # Add transparency to points
+               ncol = 1)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot only the 3 slide of the patient G
+FeatureOverlay(Her2p, features = c("SCT_snn_res.0.4"),
+               sampleids = 1:3, # Use slides 1 to 3
+               pt.size = 3.5,
+               cols = color,
+               add.alpha = TRUE,
+               ncol = 3) # Arrange plots in 3 columns
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercice: Save the image to a file
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot the clusters without the HE
+ST.FeaturePlot(object = Her2p, features = "SCT_snn_res.0.4", 
+               cols = color, pt.size = 4, ncol = 3)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Split the view for each cluster
+ST.FeaturePlot(object = Her2p, features = "SCT_snn_res.0.4", pt.size = 4,
+               split.labels = T, # Split visualization by cluster labels
+               indices = 2, # Select a specific set of indices
+               show.sb = FALSE, # Hide scale bars
+               ncol = 4, 
+               cols = color)
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Differentially expressed genes</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+DefaultAssay(Her2p) # Checks the active assay for the Seurat object Her2p
+Idents(Her2p) <- "SCT_snn_res.0.4" # Sets the identity class for the Seurat object Her2p based on the clustering resolution "SCT_snn_res.0.4".
+
+# Comparison of all clusters vs all clusters
+Her2p.markers <- FindAllMarkers(object = Her2p, # Identify DEGS in Her2p
+                                only.pos = TRUE, # Only positive markers genes that are upregulated in the cluster
+                                min.pct = 0.10, # Genes must be expressed in at least 10% of cells in either of the two groups being compared
+                                logfc.threshold = 0.10) # Set threshold for identifying DEGs
+
+# Filter markers with an adjusted p-value < 0.05
+Her2p.markers = Her2p.markers[which(Her2p.markers$p_val_adj<0.05),] # Filters the identified markers to retain only those with an adjusted p-value
+
+# Count the number of DEGs per cluster
+table(Her2p.markers[, "cluster"]) #How many DEGs per cluster ?
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Select the top 10 DEG of each cluster
+Her2p.markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_log2FC) -> top10
+
+# Generate a dot plot for the selected genes
+DotPlot(Her2p, features = unique(top10$gene), 
+        group.by = "SCT_snn_res.0.4", cols = c('#b8d8d8', '#e71d36'),
+        dot.scale = 6, col.min = 0) + 
+        theme(axis.text.x = element_text(face = "bold", color = c("black"), 
+        size = 15,angle = 90))
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+#Exercice: Save the image to a file
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot key genes in the ridge plot
+RidgePlot(Her2p, assay = "SCT", 
+          features = c("IFI27","IFI6"), # Genes of interest
+          ncol = 2, group.by = "SCT_snn_res.0.4", 
+          cols = color)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# UMAP and Heatmap visualization
+# Define color gradient for heatmap
+heatmap.colors <- c("lightgray", "mistyrose", "red", "darkred", "black")
+fts <- c("EPN2", "AGR3") # List of genes to visualize
+# Generate UMAP plots for selected features
+p.fts <- lapply(fts, function(ftr) {
+  FeaturePlot(Her2p, features = ftr, reduction = "umap", order = TRUE, cols = heatmap.colors, pt.size = )
+})
+# Ṕlot transformed features expression on Visium coordinates
+p3 <- ST.FeaturePlot(Her2p, features = fts, ncol = 2, grid.ncol = 1, cols = heatmap.colors, pt.size = 2, show.sb = FALSE)
+# Combine all plots into one figure
+cowplot::plot_grid(cowplot::plot_grid(plotlist = p.fts, ncol = 1), p3, ncol = 2, rel_widths = c(1, 1.3))
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate a violin plot for the expression of the genes "EPN2" and "AGR3"  
+# in the Seurat object 'Her2p', grouping by the clustering resolution "SCT_snn_res.0.4".  
+VlnPlot(Her2p, features = c("EPN2", "AGR3"),   
+        group.by = "SCT_snn_res.0.4", # Define grouping variable (cluster resolution 0.4)  
+        pt.size = 0,  # Set point size to 0 to avoid plotting individual points  
+        cols = color, # Use predefined colors for groups  
+        ncol = 2) +  # Arrange plots in two columns  
+
+  # Overlay a summary statistic (mean) as a horizontal bar  
+  stat_summary(fun.y = mean, geom = "point", shape = 95,   
+               size = 15, color = "black") +  
+
+  # Remove the legend from the plot  
+  NoLegend()  
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>3D visualization</h2>
+
+                    <h3>It doesn't run in colab</h3>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Update image paths in the Seurat object
+Her2p@tools$Staffli@imgs <- gsub("//", "/", Her2p@tools$Staffli@imgs)
+Her2p@tools$Staffli@imgs <- gsub("../data/", "ST_Exercises/her2st-master/data/", Her2p@tools$Staffli@imgs)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate a 3D stack of spatial transcriptomics data
+Her2p <- Create3DStack(Her2p)
+
+# Extract scatter plot data for spatial visualization
+stack_3d <- setNames(GetStaffli(Her2p)@scatter.data, c("x", "y", "z", "grid.cell"))
+
+# Visualize the spatial distribution of points across z-sections
+ggplot(stack_3d, aes(x, 2e3 - y)) +
+  geom_point(size = 0.1, color = "gray") +
+  facet_wrap(~z, ncol = 1) +
+  theme_void()
+
+# Interpolate data for 3D visualization of gene expression
+interpolated.data <- FeaturePlot3D(Her2p, features = "IFI6", return.data = TRUE)
+
+# Plot interpolated gene expression levels
+ggplot(interpolated.data, aes(x, 2e3 - y, color = val)) +
+  geom_point(size = 0.1) +
+  facet_wrap(~z, ncol = 1) +
+  theme_void() +
+  ggtitle("IFI6") +
+  scale_color_gradientn(colours = c("black", "dark blue", "cyan", "yellow", "red", "dark red"))
+
+# 3D visualization based on HE nuclei estimation
+FeaturePlot3D(Her2p, features = "IFI6", pt.size = 1.6, pts.downsample = 5e4)
+
+# Uncomment below to visualize clusters in 3D using HSV plot
+# selected.factors <- paste0("factor_", c(1:10))
+# HSVPlot3D(Her2p, features = selected.factors, pt.size = 3, add.margins = 1, mode = "spots")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Gene Ontology (GO) Terms</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Select differentially expressed genes (DEGs) from cluster 6
+geneList = Her2p.markers[which(Her2p.markers$cluster == 6), "gene"]
+length(geneList)  # Print the number of selected genes
+
+# Convert Gene Symbols to Entrez IDs
+columns(org.Hs.eg.db)  # Display available conversion columns in the annotation database
+
+symbol <- mapIds(org.Hs.eg.db,
+                 keys = geneList,      # List of gene symbols to convert
+                 column = "ENTREZID",  # Convert to Entrez IDs
+                 keytype = "SYMBOL",   # Input type: gene symbol
+                 multiVals = "first")  # In case of multiple matches, take the first
+
+symbol = as.vector(symbol)  # Convert to vector format
+
+# Remove genes with missing Entrez IDs
+geneList = symbol
+geneList = geneList[which(geneList != "NA")]
+length(geneList)  # Print the number of genes after filtering
+
+# Perform pathway enrichment analysis using ReactomePA
+x <- enrichPathway(gene = geneList, 
+                   organism = "human", 
+                   pvalueCutoff = 0.05, 
+                   readable = TRUE, 
+                   pAdjustMethod = "bonferroni")
+
+head(as.data.frame(x))  # Show the first few results
+
+# Order results by adjusted p-value (ascending)
+x@result = x@result[order(x@result$p.adjust, decreasing = FALSE),]
+
+# Select the top 30 most significant pathways
+x@result = x@result[1:30,]
+
+# Order pathways by the number of genes involved (ascending)
+x@result = x@result[order(x@result$Count, decreasing = FALSE),]
+
+# Store the ordered results in a new data frame
+newbar.dt = x@result
+
+# Create a bar plot of enriched pathways
+cluster6_enrichpathway <- ggbarplot(newbar.dt, x = "Description", y = "Count",
+          fill = "Count",  # Color bars based on the count of genes
+          color = "white",  # Set bar border colors to white
+          sort.val = "asc",  # Sort by value in ascending order
+          sort.by.groups = FALSE,  # Do not sort within each group
+          x.text.angle = 90,  # Rotate x-axis labels for better visibility
+          xlab = "Pathways",
+          ylab = "Number of genes",
+          legend.title = "Counts",
+          rotate = TRUE,
+          ggtheme = theme_minimal()
+) + scale_fill_continuous(low = "#bde0fe", high = color[4]) + 
+  theme(text = element_text(size = 20))
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Pathways analysis with EnrichR</h2>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# List available databases in EnrichR
+listEnrichrSites()
+dbs <- listEnrichrDbs()
+
+# Sort the databases by name
+dbs %>% dplyr::arrange(libraryName)
+
+# Select specific pathway databases for enrichment analysis
+dbs <- c("Cancer_Cell_Line_Encyclopedia",
+         "Elsevier_Pathway_Collection",
+         "KEGG_2021_Human",
+         "CellMarker_Augmented_2021",
+         "Reactome_2016",
+         "GO_Biological_Process_2018",
+         "GO_Cellular_Component_2018",
+         "GO_Molecular_Function_2018",
+         "InterPro_Domains_2019")
+
+# EnrichR requires gene symbols (not Ensembl IDs)
+geneList = Her2p.markers[which(Her2p.markers$cluster == 6), "gene"]
+length(geneList)  # Print the number of selected genes
+
+# Perform enrichment analysis with EnrichR
+enriched.Paths <- enrichr(geneList, dbs)
+
+# Display results from selected databases
+enriched.Paths[[1]]  # Cancer_Cell_Line_Encyclopedia
+enriched.Paths[[2]]  # Elsevier_Pathway_Collection
+enriched.Paths[[3]]  # KEGG_2021_Human
+enriched.Paths[[4]]  # CellMarker_Augmented_2021
+enriched.Paths[[5]]  # Reactome_2016
+enriched.Paths[[6]]  # GO_Biological_Process_2018
+enriched.Paths[[7]]  # GO_Cellular_Component_2018
+enriched.Paths[[8]]  # GO_Molecular_Function_2018
+enriched.Paths[[9]]  # InterPro_Domains_2019
+
+# Select the pathway results from CellMarker_Augmented_2021
+Rpath = enriched.Paths[[4]]
+
+# Count the number of genes per pathway
+Gene_Count = c()
+for(x in 1:dim(Rpath)[1]){
+  Gene_Count = c(Gene_Count, str_split(Rpath$Overlap[x], pattern = "/" )[[1]][1])
+}
+
+Rpath$Gene_Count = as.numeric(Gene_Count)
+
+# Order by adjusted p-value (ascending)
+Rpath = Rpath[order(Rpath$Adjusted.P.value, decreasing = FALSE),]
+
+# Filter significant pathways (adjusted p-value < 0.05)
+Rpath = Rpath[Rpath$Adjusted.P.value < 0.05,]
+
+# Select top 20 pathways
+Rpath = Rpath[1:20,]
+
+# Order pathways by gene count (descending)
+Rpath = Rpath[order(Rpath$Gene_Count, decreasing = TRUE),]
+
+# Create a bar plot of enriched pathways
+cluster6_enrichR <- ggbarplot(Rpath, x = "Term", y = "Gene_Count",
+          fill = "Gene_Count",  # Color bars based on gene count
+          color = "white",  # Set bar border colors to white
+          sort.val = "asc",  # Sort by value in ascending order
+          sort.by.groups = FALSE,  # Do not sort within each group
+          x.text.angle = 90,  # Rotate x-axis labels for better visibility
+          xlab = "Pathways",
+          ylab = "Number of genes",
+          legend.title = "Counts",
+          rotate = TRUE,
+          ggtheme = theme_minimal()
+) + scale_fill_continuous(low = "#bde0fe", high = color[4]) + 
+  theme(text = element_text(size = 18))
+
+# Display the plot
+cluster6_enrichR
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>CELL TYPES DECONVOLUTION</h2>
+                    <h3>Load the SC dataset</h3>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load scRNA-seq dataset
+SC.data = readRDS("ST_Exercises/scRNASeq_pac2_processed.rds")
+
+# Set cell identities based on cell type
+Idents(SC.data) = "cellType"
+
+# UMAP visualization of cell types
+DimPlot(object = SC.data, reduction = 'umap', label = TRUE, label.size = 6,
+        group.by = "cellType", pt.size = 1.5)
+
+# Identify DEGs across all clusters
+SC.markers <- FindAllMarkers(object = SC.data, only.pos = TRUE, min.pct = 0.10, logfc.threshold = 0.10) 
+# min.pct = 0.10: This argument sets the minimum percentage of cells expressing the gene to 10%.
+# logfc.threshold = 0.10: This sets the minimum log fold change threshold to 0.10 for a gene to be considered a marker.
+
+SC.markers = SC.markers[which(SC.markers$p_val_adj < 0.05 & SC.markers$avg_log2FC > 0.5),]
+# SC.markers$p_val_adj < 0.05: This condition selects markers with an adjusted p-value less than 0.05, meaning they are statistically significant.
+# SC.markers$avg_log2FC > 0.5: This condition selects markers with an average log2 fold change greater than 0.5
+
+# Count number of DEGs per cluster
+table(SC.markers$cluster)
+
+DefaultAssay(SC.data) # it returns the name of the assay currently set as the default for the Seurat object
+
+# Load 10X Visium FFPE sample
+SP = Load10X_Spatial(data.dir = "ST_Exercises/10X_Spatial_T_Breast_Block_A_Section1",
+                     filename = "V1_Breast_Cancer_Block_A_Section_1_filtered_feature_bc_matrix.h5")
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>QC plots and Normalization</h2>
+                    <p>Normalization is a crucial preprocessing step in scRNA-seq data analysis. It involves adjusting the raw gene expression data to account for technical variations and differences in sequencing depth across cells. These comparisons should help to understand the strengths and weaknesses of each normalization method</p>
+                    <br>
+                    <p>Method of Normalization</p>
+                    <br>
+                    <ul.a>
+                        <li>SCTransform: A more advanced method that uses negative binomial regression to remove technical variability and stabilize variance, providing a robust normalization for single-cell data</li>
+                        <li>Log-Normalization: Scales gene expression values and applies a log transformation, which helps in stabilizing the variance and making the data more suitable for downstream analysis.</li>
+                        <br>
+                        <p>Removal of Technical Variability</p>
+                        <br>
+                        <li>SCTransform: More robust in removing technical variability, making it ideal for datasets with significant variation.</li>
+                        <li>NormalizeData: Effective but less sophisticated than SCTransform in handling technical variability.</li>
+                        <br>
+                        <p>Complexity and Execution Time</p>
+                        <br>
+                        <li>SCTransform: More complex and time-consuming due to the regression calculations and variance-stabilizing transformation.</li>
+                        <li>NormalizeData: Simpler and faster, making it suitable for quick analyses and large datasets.</li>
+                        <br>
+                        <p>Handling Covariates</p>
+                        <br>
+                        <li>SCTransform: Allows for the inclusion of covariates (e.g., number of genes detected per cell) for regression, improving the quality of normalized data.</li>
+                        <li>NormalizeData: Does not typically incorporate covariates directly in the normalization process.</li>
+                        <br>
+                        <p>Variance Stabilization</p>
+                        <br>
+                        <li>SCTransform: Stabilizes variance, making the data more suitable for downstream analyses like clustering and marker identification.</li>
+                        <li>NormalizeData: Uses log-transformation to partially stabilize variance but not as effectively as SCTransform.</li>
+                        <br>
+                        <p>Flexibility</p>
+                        <br>
+                        <li>SCTransform: Primarily focused on handling single-cell RNA-seq data with robust normalization methods.</li>
+                        <li>NormalizeData: Flexible with different normalization methods (e.g., LogNormalize), allowing adjustments based on the specific needs of the analysis.</li>
+                        <br>
+                        <p>Scalability</p>
+                        <br>
+                        <li>SCTransform: Can handle large datasets but may be slower due to its complexity.</li>
+                        <li>NormalizeData: Efficiently handles large datasets due to its simplicity and speed.</li>
+                    </ul.a>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Plot number of reads per spatial spot
+plot1 <- VlnPlot(SP, features = "nCount_Spatial", pt.size = 0.1) + NoLegend() # create a violin plot
+plot2 <- SpatialFeaturePlot(SP, features = "nCount_Spatial") + theme(legend.position = "right") # Generates a spatial feature plot for the Seurat object
+wrap_plots(plot1, plot2) # This function from the patchwork package combines multiple plots (plot1 and plot2) into a single unified layout
+
+# Normalize data using SCTransform
+SP <- SCTransform(SP, assay = "Spatial", verbose = FALSE, return.only.var.genes = FALSE)
+
+# Normalize data using LogNormalize with a scale factor
+SP <- NormalizeData(object = SP, assay = "Spatial", normalization.method = "LogNormalize", 
+                    scale.factor = median(SP@meta.data$nCount_Spatial))
+
+# Compare normalization methods (LogNormalize vs SCTransform)
+SP <- GroupCorrelation(SP, group.assay = "Spatial", assay = "Spatial", slot = "data", do.plot = FALSE)
+SP <- GroupCorrelation(SP, group.assay = "Spatial", assay = "SCT", slot = "scale.data", do.plot = FALSE)
+
+# Generate comparison plots
+p1 <- GroupCorrelationPlot(SP, assay = "Spatial", cor = "nCount_Spatial_cor") + ggtitle("Log Normalization")
+p2 <- GroupCorrelationPlot(SP, assay = "SCT", cor = "nCount_Spatial_cor") + ggtitle("SCTransform Normalization")
+
+# Display both plots side by side
+p1 + p2
+                </code></pre>
+                </div>
+            </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Deconvolution Pipeline</h2>
+                    <p>Deconvolution is a computational technique used to infer and quantify the proportions of different cell types within a mixed population of cells. Since scRNA-seq data often come from complex tissues containing multiple cell types, deconvolution helps to identify and isolate the gene expression profiles specific to each cell type within the mixture.</p>
+                    <br>
+                    <p>Why is Deconvolution Important?</p>
+                    <br>
+                    <ul.a>
+                        <li>Identifying Cell Types: Deconvolution enables researchers to determine the presence and abundance of various cell types in a heterogeneous tissue sample.</li>
+                        <li>Understanding Cellular Composition: It helps to elucidate the cellular composition of tissues, revealing how different cell types contribute to biological processes and disease states.</li>
+                        <li>Improving Data Interpretation: By separating the gene expression signals of different cell types, deconvolution enhances the accuracy and interpretability of scRNA-seq data, leading to more precise biological insights.</li>
+                    </ul.a>
+                    
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Install required R packages (only run this if they are not installed)
+install.packages(c('DT', 'ggcorrplot', 'scatterpie'))
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Convert Seurat object to a SingleCellExperiment (SCE) object
+spe = SP  # Spatial transcriptomics dataset
+sce = as.SingleCellExperiment(SC.data)  # Convert scRNA-seq data to SCE format
+
+# Define highly variable genes (HVGs) using differentially expressed genes (DEGs)
+hvg = unique(SC.markers$gene)  # Select unique DEGs
+colLabels(sce) <- colData(sce)$cellType  # Assign cell type labels to the SCE object
+
+# Downsample cells to a maximum of 100 per cell identity
+# This avoids overrepresentation of any particular cell type
+idx <- split(seq(ncol(sce)), sce$cellType)  # Split cell indices by identity
+n_cells <- 100  # Define maximum number of cells per type
+
+cs_keep <- lapply(idx, function(i) {
+  n <- length(i)
+  if (n < n_cells)  # If a cell type has fewer than 100 cells, use all of them
+    n_cells <- n
+  sample(i, n_cells)  # Randomly sample cells
+})
+
+sce <- sce[, unlist(cs_keep)]  # Subset the dataset with the downsampled cells
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Perform spatial transcriptomics deconvolution using SPOTlight
+res <- SPOTlight(
+  x = sce,  # scRNA-seq reference dataset
+  y = spe@assays$SCT@counts,  # Spatial transcriptomics counts (SCT normalized)
+  groups = sce$cellType,  # Cell type annotations from scRNA-seq
+  mgs = SC.markers,  # Marker genes from scRNA-seq analysis
+  hvg = hvg,  # Highly variable genes (DEGs)
+  weight_id = "avg_log2FC",  # Weight based on log2 fold change
+  group_id = "cluster",  # Cluster information
+  gene_id = "gene"  # Gene column identifier
+)
+
+# Extract the resulting deconvolution matrix
+head(mat <- res$mat)[, seq_len(3)]  # Display first rows and first 3 columns
+
+# Check spatial transcriptomics metadata
+head(spe@meta.data)
+
+# Extract the Non-Negative Matrix Factorization (NMF) model fit
+mod <- res$NMF
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display structure of the deconvolution matrix
+str(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Evaluate how specific each topic signature is for each cell identity
+plotTopicProfiles(
+  x = mod,  # NMF model from SPOTlight
+  y = sce$cellType,  # Cell type labels from scRNA-seq
+  facet = FALSE,  # Show all in a single plot
+  min_prop = 0.01,  # Minimum proportion to be plotted
+  ncol = 1  # Number of columns in the plot
+) +
+  theme(aspect.ratio = 1)  # Maintain aspect ratio
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Ensure that all cells from the same cell identity share a similar topic profile
+plotTopicProfiles(
+  x = mod,  # NMF model
+  y = sce$cellType,  # Cell type labels
+  facet = TRUE,  # Separate plots for each cell type
+  min_prop = 0.01,  # Minimum proportion threshold
+  ncol = 4  # Arrange plots in a grid with 4 columns
+)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Extract the basis matrix from the NMF model
+# This matrix indicates which genes are most relevant for each topic
+sign <- NMF::basis(mod)
+colnames(sign) <- paste0("Topic", seq_len(ncol(sign)))  # Rename columns
+
+# Display the first few rows of marker genes for each topic
+head(sign)
+
+# Create an interactive table for exploring marker genes per topic
+DT::datatable(sign, fillContainer = TRUE, filter = "top")
+
+# Generate a spatial correlation matrix between cell types
+plotCorrelationMatrix(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Cell type names
+ct <- colnames(mat)
+
+# Set a threshold to filter out low proportions
+mat[mat < 0.1] <- 0
+
+# Define a color palette for cell types
+paletteMartin <- c("#000000", "#004949", "#009292", "#ff6db6", "#ffb6db", 
+                   "#490092", "#006ddb", "#b66dff", "#6db6ff", "#b6dbff", 
+                   "#920000", "#924900", "#db6d00", "#24ff24", "#ffff6d")
+
+# Create a gradient palette using the defined colors
+pal <- colorRampPalette(paletteMartin)(length(ct))
+names(pal) <- ct  # Assign colors to each cell type
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Convert the deconvolution matrix to a standard matrix format
+m2 = as.matrix(mat)
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Generate spatial transcriptomics plot with pie charts for cell proportions
+plotSpatialScatterpie(
+  x = spe,  # Spatial transcriptomics object
+  y = mat,  # Deconvolution results (cell type proportions)
+  cell_types = unique(sce$cellType),  # Unique cell types
+  img = FALSE,  # Do not overlay histology image
+  scatterpie_alpha = 1,  # Full opacity
+  pie_scale = 0.4  # Adjust pie chart size
+) +
+  scale_fill_manual(
+    values = pal,  # Assign colors to cell types
+    breaks = names(pal)  # Keep legend labels consistent
+  )
+                </code></pre>
+                </div>
+            </section>
+
+                    <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Save the spatial pie chart as a PDF file
+ggsave("Deconvolution.pdf", width = 12, height = 12)
+                </code></pre>
+                </div>
+            </section>
+
+                    <br>
+
+                </div>
+            </div>
+        </section>
+
+<!--Top Button -->
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+          <!--Foootnote-->
+<footer class="footer bg-dark">
+<div class="container">
+
+
+<!-- Institutions -->
+<div class="footer-logos">
+        <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
+        <img src="../../../images/uchile.png" alt="chile">
+        <img src="../../../images/accdis.png" alt="UTEM">
+        <img src="../../../images/utem.png" alt="SUS">
+</div>
+</div>
+</footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>

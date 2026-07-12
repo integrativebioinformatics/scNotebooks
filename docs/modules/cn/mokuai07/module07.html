@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Single Cell Learn</title>
+        <link rel="stylesheet" href="../../../css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <a href="../../../index.html">
+                        <img src="../../../images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="main-menu">
+                    <ul>
+                        <li>
+                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../pt/modulo07/modulo07.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="btn" href="../../es/cuaderno07/cuaderno07.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Hamburguer Button -->
+                 <button class="hamburger-button">
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                    <div class="hamburguer-line"></div>
+                 </button> 
+                 <div class="mobile-menu"> 
+                    <ul>
+                        <li>
+                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
+                        </li>
+                        <li>
+                            <a class="" href="#">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../pt/modulo07/modulo07.html">Português</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../es/cuaderno07/cuaderno07.html">
+                                Español
+                            </a>
+                        </li>
+                    </ul>
+                 </div>
+            </div>
+        </nav>
+        <!-- Hero Modules -->
+        <section class="hero-modules">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-heading text-xl">
+                        Deciphering cell-cell communication in single-cell transcriptomics data
+                    </h1>
+                    <p class="hero-text">
+                        Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit signals, exchange information, and coordinate their behaviors, ultimately contributing to essential biological processes such as development, immune response, and tissue homeostasis. In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
+                    </p>
+                    <br>
+                <hr/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Install the required libraries</h2>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Download a shell script to add CRAN repositories to Ubuntu Jammy
+download.file("https://github.com/eddelbuettel/r2u/raw/master/inst/scripts/add_cranapt_jammy.sh",
+              "add_cranapt_jammy.sh")
+# Change the file permission to make it executable
+Sys.chmod("add_cranapt_jammy.sh", "0755")
+# Execute the shell script
+system("./add_cranapt_jammy.sh")
+
+# Enable Binary Package Manager (bspm) to manage system and CRAN packages
+bspm::enable()
+options(bspm.version.check=FALSE)
+                </code></pre>
+
+                <p>We will create an R function to performs system calls</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Define a function to execute shell commands and print the output
+shell_call <- function(command, ...) {
+  result <- system(command, intern = TRUE, ...)
+  cat(paste0(result, collapse = "\n"))
+}
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Install required libraries</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Install required R packages
+install.packages("R.utils")
+# Install Seurat Wrappers from GitHub (commented out)
+# remotes::install_github('satijalab/seurat-wrappers@d28512f804d5fe05e6d68900ca9221020d52cf1d', upgrade=F)
+
+# Install BiocManager if not already installed
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager", quiet = T)
+
+# Install Harmony and LIANA from GitHub
+install.packages("harmony")
+remotes::install_github('saezlab/liana', upgrade=F)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Introduction</h2>
+                
+                <p>LIANA (Ligand-Receptor Inference Analysis) offers a variety of statistical methods to infer ligand-receptor interactions from single-cell transcriptomic data, using prior knowledge. This notebook aims to demonstrate how to use LIANA in a basic way with our data of interest.</p>
+                <br>
+                <p>Steps for Using LIANA:</p>
+                <ul.a>
+                    1. Data Preparation:
+                    <li>Upload your single-cell transcriptomic data in the appropriate format.</li>
+                    <li>Make sure the data is normalized and annotated correctly.</li>
+
+                    2. LIANA Installation and Import:
+                    <li>Install the LIANA package, if it is not already installed, using the command pip install liana.</li>
+                    <li>Import the package into your notebook with import liana.</li>
+                    3. LIANA Configuration:
+                    <li>Set the parameters required for the analysis, such as the cell type and signaling pathways of interest.</li>
+                    <li>Use LIANA-specific functions to define the ligand-receptor interactions you want to investigate.</li>
+                    4. Analysis Execution:
+                    <li>Perform the analysis using the statistical methods available in LIANA.</li>
+                    <li>Analyze results to identify significant interactions between ligands and receptors in your samples.</li>
+                    5. Result Interpretation:
+                    <li>Visualize results using built-in visualization tools or export data for further analysis.</li>
+                    <li>Interpret identified interactions in the biological context of your study.</li>
+                </ul.al>
+
+                <section class="video">
+                <div class="container-md">
+                    <div class="video-content">
+                            <img src="liana.png" alt="video" class="video-preview">
+                    </div>
+                </div>
+                </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Install the Seurat package for single-cell analysis
+install.packages("Seurat")
+                </code></pre>
+                </div>
+            </section>
+
+
+                
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Load necessary libraries for data manipulation and analysis
+library(tidyverse)  # Collection of packages for data science
+library(magrittr)   # Pipe operator
+library(liana)      # Cell-cell communication analysis
+library(Seurat)     # Single-cell RNA-seq analysis
+                </code></pre>
+                </div>
+            </section>
+
+                <p>In this section, we will showcase all the methods implemented by LIANA from various tools. Each method infers relevant ligand-receptor interactions based on different assumptions. Typically, each method returns two scores for each ligand-receptor pair:</p>
+                <br>
+                <p><b>1.</b>Magnitude (Strength) Score: This score indicates the strength of the interaction.</p>
+                <p><b>2.</b>Specificity Score: This score reflects how specific the interaction is to a given pair of cell identities.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Show available methods in the current R session
+show_methods()
+                </code></pre>
+                </div>
+            </section>
+
+                <p>The different resources of ligand-receptor interactions can be found here. The consensus integrates all the other resources.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Show available resources in the current R session
+show_resources()
+                </code></pre>
+                </div>
+            </section>
+
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Loading data</h2>
+
+                <p>Here we load our data of interest to study cell-cell communicaton.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Download the COVID-19 dataset (RDS file) from Dropbox
+download.file("https://www.dropbox.com/scl/fi/1ysew52kr8o2riahzubcw/BALF-COVID19-Liao_et_al-NatMed-2020.rds?rlkey=tg3tpn8la6oth25wvx3a22qt9&dl=1", "COVID.rds")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Read the RDS file into a variable called 'testdata'
+testdata <- readRDS('COVID.rds')
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display an overview of the 'testdata' structure
+testdata %>% dplyr::glimpse()
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# This specific condition 'group == "S" ' is being used to filter the rows. Only those rows where the group column value is equal to "S" will be included in the subset.
+testdata <- subset(x = testdata, subset = group == "S")
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# This function is used to get or set the identifiers of an object. The new columm is named "celltype"
+Idents(testdata) <- "celltype"
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Normalize the single-cell RNA-seq data using Seurat
+testdata <- Seurat::NormalizeData(testdata, verbose = FALSE)
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+    # Display the structure of the processed dataset
+testdata %>% dplyr::glimpse()
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2>Running LIANA</h2>
+                <p>To run LIANA, you can choose from any of the methods it supports. In this example, we will use the <a href="https://www.nature.com/articles/s41596-020-0292-x">CellPhoneDB</a> implementation.</p>
+                <br>
+                <p>The <span class="code-inline-light">liana_wrap</span> function invokes multiple methods, each operating with the provided resource(s). If no specific method is specified, liana_wrap will execute all methods implemented in LIANA. Additionally, the consensus resource is used by default.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+cpdb_result <- liana_wrap(testdata, # This function of the LIANA package is used to perform cell-cell interaction analyses using different methods
+                          method = 'cellphonedb',
+                          resource = c('CellPhoneDB'), # Specifies that the CellPhoneDB method will be used
+                          permutation.params = list(nperms=100, # Defines the permutation parameters. nperms=100: Number of permutations
+                                                    parallelize=FALSE, # Indicates whether execution should be parallelized
+                                                    workers=4), # Number of workers to use if execution were parallelized
+                          expr_prop=0.05) # Minimum proportion of expression to consider an interaction as valid
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display the structure of the CellPhoneDB interaction results
+dplyr::glimpse(cpdb_result)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>To run LIANA using multiple methods simultaneously, you can specify the desired methods in the <span class="code-inline-light">method</span> parameter. In this example, we will use CellPhoneDB, NATMI, SingleCellSignalR (sca), and the logFC approach.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Run a more complex interaction analysis using multiple methods
+complex_test <- liana_wrap(testdata,
+                           method = c('cellphonedb', 'natmi', 'sca', 'logfc'),
+                           resource = c('CellPhoneDB'))  # Use CellPhoneDB resource
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display the structure of the complex interaction results
+dplyr::glimpse(complex_test)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>One of the key features of LIANA is that it can compute a consensus ranking of the prediction of all methods employed to analyze cell-cell communication. By using the function <span class="code-inline-light">liana_aggregate()</span> we can use all the results from every method used in the previous step.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Aggregate interaction results across multiple methods
+liana_consensus <- complex_test %>% liana_aggregate()
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Display the structure of the aggregated interaction results
+dplyr::glimpse(liana_consensus)
+                </code></pre>
+                </div>
+            </section>
+            </div>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2">Visualization and interpretation</h2>
+                <p>Dotplots can be generated to easily interpret important ligand-receptor pairs used by sender-receiver cell pairs.</p>
+                <br>
+                <p>Here, we preprocess the results of CellPhoneDB, then plot them. A filter to use only significant cases is applied (P-value < 0.05).</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+cpdb_int <- cpdb_result %>%
+  # Only keep interactions with p-val <= 0.05
+  filter(pvalue <= 0.05) %>% # This reflects interactions `specificity`
+  rank_method(method_name = "cellphonedb", mode = "magnitude") %>% # Then rank according to `magnitude` (lr_mean in this case)
+  distinct_at(c("ligand.complex", "receptor.complex")) %>% # Keep top 20 interactions (regardless of cell type)
+  head(20)  
+                </code></pre>
+                </div>
+            </section>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Options(repr.plot.height = 12, repr.plot.width = 9)
+# Plot cell-cell interactions using LIANA's dotplot function
+scPlot <- cpdb_result %>%  
+          inner_join(cpdb_int, # Keep only the interactions of interest
+                    by = c("ligand.complex", "receptor.complex")) %>%  # Invert size (low p-value/high specificity = larger dot size), add a small value to avoid Infinity for 0s
+          mutate(pvalue = -log10(pvalue + 1e-10)) %>% # Transforms the p-value by taking the negative log10
+          liana_dotplot(source_groups = c("Epithelial"), # Creates a dot plot for the specified source and target groups, and specifies the source group
+                        target_groups = c("Macrophages", "NK", "B", "T", "Neutrophil"), # Specifies the target groups.
+                        specificity = "pvalue", # Uses the p-value for dot size specification.
+                        magnitude = "lr.mean", # Uses the mean log ratio for the dot color
+                        show_complex = TRUE,
+                        size.label = "-log10(p-value)") + theme(axis.text.x = element_text(angle = 90))
+scPlot
+# Save the plot as an image file
+ggsave("01-liana_dotplot.png", plot = scPlot, bg = "white", dpi = 600, width = 16, height = 9)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Similarly, we can explore the consensus results.</p>
+
+            <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Options(repr.plot.height = 12, repr.plot.width = 9)
+# Plot top 20 interactions from aggregated LIANA results
+scPlot <- liana_consensus %>%
+          liana_dotplot(source_groups = c("Macrophages"),
+                        target_groups = c("Macrophages", "NK", "B", "T", "Neutrophil"),
+                        ntop = 20) + theme(axis.text.x = element_text(angle = 90))
+scPlot
+# Save the plot
+ggsave("02-liana_dotplot.png", plot = scPlot, bg = "white", dpi = 600, width = 16, height = 9)
+                </code></pre>
+                </div>
+            </section>
+
+                <p>Overall potential of cells to communicate can be computed. Here, we can count the number of significant/important interactions. Then, they can be visualized through a heatmap.</p>
+                <br>
+                <p>Similarly, we can compare the CellPhoneDB vs consensus results.</p>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Filter interactions with p-value ≤ 0.05 and plot frequency heatmap
+liana_trunc <- cpdb_result %>% filter(pvalue <= 0.05)
+
+# Generate and save heatmap
+# png("03-heat_freq.png", bg = "white")
+heat_freq(liana_trunc)
+# dev.off()
+                </code></pre>
+                </div>
+            </section>
+
+                <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+# Filter consensus interactions with aggregate rank ≤ 0.01 and plot heatmap
+liana_trunc <- liana_consensus %>% filter(aggregate_rank <= 0.01)
+
+# Generate and save heatmap
+# png("04-heat_freq.png", bg = "white")
+heat_freq(liana_trunc)
+# dev.off()
+                </code></pre>
+                </div>
+            </section>
+        </section>
+
+        <section class="hero-modules">
+            <div class="container">
+                <h2">Extra questions:</h2>
+                <ul.a>
+                    <li>How different are the results between two methods of your choice?</li>
+                    <li>Why can this happen?</li>
+                </ul.a>
+                <br>
+            </div>
+
+            
+        </section>
+
+<!--Top Button -->
+<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
+          <!--Foootnote-->
+<footer class="footer bg-dark">
+<div class="container">
+
+
+<!-- Institutions -->
+<div class="footer-logos">
+        <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
+        <img src="../../../images/uchile.png" alt="chile">
+        <img src="../../../images/accdis.png" alt="UTEM">
+        <img src="../../../images/utem.png" alt="SUS">
+</div>
+</div>
+</footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script src="../../../js/main.js"></script>
+    </body>
+</html>
