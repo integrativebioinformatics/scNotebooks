@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zn-cn">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +27,9 @@
                             <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
                         </li>
                         <li>
+                            <a class="btn" href="../../en/module01/module01.html">English</a>
+                        </li>
+                        <li>
                             <a class="btn" href="../../pt/modulo01/modulo01.html">Português</a>
                         </li>
                         <li>
@@ -48,6 +51,9 @@
                             <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
                         </li>
                         <li>
+                            <a href="../../en/module01/module01.html">English</a>
+                        </li>
+                        <li>
                             <a href="../../pt/modulo01/modulo01.html">Português</a>
                         </li>
                         <li>
@@ -67,10 +73,10 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-heading text-xl">
-                        Introduction to Notebooks and Databases
+                        笔记本与数据库介绍
                     </h1>
                     <p class="hero-text">
-                        This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.
+                        本模块介绍了 Jupyter Notebooks 和 Google Colaboratory，探讨它们的功能与结构，包括代码单元和文本单元。此外，我们还涵盖了用于单细胞数据的关键公共数据库，以及其他包含人类和其他生物基因表达信息的数据库。为了提升学习效果，我们提供了实践练习，帮助用户访问、探索和分析这些数据库，从而培养在生物数据处理方面的核心技能。
                     </p>
                     <br>
                     <hr/>
@@ -80,20 +86,20 @@
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2 class="hero-heading">Are you familiar with Jupyter Notebooks?</h2>
-                    <p>Jupyter Notebooks are an interactive tool that combines executable code, explanatory text, visualizations, and other elements into a single document. Widely used in data science, machine learning, and computational analysis, they support multiple programming languages, with Python being the most popular. Their intuitive interface simplifies data exploration, experiments, and real-time documentation.</p>
+                    <h2 class="hero-heading">你熟悉 Jupyter Notebook 吗？</h2>
+                    <p>Jupyter Notebook 是一种交互式文档工具，可以把可执行代码、说明文字、可视化图形以及其他内容整合在同一个文档中。它广泛用于数据科学、机器学习和计算分析，支持多种编程语言，其中最常用的是 Python。直观的交互界面让数据探索、实验记录和实时文档编写变得更简单。</p>
                     <br>
-                    <p>Here, we have text cells and code cells serve distinct purposes for organizing and presenting content within notebooks:</p>
+                    <p>在 notebook 中，文本单元和代码单元承担不同的功能，用来组织和呈现内容：</p>
                     <br>
-                    <b>Text Cells</b>
+                    <b>文本单元</b>
                     <ul class="a">
-                        <li>These are used for adding explanations, descriptions, and formatting using Markdown or HTML.</li>
-                        <li>You can insert headings, lists, links, equations, and other elements to document your work and make it more comprehensible (for you and other people who want to use them).</li>
+                        <li>文本单元用于添加说明、描述，以及使用 Markdown 或 HTML 进行排版。</li>
+                        <li>你可以插入标题、列表、链接、公式和其他元素，用来记录分析过程，并让自己和后续使用者更容易理解你的工作。</li>
                         <br>
-                        <p>Add a Text Cell:</p>
-                        <li>Click the <span class="code-inline-light">+ Markdown</span> in the top toolbar.</li>
-                        <li>Enter your text in the cell using Markdown for formatting (e.g., <span class="code-inline-light">#</span> for headings, <span class="code-inline-light">**</span> for bold text, <span class="code-inline-light">*</span> for italics).</li>
-                        <li>Click outside the cell or press <span class="code-inline-light">Shift + Enter</span> to render the formatted text.</li>
+                        <p>添加文本单元：</p>
+                        <li>点击顶部工具栏中的 <span class="code-inline-light">+ Text</span> 按钮</li>
+                        <li>在单元中输入文字，并使用 Markdown 语法进行格式设置，例如用 <span class="code-inline-light">#</span> 表示标题，用 <span class="code-inline-light">**</span> 表示加粗，用 <span class="code-inline-light">*</span> 表示斜体</li>
+                        <li>点击单元外部，或按 <span class="code-inline-light">Shift + Enter</span> ，即可渲染格式化后的文本</li>
                     </ul>
                 </div>
             </div>
@@ -102,16 +108,16 @@
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2 class="hero-heading">Jupyter Cells</h2>
-                    <b>Code Cells</b>
+                    <h2 class="hero-heading">Jupyter 单元格</h2>
+                    <b>代码单元</b>
                     
                     <ul class="a">
-                        <li>These are used to write and execute programming code, primarily in Python.</li>
-                        <li>They allow you to test algorithms, manipulate data, and create visualizations, with outputs displayed directly below the executed code.</li>
+                        <li>代码单元用于编写和执行程序代码，最常见的是 Python 代码。</li>
+                        <li>你可以在其中测试算法、处理数据和生成可视化图形；代码运行后的输出会直接显示在该单元下方。</li>
                         <br>
-                        <p>Add a Code Cell:</p>
-                        <li>Click the + Code button at the top toolbar of the notebook to insert a code cell below the active one.</li>
-                        <li>Enter your code in the cell and press Shift + Enter to execute it.</li>
+                        <p>添加代码单元：</p>
+                        <li>点击 notebook 顶部工具栏中的 + Code 按钮，在当前激活单元下方插入一个代码单元。</li>
+                        <li>在单元中输入代码，然后按 Shift + Enter 执行。</li>
                     </ul>
 
             <section class="">
@@ -129,16 +135,16 @@ print("Hello World")
                 </code></pre>
                 </div>
             </section>
-                    <p>Here I can write <b>beautiful</b> texts</p>
+                    <p>在这里，我可以书写 漂亮 的文本。</p>
                     <br>
 
-                    <h3>Notes:</h3>
+                    <h3>注意事项：</h3>
                     <br>
-                    <p><b>1</b>: If you want to see the webpages/videos inside this notebook, you need to add this extension:</p>
-                    <p><a href="https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe">Google extension</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/ignore-x-frame-options-header/">Firefox extension</a></p>
+                    <p><b>1</b>: 如果你想在这个 notebook 内部查看网页或视频，需要安装下面的浏览器扩展：</p>
+                    <p><a href="https://chrome.google.com/webstore/detail/ignore-x-frame-headers/gleekbfjekiniecknbkamfmkohkpodhe">Google Chrome 扩展</a> or <a href="https://addons.mozilla.org/en-US/firefox/addon/ignore-x-frame-options-header/">Firefox 扩展</a></p>
                     <br>
-                    <p>2: If you want to create a Colab notebook with an R kernel, you can do it with this link:</p>
-                    <p><a href="https://colab.to/r">Colab with R</a> or <a href="https://colab.research.google.com/notebook#create=true&language=r"></a>Other form</p>
+                    <p>2: 如果你想创建带有 R kernel 的 Colab notebook，可以使用下面的链接：</p>
+                    <p><a href="https://colab.to/r">使用 R 的 Colab</a> 或 <a href="https://colab.research.google.com/notebook#create=true&language=r"></a>另一种创建方式</p>
                 </div>
             </div>
         </section>
@@ -147,9 +153,9 @@ print("Hello World")
     <div class="container">
         <div class="hero-content">
             <h2 class="hero-heading">Google colaboratory</h2>
-            <p>Google Colab is a free cloud-based platform that allows you to create, run, and share Jupyter notebooks directly in your browser. It supports languages like Python and provides access to powerful computational resources such as GPUs and TPUs, making it ideal for machine learning and data science tasks.</p>
+            <p>Google Colab 是一个免费的云端平台，允许你直接在浏览器中创建、运行和分享 Jupyter notebook。它支持 Python 等语言，并提供 GPU、TPU 等计算资源，因此非常适合机器学习和数据科学任务。</p>
             <br>
-            <p>Additionally, it integrates with Google Drive, enabling easy storage and real-time collaboration.</p>
+            <p>此外，Colab 可以与 Google Drive 集成，便于存储文件和进行实时协作。</p>
 
             <div class="video-container">
                     <iframe width="1000" height="606" src="https://www.youtube.com/embed/inN8seMm7UI"
@@ -164,17 +170,17 @@ print("Hello World")
     <section class="hero-modules">
         <div class="container">
             <div class="hero-content">
-                <h2 class="hero-heading">Exploring Single-Cell RNA-seq repositories</h2>
-                <p>In this activity, we will explore online repositories and tools for single-cell RNA-seq data analysis. We will navigate through various databases, including the Single Cell Expression Atlas (<a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a>), Human Cell Atlas Data Portal (<a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a>), CELLXGENE (<a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a>), SRA (<a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a>), GEO (<a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a>), (<a href="https://panglaodb.se/">https://panglaodb.se/</a>), CellType (<a href="https://celltype.info/">https://celltype.info/</a>), and CellTypist (<a href="https://www.celltypist.org/">https://www.celltypist.org/</a>), to discover and explore single-cell RNA-seq datasets. Through this hands-on exercise, you will learn how to access, visualize, and interpret single-cell RNA-seq data using online resources.</p>
+                <h2 class="hero-heading">探索单细胞 RNA-seq 数据资源库</h2>
+                <p>在本次实践中，我们将探索用于单细胞 RNA-seq 数据分析的在线资源库和工具。我们会浏览多个数据库，包括 (<a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a>), Human Cell Atlas Data Portal (<a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a>), CELLXGENE (<a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a>), SRA (<a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a>), GEO (<a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a>), (<a href="https://panglaodb.se/">https://panglaodb.se/</a>), CellType (<a href="https://celltype.info/">https://celltype.info/</a>), 和 CellTypist (<a href="https://www.celltypist.org/">https://www.celltypist.org/</a>), 学习如何发现和探索单细胞 RNA-seq 数据集。通过这部分动手练习，你将学习如何利用在线资源访问、可视化并解释单细胞 RNA-seq 数据。</p>
                 <br>
-                <p>Objectives:</p>
+                <p>学习目标：</p>
                 <ul class="a">
-                    <li> Explore single-cell RNA-seq data repositories and tools</li>
-                    <li>Learn how to access and visualize single-cell RNA-seq data</li>
-                    <li>Understand how to interpret single-cell RNA-seq data</li>
+                    <li> 探索单细胞 RNA-seq 数据资源库和分析工具</li>
+                    <li>学习如何访问并可视化单细胞 RNA-seq 数据</li>
+                    <li>理解如何解释单细胞 RNA-seq 数据</li>
                 </ul>
                 <br>
-                <p>Note: This activity is designed to be completed in a self-paced manner, and you can work through the exercises at your own speed.</p>
+                <p>说明： 本练习适合按照自己的节奏完成；你可以根据自己的进度逐步完成各项操作</p>
             </div>
         </div>
     </section>
@@ -184,17 +190,17 @@ print("Hello World")
             <div class="hero-content">
                 <h2 class="hero-heading">Single Cell Expression Atlas</h2>
                 <p>
-                    The Single Cell Expression Atlas is a web-based repository that provides access to a vast collection of single-cell RNA-seq datasets from various organisms and tissues. The atlas allows users to explore and compare gene expression profiles across different cell types, tissues, and conditions.
+                    Single Cell Expression Atlas 是一个基于网页的资源库，收录了来自多种生物和组织的大量单细胞 RNA-seq 数据集。用户可以在该平台中探索并比较不同细胞类型、组织和实验条件下的基因表达谱。
 
-                    Practical Exercises:
+                    实践练习：
                 </p>
                 <br>
                 <p>
-                    1. Explore the Single Cell Expression Atlas General Interface:
+                    1. 探索 Single Cell Expression Atlas 的通用界面：
                     <ul class="a">
-                        <li>Go to the Single Cell Expression Atlas website. You can access the website through your own browser or the browser embedded in the end of this session in this notebook: <a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a></li>
-                        <li>One of the advantages of this repository is the wide range of organisms with single-cell data available, covering Animals, Plants, Fungi and Protists species. Navigate through the webpage, exploring the different species available and explore the one of your interest to furher explore.</li>
-                        <li>Explore also the other set of experiments available, which includes data from the Human Cell Atlas, Fly Cell Atlas, Malaria Cell Atlas, COVID-19 Data Portal and discovAIR initiatives..</li>
+                        <li>打开 Single Cell Expression Atlas 网站。你可以在自己的浏览器中访问，也可以使用本节 notebook 末尾嵌入的浏览器访问： <a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a></li>
+                        <li>这个资源库的一大优势是覆盖了非常广泛的物种，包含动物、植物、真菌和原生生物中的单细胞数据。浏览网页中可用的不同物种，并选择你感兴趣的物种继续深入探索。</li>
+                        <li>同时浏览其他实验集合，包括来自 Human Cell Atlas、Fly Cell Atlas、Malaria Cell Atlas、COVID-19 Data Portal 和 discovAIR 等项目的数据。</li>
                     </ul>
                 </p>
                 <!-- Insert image -->
@@ -207,11 +213,11 @@ print("Hello World")
                 </section>
 
                 <p>
-                    2. Search for a Dataset of Interest:
+                    2. 搜索感兴趣的数据集：
                     <ul class="a">
-                        <li>By selecting an species or excperiment collection of interest, you will have access to a list of experiments linked to that organism/initiative.</li>
-                        <li>There you can select experiments based on different variables, including the organism Kingdom, Experiment Collection, Technology Type. You can also explore other features such as the Title of the study, Experimental Factors (e.g. organism parte, developmental state, age, etc), and the Number of Cells available.</li>
-                        <li>There you can also select the set of experiments of interest to download the Raw quantification files, Normalised counts files and Experiment design file.</li>
+                        <li>选择一个感兴趣的物种或实验集合后，你会看到与该生物或项目相关的一系列实验列表。</li>
+                        <li>你可以根据不同变量筛选实验，包括生物界别（organism Kingdom）、实验集合（Experiment Collection）和技术类型（Technology Type）。也可以进一步查看研究标题、实验因素（例如生物体部位、发育状态、年龄等）以及可用细胞数量等信息。</li>
+                        <li>在这里还可以选择感兴趣的实验集合，并下载原始定量文件（Raw quantification files）、归一化计数文件（Normalised counts files）和实验设计文件（Experiment design file）。</li>
                     </ul>
                 </p>
 
@@ -228,13 +234,15 @@ print("Hello World")
                 </section>
 
                 <p>
-                    3. Visualize and Explore Available Data:
+                    3. 可视化并探索可用数据：
                     <ul class="a">
-                        <li>Select a gene or cell type of interest and navigate through the interactive browser, exploring different aspects of the data available.</li>
-                        <li>Select datasets based on the "Inferred cell type - ontology labels" or "Organism part".</li>
-                        <li>Select a dataset of interest and dive into all the data available.</li>
-                        <li>Visualize the gene expression profiles using the interactive plots (e.g., t-SNE, heatmap).</li>
-                        <li>Visualize gene markers and enjoy other nice features from the repository.</li>
+                        <li>选择感兴趣的基因或细胞类型，并在交互式浏览器中查看数据的不同方面。</li>
+                        <li>根据 “Inferred cell type - ontology labels”（推断细胞类型本体标签）或 “Organism part”（生物体部位）筛选数据集。</li>
+                        <li>选择一个感兴趣的数据集，进一步查看其中所有可用信息。</li>
+                        <li>使用交互式图形（例如 t-SNE、热图）可视化基因表达谱。</li>
+                        <li>
+                            查看 marker gene，并体验该资源库提供的其他实用功能。
+                        </li>
                     </ul>
                 </p>
 
@@ -263,7 +271,7 @@ print("Hello World")
                 </section>
 
                 <p>
-                    4. Now enjoy the reposity, by playing with the data and genes of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a>
+                    4. 现在可以开始自由探索这个资源库，尝试查看你感兴趣的数据和基因。 <a href="https://www.ebi.ac.uk/gxa/sc/home">https://www.ebi.ac.uk/gxa/sc/home</a>
                 </p>
                 <br>
             </div>
@@ -273,17 +281,17 @@ print("Hello World")
     <section class="hero-modules">
         <div class="container">
             <div class="hero-content">
-                <h2 class="hero-heading">Human Cell Atlas, Data portal</h2>
-                <i>Brief Description:</i>
+                <h2 class="hero-heading">Human Cell Atlas Data Portal</h2>
+                <i>简要说明：</i>
                 <br>
-                <p>The Human Cell Atlas Data Portal is a web-based repository that provides access to a vast collection of single-cell RNA-seq datasets from various human tissues and cell types. The portal is the main repository of the Human Cell Atlas initiative, and it allows users to explore, visualize, and analyze gene expression profiles across different cell types, tissues, and conditions generated by the consortium.</p>
+                <p>Human Cell Atlas Data Portal 是一个基于网页的资源库，提供来自多种人体组织和细胞类型的大量单细胞 RNA-seq 数据集。它是 Human Cell Atlas 计划的主要数据门户，用户可以在其中探索、可视化并分析由该联盟生成的不同细胞类型、组织和条件下的基因表达谱。</p>
                 <br>
-                <i>Pratical Exercises:</i>
+                <i>实践练习：</i>
                 <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面：
                     <ul class="a">
-                        <li>Go to the Human Cell Atlas Data Portal website: <a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a> </li>
-                        <li>Explore the website general functionalities, visualizing the data available and how to contribute with data.</li>
+                        <li>打开 Human Cell Atlas Data Portal 网站：<a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a> </li>
+                        <li>浏览网站的基本功能，查看可用数据以及如何向该平台贡献数据。</li>
                     </ul>
                 </p>
 
@@ -300,12 +308,12 @@ print("Hello World")
                 </section>
 
                 <p>
-                    2. Search and Explore a Dataset of Interest:
+                    2. 搜索并探索感兴趣的数据集：
                     <ul class="a">
-                        <li>Explore the datasets available, navigating through the Projects, Samples and Files available. Use the filters available to perform a more specific selection. </li>
-                        <li>After selecting a particular dataset, navigate though the dataset Overview, Metadata, Matrices, Download and Export tabs.</li>
-                        <li>Check if the dataset allow you to explore it deeper in another Analysis Portal (e.g. UCSC Genome Browser or CELLXGENE).</li>
-                        <li>Check the possibility to Export the data available to analyze it in Terra cloud solution. Note that this is a private third party platform.</li>
+                        <li>浏览可用数据集，查看其中的 Projects、Samples 和 Files。使用平台提供的筛选器进行更精确的筛选。</li>
+                        <li>选择某个具体数据集后，依次查看该数据集的 Overview、Metadata、Matrices、Download 和 Export 标签页。</li>
+                        <li>检查该数据集是否支持在其他分析门户中进一步探索，例如 UCSC Genome Browser 或 CELLXGENE。</li>
+                        <li>查看是否可以将可用数据导出到 Terra 云平台进行分析。请注意，Terra 是一个独立的第三方私有平台。</li>
                     </ul>
                 </p>
 
@@ -321,11 +329,11 @@ print("Hello World")
                 </section>
 
                 <p>
-                    3. Search and Explore the Atlases Generated by a Human Cell Atlas Bionetwork:
+                    3. 搜索并探索 Human Cell Atlas 各 Bionetwork 生成的图谱：
                     <ul class="a">
-                        <li>Note that each Bionetwork posses datasets, but at the moment only Lung and Nervous System have unified atlases available.</li>
-                        <li>Navigate through the different bionetworks, exploring the data and atlases available.</li>
-                        <li>Explore the different particularities of the components of the atlases, such as the number of tissues, disease state, number of cells and the possibility to explore it further in CELLxGENE or downloading the data.</li>
+                        <li>注意，每个 Bionetwork 都可能包含数据集，但目前只有 Lung 和 Nervous System 提供了统一图谱。</li>
+                        <li>浏览不同的 bionetwork，查看其中可用的数据和图谱。</li>
+                        <li>探索这些图谱组成部分的具体特征，例如组织数量、疾病状态、细胞数量，以及是否可以在 CELLxGENE 中进一步探索或下载数据。</li>
                     </ul>
                 </p>
 
@@ -350,7 +358,7 @@ print("Hello World")
                 </section>
 
                 <p>
-                    4. Explore the guides available to know more about all functionalities and different aspects of the HCA Data Portal:
+                    4. 阅读可用指南，进一步了解 HCA Data Portal 的各项功能和不同组成部分：
                     <section class="video">
                         <div class="container-xxl">
                             <div class="video-content">
@@ -361,7 +369,7 @@ print("Hello World")
                     
                 </p>
                 <p>
-                    5. Now enjoy the reposity, by playing with the data and genes of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a>
+                    5. 现在可以开始自由探索这个资源库，尝试查看你感兴趣的数据和基因。 <a href="https://data.humancellatlas.org/">https://data.humancellatlas.org/</a>
                 </p>
                 <br>
             </div>
@@ -372,17 +380,17 @@ print("Hello World")
         <div class="container">
             <div class="hero-content">
                 <h2 class="hero-heading">CellxGENE</h2>
-                <i>Brief Description</i>
+                <i>简要说明：</i>
 
-                <p>CELLxGENE is a web-based portal developed by the Chan Zuckerberg Initiative (CZI) that enables interactive exploration and analysis of single-cell RNA-seq data. It provides a user-friendly interface to visualize and compare gene expression profiles across different cell types, tissues, and conditions.</p>
+                <p>CELLxGENE 是由 Chan Zuckerberg Initiative（CZI）开发的网页门户，用于交互式探索和分析单细胞 RNA-seq 数据。它提供了友好的用户界面，可用于可视化并比较不同细胞类型、组织和条件下的基因表达谱。</p>
                 <br>
-                <i>Pratical Exercises:</i>
+                <i>实践练习:</i>
                 <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面:
                     <ul class="a">
-                        <li>Go to the CELLxGENE website: <a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a> </li>
-                        <li>CELLxGENE provides a plenty of tools which allows you to further explore and analyze single-cell data.</li>
-                        <li>Navigate through the Collections and Datasets available and select one of interest to further explore. You can use the "Filters" option to select the data according to different aspects of interest (e.g. cell type, disease, self-reported ethnicity, sex).</li>
+                        <li>打开 CELLxGENE 网站: <a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a> </li>
+                        <li>CELLxGENE 提供了多种工具，帮助你进一步探索和分析单细胞数据。</li>
+                        <li>浏览可用的 Collections 和 Datasets，并选择一个感兴趣的数据集继续深入探索。你可以使用 “Filters” 功能，按照不同维度筛选数据，例如细胞类型、疾病、自报族群、性别等。</li>
                 </ul>
                 </p>
 
@@ -404,12 +412,12 @@ print("Hello World")
                 </section>
 
                 <p>
-                    2. Explore a Dataset of Interest:
+                    2. 探索感兴趣的数据集：
                     <ul class="a">
-                        <li>Explore the different functionalities available. Navigate through the different categories, activating the collors for each cell available based on the cell type, developental stage, ethnicity, sex, disease (if available), etc.</li>
-                        <li>Play with the cells, try to explore the different graphics available and to obtain different visualization of the data according to your preferences.</li>
-                        <li>Select two groups of cells of your interest to identify the top differentially expressed genes. Do it based on your preferences: cell type, sex, disease status, etc. Change the colors of one of the differentially expressed genes of interest.</li>
-                        <li>Play with the different functionalities available to further explore your dataset of interest.</li>
+                        <li>查看平台提供的不同功能。浏览不同类别，并根据细胞类型、发育阶段、族群、性别、疾病状态（如有）等信息为细胞着色。</li>
+                        <li>尝试与细胞图进行交互，探索不同图形，并按照你的分析偏好获得不同的数据可视化结果。</li>
+                        <li>选择两组你感兴趣的细胞，识别排名靠前的差异表达基因。分组方式可以根据你的研究问题决定，例如细胞类型、性别、疾病状态等。随后尝试改变某个感兴趣差异表达基因的颜色显示。</li>
+                        <li>继续尝试平台中的不同功能，进一步探索你选择的数据集。</li>
                 </ul>
                 </p>
 
@@ -425,10 +433,10 @@ print("Hello World")
                 </section>
 
                 <p>
-                    3. Explore the Gene Expression Functionality:
+                    3. 探索基因表达功能：
                     <ul class="a">
-                        <li>Select the dataset of interest based on the Filters; add a list of interest and visualize their expression across the different cell types.</li>
-                        <li>Explore the graphic, ovserving their expression levels and porcentage of cells expressing that gene.</li>
+                        <li>根据筛选器选择感兴趣的数据集；加入感兴趣的基因列表，并查看这些基因在不同细胞类型中的表达情况。</li>
+                        <li>观察图形中的表达水平，以及表达该基因的细胞比例。</li>
                 </ul>
                 </p>
 
@@ -441,12 +449,12 @@ print("Hello World")
                 </section>
 
                 <p>
-                    4. Explore the Gene Expression Functionality:
+                    4. 探索 Cell Guide 功能：
                     <ul class="a">
-                        <li>Select a cell or a tissue of interest and navigate though its ontology.</li>
-                        <li>Cells can be have different sub-types, so they are classified based on an ontology.</li>
-                        <li>The cell ontology (CL) is a standardized framework for describing and categorizing cell types based on their characteristics, functions, and relationships. It provides a common language and set of terms to define and annotate cell types across different species, tissues, and datasets.</li>
-                        <li>Navigate through the cell or tissue of your interest, exploring its description, ontology, marker genes and data available.</li>
+                        <li>选择感兴趣的细胞或组织，并沿其本体结构继续浏览。</li>
+                        <li>细胞可能包含不同亚型，因此需要基于本体进行分类。</li>
+                        <li>细胞本体（Cell Ontology, CL）是一套用于描述和归类细胞类型的标准化框架，依据细胞特征、功能和相互关系定义细胞类型。它为不同物种、组织和数据集中的细胞类型定义与注释提供了统一术语。</li>
+                        <li>浏览你感兴趣的细胞或组织，查看其描述、本体关系、marker gene 和可用数据。</li>
                 </ul>
                 </p>
 
@@ -468,10 +476,10 @@ print("Hello World")
                 </section>
 
                 <p>
-                    5. Explore the Gene Expression Functionality:
+                    5. 探索差异表达功能：
                     <ul class="a">
-                        <li>Select the groups you want to perform a differential expression analysis based on the organism, tissue, cell type, disease, ethnicity, sex, among other options available.</li>
-                        <li>In this example we identified the differentially expressed genes according to the sex in B cells from the colon.</li>
+                        <li>根据生物体、组织、细胞类型、疾病、族群、性别等可用选项，选择你想进行差异表达分析的分组。</li>
+                        <li>在这个示例中，我们在结肠来源的 B 细胞中，根据性别识别差异表达基因。</li>
                 </ul>
                 </p>
 
@@ -484,9 +492,9 @@ print("Hello World")
                 </section>
 
                 <p>
-                    6. Explore the CELLxGENE Census:
+                    6. 探索 CELLxGENE Census：
                     <ul class="a">
-                        <li>Get familiarized with the Census platform, which allow you to access, query, and analyze all single-cell RNA data from CELLxGENE.</li>
+                        <li>熟悉 Census 平台。该平台允许你访问、查询和分析 CELLxGENE 中的全部单细胞 RNA 数据。</li>
                 </ul>
                 </p>
 
@@ -499,9 +507,9 @@ print("Hello World")
                 </section>
 
                 <p>
-                    7. Explore the CELLxGENE Census:
+                    7. CELLxGENE Census:
                     <ul class="a">
-                        <li>Now enjoy the reposity, by playing with the data and genes of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a></li>
+                        <li>现在可以开始自由探索这个资源库，尝试查看你感兴趣的数据和基因。 <a href="https://cellxgene.cziscience.com/">https://cellxgene.cziscience.com/</a></li>
                 </ul>
                 </p>
 
@@ -513,17 +521,17 @@ print("Hello World")
             <div class="container">
                 <div class="hero-content">
                     <h2 class="hero-heading">Panglao DB</h2>
-                    <i>Brief Description:</i>
-                    <p>PanglaoDB is a database for the scientific community interested in exploration of single cell RNA sequencing experiments from mouse and human. We collect and integrate data from multiple studies and present them through a unified framework. Despite being currently discontinued, it is very useful to explore marker genes.</p>
+                    <i>简要说明:</i>
+                    <p>PanglaoDB 是一个面向科研群体的数据库，用于探索小鼠和人类的单细胞 RNA 测序实验。该平台整合了多个研究的数据，并通过统一框架呈现。虽然该数据库目前已经停止更新，但它仍然非常适合用来查询和探索 marker gene。</p>
                     <br>
-                    <i>Practical Exercises:</i>
+                    <i>实践练习:</i>
                 <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面:
                     <ul class="a">
-                        <li>Go to the PanglaoDB website: <a href="https://panglaodb.se/">https://panglaodb.se/</a></li>
-                        <li>Navigate through the Search options to explore the repository.</li>
-                        <li>You can evaluate the expression of a gene of interest across.</li>
-                        <li>You can also explore de cell markers of the cell type of interest.</li>
+                        <li>打开 PanglaoDB 网站: <a href="https://panglaodb.se/">https://panglaodb.se/</a></li>
+                        <li>浏览 Search 相关选项，探索该数据资源库。</li>
+                        <li>你可以评估感兴趣基因在不同细胞类型中的表达。</li>
+                        <li>也可以查看感兴趣细胞类型对应的细胞 marker。</li>
                     </ul>
                 </p>
 
@@ -541,7 +549,7 @@ print("Hello World")
                     </div>
                 </section>
                 <p>
-                    2. Now enjoy the reposity, by playing with the data and genes of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://panglaodb.se/">https://panglaodb.se/</a>
+                    2. 现在可以开始自由探索这个资源库，尝试查看你感兴趣的数据和基因。 <a href="https://panglaodb.se/">https://panglaodb.se/</a>
                 </p>
 
                 </div>
@@ -552,18 +560,18 @@ print("Hello World")
             <div class="container">
                 <div class="hero-content">
                     <h2 class="hero-heading">CellTypist</h2>
-                    <i>Brief Description:</i>
-                    <p>CellTypist is a web-based platform designed to facilitate cell type identification, classification, and annotation. It provides a user-friendly interface for researchers to annotate and classify cell types on their own data.</p>
+                    <i>简要说明:</i>
+                    <p>CellTypist 是一个基于网页的平台，用于辅助细胞类型识别、分类和注释。它为研究人员提供了友好的界面，可用于在自己的数据中注释和分类细胞类型。</p>
                     <br>
-                    <i>Practical Exercises:</i>
+                    <i>实践练习:</i>
                 <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面：
                     <ul class="a">
-                        <li>Go to the CellTypist website: <a href="https://www.celxltypist.org/">https://www.celxltypist.org/</a></a></li>
-                        <li>Navigate through the available Encyclopedia. Explore deeper a group of cells of your interest.</li>
-                        <li>In "Resources", navigate through the models available; explore the organs there available, as well as have access to the Pyhton package.</li>
-                        <li>At the "Home" web page, explore the automatic tool to annotate your own data.</li>
-                        <li>Access the available tutorials to dive into the platform functionalities.</li>
+                        <li>打开 CellTypist 网站： <a href="https://www.celxltypist.org/">https://www.celxltypist.org/</a></a></li>
+                        <li>浏览可用的 Encyclopedia。选择你感兴趣的一类细胞并进一步探索。</li>
+                        <li>在 “Resources” 中浏览可用模型；查看平台覆盖的器官，并了解如何获取 Python 软件包。</li>
+                        <li>在 “Home” 页面中尝试用于注释自有数据的自动化工具。</li>
+                        <li>阅读可用教程，深入了解该平台的功能。</li>
                     </ul>
                 </p>
 
@@ -591,7 +599,7 @@ print("Hello World")
                 </section>
 
                 <p>
-                    2. Now enjoy the platform, by playing with the data and genes of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://www.celltypist.org/">https://www.celltypist.org/</a>
+                    2. 现在可以开始自由探索这个平台，尝试查看你感兴趣的数据和基因。 <a href="https://www.celltypist.org/">https://www.celltypist.org/</a>
                 </p>
                 <br>
             </div>
@@ -601,18 +609,18 @@ print("Hello World")
             <div class="container">
                 <div class="hero-content">
                     <h2 class="hero-heading">GEO (Gene Expression Omnibus)</h2>
-                    <i>Brief Description</i>
-                    <p>GEO is a comprehensive public database that archives and freely distributes microarray, next-generation sequencing, and other forms of high-trhoughput functional genomic data. It is an invaluable resource for researchers, supporting discovery of new insights into gene function, regulation and expression; supporting the data reuse.</p>
+                    <i>简要说明：</i>
+                    <p>GEO 是一个综合性公共数据库，用于归档并免费分发微阵列、下一代测序以及其他高通量功能基因组学数据。它是研究人员的重要资源，有助于发现关于基因功能、调控和表达的新线索，并支持数据复用。</p>
                     <br>
-                    <i>Practical Exercises:</i>
+                    <i>实践练习:</i>
                 <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面:
                     <ul class="a">
-                        <li>Go to the GEO website: <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a></li>
-                        <li>Search for a dataset of interest, using for exampple the following keywords: "single cell heart"</li>
-                        <li>Explore the public datasets related to heart single-cell experiments (or related to the keywords used). Select one to obtain further information from that study.</li>
-                        <li>Navigate through the samples available.</li>
-                        <li>Evaluate if they followed the FAIR principles when depositing their data.</li>
+                        <li>打开 GEO 网站: <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a></li>
+                        <li>搜索一个感兴趣的数据集，例如可以使用关键词: "single cell heart"</li>
+                        <li>浏览与心脏单细胞实验相关的公共数据集（或与你使用的关键词相关的数据集）。选择其中一个研究，获取该研究的更多信息。</li>
+                        <li>浏览该研究中可用的样本。</li>
+                        <li>评估这些数据在提交时是否遵循了 FAIR 原则。</li>
                     </ul>
                 </p>
 
@@ -634,7 +642,7 @@ print("Hello World")
                 </section>
 
                 <p>
-                    2. Now enjoy the repository, by playing with the datasets of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a>
+                    2. 现在可以开始自由探索这个平台，尝试查看你感兴趣的数据和基因。 <a href="https://www.ncbi.nlm.nih.gov/geo/">https://www.ncbi.nlm.nih.gov/geo/</a>
                 </p>
 
 
@@ -646,19 +654,19 @@ print("Hello World")
             <div class="container">
                 <div class="hero-content">
                     <h2 class="hero-heading">SRA (Sequence Read Archive)</h2>
-                    <i>Briefing Description:</i>
-                    <p>SRA is a comprehensive public database that archives and freely distributes high-throughput sequencing data, including RNA-seq, DNA-seq, and other forms of next-generation sequencing (NGS) data.</p>
+                    <i>简要说明:</i>
+                    <p>SRA 是一个综合性公共数据库，用于归档并免费分发高通量测序数据，包括 RNA-seq、DNA-seq 以及其他形式的下一代测序（NGS）数据。</p>
                     <br>
-                    <i>Practical Exercises:</i>
+                    <i>实践练习:</i>
                     <p>
-                    1. Explore the General Portal Interface:
+                    1. 探索门户网站的通用界面:
                         <ul class="a">
-                            <li>Go to the SRA website: <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a></li>
-                            <li>Search for a dataset of interest, using for exampple the following keywords: "single cell heart"</li>
-                            <li>Filter the result according to the source, sequencing platform, organism of interest, or other features available.</li>
-                            <li>Explore the public datasets related to heart single-cell experiments (or related to the keywords used). Select one to obtain further information from that study.</li>
-                            <li>Navigate through the samples available.</li>
-                            <li>Evaluate if they followed the FAIR principles when depositing their data.</li>
+                            <li>打开 SRA 网站: <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a></li>
+                            <li>搜索一个感兴趣的数据集，例如可以使用关键词</li>
+                            <li>根据数据来源、测序平台、目标物种或其他可用特征筛选结果。</li>
+                            <li>浏览与心脏单细胞实验相关的公共数据集（或与你使用的关键词相关的数据集）。选择其中一个研究，获取该研究的更多信息。</li>
+                            <li>浏览该研究中可用的样本。</li>
+                            <li>评估这些数据在提交时是否遵循了 FAIR 原则。</li>
                         </ul>
                     </p>
                 <section class="video">
@@ -675,15 +683,15 @@ print("Hello World")
                     </div>
 
                     <p>
-                    2. Now enjoy the repository, by playing with the datasets of interest. You can use the embedded browser available below, or the main browser from your computer: <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a>
+                    2. 现在可以开始自由探索这个平台，尝试查看你感兴趣的数据和基因。 <a href="https://www.ncbi.nlm.nih.gov/sra">https://www.ncbi.nlm.nih.gov/sra</a>
                     </p>
                     <br>
 
 
 
-                <h2 class="hero-heading">NOTE:</h2>
+                <h2 class="hero-heading">说明:</h2>
                     <p>
-                        In addition, there is SRA Explorer, an interactive SRA data visualization tool, which facilitates navigation and access to raw data stored in the SRA, allowing for efficient data searching and downloading.
+                        此外，还有 SRA Explorer 这个交互式 SRA 数据可视化工具。它可以帮助用户浏览并访问 SRA 中保存的原始数据，从而更高效地搜索和下载数据。
                     </p>
 
                 </section>
