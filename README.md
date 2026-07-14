@@ -11,7 +11,8 @@ Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. et al.
 *The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.*  
 Nature Genetics, 2026, Volume 58, Issue 5, Pages 789–795.  
 ISSN: 1061-4036  
-https://doi.org/10.1038/s41588-026-02584
+https://doi.org/10.1038/s41588-026-02584-0
+
 
 ---
 ### Tell Us | Conte-nos | Cuéntanos
