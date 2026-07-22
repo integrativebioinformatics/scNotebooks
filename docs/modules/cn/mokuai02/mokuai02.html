@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zn-cn">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +34,11 @@
                                 Español
                             </a>
                         </li>
+                        <li>
+                            <a class="btn" href="../../en/module02/module02.html">
+                                Español
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Hamburguer Button -->
@@ -54,7 +59,7 @@
                             <a class="" href="../../es/cuaderno02/cuaderno02.html">Español</a>
                         </li>
                         <li>
-                            <a class="" href="#"></a>
+                            <a class="" href="../../en/module02/module02.html">Español</a>
                         </li>
                     </ul>
                  </div>
@@ -65,38 +70,37 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-heading text-xl">
-                        Introduction to R and RStudio
+                        R简介
                     </h1>
                     <p class="hero-text">
-                        R is a powerful programming language for data analysis, graphics, and especially statistical analysis. It is freely available to the public at <a href="http://www.r-project">www.r-project</a>.org with easy-to-install binaries for Linux, macOS, and Windows. This notebook provides an introduction to R, designed for students and researchers. No prior experience is required, although some familiarity with scripting languages such as Bash, Matlab, or Python is helpful.
+                        R 是一种强大的编程语言，常用于数据分析、图形绘制，尤其擅长统计分析。R 可以在 <a href="http://www.r-project">www.r-project.org</a> 免费获取，并为 Linux、macOS 和 Windows 提供易于安装的二进制版本。本 notebook 面向学生和研究人员，介绍 R 的基础用法。学习本节不需要事先具备 R 经验；如果你熟悉 Bash、Matlab 或 Python 等脚本语言，会更容易上手。
                         <br>
-                        The best option for programming in R is to install RStudio or Visual Studio Code. Here, we'll learn some of the fundamentals of R and how to load and process data.
+                        进行 R 编程时，最推荐的方式是安装 RStudio 或 Visual Studio Code。在这里，我们会学习 R 的一些基础知识，以及如何加载和处理数据。
                     </p>
                     <br>
                     <hr/>                    
                     </div>
-                    <h2 class="hero-heading">A Brief Introduction</h2>
+                    <h2 class="hero-heading">简要介绍</h2>
 
-                    <p>When starting out in R (or any programming language), we learn three fundamental skills:
+                    <p>刚开始学习 R（或任何编程语言）时，我们需要掌握三项基本能力：
                     <br>
 
                     <ul class="a">
                         <li>
-                            1. Reading Code: Initially, you'll encounter pre-built code.
-                            Reading is the first step to familiarizing yourself with the logic, commands, and how R "speaks." Example: understanding what mean(c(1, 2, 3)) means.
+                            1. 阅读代码： 最开始，你会接触到别人已经写好的代码。阅读代码是熟悉程序逻辑、命令以及 R 如何“表达”的第一步。 示例：理解 mean(c(1, 2, 3)) 的含义。
                         </li>
-                        <li>2. Understanding Code: Here you begin to understand why that code is there, what it does, and how it connects to the data. Example: realizing that mean() calculates the mean and c(1, 2, 3) creates a vector (and what is a vector?)</li>
-                        <li>3. Writing Code: The pinnacle of learning! With practice, you'll begin to write your own scripts and functions—whether for graphing, analysis, or automating tasks. Example: creating a graph with plot(x, y) and adjusting the parameters however you like.</li>
+                        <li>2. 理解代码： 这一步开始理解代码为什么在那里、它做了什么，以及它如何与数据连接。示例：意识到 mean() 用于计算均值，而 c(1, 2, 3) 用于创建向量；同时也要理解什么是向量。</li>
+                        <li>3. 编写代码： 这是学习的高阶阶段。经过练习后，你将能够编写自己的脚本和函数，用于作图、分析或自动化任务。示例：使用 plot(x, y) 创建图形，并根据需要调整参数。</li>
                     </ul>
                 </p>
 
                 <br>
 
-                <h3>Comments</h3>
+                <h3>注释</h3>
 
-                <p>Comments are parts of a computer program used to describe a piece of code. We can make a comment using the # symbol.
+                <p>注释是程序中用于解释某段代码的内容。在 R 中，可以用 # 符号添加注释。
                 <br>
-                Purpose of comments? Readability, ignoring some code, pseudocode</p>
+                注释的作用包括：提高可读性、临时忽略某些代码，以及书写伪代码。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -116,9 +120,9 @@
                 </div>
                 </section>
 
-                <h3>Variable</h3>
+                <h3>变量</h3>
 
-                <p>Different types of values, such as characters, numbers, or logical values, can be assigned to a variable.</p>
+                <p>不同类型的值，例如字符、数字或逻辑值，都可以赋给变量</p>
 
                 <section class="">
                 <div class="code-container">
@@ -135,9 +139,9 @@ y = 20 # Also works
                 </div>
                 </section>
 
-                <p>R will throw an error because it will think you're trying to use the age variable, call the do function, access the patient… a complete mess.
+                <p>在 R 中，和几乎所有编程语言一样，变量名中不允许使用空格。如果你尝试这样写：
                 <br>       
-                You can use the underscore (_), the period (.), or camelCase to separate words in variable names, like this:</p>
+                你可以使用下划线 _、点号 .，或 camelCase（驼峰式命名）来分隔变量名中的单词，例如：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -159,30 +163,30 @@ PatientAge <- 25
 
         <section class="hero-modules">
             <div class="container">
-                <p>In other words, whenever you create a variable, avoid spaces and use legal characters. Note that although each spelling is acceptable, each creates a different variable.</p>
+                <p>换句话说，每次创建变量时，都要避免使用空格，并使用合法字符。请注意，虽然下面这些写法各自都是可以接受的，但每一种写法都会创建不同的变量。</p>
                 <br>
-                <h3>R differentiates EVERYTHING</h3>
-                <p>When we speak or write with other people, we understand small errors, language variations, and misspellings. R is not like that.</p>
+                <h3>R 会区分一切细节</h3>
+                <p>人与人交流时，我们能够理解小错误、语言差异和拼写错误。但 R 不是这样。</p>
                 <br>
-                <p>In R, "age," "Age," "ages," and "Ages" are completely different names. This is because the language is case-sensitive.</p>
+                <p>在 R 中，age、Age、ages 和 Ages 是完全不同的名称。这是因为 R 是区分大小写的语言。</p>
                 <br>
-                <p>And each variable must be unique within the same workspace; that is, each time I write a different way, I create a new object. This is important because it avoids confusion and ensures that you know exactly which variable you're using.
+                <p>同一个工作空间中的每个变量都必须是唯一的；也就是说，每当我用不同方式书写名称时，就会创建一个新的对象。这一点很重要，因为它可以避免混淆，并确保你清楚自己正在使用哪个变量。
                 <br>
-                Therefore, create variable names that make sense, are easy to remember, and are different enough for YOU to work with.</p>
+                因此，请创建有意义、容易记住，并且对你来说足够清晰可区分的变量名。</p>
             </div>
         </section>
 
         <section class="hero-modules">
             <div class="container">
-                <p>Rules for naming variables:</p>
+                <p>变量命名规则:</p>
                 <ul class="a">
-                    <li>A variable name can be created using letters, digits, periods, and underscores</li>
-                    <li>Start with a letter (never a number!)</li>
-                    <li>If a variable name starts with a period, you can't use digits after it.</li>
-                    <li>R (like other programming languages) is case-sensitive. This means that age and Age are different variables.</li>
-                    <li>Avoid accents and special characters</li>
-                    <li>Be descriptive, but don't overdo it.</li>
-                    <li>Write simply and in a standardized format. The clearer your variable is, the easier it will be to reuse.</li>
+                    <li>变量名可以由字母、数字、点号和下划线组成。</li>
+                    <li>变量名应以字母开头，不能以数字开头。</li>
+                    <li>如果变量名以点号开头，点号后面不能直接跟数字。</li>
+                    <li>R 和其他编程语言一样区分大小写。因此 age、Age 和 AGE 是不同变量。</li>
+                    <li>避免使用重音符号和特殊字符。</li>
+                    <li>命名要具有描述性，但不要过度冗长。</li>
+                    <li>写法应简单，并保持统一格式。变量名越清楚，之后越容易复用。</li>
                     <li>if_it_is_too_long_it_is_bad_to_reuse</li>
 
                 </ul>
@@ -191,22 +195,22 @@ PatientAge <- 25
 
         <section class="hero-modules">
             <div class="container">
-                <h3>What does <- mean?</h3>
-                <p>This arrow is used to assign a value to an object. It's like saying, "Put this value here inside this little box." Or, "x is now worth 10 and y is now worth 20."</p>
+                <h3>是什么意思？</h3>
+                <p>这个箭头用于把一个值赋给某个对象。可以把它理解为：“把这个值放到这个小盒子里。” 或者说：“现在 x 的值是 10，y 的值是 20。"</p>
                 <br>
-                <p>But the "<-" arrow is the traditional and most widely used form in the R community, especially in statistics and data science. It's like a language tradition—many say the arrow indicates where the value comes from and where it goes.</p>
+                <p><- 是 R 社区中传统且最常用的赋值方式，尤其在统计学和数据科学中很常见。它像是一种语言传统：很多人认为箭头清楚地表示值从哪里来、被放到哪里去。</p>
                 <br>
-                <p>On the keyboard, to do "<-", you type "<" and then "-", and R automatically understands it as an assignment.</p>
+                <p>在键盘上输入 <- 时，先输入 <，再输入 -，R 会自动把它理解为赋值。</p>
                 
             </div>
         </section>
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Data and Data Types</h3>
-                <p>In R, data is typically organized into tables (data frames), which resemble Excel spreadsheets. Each column represents a variable (age, name, height, etc.) and each row represents an observation (a person, an animal, an experiment, etc.).
+                <h3>数据和数据类型</h3>
+                <p>在 R 中，数据通常组织为表格（data frame），类似 Excel 电子表格。每一列代表一个变量（如年龄、姓名、身高等），每一行代表一个观测对象（如一个人、一只动物、一次实验等）。
                 <br>
-                You can create data manually</p>
+                你可以手动创建数据：</p>
                 <br>
 <section class="">
                 <div class="code-container">
@@ -255,18 +259,18 @@ ages <- c(25, 30, 35) # Vector of numbers
                 </div>
                 </section>
 
-                <p><span class="code-inline-light">c()</span> is a function that stands for "combine" or "concatenate," used to create vectors.</p>
+                <p><span class="code-inline-light">c()</span> 是一个函数，含义是 combine 或 concatenate，用于创建向量。</p>
                 <br>
-                <p>All elements of a vector must be of the same type. If you don't use c(), R won't understand that you want to create a vector and will throw an error. When you use c(), R understands that you are combining these values into a single object, forming a vector.</p>
+                <p>向量中的所有元素必须属于同一种类型。如果不使用 c()，R 无法理解你想创建一个向量，并会报错。使用 c() 时，R 会理解你要把这些值合并成一个对象，也就是形成一个向量。</p>
                 <br>
-                <p>Whenever you want to create a vector with MULTIPLE values, whether numbers, text, or logical values.</p>
+                <p>只要你想创建包含多个值的向量，无论这些值是数字、文本还是逻辑值，都可以使用 c()。</p>
             </div>
         </section>
 
         <section class="hero-modules">
             <div class="container">
                 <h3>Data frame</h3>
-                <p>A data frame is like an Excel spreadsheet: each column is a variable and each row is an observation. You can import your own data or build it within R.</p>
+                <p>data frame 类似 Excel 电子表格：每一列是一个变量，每一行是一个观测。你可以导入自己的数据，也可以在 R 中手动构建。构建方式如下：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -292,8 +296,8 @@ my_dataframe
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Matrix</h3>
-                <p>A matrix is a table of only numbers (or a single type of data), organized into rows and columns, as in mathematics.</p>
+                <h3>矩阵</h3>
+                <p>矩阵是一种只包含数字（或只包含一种数据类型）的表格，按照数学中的方式组织为行和列。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -315,8 +319,8 @@ m
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Strings</h3>
-                <p>In programming, strings are sequences of characters—that is, any set of letters, numbers, symbols, or spaces. They are used to represent text.</p>
+                <h3>字符串</h3>
+                <p>在编程中，字符串是字符序列，也就是由字母、数字、符号或空格组成的任意文本。字符串用于表示文字信息</p>
 
                 <section class="">
                 <div class="code-container">
@@ -344,14 +348,14 @@ unlist(strsplit(txt, split = " "))
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Vector</h3>
-                <p>A vector is a basic structure that stores a collection of elements of the same type—they can be numbers, text (strings), logical values (TRUE/FALSE), etc. Vectors can perform operations such as adding, filtering, comparing, etc.</p>
+                <h3>向量</h3>
+                <p>向量是一种基础结构，用于存放同一类型元素的集合。这些元素可以是数字、文本（字符串）、逻辑值（TRUE/FALSE）等。向量可以进行加法、筛选、比较等操作。 </p>
 
                 <ul>
-                    Think of a vector as a neat little box that holds several identical items:
-                    <li>A vector of numbers: c(1, 2, 3, 4)</li>
-                    <li>A vector of text: c("apple", "banana", "orange")</li>
-                    <li>A logical vector: c(TRUE, FALSE, TRUE)</li>
+                    可以把向量想象成一个整齐的小盒子，里面放着多个同类型物品：
+                    <li>数字向量： c(1, 2, 3, 4)</li>
+                    <li>文本向量： c("apple", "banana", "orange")</li>
+                    <li>逻辑向量： c(TRUE, FALSE, TRUE)</li>
                 </ul>
 
                 <section class="">
@@ -414,11 +418,11 @@ my_seq
                 </section>
 
                 <h3>List</h3>
-                <p>A list is a "pocket" that can hold anything: numbers, text, vectors, data frames, even functions!
+                <p>列表就像一个“口袋”，可以装任何东西：数字、文本、向量、data frame，甚至函数。
                 <br>
-                Think of a shopping list: Soap, Fabric softener, Apple, Orange, Biscuits, Bread etc...</p>
+                想象一张购物清单：肥皂、柔顺剂、苹果、橙子、饼干、面包等等……</p>
 
-                <p>Notice that the items aren't part of the same categories (food, cleaning supplies, hygiene products), but they're all in the same list. It works similarly in R:</p>
+                <p>注意，这些物品并不属于同一类别（食品、清洁用品、个人护理用品），但它们都在同一个列表里。 R 中的列表也是类似的：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -437,7 +441,7 @@ my_list
                 </section>
 
                 <h3>Factor</h3>
-                <p>A factor is used to represent categorical variables, such as "sex," "marital status," or "yes/no response." Behind the scenes, R treats these values as named numeric levels.
+                <p>factor 用于表示分类变量，例如“性别”“婚姻状态”或“是/否回答”。在底层，R 会把这些值当作带有名称的数值层级来处理。
 
                 <section class="">
                 <div class="code-container">
@@ -453,12 +457,12 @@ sex <- factor(c("F", "M", "F"))
                 </div>
                 </section>
                 <br>
-                R understands this as a variable with two levels: "F" and "M."</p>
+                R 会把它理解为一个包含两个水平（level）的变量：F 和 M</p>
 
-                <p>Factors are essential in statistical analysis because they treat categories as distinct levels, not just any text.</p>
+                <p>factor 在统计分析中非常重要，因为它会把类别当作明确的不同水平，而不是普通文本。</p>
 
-                <h3>Operations in R</h3>
-                <p>R is a language created by mathematicians to solve statistical and mathematical problems. Therefore, performing operations in this language is quite similar to what we already know in traditional mathematics.</p>
+                <h3>R 中的运算</h3>
+                <p>R 是由数学家创建的语言，用于解决统计和数学问题。因此，在 R 中进行运算的方式与我们熟悉的传统数学非常相似。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -488,7 +492,7 @@ sqrt(144)
                 </div>
                 </section>
 
-                <h3>Vector Operations</h3>
+                <h3>向量运算</h3>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -597,17 +601,17 @@ var(some_values)
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Packages (or libraries)</h3>
+                <h3>软件包（或库）</h3>
 
-                <p>Packages are collections of ready-made functions that help you perform specific tasks. For example:
+                <p>软件包是一组已经写好的函数集合，可以帮助你完成特定任务。例如：
 
-                <li>ggplot2 — for elegant graphs</li>
+                <li>ggplot2 — 用于绘制美观的图形</li>
 
-                <li>dplyr — for manipulating data</li>
+                <li>dplyr — 用于数据整理和操作</li>
 
-                <li>readr — for reading files</li>
+                <li>readr — 用于读取文件</li>
 
-                <li>Before using a package, you need:</li></p>
+                <li>使用软件包之前，你需要：</li></p>
 
                 <section class="">
                 <div class="code-container">
@@ -643,9 +647,9 @@ library(ggplot2)
 
         <section class="hero-modules">
             <div class="container">
-                <head>What are functions?</head>
+                <head>什么是函数？</head>
 
-                <p>Functions are ready-made commands that do something for you. You've seen some above. They follow the structure:</p>
+                <p>函数是已经写好的命令，可以替你完成某项操作。前面你已经见过一些函数。函数通常遵循下面的结构：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -676,12 +680,12 @@ mean(c(1, 2, 3, 4))
                 </div>
                 </section>
 
-                <li>mean is the name of the function.</li>
-                <li>c(1, 2, 3, 4) is the argument (an array of numbers).</li>
-                <li>Functions save time and organize what you need to do. There are hundreds of them in R—and you can even create your own or use others'.</li>
+                <li>mean 是函数名称。</li>
+                <li>c(1, 2, 3, 4) 是参数，也就是一个数字数组。</li>
+                <li>函数可以节省时间，并帮助组织你要完成的任务。R 中有数百个函数；你甚至可以创建自己的函数，也可以使用别人写好的函数。</li>
 
-                <h3>What are function arguments?</h3>
-                <p>When we use a function in R, we need to pass it the necessary information so it knows what to do. This information is called arguments—think of them as the steps in an experiment.</p>
+                <h3>什么是函数参数?</h3>
+                <p>在 R 中使用函数时，我们需要向函数传入必要信息，这样它才知道该做什么。这些信息称为参数。可以把参数想象成一次实验中的具体步骤。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -701,27 +705,27 @@ round(3.14159, digits = 2)
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Plotting Numerial Data</h3>
+                <h3>绘制数值型数据</h3>
 
-                <p>There are several ways to create graphs in R, but in this lesson we'll focus on the ggplot2 package, a powerful and elegant tool for data visualization. It's based on the so-called grammar of graphs, which allows you to build graphs in a structured and intuitive way—as if you were writing meaningful sentences.</p>
+                <p>R 中有多种创建图形的方式，但本节重点介绍 ggplot2 包。它是一个强大而优雅的数据可视化工具，基于所谓的“图形语法”（grammar of graphics）。这种语法允许你用结构化、直观的方式构建图形，就像在书写有意义的句子一样。</p>
                 <br>
-                <p>The grammar of graphs is a set of rules that defines how to build visualizations in a logical and standardized way. The great advantage is that, by following this grammar, you learn a single structure that serves to create different types of graphs—without having to memorize different arguments for each one.</p>
+                <p>图形语法是一组规则，用来定义如何以逻辑化、标准化的方式构建可视化。它最大的优势在于：只要掌握同一种结构，就可以创建多种不同类型的图形，而不需要为每一种图形分别记忆不同参数。</p>
                 <br>
-                <p>This package stands out because it gives you complete control over the graph: you decide every part—axes, colors, visualization types, titles, legends… everything can be added and adjusted with layers. This makes your graphs more personalized and informative.</p>
+                <p>ggplot2 的突出特点是让你能完全控制图形：坐标轴、颜色、可视化类型、标题、图例等每一部分都可以由你决定。所有内容都可以通过图层逐步添加和调整。这让图形更个性化，也更具信息量。</p>
                 <br>
-                <p>The three main components of the grammar of graphs are:</p>
+                <p>图形语法有三个主要组成部分：</p>
                 <br>
-                <li>Data: the observations in our dataset.</li>
-                <li>Aesthetics: Mappings of data to visual properties (such as axes and sizes of geometric objects).</li>
-                <li>Geometries: Geometric objects, such as lines, that represent what we see in the graph.</li>
+                <li>Data: 数据集中的观测。</li>
+                <li>Aesthetics: 把数据映射到视觉属性，例如坐标轴和几何对象大小。</li>
+                <li>Geometries: 几何对象，例如线条，代表图中实际看到的内容。</li>
                 <br>
-                <p>Useful Resources:</p>
+                <p>有用资源：</p>
                 <br>
-                <p>PDF of the documentation: <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf</a></p>
+                <p>文档 PDF： <a href="https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf">https://cran.r-project.org/web/packages/ggplot2/ggplot2.pdf</a></p>
                 <br>
-                <p>Here's the link to the website: <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a></p>
+                <p>官网链接： <a href="https://ggplot2.tidyverse.org/">https://ggplot2.tidyverse.org/</a></p>
                 <br>
-                <p>And here's the link to the book: <a href="https://ggplot2-book.org/">https://ggplot2-book.org/</a></p>
+                <p>图书链接： <a href="https://ggplot2-book.org/">https://ggplot2-book.org/</a></p>
 
                 <section class="">
                 <div class="code-container">
@@ -853,7 +857,7 @@ t.test(msleep$sleep_total, msleep$sleep_rem)
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Applying the ggplot2 package</h3>
+                <h3>应用 ggplot2 包</h3>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -988,7 +992,7 @@ msleep %>%
 
         <section class="hero-modules">
             <div class="container">
-                <h3>Boxplots</h3>
+                <h3>箱线图（boxplot）</h3>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
