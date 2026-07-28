@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zn-cn">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,11 @@
                                 Español
                             </a>
                         </li>
+                        <li>
+                            <a class="btn" href="../../en/module03/module03.html">
+                                English
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Hamburguer Button -->
@@ -55,7 +60,9 @@
                             </a>
                         </li>
                         <li>
-                            <a class="" href="#"></a>
+                             <a class="#" href="../../en/module03/module03.html">
+                                English
+                            </a>
                         </li>
                     </ul>
                  </div>
@@ -66,16 +73,16 @@
             <div class="container">
                 <div class="hero-content">
                     <h1 class="hero-heading text-xl">
-                        Processing raw scRNA-seq data
+                        CellRanger 处理原始测序数据。
                     </h1>
                     <p class="hero-text">
-                        This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics. Processing scRNA-seq data is a crucial step in single-cell analysis. The chosen library preparation method determines whether RNA sequences are captured from transcript ends (e.g., 10X Genomics, Drop-seq) or full-length transcripts (e.g., Smart-seq), directly influencing downstream analysis and biological insights.
+                        本笔记本介绍了 Linux 中的基本命令行操作，涵盖了在不同编程语言中广泛适用且只需少量调整的基础命令。这些基础技能将支持在计算生物学中的高效数据管理和分析。此外，我们将探讨使用 Cell Ranger 将原始测序读段处理为计数矩阵的关键步骤，并讨论其主要输出及其在单细胞转录组学中的作用。处理 scRNA-seq 数据是单细胞分析中的关键步骤。所选择的文库构建方法决定了 RNA 序列是从转录本末端捕获（如 10X Genomics、Drop-seq），还是从全长转录本捕获（如 Smart-seq），这将直接影响后续分析和生物学见解。
                     </p>
                     <br>
                     <hr/>                    
                     </div>
                     <h2 class="hero-heading text-xl">
-                        Install Utilities
+                        安装工具
                     </h2>
                     <h3><i>SRAtoolkit</i></h3>
 
@@ -87,17 +94,17 @@
                 </div>
                 </section>
 
-                <h2 class="hero-heading text-xl">NOTICE: Shell comands</h2>
+                <h2 class="hero-heading text-xl">注意：Shell 命令</h2>
                 <br>
-                <p>Google Colab/Jupyter Noetbook using for default python as programming language.
-                It's permite to use another languages, like shell script.
+                <p>Google Colab/Jupyter Notebook 默认使用 Python 作为编程语言。
+                不过，它也允许我们使用其他语言，例如 Shell 脚本。
                 <ul class="a">
-                    <li>For this, in Google Colab we use <span class="code-inline-light">"!"</span> before the code.</li>
-                    <li>For the Jupyter Notebooks we use a magic cell with <span class="code-inline-light">%%bash</span> before to write our script.</li>
+                    <li>在 Google Colab 中，需要在代码前加上 <span class="code-inline-light">"!"</span></li>
+                    <li>在 Jupyter Notebook 中，可以在单元开头写入 <span class="code-inline-light">%%bash</span> 这个 magic cell 标记，然后再编写脚本。</li>
                 </ul>
                 </p>
                 
-                <p>This is a marker to Google Colab understand this is Shell's code. For your personal use, <span class="code-inline-light">"!"</span> is not necessary.</p>
+                <p>这个标记会告诉 Google Colab：这里运行的是 Shell 代码。 如果你在自己的终端中使用这些命令，则不需要写 <span class="code-inline-light">"!"</span></p>
 
                 <section class="">
                 <div class="code-container">
@@ -118,7 +125,7 @@ echo "Hello, world!"
                 </div>
             </section>
 
-                <p>Along this Jupyter Notebook you will see diferents command in shell. They will be explained, but here is a small set of the most common commands.</p>
+                <p>在这个 Jupyter Notebook 中，你会看到不同的 Shell 命令。后面会逐步解释它们；这里先列出一小组最常见的命令。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -331,11 +338,11 @@ wget https://trace.ncbi.nlm.nih.gov/Traces/sra?run=SRR24765940
             <div class="container">
                 <h3>Installation</h3>
                
-                <p>To begin, you must download SRAtoolkit in order to use the fastq-dump tool, which allows you to download SRA files.</p>
+                <p>首先，需要下载 SRA Toolkit，以便使用 fastq-dump 工具下载 SRA 文件。</p>
 
-                <p>The SRA Toolkit is a set of tools developed by the National Center for Biotechnology Information (NCBI) to access, download, and manipulate high-throughput data stored in the Sequence Read Archive (SRA)</p>
+                <p>SRA Toolkit 是由 National Center for Biotechnology Information（NCBI）开发的一组工具，用于访问、下载和处理保存在 Sequence Read Archive（SRA）中的高通量数据。</p>
 
-                <p>The fastq-dump is one of the tools in the SRA Toolkit. It is used to extract data in FASTQ or FASTA format from SRA accessions. FASTQ is a common format for storing DNA and RNA sequencing data, which includes the sequence reads and their qualities. fastq-dump allows users to convert SRA files to FASTQ files, making it easier to process and analyze these data in other bioinformatics tools.</p>
+                <p><span class="code-inline-light">fastq-dump</span> 是 SRA Toolkit 中的一个工具，用于从 SRA accession 中提取 FASTQ 或 FASTA 格式的数据。FASTQ 是保存 DNA 和 RNA 测序数据的常用格式，包含序列 reads 及其质量信息。 <span class="code-inline-light">fastq-dump</span> 可以把 SRA 文件转换为 FASTQ 文件，从而方便在其他生物信息学工具中继续处理和分析。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -392,15 +399,15 @@ ls
                 </div>
                 </section>
 
-                <h3>What is Cell Ranger?</h3>
+                <h3>什么是 Cell Ranger？</h3>
                 <br>
-                <p>Cell Ranger is a software suite developed by 10x Genomics for analyzing single-cell RNA sequencing (scRNA-seq) data generated from their Chromium platform. It processes the raw sequencing data into meaningful insights, including gene expression matrices, cell clustering, and other downstream analyses.
+                <p>Cell Ranger 是 10x Genomics 开发的一套软件，用于分析由其 Chromium 平台生成的单细胞 RNA 测序（scRNA-seq）数据。 它可以把原始测序数据处理成具有生物学意义的结果，包括基因表达矩阵、细胞聚类以及其他下游分析输出。
                 <br>
-                <b>Note:</b>
+                <b>说明</b>
                 <br>
-                Cell Ranger requires more than 12GB of RAM to run, it does not work with Colab.
+                Cell Ranger 运行时需要超过 12 GB 内存，因此不能在 Colab 中运行。
                 <br>
-                <b>Download:</b>Update the <a href="https://www.10xgenomics.com/support/software/cell-ranger/downloads">link</a> if it has expired and then the relevant genomic reference.
+                <b>下载</b>下载 Cell Ranger。 如果链接已经失效，请更新 并下载相应的基因组参考文件。
                 </p>
 
                 <section class="">
@@ -435,7 +442,7 @@ wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
                 </div>
             </section>
 
-            <p>Alternatively, you can also download version 10.0.0 from a GitHub repository we created as a backup, but first you need to remove the "#" symbol to uncomment it, as it's not necessary to run it if you click the download link from the 10x website.</p>
+            <p>你也可以从我们作为备份创建的 GitHub 仓库中下载 10.0.0 版本。不过首先需要删除代码前面的 # 符号来取消注释。若你已经从 10x 官网链接下载，则不需要运行这行代码。</p>
 
             <section class="">
                 <div class="code-container">
@@ -452,32 +459,32 @@ wget "https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-GRCh38-2024-A.tar.gz"
                 </div>
             </section>
 
-            <h3>IMPORTANT:</h3>
+            <h3>重要：</h3>
 
-            <p>If your current version of cellranger is different from the one used in this Jupyter Notebook, you will need to update it in the code directory or download the backup from GitHub.
+            <p>如果你当前使用的 Cell Ranger 版本与这个 Jupyter Notebook 中使用的版本不同，需要在代码目录中更新相应路径，或从 GitHub 下载备份版本。
             <br>
-            > Example: cellranger-9.0.1 --> cellranger-10.0.0</p>
+            > 示例: cellranger-9.0.1 --> cellranger-10.0.0</p>
             <br>
 
-                <h3>Installation</h3>
+                <h3>安装</h3>
                 <br>
-                <p>To work with certain organisms not available in the resources provided by 10x, such as bacteria, plants, and viruses, it is necessary to create a reference for CellRanger:</p>
+                <p>如果要分析 10x 提供资源中没有覆盖的生物，例如细菌、植物和病毒，就需要为 Cell Ranger 创建自定义 reference：</p>
                 <br>
                 <p>
                     <ul class="a">
-                        <li>cellranger-10.0.0/bin/cellranger is the path to the software</li>
-                        <li>The mkref command is used to create custom reference packages</li>
-                        <li>--genome: Creates a directory for the output files</li>
-                        <li>--fasta: Specifies the reference genome</li>
-                        <li>/genome/genome.fa: Is the path to the genome in .fa format</li>
-                        <li>--genes: Specifies the reference GTF file</li>
-                        <li>/gtf/genome.annotation.gtf: Path to the annotation file</li>
+                        <li>cellranger-10.0.0/bin/cellranger 是软件路径</li>
+                        <li>mkref  命令用于创建自定义 reference package</li>
+                        <li>--genome: 创建输出文件目录</li>
+                        <li>--fasta: 指定参考基因组</li>
+                        <li>/genome/genome.fa: .fa 格式基因组文件路径</li>
+                        <li>--genes: 指定参考 GTF 文件</li>
+                        <li>/gtf/genome.annotation.gtf: 注释文件路径</li>
                     </ul>
                 </p>
                 <br>
-                <p>Here's a small example of how to generate a reference, in this case for chromosome 22, from the 10x reference human genome.</p>
+                <p>下面是一个小示例，演示如何基于 10x 的人类参考基因组生成一个 chromosome 22 的 reference。</p>
                 <br>
-                <p>First, we install samtools to manipulate the FASTA genome file and select chromosome 22.</p>
+                <p>首先，我们安装 samtools，用它处理 FASTA 基因组文件并选择 chromosome 22。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -495,7 +502,7 @@ apt-get install samtools -y
                 </div>
             </section>
 
-            <p>The `samtools faidx` function in particular extracts chromosome 22, and then we redirect the output to a file called GRCh38.CHR22.fa.</p>
+            <p>具体来说，samtools faidx 函数会提取 chromosome 22，然后我们把输出重定向到名为 GRCh38.CHR22.fa 的文件中。</p>
 
             <section class="">
                 <div class="code-container">
@@ -534,7 +541,7 @@ gunzip -c refdata-gex-GRCh38-2024-A/genes/genes.gtf.gz | grep "chr22" | gzip > C
                 </div>
             </section>
 
-            <p>Finally, we have the necessary files to generate the new reference and we can run cellranger.</p>
+            <p>最后，我们已经具备生成新 reference 所需的文件，可以运行 Cell Ranger。</p>
 
             <section class="">
                 <div class="code-container">
@@ -556,21 +563,20 @@ cellranger-10.0.0/bin/cellranger mkref --genome=GRCh38-CHR22 --fasta=GRCh38.CHR2
                 </div>
             </section>
 
-            <p>Now, we have our new reference available, which we can work with.</p>
+            <p>现在，我们已经获得了可以使用的新 reference。</p>
     
-                <h2>DO NOT RUN!</h2>
+                <h2>不要运行！</h2>
                 <ul class="a">
-                <span class="code-inline-light">cellranger-10.0.0/bin/cellranger</span> is a path to the software
+                <span class="code-inline-light">cellranger-10.0.0/bin/cellranger</span> 是软件路径。
+                    <li>count 用于计数 messenger RNA（mRNA）分子</li>
 
-                    <li>count is used to count messenger RNA (mRNA) molecules</li>
+                    <li>--id= 是输出目录名称</li>
 
-                    <li>--id= is a directory name for outputs</li>
+                    <li>--fastqs 是待分析文件所在路径</li>
 
-                    <li>--fastqs path to files to analyse</li>
+                    <li>--sample 指定待分析样本文件</li>
 
-                    <li>--sample files to analyse</li>
-
-                    <li>--transcriptome is the reference</li>
+                    <li>--transcriptome 是 reference</li>
                 </ul>
 
                 <section class="">
@@ -594,7 +600,7 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
                 </div>
             </section>
 
-                <b>Cellranger outputs running one sample</b>
+                <b>运行一个样本后的 Cell Ranger 输出</b>
                 <section class="video">
                 <div class="container-md">
                     <div class="video-content">
@@ -604,24 +610,24 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
                 </section>
 
                 <ul class="a">
-                    <li>The Cell Ranger software strives to maintain compatibility with common analysis tools by using standard output file formats whenever possible. For example, the barcoded BAM files can be viewed in standard genome browsers such as IGV to verify alignment quality and other features.</li>
+                    <li>Cell Ranger 软件会尽可能使用标准输出文件格式，以保持与常见分析工具的兼容性。 例如，带 barcode 的 BAM 文件可以在 IGV 等标准基因组浏览器中查看，用于确认比对质量和其他特征。</li>
                 </ul>
 
-                <p>The cellranger count pipeline outputs an interactive summary HTML file named web_summary.html that contains summary metrics and automated secondary analysis results. Let's check it out!</p>
+                <p>cellranger count 流程会输出一个名为 web_summary.html 的交互式 summary HTML 文件，其中包含 summary metrics 和自动化二级分析结果。下面查看这个文件。</p>
                 <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary">
                     <p>https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/summary</p>
                 </a>
 
                 <ul>
                     <br>
-                    Understand the summary output:
-                    <li>Green text indicates that the key metrics are in the expected range.</li>
-                    <li>Red/Yellow text indicates errors/warnings.</li>
+                    理解 summary 输出：
+                    <li>绿色文字表示关键指标处于预期范围。</li>
+                    <li>红色/黄色文字表示错误或警告。</li>
                 </ul>
 
                 <p>Barcode Rank Plot:
                     <br>
-                    A steep drop-off is indicative of good separation between the cell-associated barcodes and the barcodes associated with empty GEMs.
+                   如果曲线出现陡降，通常说明与细胞相关的 barcode 和空 GEM 相关的 barcode 之间区分良好。
                 </p>
 
                 <section class="video">
@@ -637,7 +643,7 @@ cellranger-7.2.0/bin/cellranger count --id=run_count_SRR11537950 \
                     <div class="video-content">
                             <img src="output_cellranger2.jpg" alt="video" class="video-preview">
                     </div>
-                    <h4>The significate of t-SNE, clusters, features and others informations will be explain in others Modules.</h4>
+                    <h4>t-SNE、cluster、feature 以及其他信息的含义，会在后续模块中解释。</h4>
                 </div>
                 </section>
             </div>
