@@ -996,7 +996,7 @@ sampleA <- FindVariableFeatures(sampleA, selection.method = "vst", nfeatures = 2
                 </div>
                 </section>
 
-                            <p>Let's see the names of the most highly variable genes now</p>
+                            <p>现在查看最高变基因的名称。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1031,7 +1031,7 @@ top10
                 </div>
                 </section>
 
-                            <p>Now let's plot the variance (after vst) versus the mean of expression for each gene, coloring the top 2000 and labelling the top 10</p>
+                            <p>接下来绘制每个基因的表达均值与方差（经过 vst 后）之间的关系，并标出前 2,000 个高变基因以及排名前 10 的基因标签。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1054,12 +1054,12 @@ scPlot
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Scaling gene expression</h2>
-                            <p>The next step in the analysis is to scale the expression of each gene across cells. This means adjusting the expression values so that each gene has an average expression of 0 and a variance of 1. This scaling step is important because genes often have different expression levels (magnitude), and if we don't scale the data, genes with higher expression levels might dominate the analysis.</p>
+                            <h2>基因表达缩放</h2>
+                            <p>分析的下一步是对每个基因在所有细胞中的表达进行缩放。这意味着调整表达值，使每个基因的平均表达为 0、方差为 1。这个缩放步骤很重要，因为不同基因往往具有不同的表达水平（量级）；如果不进行缩放，高表达基因可能会在分析中占据主导地位。</p>
                             <br>
-                            <p>By scaling the expression, all genes will contribute equally to downstream analyses, regardless of their initial expression levels. This is a common technique used in many big data fields to ensure that features (like genes in this case) with different scales or magnitudes can be compared or used together effectively.</p>
+                            <p>经过缩放后，不论基因初始表达水平高低，所有基因都可以在下游分析中更均衡地贡献信息。这是许多大数据领域常用的技术，用于确保具有不同尺度或量级的特征（这里是基因）能够被有效比较或联合使用。</p>
                             <br>
-                            <p>In Seurat, the scaling process does not overwrite the original, unscaled expression values. Instead, the scaled expression values are stored separately in the Seurat object under sampleA[["RNA"]]@scale.data. This way, both the raw and scaled expression values are preserved, allowing you to use either version depending on the analysis or visualization you're performing.</p>
+                            <p>在 Seurat 中，缩放过程不会覆盖原始、未缩放的表达值。相反，缩放后的表达值会单独保存在 Seurat 对象的 sampleA[["RNA"]]@scale.data 中。这样原始表达值和缩放后的表达值都会被保留，你可以根据具体分析或可视化需求选择使用哪一个版本。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1097,12 +1097,12 @@ sampleA <- ScaleData(sampleA, features = all.genes)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Dimension Reduction</h2>
+                            <h2>降维</h2>
                             <h3>PCA</h3>
 
-                            <p>We've identified the most variable genes and standardized their scales. Now, let's perform our first dimensionality reduction and visualization using PCA (Principal Component Analysis).</p>
+                            <p>我们已经识别出高变基因，并对它们的尺度进行了标准化。现在使用 PCA（Principal Component Analysis，主成分分析）进行第一次降维和可视化。</p>
                             <br>
-                            <p>PCA is a technique used to reduce the number of dimensions (features) in a dataset while preserving as much variability (information) as possible. It does this by finding new variables, called principal components, that are combinations of the original features. These components capture the most important patterns in the data. In simple terms, PCA helps to simplify complex data by transforming it into a smaller set of meaningful components, making it easier to visualize and interpret.</p>
+                            <p>PCA 是一种降维技术，用于在尽可能保留数据变异（信息）的同时，减少数据集的维度（特征数）。它通过寻找新的变量，即主成分，来完成这一过程；这些主成分是原始特征的组合，能够捕捉数据中最重要的模式。简单来说，PCA 可以把复杂数据转换为数量更少但更有意义的成分，使其更容易可视化和解释。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1121,9 +1121,9 @@ scPlot
                 </div>
             </section>
 
-                            <p>Hmm, that doesn't show much structure. It seems like the vast majority of the variation across cells is coming from one direction in gene expression space. Maybe we can learn something by looking at what genes contribute to that PC.</p>
+                            <p>嗯，这张图没有显示出太多结构。看起来细胞间绝大部分变异都来自基因表达空间中的某一个方向。 也许可以通过查看哪些基因对这个主成分贡献最大，来获得一些线索。</p>
                             <br>
-                            <p>The explained variance by each principal component is the ratio between each eigenvalue and the sum of all eigenvalues. We need to remember that Seurat does not compute all the principal components, because it is computationally heavy. In our case, it calculated the first 50 PCs, so all the inference must be conditional on these 50 PCs (and not all the 3894 possible PCs).</p>
+                            <p>每个主成分解释的方差比例，是该主成分对应特征值与所有特征值总和之间的比值。需要注意的是，由于计算成本较高，Seurat 不会计算全部主成分。在我们的例子中，它只计算了前 50 个 PC，因此所有推断都应基于这 50 个 PC，而不是全部 3,894 个可能的 PC。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1134,6 +1134,7 @@ scPlot
 
                 <!-- code block -->
                 <pre><code class="language-r">
+# Extract the PCA results from the Seurat object                    
 pca = sampleA[["pca"]]
 
 ## get the eigenvalues
@@ -1176,9 +1177,7 @@ scPlot
                 </div>
             </section>
 
-                            <p>Observing PC1, it seems that it is account for the overall signal per cell. We can't see clear groups of different gene sets (unlike PC2).</p>
-                            <br>
-                            <p>The other PCs instead do seem to be measuring the relative expression of different genes. If PC1 is just the total signal per cell maybe we can visualize that directly.</p>
+                            <p>也许可以通过观察哪些基因对这些主要成分（PC）贡献较大，来获得一些信息。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1196,9 +1195,7 @@ DimHeatmap(sampleA, dims = 1:2)
                 </div>
             </section>
 
-                            <p>Calculate the variance for each component to find an explanation</p>
-                            <br>
-                            <p>It appears that <b>PC1</b> just has postive weights from a bunch of genes. This suggests it isn't balancing expression of different gene sets, it's just measuring overall signal. What do other PCs look like?</p>
+                            <p>其他 PC 看起来是什么样的？</p>
 
                             <section class="">
                 <div class="code-container">
