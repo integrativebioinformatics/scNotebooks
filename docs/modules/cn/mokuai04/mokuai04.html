@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zn-cn">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +33,11 @@
                                 Español
                             </a>
                         </li>
+                        <li>
+                            <a class="btn" href="../../cn/mokuai04/mokuai04.html">
+                                中文版
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- Hamburguer Button -->
@@ -51,6 +56,9 @@
                         </li>
                         <li>
                             <a class="" href="../../es/cuaderno04/cuaderno04.html">Español</a>
+                        </li>
+                        <li>
+                            <a class="" href="../../cn/mokuai04/mokuai04.html">中文版</a>
                         </li>
                     </ul>
                  </div>
@@ -77,14 +85,14 @@
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Setup</h2>
-                <p>In this section, we will set up the computing environment required to perform the analyses for this part. The setup involves using both Shell and R within this notebook.</p>
+                <h2>环境设置</h2>
+                <p>在本节中，我们将配置完成本部分分析所需的计算环境。这个 notebook 会同时使用 Shell 和 R。</p>
                 <br>
-                <p>First, we will create a function called shell_call to execute shell scripts directly.</p>
+                <p>首先，我们会创建一个名为 shell_call 的函数，用来直接执行 Shell 脚本。</p>
                 <br>
-                <p>Following that, we will install and configure R to ensure it is ready for use</p>
+                <p>随后，我们将安装并配置 R，确保后续分析可以正常运行。</p>
                 <br>
-                <p><b>R</b> is a programming language and software environment for data analysis, statistics, and graphics. It is widely used in scientific research, machine learning, bioinformatics, and data science due to its flexibility and vast collection of packages. R is open source and offers tools for data manipulation, statistical modeling, visualization, and integration with other languages ​​such as Python and C++.</p>
+                <p><b>R</b> 是一种用于数据分析、统计建模和图形绘制的编程语言及软件环境。由于它灵活、开源，并拥有庞大的扩展包生态，R 被广泛用于科学研究、机器学习、生物信息学和数据科学。R 提供了数据整理、统计建模、可视化，以及与 Python、C++ 等其他语言集成的工具。</p>
 
             <section class="">
                 <div class="code-container">
@@ -140,13 +148,13 @@ BiocManager::install(biocPkgs2Install, ask=FALSE, update=TRUE, quietly=TRUE)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h3>Packages in R</h3>
+                            <h3>R 中的软件包</h3>
                             <br>
-                            <p>A package in R is a collection of functions, data, and documentation bundled together. Packages help extend the core functionality of R by providing specific tools for different tasks, such as data analysis, graph visualization, advanced statistics, etc.</p>
+                            <p>R package 是把函数、数据和文档打包在一起的扩展模块。软件包可以扩展 R 的核心功能，为不同任务提供专门工具，例如数据分析、图形可视化和高级统计分析等。</p>
                             <br>
-                            <h3>Install</h3>
+                            <h3>安装</h3>
                             <br>
-                            <p>Before using a package, it must be installed in your environment. This is done only once (unless it needs to be updated) with the command:</p>
+                            <p>使用某个软件包之前，必须先把它安装到当前环境中。通常只需要安装一次，除非之后需要更新。安装命令如下：</p>
 
                             <section class="">
                 <div class="code-container">
@@ -162,11 +170,11 @@ install.packages("name_of_package")
                 </div>
                 </section>
 
-                            <h3>Library</h3>
+                            <h3>加载库</h3>
                             <br>
-                            <p>Once installed, the package needs to be loaded in each session in which you want to use it. The command checks whether the mentioned package is installed. If the package is installed, it is loaded and ready for use. If the package is not installed, R returns an error.</p>
+                            <p>软件包安装完成后，在每一次需要使用它的 R 会话中都要加载。相关命令会检查指定软件包是否已经安装；如果已经安装，就会加载并准备使用；如果没有安装，R 会返回错误。</p>
                             <br>
-                            <p>This is where the library() function comes in:</p>
+                            <p>这时就需要使用 library() 函数：</p>
 
                             <section class="">
                 <div class="code-container">
@@ -203,23 +211,23 @@ loadPackages(pkgs)
                 </div>
             </section>
 
-                            <p>Then, load the libraries that you previously installed.</p>
+                            <p>接下来，加载前面已经安装好的库。</p>
 
                             <ul class="a">
-                                <li><a href="https://jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">Rtsne</a>: package in R implements the t-SNE technique for dimensionality reduction and data visualization.</li>
-                                <li><a href="https://satijalab.org/seurat/articles/get_started.html">Seurat:</a> Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data.</li>
-                                <li><a href="https://bioconductor.org/packages/release/bioc/html/scDblFinder.html">scDblFinder:</a> The scDblFinder package gathers various methods for the detection and handling of doublets/multiplets in single-cell sequencing data (i.e. multiple cells captured within the same droplet or reaction volume)</li>
-                                <li><a href="https://wilkelab.org/cowplot/articles/introduction.html">Cowplot</a> Provides various features that help with creating publication-quality figures with ggplot2, such as a set of themes, functions to align plots and arrange them into complex compound figures, and functions that make it easy to annotate plots and or mix plots with images.</li>
-                                <li><a href="https://lazappi.github.io/clustree/">Clustree</a>This visualization shows the relationships between clusters at multiple resolutions, allowing researchers to see how samples move as the number of clusters increases.</li>
-                                <li><a href="https://bioconductor.org/packages/release/bioc/html/preprocessCore.html">PreprocessCore:</a> A collection of pre-processing functions.</li>
+                                <li><a href="https://jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">Rtsne</a>: R 中实现 t-SNE 方法的软件包，用于降维和数据可视化。</li>
+                                <li><a href="https://satijalab.org/seurat/articles/get_started.html">Seurat:</a> Seurat 是一个 R 包，用于单细胞 RNA-seq 数据的质量控制、分析和探索。</li>
+                                <li><a href="https://bioconductor.org/packages/release/bioc/html/scDblFinder.html">scDblFinder:</a> scDblFinder 汇集了多种方法，用于识别并处理单细胞测序数据中的 doublet/multiplet，也就是多个细胞被捕获到同一个液滴或反应体积中的情况。</li>
+                                <li><a href="https://wilkelab.org/cowplot/articles/introduction.html">Cowplot</a> 提供多种辅助功能，帮助使用 ggplot2 生成出版级图形，包括主题、图形对齐、复合图排版，以及在图形中添加注释或混合图片等功能。</li>
+                                <li><a href="https://lazappi.github.io/clustree/">Clustree</a>用于展示不同分辨率下聚类之间的关系，帮助研究者观察随着聚类数量增加，样本或细胞如何在不同聚类之间移动。</li>
+                                <li><a href="https://bioconductor.org/packages/release/bioc/html/preprocessCore.html">PreprocessCore:</a> 组预处理函数集合。</li>
                             </ul>
                         </div>
                     </section>
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Data input, sparse UMI-count matrix</h2>
-                            <p>Reference: <a href="https://www.nature.com/articles/s41591-020-0901-9">https://www.nature.com/articles/s41591-020-0901-9</a></p>
+                            <h2>数据输入：稀疏 UMI 计数矩阵</h2>
+                            <p>原始论文： <a href="https://www.nature.com/articles/s41591-020-0901-9">https://www.nature.com/articles/s41591-020-0901-9</a></p>
 
                         <section class="video">
                             <div class="container-md">
@@ -229,7 +237,7 @@ loadPackages(pkgs)
                             </div>
                         </section>
 
-                        <p>Download the GEO's raw data.</p>
+                        <p>下载 GEO 的原始数据。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -258,7 +266,7 @@ shell_call("ls -lh")
                 </div>
             </section>
 
-                        <p>Separate the scRNA and TCRseq files.</p>
+                        <p>将 scRNA 文件和 TCRseq 文件分开。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -285,11 +293,11 @@ shell_call("ls -lh")
                 </div>
             </section>
 
-                        <p>We're now going to read data for one sample. The 10X Genomics data is usually stored in the HDF5 format (Hierarchical Data Format version 5) is a file format designed to store and organize large volumes of data efficiently, which is a scientific high-performance format.</p>
+                        <p>现在我们将读取其中一个样本的数据。10X Genomics 数据通常以 HDF5（Hierarchical Data Format version 5）格式保存。HDF5 是一种用于高效存储和组织大规模数据的科学高性能文件格式。</p>
                         <br>
-                        <p>The Read10X_h5() command is able to import this data and load it into R, using a special type of matrix, which has an efficient way of representing data with lots of zeroes.</p>
+                        <p>Read10X_h5() 命令可以导入这类数据，并将其加载到 R 中。它使用一种特殊的矩阵类型来高效表示含有大量 0 值的数据。</p>
                         <br>
-                        <p>How were these files created?</p>
+                        <p>这些文件是如何生成的？</p>
 
                         <section class="">
                 <div class="code-container">
@@ -323,11 +331,11 @@ print(class(sc))
                 </div>
             </section>
 
-                        <p>In single-cell RNA sequencing (scRNA-seq) data, most values in the matrix are zeros (0), representing genes with no detected molecules in many cells. To handle this efficiently, Seurat uses a sparse matrix representation whenever possible.</p>
+                        <p>在单细胞 RNA 测序（scRNA-seq）数据中，矩阵中的大多数值都是 0，表示许多细胞中没有检测到对应基因的分子。为了高效处理这类数据，Seurat 会尽可能使用稀疏矩阵表示。</p>
                         <br>
-                        <p>Sparse matrices store only the non-zero values and their locations, significantly reducing memory usage and improving processing speed for datasets like Drop-seq, inDrop, or 10x Genomics data.</p>
+                        <p>稀疏矩阵只保存非零值及其位置，因此可以显著降低内存占用，并提升 Drop-seq、inDrop 或 10x Genomics 等数据集的处理速度。</p>
                         <br>
-                        <p>For example, converting a dense matrix (~1600MB) to a sparse matrix reduces its size to less than 160MB — a 10-fold reduction. This optimization is crucial when working with large-scale scRNA-seq datasets.</p>
+                        <p>例如，将一个稠密矩阵（约 1600 MB）转换为稀疏矩阵后，大小可以降到 160 MB 以下，约为原来的十分之一。对于大规模 scRNA-seq 数据集，这种优化非常关键。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -354,9 +362,9 @@ dense.size/sparse.size
                 </div>
             </section>
 
-                        <p>We use the usual matrix commands to handle a sparse matrix. See below how to:</p>
+                        <p>我们可以用常规矩阵命令来操作稀疏矩阵。下面的代码演示如何：</p>
                         <br>
-                        <p>Know the dimensions of the matrix; Identify the class of a sparse matrix; Select rows and columns of a sparse matrix using numeric indices; Extract the names of the columns (or of the rows); Select rows (or columns) of a sparse matrix using the names of the rows (or columns).</p>
+                        <p>查看矩阵维度； 识别稀疏矩阵的类别； 使用数字索引选择稀疏矩阵的行和列； 提取列名或行名； 使用行名或列名选择稀疏矩阵的行或列。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -390,7 +398,7 @@ colnames(sc)[1:3]
                 </div>
             </section>
 
-                        <p>How big is this count table?</p>
+                        <p>这个计数表有多大？</p>
 
                         <section class="">
                 <div class="code-container">
@@ -415,14 +423,14 @@ print(class(sc))
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Quality control</h2>
+                            <h2>质量控制（QC）</h2>
                             <ul class="a">
-                                We will now create a Seurat object to continue with the analysis. In this step, we will apply some filters:
-                                <li>Remove genes that are detected in fewer than 3 cells.</li>
-                                <li>Remove cells that express fewer than 200 genes.</li>
+                                现在我们将创建一个 Seurat 对象，以便继续后续分析。在这一步中，我们会应用一些筛选条件：
+                                <li>移除在少于 3 个细胞中被检测到的基因。</li>
+                                <li>移除表达基因数少于 200 的细胞。</li>
                             </ul>
                             <br>
-                            <p>These filtering steps help clean the data by excluding genes and cells with minimal expression, which might be uninformative. However, these filters are optional — you can adjust the thresholds or skip this step entirely if preferred.</p>
+                            <p>这些筛选步骤可以排除表达信息极少、可能不具备分析价值的基因和细胞，从而清理数据。不过，这些筛选条件是可选的；你可以根据需要调整阈值，也可以跳过这一步。</p>
                             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -451,13 +459,13 @@ head(sampleA@meta.data, 5)
                 </code></pre>
                 </div>
             </section>
-                            <p>What do we know about the sampleA object?</p>
+                            <p>关于 sampleA 对象，我们已经知道什么？</p>
                             <br>
-                            <p>How many genes and how many cells does the Seurat object have?</p>
+                            <p>这个 Seurat 对象中有多少基因、多少细胞？</p>
                             <br>
-                            <p>Also, why are these numbers different?</p>
+                            <p>这些数字为什么会和原始矩阵不同？</p>
                             <br>
-                            <p>Remember that we created the Seurat object specifying that each gene had to be present in, at least, 3 cells (otherwise, the gene is removed). We also specified that each cell is required to have, at least, 200 genes.</p>
+                            <p>请记住，我们创建 Seurat 对象时要求每个基因至少出现在 3 个细胞中，否则该基因会被移除；同时也要求每个细胞至少检测到 200 个基因。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -490,26 +498,26 @@ dim(sc) - dim(sampleA)
                 </code></pre>
                 </div>
             </section>
-                        <p>What is the size of our Seurat object? How many genes and cells were removed from original table?</p>
+                        <p>我们的 Seurat 对象大小是多少？ 与原始表相比，有多少基因和细胞被移除了？</p>
                         </div>
                     </section>
                     
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Identifying Doublets</h2>
+                            <h2>识别 doublet</h2>
 
-                            <p>Doublets occur when two or more cells are mistakenly captured together in the same well, which is a common issue in single-cell RNA sequencing. This can happen when the cell suspension is too concentrated.</p>
+                            <p>Doublet 指两个或更多细胞被错误地一起捕获到同一个孔、液滴或反应体系中。这是单细胞 RNA 测序中常见的问题，尤其在细胞悬液浓度过高时更容易发生。</p>
                             <br>
-                            <p>To address this problem, we will use the scDblFinder method to identify and remove doublets from our dataset. This method requires an object of class SingleCellExperiment, which is part of the Bioconductor infrastructure.</p>
+                            <p>为了解决这个问题，我们将使用 scDblFinder 方法识别并移除数据集中的 doublet。该方法需要输入 SingleCellExperiment 类对象，这是 Bioconductor 生态中的一种标准对象。</p>
                             <br>
                             <ol>
-                                Steps:
-                                <li>Prepare the SingleCellExperiment object: This is necessary before applying the scDblFinder method.</li>
-                                <li>Apply scDblFinder: The method uses a probabilistic approach to detect doublets, so results may vary slightly between runs.</li>
-                                <li>Ensure reproducibility: To avoid variability in results, we will set a random seed using the <span class="code-inline-light">set.seed()</span> function. This ensures that the method produces the same results each time it is run.</li>
+                                步骤：
+                                <li>准备 SingleCellExperiment 对象：在应用 scDblFinder 之前必须完成这一步。</li>
+                                <li>应用 scDblFinder：该方法使用概率模型检测 doublet，因此不同运行之间的结果可能会略有差异。</li>
+                                <li>保证可复现性：为了避免结果波动，我们会使用 <span class="code-inline-light">set.seed()</span>  设置随机种子。这样每次运行该方法时都可以得到相同结果。</li>
                             </ol>
                             <br>
-                            <p>By setting the seed, we make the process reproducible, helping to confirm that the results are consistent across different runs.</p>
+                            <p>通过设置随机种子，我们使分析过程具备可复现性，从而更容易确认不同运行之间的结果一致。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -534,7 +542,7 @@ head(results)
                 </code></pre>
                 </div>
             </section>
-                            <p>Note that the results table includes a column called class, which categorizes the cells into two types: singlet and doublet. As shown below, doublet cells are the ones that should be removed from the dataset before proceeding with further analyses. In other words, we want to keep only the cells flagged as singlet, which represent individual cells, and remove the doublets.</p>
+                            <p>注意，结果表中包含一列名为 class，用于把细胞分为 singlet 和 doublet 两类。如下所示，在继续后续分析之前，doublet 细胞应当从数据集中移除。换句话说，我们只保留标记为 singlet 的细胞，也就是单个细胞，并移除 doublet。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -551,7 +559,7 @@ results %>%
                 </div>
                 </section>
 
-                <p>Save the results of scDblFinder() to reuse later</p>
+                <p>保存 scDblFinder() 的结果，方便之后重复使用。</p>
 
                 <!-- code block -->
                 <pre><code class="language-r">
@@ -565,9 +573,9 @@ write.table(results, outfile, sep='\t', quote=F,
                 </div>
                 </section>
         
-                            <p>Let's find the doublets and remove them from our matrix, i.e., let's keep only the singlets.</p>
+                            <p>接下来识别 doublet，并把它们从矩阵中移除；也就是说，我们只保留 singlet。</p>
                             <br>
-                            <p>Remember that, in this session, we are focusing on the Seurat object (sampleA), and that's why we will subset this object.</p>
+                            <p>请记住，在本节中我们关注的是 Seurat 对象 sampleA，因此这里会对该对象进行 subset。</p>
                         <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -585,7 +593,7 @@ sampleA
                 </code></pre>
                 </div>
                 </section>    
-                            <p>The percentage of mitochondrial reads is not automatically calculated by Cell Ranger. So, first we have to do this. We use this opportunity to include the percentage of MT reads as metadata to the Seurat object (sampleA). Remember that high percentage of mitochondrial reads is generally associated to high-stress and low-quality cells.</p>
+                            <p>Cell Ranger 不会自动计算线粒体 reads 的比例，因此我们首先需要自己计算。我们会借此机会把 MT reads 的比例作为元数据加入 Seurat 对象 sampleA。请记住，较高的线粒体 reads 比例通常与细胞应激状态高、细胞质量低有关。</p>
 
  <section class="">
                 <div class="code-container">
@@ -601,13 +609,13 @@ sampleA[["percent.mt"]] <- PercentageFeatureSet(sampleA, pattern="^MT-")
                 </div>
                 </section>                           
 
-                            <p>This function allows you to easily calculate the percentage of counts that belong to a specific subset of features for each cell. For example, you can use it to calculate the percentage of transcripts that map to mitochondrial genes. The calculation is done by summing the counts (UMIs) for the features in the subset (e.g., mitochondrial genes) and dividing this sum by the total sum of counts for all features (all genes) in each cell. The result is then multiplied by 100 to get the percentage.</p>
+                            <p>这个函数可以方便地计算每个细胞中属于某一组特征的 counts 比例。例如，可以用它计算定位到线粒体基因的转录本比例。具体计算方式是：对该特征子集中的 counts（UMI）求和，例如线粒体基因的 UMI 总数，再除以该细胞中所有特征（所有基因）的 counts 总和，最后乘以 100 得到百分比。</p>
                             <br>
-                            <p>In this example, the function adds a new column called percent.mt to the metadata associated with the sample (here, sampleA). This column contains the calculated percentage for each cell.</p>
+                            <p>在这个示例中，该函数会在样本（这里是 sampleA）的 metadata 中添加一个名为 percent.mt 的新列。该列保存每个细胞计算得到的线粒体比例。</p>
                             <br>
-                            <i>Terminology Clarification:</i>
-                            <p><b>Features:</b> Refers to genes in this context.</p>
-                            <p><b>Counts:</b> Refers to the UMI counts (Unique Molecular Identifiers) for each gene.</p>
+                            <i>术语说明：</i>
+                            <p><b>Features:</b>  在这里指基因。</p>
+                            <p><b>Counts:</b>  指每个基因的 UMI counts（Unique Molecular Identifiers，唯一分子标识符计数）。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -625,7 +633,7 @@ sampleA@meta.data %>% head()
 
                             
 
-                            <p>The code provided is used to generate a violin plot for visualizing the distribution of certain features in the dataset using the Seurat package in R.</p>
+                            <p>下面的代码使用 R 中的 Seurat 包生成小提琴图，用于可视化数据集中若干特征的分布。</p>
                             
                         <section class="">
                 <div class="code-container">
@@ -646,8 +654,7 @@ scPlot
 
                             
 
-                            <p>One dimensional violin plots are often difficult to interpret the entire distribution so let's try some histograms.
-                            This is also a demonstration of how to make plots without using Seurat's visualization commands</p>
+                            <p>一维小提琴图有时不容易完整解读分布形态，因此我们再尝试绘制直方图。 这也演示了如何不依赖 Seurat 的可视化命令来作图。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -669,7 +676,7 @@ scPlot
                 </div>
                 </section>    
 
-                            <p>Try to extract the mean of nCounts_RNA</p>
+                            <p>尝试提取 nCounts_RNA 的均值。</p>
 
                        <section class="">
                 <div class="code-container">
@@ -685,9 +692,9 @@ summary(sampleA.qc$nCount_RNA)
                 </div>
                 </section>    
 
-                            <p>We see very clearly that the typical cell has about 20000 UMIs but this ranges from just a couple tens to over 60000.</p>
+                            <p>我们可以很清楚地看到，典型细胞大约有 20,000 个 UMI，但范围很宽，从几十个到超过 60,000 个不等。</p>
                             <br>
-                            <p>Let's zoom in on the low count end of the spectrum just to see if we can identify any structure (eg bimodality).</p>
+                            <p>接下来放大低 counts 区间，看看是否能识别出某些结构，例如双峰分布。</p>
 
                          <section class="">
                 <div class="code-container">
@@ -708,7 +715,7 @@ scPlot
                 </div>
                 </section>   
 
-                            <p>Given the large dynamic range, perhaps a log scale will be useful.</p>
+                            <p>考虑到动态范围很大，使用对数尺度可能会更有帮助。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -729,7 +736,7 @@ scPlot
                 </div>
                 </section>    
 
-                    <p>Now let's look at the median number of genes per cell</p>
+                    <p>现在查看每个细胞检测到的基因数中位数。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -772,9 +779,9 @@ summary(sampleA.qc$nFeature_RNA)
                 </div>
                 </section>  
 
-                            <p>Looks like the typical cell has data on about 3000 genes, ranging from 200 (the minimum we set when we created the Seurat object) to over 9000</p>
+                            <p>看起来典型细胞大约有 3,000 个基因的数据，范围从 200 个基因（我们创建 Seurat 对象时设定的最低值）到超过 9,000 个基因不等。</p>
                             <br>
-                            <p>And how about the percentage mitochondrial reads?</p>
+                            <p>那么线粒体 reads 的比例如何？</p>
 
                             <section class="">
                 <div class="code-container">
@@ -796,9 +803,9 @@ summary(sampleA.qc$percent.mt)
                 </div>
                 </section>
 
-                            <p>The majority of cells are below 5% but some are over 50%</p>
+                            <p>大多数细胞低于 5%，但也有一些细胞超过 50%。</p>
                             <br>
-                            <p>It is often more useful to look at multiple QC metrics together instead of individually. Lets try some simple 2D scatter plots</p>
+                            <p>相比逐个查看 QC 指标，把多个 QC 指标放在一起观察通常更有用。下面尝试绘制一些简单的二维散点图。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -832,10 +839,10 @@ scPlot
                 </div>
                 </section>    
 
-                            <p>Remeber: we don't need to use only Seurat plotting tools.</p>
+                            <p>请记住：我们并不只能使用 Seurat 的绘图工具。</p>
                             <br>
 
-                            <p>ggplot2 is a powerful visualization tool, which handles tables nicely to create plots. Check the plot above (nFeature vs. nCount) and consider that it may be of interest to understand how the data behaves as a function of the percentage of MT reads.</p>
+                            <p>ggplot2  是一个强大的可视化工具，能够很好地处理表格并生成图形。查看上面的图（nFeature vs. nCount），并思考如果把数据表现与 MT reads 比例联系起来，会不会有助于理解数据。</p>
                          <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -857,7 +864,7 @@ scPlot
                 </section>   
                             
 
-                            <p>Most of this QC looks quite nice. We don't see strikingly different subpopulations of cells by these QC metrics. Just to be safe, let's remove cells with over 10% mitochrondrial reads, which may be a sign of ex-vivo damage during sample handling and library generation</p>
+                            <p>整体来看，这些 QC 指标表现不错。根据这些 QC 指标，我们没有看到非常明显、彼此差异很大的细胞亚群。 为了稳妥起见，我们将移除线粒体 reads 比例超过 10% 的细胞；这类细胞可能反映样本处理或建库过程中发生了 ex vivo 损伤。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -874,7 +881,7 @@ sampleA <- subset(sampleA, nCount_RNA > 500 & nFeature_RNA < 7000 & percent.mt <
                 </div>
                 </section>    
 
-                            <p>Let's reuse the plot we created on the last exercise and create a new column (called keep) using the metadata table. This column will identify the cells that we removed above.</p>
+                            <p>复用上一个练习中创建的图，并在 metadata 表中创建一个名为 keep 的新列。这个列将标记前面被移除的细胞。</p>
 
                          <section class="">
                 <div class="code-container">
@@ -922,12 +929,58 @@ print(dim(sampleA))
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Identify variable genes</h2>
-                            <p>To get a feel for the patterns of gene expression change across cells, let's start exploring some visualizations</p>
+                            <h2>识别高变基因</h2>
+                            <p>每个细胞中的总 RNA 量差异很可能影响分析结果。这一点在质量控制（QC）步骤中可能已经有所体现；由于我们还没有对此进行校正，因此现在需要处理这个问题。</p>
+                            <p>一种常见且直接的校正方式是对数据进行归一化。具体做法是将每个基因的 counts 除以该细胞的总 UMI（Unique Molecular Identifier）counts。这个步骤可以校正不同细胞之间 RNA 捕获效率的差异，使所有细胞的表达水平在总 RNA 含量不同的情况下仍然可以比较。</p>
                             <br>
-                            <p>The first step in the analysis is to identify the genes that show the most variability across the dataset. Genes that do not vary much across cells are less likely to provide useful information for further analyses, so we will focus on the top 2000 most variable genes.</p>
+                            <p>归一化之后，我们会进行对数转换。这样可以让数据更易处理，并降低高表达基因对分析的主导影响。</p>
                             <br>
-                            <p>To do this, we will first apply a variance stabilizing transformation (vst). This transformation helps to adjust the relationship between the mean and variance of gene expression values, making it easier to compare genes with different levels of expression. The goal of vst is to reduce the effect of genes with high expression levels, which tend to have higher variability, and make the variability of genes more consistent across different expression levels. This step ensures that we can more accurately identify genes that truly vary across cells and are likely to be biologically significant.</p>
+                             <p>此外，在进行对数转换之前，我们会将归一化后的 counts 乘以 10,000 这个缩放因子。这个因子在一定程度上是经验性的，但在实践中非常常用。它可以避免转换后的数值过小，使后续计算更方便。虽然具体因子并不是最关键的，但使用 10,000 这样的标准值可以让流程保持一致，也方便不同数据集之间进行比较。</p>
+                             <br>
+                             <p>不过在这之前，先保存一个未归一化的版本，稍后用于比较。</p>
+
+                             <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+unnormalized <- sampleA
+                </code></pre>
+                </div>
+                </section>
+
+                <p>现在可以继续进行下一步：</p>
+
+
+                 <section class="">
+                <div class="code-container">
+                <!-- copy code -->
+                <button class="copy-btn" title="Copy code">
+                    <i class="fa-solid fa-copy"></i>
+                </button>
+
+                <!-- code block -->
+                <pre><code class="language-r">
+sampleA <- NormalizeData(sampleA, normalization.method="LogNormalize",
+                        scale.factor=10000)
+                </code></pre>
+                </div>
+                </section>
+
+
+
+
+
+                            <h2>识别高变基因</h2>
+                            <p>我们先探索一些可视化方法，用来理解基因表达变化在细胞间的模式。</p>
+                            <br>
+                            <p>分析的第一步是识别整个数据集中变异程度最高的基因。跨细胞变化很小的基因通常不太可能为后续分析提供有用信息，因此我们将关注前 2,000 个变异程度最高的基因。</p>
+                            <br>
+                            <p>为此，我们首先应用方差稳定转换（variance stabilizing transformation, vst）。这个转换可以调整基因表达均值与方差之间的关系，使不同表达水平的基因更容易比较。vst 的目标是降低高表达基因对变异度的影响，因为高表达基因往往具有更高方差；经过转换后，不同表达水平基因的变异度会更可比。这个步骤有助于更准确地识别真正跨细胞变化、并可能具有生物学意义的基因。</p>
 
                             <section class="">
                 <div class="code-container">
