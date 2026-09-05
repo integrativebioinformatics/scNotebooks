@@ -1,12 +1,11 @@
 /* Single Cell Notebooks — translation catalogue
-   Languages: en · pt-BR · es · zh-CN · hi
+   Languages: en · pt-BR · es · zh-CN
    Consumed by main.js via [data-i18n] / [data-i18n-html] / [data-i18n-attr] */
 window.SCN_LANGS = [
   { code:'en', native:'English',        html:'en',    modules:'en' },
   { code:'pt', native:'Português (BR)', html:'pt-BR', modules:'pt' },
   { code:'es', native:'Español',        html:'es',    modules:'es' },
-  { code:'zh', native:'中文（简体）',      html:'zh-CN', modules:'cn' },
-  { code:'hi', native:'हिन्दी',            html:'hi',    modules:'en' }
+  { code:'zh', native:'中文（简体）',      html:'zh-CN', modules:'cn' }
 ];
 
 /* Folder / file naming of the module pages in each language pack */
@@ -14,8 +13,7 @@ window.SCN_MODULE_PATHS = {
   en:{ dir:'en', slug:'module'   },
   pt:{ dir:'pt', slug:'modulo'   },
   es:{ dir:'es', slug:'cuaderno' },
-  zh:{ dir:'cn', slug:'mokuai'   },
-  hi:{ dir:'en', slug:'module'   }   /* Hindi interface, English notebooks */
+  zh:{ dir:'cn', slug:'mokuai'   }
 };
 
 window.SCN_I18N = {};
@@ -43,7 +41,6 @@ window.SCN_I18N.en = {
   'mod.eyebrow':'Curriculum','mod.title':'Thirteen modules, from a first notebook to spatial omics',
   'mod.lead':'Open a module to read what it covers, then launch the notebook in your preferred language.',
   'mod.open':'Open notebook','mod.expandall':'Expand all','mod.collapseall':'Collapse all',
-  'mod.fallback':'The interface is in Hindi; notebook content is currently available in English.',
   'cite.eyebrow':'Citation','cite.title':'Cite us','cite.lead':'If these notebooks helped your work, please cite the paper.',
   'cite.copy':'Copy citation','cite.copied':'Copied','cite.bibtex':'Copy BibTeX','cite.doi':'View on publisher site',
   'team.eyebrow':'Contributors','team.title':'The team','team.lead':'Listed alphabetically.',
@@ -103,7 +100,6 @@ window.SCN_I18N.pt = {
   'mod.eyebrow':'Currículo','mod.title':'Treze módulos, do primeiro notebook às ômicas espaciais',
   'mod.lead':'Abra um módulo para ver o que ele cobre e inicie o notebook no idioma da sua preferência.',
   'mod.open':'Abrir notebook','mod.expandall':'Expandir tudo','mod.collapseall':'Recolher tudo',
-  'mod.fallback':'A interface está em híndi; o conteúdo dos notebooks está disponível em inglês.',
   'cite.eyebrow':'Citação','cite.title':'Cite-nos','cite.lead':'Se estes notebooks ajudaram o seu trabalho, por favor cite o artigo.',
   'cite.copy':'Copiar citação','cite.copied':'Copiado','cite.bibtex':'Copiar BibTeX','cite.doi':'Ver no site da revista',
   'team.eyebrow':'Colaboradores','team.title':'A equipe','team.lead':'Listados em ordem alfabética.',
@@ -163,7 +159,6 @@ window.SCN_I18N.es = {
   'mod.eyebrow':'Currículo','mod.title':'Trece módulos, del primer cuaderno a las ómicas espaciales',
   'mod.lead':'Abre un módulo para ver qué cubre y lanza el cuaderno en el idioma que prefieras.',
   'mod.open':'Abrir cuaderno','mod.expandall':'Expandir todo','mod.collapseall':'Contraer todo',
-  'mod.fallback':'La interfaz está en hindi; el contenido de los cuadernos está disponible en inglés.',
   'cite.eyebrow':'Cita','cite.title':'Cítanos','cite.lead':'Si estos cuadernos ayudaron a tu trabajo, por favor cita el artículo.',
   'cite.copy':'Copiar cita','cite.copied':'Copiado','cite.bibtex':'Copiar BibTeX','cite.doi':'Ver en el sitio de la revista',
   'team.eyebrow':'Colaboradores','team.title':'El equipo','team.lead':'Listados alfabéticamente.',
@@ -223,7 +218,6 @@ window.SCN_I18N.zh = {
   'mod.eyebrow':'课程体系','mod.title':'十三个模块，从第一个笔记本到空间组学',
   'mod.lead':'展开模块查看内容简介，然后以您偏好的语言打开对应笔记本。',
   'mod.open':'打开笔记本','mod.expandall':'全部展开','mod.collapseall':'全部收起',
-  'mod.fallback':'界面为印地语；笔记本内容目前提供英文版本。',
   'cite.eyebrow':'引用','cite.title':'引用我们','cite.lead':'如果这些笔记本对您的工作有帮助，请引用该论文。',
   'cite.copy':'复制引用','cite.copied':'已复制','cite.bibtex':'复制 BibTeX','cite.doi':'在出版方网站查看',
   'team.eyebrow':'贡献者','team.title':'团队','team.lead':'按字母顺序排列。',
@@ -260,62 +254,3 @@ window.SCN_I18N.zh = {
   'mod.d13':'依照 FAIR 原则准备元数据，并将单细胞、bulk 与空间数据提交至 NCBI、Single Cell Expression Atlas 及 HCA 数据门户。'
 };
 
-window.SCN_I18N.hi = {
-  'nav.skip':'मुख्य सामग्री पर जाएँ',
-  'meta.title':'Single Cell Notebooks — एकल-कोशिका और स्थानिक ओमिक्स में समावेशी और सुलभ प्रशिक्षण',
-  'meta.desc':'एकल-कोशिका और स्थानिक ओमिक्स प्रशिक्षण के लिए तेरह खुले, व्यावहारिक Jupyter नोटबुक — अंग्रेज़ी, पुर्तगाली, स्पेनिश और चीनी में उपलब्ध।',
-  'nav.home':'मुखपृष्ठ','nav.about':'परिचय','nav.modules':'मॉड्यूल','nav.team':'टीम','nav.cite':'हमें उद्धृत करें',
-  'nav.github':'GitHub','nav.language':'भाषा बदलें','nav.theme':'डार्क मोड बदलें','nav.menu':'मेन्यू खोलें',
-  'nav.section':'अनुभाग','nav.links':'लिंक',
-  'hero.badge':'Nature Genetics, 2026 में प्रकाशित',
-  'hero.title':'डेटा विश्लेषण शिक्षा को <span class="grad">समावेशी और सुलभ</span> बनाते Single Cell Notebooks',
-  'hero.text':'बायोइनफॉर्मैटिक्स प्रशिक्षण के लिए व्यावहारिक Jupyter नोटबुक का एक खुला कम्प्यूटेशनल ढाँचा — कच्चे रीड्स से लेकर स्थानिक और बहु-मॉडल एकल-कोशिका विश्लेषण तक।',
-  'hero.start':'शुरू करें','hero.notebooks':'नोटबुक देखें','hero.docker':'Docker से चलाएँ',
-  'hero.discussion':'चर्चा','hero.cite':'हमें उद्धृत करें',
-  'stats.modules':'शिक्षण मॉड्यूल','stats.languages':'भाषाएँ','stats.open':'मुक्त पहुँच','stats.cost':'शिक्षार्थी शुल्क',
-  'stats.openval':'100%','stats.costval':'निःशुल्क',
-  'about.eyebrow':'परियोजना की संरचना','about.title':'एकल-कोशिका प्रशिक्षण की बाधाएँ हटाने के लिए बनाया गया',
-  'about.lead':'हर मॉड्यूल स्वतःपूर्ण, पुनरुत्पाद्य और क्लाउड पर चलने के लिए तैयार है — न स्थानीय इंस्टॉलेशन, न लाइसेंस शुल्क।',
-  'about.c1t':'सुलभ शिक्षा','about.c1d':'ऐसी शिक्षण सामग्री जो हर अनुभव स्तर के शोधकर्ताओं और विद्यार्थियों के लिए उपयोगी है — पहले नोटबुक से उन्नत विश्लेषण तक।',
-  'about.c2t':'वैश्विक समावेशन','about.c2d':'चार भाषाओं में सामग्री के साथ, एकल-कोशिका RNA अनुक्रमण सीखने की भौगोलिक और आर्थिक बाधाओं को कम करना।',
-  'about.c3t':'व्यावहारिक प्रशिक्षण','about.c3d':'कच्चे डेटा के प्रसंस्करण से लेकर उन्नत विश्लेषण तक, TCR अनुक्रम एकीकरण सहित, सब कुछ कवर करने वाले संवादात्मक मॉड्यूल।',
-  'about.c4t':'रचना से ही पुनरुत्पाद्य','about.c4d':'सब कुछ Google Colab या दिए गए Docker इमेज में चलाएँ — निश्चित संस्करण वाले परिवेश और सार्वजनिक डेटासेट के साथ।',
-  'mod.eyebrow':'पाठ्यक्रम','mod.title':'तेरह मॉड्यूल — पहले नोटबुक से स्थानिक ओमिक्स तक',
-  'mod.lead':'किसी मॉड्यूल को खोलकर उसकी विषय-वस्तु पढ़ें, फिर अपनी पसंदीदा भाषा में नोटबुक शुरू करें।',
-  'mod.open':'नोटबुक खोलें','mod.expandall':'सभी खोलें','mod.collapseall':'सभी बंद करें',
-  'mod.fallback':'इंटरफ़ेस हिन्दी में है; नोटबुक की सामग्री फ़िलहाल अंग्रेज़ी में उपलब्ध है।',
-  'cite.eyebrow':'उद्धरण','cite.title':'हमें उद्धृत करें','cite.lead':'यदि इन नोटबुक से आपके काम में मदद मिली हो, तो कृपया इस शोध-पत्र को उद्धृत करें।',
-  'cite.copy':'उद्धरण कॉपी करें','cite.copied':'कॉपी हो गया','cite.bibtex':'BibTeX कॉपी करें','cite.doi':'प्रकाशक की साइट पर देखें',
-  'team.eyebrow':'योगदानकर्ता','team.title':'टीम','team.lead':'वर्णानुक्रम में सूचीबद्ध।',
-  'foot.tagline':'बहु-संस्थागत सहयोग से निर्मित, एकल-कोशिका और स्थानिक ओमिक्स की मुक्त प्रशिक्षण सामग्री।',
-  'foot.explore':'अन्वेषण','foot.resources':'संसाधन','foot.colab':'Colab में खोलें','foot.docker':'Docker ट्यूटोरियल',
-  'foot.issues':'समस्या दर्ज करें','foot.discussions':'चर्चाएँ','foot.repo':'स्रोत रिपॉज़िटरी',
-  'foot.rights':'Single Cell Notebooks. मुक्त वैज्ञानिक प्रशिक्षण के लिए साझा शैक्षिक सामग्री।',
-  'foot.top':'ऊपर जाएँ',
-  'mod.t1':'नोटबुक और डेटाबेस का परिचय',
-  'mod.d1':'Jupyter और Google Colab से परिचित हों, फिर निर्देशित अभ्यासों के माध्यम से एकल-कोशिका और जीन अभिव्यक्ति डेटा के प्रमुख सार्वजनिक डेटाबेस देखें।',
-  'mod.t2':'R और RStudio का परिचय',
-  'mod.d2':'R परिवेश, उसकी मूल डेटा संरचनाएँ और ggplot2 के ग्राफ़िक्स व्याकरण को सीखें — आगे के हर विश्लेषण की नींव।',
-  'mod.t3':'कच्चे scRNA-seq डेटा का प्रसंस्करण',
-  'mod.d3':'आवश्यक Linux कमांड-लाइन कौशल तथा Cell Ranger कार्यप्रवाह, जो कच्चे अनुक्रमण रीड्स को काउंट मैट्रिक्स में बदलता है।',
-  'mod.t4':'गुणवत्ता नियंत्रण, विभेदक अभिव्यक्ति, कोशिका-प्रकार एनोटेशन, क्लस्टरिंग और कार्यात्मक विश्लेषण',
-  'mod.d4':'सम्पूर्ण Seurat कार्यप्रवाह: गुणवत्ता नियंत्रण, सामान्यीकरण, क्लस्टरिंग, विभेदक अभिव्यक्ति, कोशिका-प्रकार एनोटेशन और कार्यात्मक संवर्धन।',
-  'mod.t5':'अनेक नमूनों के एकल-कोशिका ट्रांसक्रिप्टोम का एकीकरण',
-  'mod.d5':'Seurat और Harmony से बैच प्रभाव सुधारें और कई डेटासेट एकीकृत करें, साथ ही सर्वोत्तम रणनीति चुनने के लिए बेंचमार्किंग करें।',
-  'mod.t6':'प्रक्षेप-पथ अनुमान और स्यूडोटाइम क्रमबद्धता',
-  'mod.d6':'Monocle3 की सहायता से विभेदन प्रक्षेप-पथ पुनर्निर्मित करें और कोशिकाओं को स्यूडोटाइम में क्रमबद्ध करें।',
-  'mod.t7':'कोशिका-कोशिका संचार को समझना',
-  'mod.d7':'LIANA का उपयोग कर अभिव्यक्ति डेटा से लाइगैंड-रिसेप्टर अंतःक्रियाएँ और कोशिकाओं के बीच संचार का अनुमान लगाएँ।',
-  'mod.t8':'बहु-मॉडल एकल-कोशिका विश्लेषण',
-  'mod.d8':'8,617 गर्भनाल-रक्त एकल-केंद्रकीय कोशिकाओं के एक Seurat विश्लेषण में ट्रांसक्रिप्टोम और सतही प्रोटीन माप (CITE-seq) को संयोजित करें।',
-  'mod.t9':'एकल-कोशिका विश्लेषण में TCR प्रोफ़ाइलिंग',
-  'mod.d9':'T-कोशिका रिसेप्टर संग्रह का अध्ययन करें और CITE-seq के साथ मिलाकर एकल-कोशिका स्तर पर अनुकूली प्रतिरक्षा प्रतिक्रिया का चरित्र-चित्रण करें।',
-  'mod.t10':'स्थानिक ट्रांसक्रिप्टोमिक्स का परिचय',
-  'mod.d10':'Seurat से स्थानिक विभेदन वाले ट्रांसक्रिप्टोम का विश्लेषण करें — क्षेत्र-स्तरीय अभिव्यक्ति से कोशिका-प्रकार डीकनवोल्यूशन तक।',
-  'mod.t11':'scATAC-seq का परिचय',
-  'mod.d11':'एकल-कोशिका स्तर पर क्रोमैटिन सुगम्यता का अध्ययन करें और खुले क्षेत्रों को ट्रांसक्रिप्शनल नियमन से जोड़ें।',
-  'mod.t12':'वैकल्पिक पॉलीऐडेनिलेशन (APA)',
-  'mod.d12':'SCAPE-APA से एकल-कोशिका डेटा में वैकल्पिक पॉलीऐडेनिलेशन का पता लगाएँ, मात्रा निर्धारित करें और कोशिका-प्रकारों में APA गतिकी की व्याख्या करें।',
-  'mod.t13':'FAIR सिद्धांत और डेटा साझाकरण',
-  'mod.d13':'FAIR सिद्धांतों का पालन करते हुए मेटाडेटा तैयार करें और एकल-कोशिका, bulk तथा स्थानिक डेटा को NCBI, Single Cell Expression Atlas और HCA Data Portal में जमा करें।'
-};

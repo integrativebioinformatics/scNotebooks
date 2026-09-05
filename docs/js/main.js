@@ -52,7 +52,6 @@
       if (n.indexOf('pt') === 0) return 'pt';
       if (n.indexOf('es') === 0) return 'es';
       if (n.indexOf('zh') === 0) return 'zh';
-      if (n.indexOf('hi') === 0) return 'hi';
       if (n.indexOf('en') === 0) return 'en';
     }
     return 'en';
@@ -71,8 +70,7 @@
 
   /* Scripts Poppins does not cover: load a matching Noto face on demand */
   var EXTRA_FONTS = {
-    zh:'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap',
-    hi:'https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap'
+    zh:'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap'
   };
   function loadScriptFont(lang) {
     var href = EXTRA_FONTS[lang];
@@ -90,8 +88,6 @@
     loadScriptFont(lang);
     root.setAttribute('lang', meta.html);
     root.setAttribute('data-lang', lang);
-    root.setAttribute('data-lang-fallback', (PATHS[lang] && PATHS[lang].dir !== lang && lang !== 'en' && lang !== 'zh') ? '1' : '0');
-    if (lang === 'zh') root.setAttribute('data-lang-fallback', '0');
 
     $$('[data-i18n]').forEach(function (el) {
       var v = t(lang, el.getAttribute('data-i18n')); if (v) el.textContent = v;
@@ -130,9 +126,7 @@
     var pageLang = document.body.getAttribute('data-page-lang');
     var lang, persist = true;
     if (pageLang) {
-      var stored = null; try { stored = localStorage.getItem(LS_LANG); } catch (e) {}
-      /* Hindi has no notebook pages yet: keep the Hindi interface over the English content */
-      lang = (stored === 'hi' && pageLang === 'en') ? 'hi' : pageLang;
+      lang = pageLang;
       persist = false;
     } else {
       lang = pickLang();
