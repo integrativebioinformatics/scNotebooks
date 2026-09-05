@@ -1,65 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-    </head>
-    <body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ensaio de célula única para sequenciamento de cromatina acessível por transposase (Single cell Assay for Transposase-Accessible Chromatin sequencing - scATAC-seq) — Single Cell Notebooks</title>
+<meta name="description" content="O scATAC-seq é uma técnica utilizada para estudar a acessibilidade da cromatina em nível de célula única. Diferentemente do scRNA-seq, que foca na expressão gênica, o scATAC-seq id">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../../js/i18n.js"></script>
+</head>
+    <body data-depth="../../../" data-page-lang="pt" data-page-module="11">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../../index.html">
-                        <img src="../../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../es/cuaderno11/cuaderno11.html">Español</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module11/module11.html">
-                                English
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../es/cuaderno11/cuaderno11.html">Español</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module11/module11.html">
-                                English
-                            </a>
-                        </li>
-                            <a class="" href="#"></a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="../../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
+    </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
         <!-- Hero Modules -->
         <section class="hero-modules">
             <div class="container">
@@ -94,7 +102,7 @@
                     <p>O ArchR fornece um conjunto abrangente de ferramentas de análise scATAC-seq, desde o pré-processamento dos dados até os resultados, oferecendo vários níveis de informação. Além disso, o ArchR é rápido e exige um uso razoável de recursos.</p>
                     <br>
                     <p>Para essas análises, você precisa (se for fazer isso no seu computador):</p>
-                    <ul.a>
+                    <ul class="a">
                         <li>Instalar o python 3.6 ou superior: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
                         <li>Instalar o conda (miniconda, anaconda ou mamba, é um gerenciador de pacotes para python que permite criar um ambiente python):<a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">https://conda.io/projects/conda/en/latest/user-guide/install/index.html</a></li>
                         <li>Instalar o pacote macs2 (via terminal):</li>
@@ -140,7 +148,7 @@ install.packages("hexbin")
                 </code></pre>
                 </div>
             </section>
-                    </ul.a>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -458,11 +466,11 @@ project <- ArchRProject(
                     <p>O controle de qualidade (Quality Control - QC) rigoroso dos dados do scATAC-seq é essencial para remover a contribuição de células de baixa qualidade.</p>
                     <br>
                     <p>O ArchR considera três características dos dados:</p>
-                    <ul.a>
+                    <ul class="a">
                         <li>A distribuição do tamanho dos fragmentos (fragmentos de DNA cortados pelas transposases Tn5). Devido à periodicidade nucleossômica, esperamos observar a depleção de fragmentos que têm o comprimento do DNA enrolado em um nucleossomo (aproximadamente 147 pb).</li>
                         <li>O enriquecimento do Sítio de Início da Transcrição (SIT) (relação sinal-ruído). A baixa relação sinal-ruído é frequentemente atribuída a células mortas ou em processo de morte que possuem DNA descromatizado, o que permite a transposição aleatória em todo o genoma.</li>
                         <li>O número de fragmentos nucleares únicos (ou seja, não mapeados para o DNA mitocondrial).</li>
-                    </ul.a>
+                    </ul>
                     <br>
                     <p>Podemos avaliar o QC e as principais métricas das amostras usando alguns gráficos: Métricas do QC do gráfico:</p>
 
@@ -674,11 +682,11 @@ getAvailableMatrices(project)  # Verificar quais matrizes (por exemplo, Gene Sco
                 <p>O QC rigoroso dos dados scATAC-seq é essencial para remover a contribuição de células de baixa qualidade.</p>
                 <br>
                 <p>O ArchR considera três características dos dados:</p>
-                <ul.a>
+                <ul class="a">
                     <li>A distribuição do tamanho dos fragmentos. Devido à periodicidade nucleossômica, esperamos observar a depleção de fragmentos com o comprimento do DNA enrolado em um nucleossomo (aproximadamente 147 pb).</li>
                     <li>O enriquecimento do TSS (relação sinal-ruído). A baixa relação sinal-ruído é frequentemente atribuída a células mortas ou moribundas que possuem DNA descromatizado, o que permite a transposição aleatória em todo o genoma.</li>
                     <li>O número de fragmentos nucleares únicos (ou seja, não mapeados para o DNA mitocondrial). Podemos avaliar o QC e as principais métricas das amostras usando alguns gráficos.</li>
-                </ul.a>
+                </ul>
                 <br>
                 <p>Métricas de QC do gráfico:</p>
 
@@ -848,11 +856,11 @@ plot.frags.v3 | plot.tss.v3
                     <p>No entanto, ao executar múltiplas amostras, os resultados podem apresentar altos níveis de ruído e baixa reprodutibilidade.</p>
                     <br>
                     <p>Para remediar isso, o ArchR introduziu a abordagem "LSI iterativa" (Satpathy, Granja et al., 2019), que calcula uma transformação LSI inicial nos blocos mais acessíveis e identifica clusters de menor resolução que não são confundidos em lote.</p>
-                    <ul.a>
+                    <ul class="a">
                         <li>Esta abordagem calcula uma transformação LSI inicial nos blocos mais acessíveis e identifica clusters de menor resolução que não são confundidos por lote.</li>
                         <li>O ArchR calcula a acessibilidade média para cada um desses clusters em todas as características. O ArchR então identifica os picos mais variáveis ​​nesses clusters e usa essas características para LSI novamente.</li>
                         <li>Nesta segunda iteração, os picos mais variáveis ​​são mais semelhantes aos genes variáveis ​​usados ​​nas implementações de LSI de scRNA-seq.</li>
-                    </ul.a>
+                    </ul>
                     <br>
                     <p>Esta abordagem minimiza os efeitos de lote observados e permite operações de redução de dimensionalidade em uma matriz de características de tamanho mais razoável.</p>
 
@@ -1541,10 +1549,10 @@ ComplexHeatmap::draw(heatmapEM, heatmap_legend_side = "bot", annotation_legend_s
 
                     <p>O ChromVAR, desenvolvido pelo laboratório Greenleaf, foi projetado para prever o enriquecimento da atividade do TF por célula a partir de dados esparsos de acessibilidade à cromatina. O ChromVAR calcula:</p>
 
-                    <ul.a>
+                    <ul class="a">
                         <li>Um "desvio", que é uma medida com correção de viés de até que ponto a acessibilidade por célula de uma determinada característica (ou seja, motifs) se desvia da acessibilidade esperada com base na média de todas as células ou amostras.</li>
                         <li>Um "z-score" / "deviation score", que é o z-score para cada desvio com correção de viés em todas as células.</li>
-                    </ul.a>
+                    </ul>
 
                     <section class="">
                 <div class="code-container">
@@ -2062,7 +2070,7 @@ p_trajMM
 
                 <h4>Análise integrativa de pseudotempo</h4>
                 <p>Como demonstrado anteriormente, o ArchR também permite realizar análises integrativas para identificar TF positivos usando escores genéticos e acessibilidade de motivos ao longo do pseudotempo, acompanhar sua variabilidade ao longo do pseudotempo e compreender seu papel nessa trajetória. Para isso, o ArchR propõe usar a função correlateTrajectories(), que recebe dois objetos SummarizedExperiment obtidos da função getTrajectories(), que obtivemos anteriormente.</p>
-                <ul.a>
+                <ul class="a">
                     <li>Passo 1. Identificar e selecionar os motivos cuja pontuação genética e acessibilidade de motivos de TF estão correlacionados:</li>
                     
                     <section class="">
@@ -2127,7 +2135,7 @@ ht_GSM + ht_MM
                 </code></pre>
                 </div>
             </section>
-                </ul.a>
+                </ul>
                 
             </div>
         </section>
@@ -2156,24 +2164,23 @@ sessionInfo()
         </section>
 
 
-<!--Top Button -->
-<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-          <!--Foootnote-->
-<footer class="footer bg-dark">
-<div class="container">
-
-
-<!-- Institutions -->
-<div class="footer-logos">
-        <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-        <img src="../../../images/uchile.png" alt="chile">
-        <img src="../../../images/accdis.png" alt="UTEM">
-        <img src="../../../images/utem.png" alt="SUS">
-</div>
-</div>
+<button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../../js/main.js"></script>
-    </body>
+<script src="../../../js/main.js" defer></script>
+</body>
 </html>

@@ -1,67 +1,74 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-    </head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poliadenilción Alternativa de scRNA-Seq — Single Cell Notebooks</title>
+<meta name="description" content="La Poliadenilción Alternativa (APA) es un proceso biológico que ocurre durante la maduración de ARN mensajero (ARNm), en el cual se utilizan diferente señales en teminacion (poliad">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../../js/i18n.js"></script>
+</head>
 
-    <body>
+    <body data-depth="../../../" data-page-lang="es" data-page-module="12">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../../index.html">
-                        <img src="../../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../pt/modulo12/modulo12.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module12/module12.html">
-                                English
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../pt/modulo12/modulo12.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module12/module12.html">
-                                English
-                            </a>
-                        </li>
-                        <li>
-                            <a class="" href="#"></a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="../../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
+    </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
         <!-- Hero Modules -->
         <section class="hero-modules">
             <div class="container">
@@ -280,12 +287,12 @@ condacolab.install()
                     <br>
                     <p>El comando <span class="code-inline-light">gen_utr_annotation</span> forma parte del flujo de trabajo de análisis de SCAPE-APA y su objetivo principal es generar anotaciones de UTR (Regiones No Traducidas) a partir de un archivo .gff3 que contiene las anotaciones genómicas de una especie.</p>
                     <br>
-                    <ul.a>
+                    <ul class="a">
                         ¿Qué hace el comando en la práctica?
                         <li>Lee el archivo .gff3, que contiene información sobre la estructura génica.</li>
                         <li>Identifica y extrae las regiones UTR 3' de cada transcripción basándose en estas anotaciones.</li>
                         <li>Generar un archivo de salida con estas regiones, que será utilizado por SCAPE-APA para detectar las ubicaciones donde aparecen diferentes señales de poliadenilación.</li>
-                    </ul.a>
+                    </ul>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -333,12 +340,12 @@ scape gen_utr_annotation \
                     <p>El comando  <span class="code-inline-light">prepare_input</span> es un paso esencial en el proceso de SCAPE-APA y su objetivo es preparar datos de scRNA-seq para la detección de eventos de APA.</p>
                     <br>
                     <p>Al centrarse únicamente en las lecturas ubicadas en las regiones UTR, este paso reduce el ruido y centra el análisis en las áreas donde se producen eventos de APA. Esto mejora la precisión y la eficiencia de la detección, lo que permite una estimación más fiable de los diferentes sitios de poliadenilación en células individuales.</p>
-                    <ul.a>
+                    <ul class="a">
                         Qué hace:
                         <li>Procesa el archivo .bam, que contiene las alineaciones de las lecturas de RNA-seq de células individuales.</li>
                         <li>Filtra y selecciona únicamente las lecturas que se alinean con las regiones UTR (principalmente 3'UTR) previamente anotadas con el comando gen_utr_annotation.</li>
                         <li>Consolida los datos relevantes en un formato adecuado para los análisis SCAPE-APA posteriores.</li>
-                    </ul.a>
+                    </ul>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -458,11 +465,11 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
                         <br>
                         <p>Para ello, se utiliza<span class="code-inline-light">infer_pa </span>en regiones 3'UTR previamente anotadas.</p>
                         <br>
-                        <ul.a>
+                        <ul class="a">
                             Función:
                             <li>Analiza los datos de entrada (filtrados en el paso preparar_entrada) para detectar sitios de poliadenilación alternativos (sitios APA) dentro de las regiones UTR.</li>
                             <li>Identifica en qué posiciones se poliadenilan los diferentes transcritos del mismo gen, lo que nos permite inferir la diversidad de isoformas reguladas postranscripcionalmente.</li>
-                        </ul.a>
+                        </ul>
 
             <section class="">
                 <div class="code-container">
@@ -484,15 +491,15 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
             </section>
                         <p>Ejecución del comando <span class="code-inline-light">infer_pa </span> Este comando se encarga de inferir eventos de APA a partir de alineaciones de scRNA-seq y regiones UTR previamente anotadas.</p>
                         <br>
-                        <ul.a>
+                        <ul class="a">
                             Argumentos principales del comando:
                             <li>utr_file: Archivo .csv con anotaciones de las regiones UTR, generado en el paso gen_utr_annotation.</li>
                             <li>cb_file: Archivo que contiene los códigos de barras celulares, que identifican cada célula individualmente.</li>
                             <li>bam_file: Archivo .bam con lecturas de ARN alineadas con el genoma.</li>
                             <li>output_dir: Directorio donde se guardarán los archivos de salida.</li>
-                        </ul.a>
+                        </ul>
                         <br>
-                        <ul.a>
+                        <ul class="a">
                             Parámetros principales de inferencia:
                             <li>chunksize: Número de UTR analizados simultáneamente (útil para gestionar la memoria en grandes conjuntos de datos).</li>
                             <li>n_max_apa / n_min_apa: Número máximo y mínimo de sitios APA que el algoritmo detectará por UTR.</li>
@@ -504,7 +511,7 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
                             <li>min_ws / max_unif_ws: Controla los pesos de las distribuciones en el modelado: esencial para ajustar los eventos reales frente al ruido.</li>
                             <li>re_run_mode: Si está habilitado (TRUE), permite repetir el análisis, sobrescribiendo los resultados anteriores.</li>
                             <li>fixed_run_mode:si está deshabilitado (FALSO), permite que el algoritmo ajuste automáticamente los parámetros para una mejor inferencia.</li>
-                        </ul.a>
+                        </ul>
                         <br>
             <section class="">
                 <div class="code-container">
@@ -536,12 +543,12 @@ python infer_pa.py \
                         <h2>Agrupación de Eventos</h2>
                         <p>El comando  <span class="code-inline-light">merge_pa</span> se utiliza para agrupar los eventos APA detectados en pasos anteriores de SCAPE-APA, fusionando los resultados que pertenecen al mismo gen o región UTR.</p>
                         <br>
-                        <ul.a>
+                        <ul class="a">
                             Función práctica:
                             <li>Recibe como entrada los resultados de inferencia de eventos APA por célula o por región UTR (obtenidos mediante <span class="code-inline-light">infer_pa</span>).</li>
                             <li>Agrupa los sitios APA que se encuentran en la misma región genómica (por ejemplo, dentro del mismo 3'UTR o en un solo gen).</li>
                             <li>Elimina redundancias y genera un resumen consolidado de los puntos de corte más representativos de cada gen.</li>
-                        </ul.a>
+                        </ul>
                         <br>
                         <p>Durante la inferencia, se pueden detectar múltiples sitios APA en diferentes células o réplicas. La función merge_pa permite fusionar eventos similares, lo que facilita la interpretación. Además, también reduce el ruido estadístico y ayuda en la visualización general de los patrones APA por gen, que pueden usarse en análisis posteriores, como agrupamiento, visualizaciones o asociación con metadatos celulares.</p>
             <section class="">
@@ -862,24 +869,23 @@ plt.show()
         </section>
 
 
-<!--Top Button -->
-<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-          <!--Foootnote-->
-<footer class="footer bg-dark">
-<div class="container">
-
-
-<!-- Institutions -->
-<div class="footer-logos">
-        <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-        <img src="../../../images/uchile.png" alt="chile">
-        <img src="../../../images/accdis.png" alt="UTEM">
-        <img src="../../../images/utem.png" alt="SUS">
-</div>
-</div>
+<button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../../js/main.js"></script>
-    </body>
-</html>   
+<script src="../../../js/main.js" defer></script>
+</body>
+</html>

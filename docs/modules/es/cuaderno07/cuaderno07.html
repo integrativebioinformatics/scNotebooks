@@ -1,66 +1,73 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-    </head>
-    <body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descifrando la comunicación célula-célula en datos de transcriptómica de célula individual — Single Cell Notebooks</title>
+<meta name="description" content="La comunicación célula-célula desempeña un papel crucial en la coordinación de las actividades celulares y en el mantenimiento de la funcionalidad general de los organismos multice">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../../js/i18n.js"></script>
+</head>
+    <body data-depth="../../../" data-page-lang="es" data-page-module="7">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../../index.html">
-                        <img src="../../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../pt/modulo07/modulo07.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module07/module07.html">
-                                English
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="" href="#">Português</a>
-                        </li>
-                        <li>
-                            <a class="" href="../../pt/modulo07/modulo07.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="" href="../../en/module07/module07.html">
-                                English
-                            </a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="../../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
+    </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
         <!-- Hero Modules -->
         <section class="hero-modules">
             <div class="container">
@@ -164,7 +171,7 @@ remotes::install_github('saezlab/liana', upgrade=F)
                 <p>LIANA (Ligand-Receptor Inference Analysis) ofrece una variedad de métodos estadísticos para inferir interacciones ligando-receptor a partir de datos transcriptómicos de células individuales, utilizando conocimiento previo. Este cuaderno tiene como objetivo demostrar cómo usar LIANA de forma básica con nuestros datos de interés.</p>
                 <br>
                 <p>Pasos para usar LIANA:</p>
-                <ul.a>
+                <ul class="a">
                     1. Preparación de Datos:
                     <li>Cargar tus datos transcriptómicos de células individuales en el formato adecuado.</li>
                     <li>Asegurarse de que los datos estén normalizados y correctamente anotados.</li>
@@ -186,7 +193,7 @@ remotes::install_github('saezlab/liana', upgrade=F)
                 <section class="video">
                 <div class="container-md">
                     <div class="video-content">
-                            <img src="liana.png" alt="video" class="video-preview">
+                            <img src="liana.png" alt="video" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -616,34 +623,33 @@ heat_freq(liana_trunc)
         <section class="hero-modules">
             <div class="container">
                 <h2">Preguntas adicionales:</h2>
-                <ul.a>
+                <ul class="a">
                     <li>¿Qué tan diferentes son los resultados entre dos métodos de tu elección?</li>
                     <li>¿Por qué puede ocurrir esto?</li>
-                </ul.a>
+                </ul>
                 <br>
             </div>
 
             
         </section>
 
-<!--Top Button -->
-<button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-          <!--Foootnote-->
-<footer class="footer bg-dark">
-<div class="container">
-
-
-<!-- Institutions -->
-<div class="footer-logos">
-        <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-        <img src="../../../images/uchile.png" alt="chile">
-        <img src="../../../images/accdis.png" alt="UTEM">
-        <img src="../../../images/utem.png" alt="SUS">
-</div>
-</div>
+<button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../../js/main.js"></script>
-    </body>
+<script src="../../../js/main.js" defer></script>
+</body>
 </html>

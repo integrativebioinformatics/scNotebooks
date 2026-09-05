@@ -1,61 +1,73 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-
-    <body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Control de Calidad, Expresión Diferencial, Anotación de Tipos Celulares, Agrupamiento y Análisis de Datos Funcionales — Single Cell Notebooks</title>
+<meta name="description" content="En esta sección, utilizaremos el paquete Seurat para procesar y analizar datos de scRNA-seq, abordando pasos esenciales como la importación de datos, el filtrado y la visualización">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../../js/i18n.js"></script>
+</head>
+    <body data-depth="../../../" data-page-lang="es" data-page-module="4">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../../index.html">
-                        <img src="../../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../pt/modulo04/modulo04.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../en/module04/module04.html">
-                                English
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="" href="../../pt/modulo04/modulo04.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="" href="../../en/module04/module04.html">English</a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="../../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
+    </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
         <!-- Hero Modules -->
         <section class="hero-modules">
             <div class="container">
@@ -249,14 +261,14 @@ loadPackages(pkgs)
 
                             <p>De esta forma, se han cargado las librerías que instalamos previamente.</p>
 
-                            <ul.a>
+                            <ul class="a">
                                 <li><a href="https://jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf">Rtsne</a>: Paquete de R que implementa la técnica de t-SNA para reducción de dimensionalidad y visualización de datos.</li>
                                 <li><a href="https://satijalab.org/seurat/articles/get_started.html">Seurat:</a> Seurat es un paquete de R diseñado para control de calidad (quality control; QC), analisis, y exportación de datos de scRNA-seq.</li>
                                 <li><a href="https://bioconductor.org/packages/release/bioc/html/scDblFinder.html">scDblFinder:</a> El paquete scDblFinder recopila varios métodos para la detección y manejo de dobletes/multipletes en datos de secuenciación de célula única (múltiples células capturadas en una sola gota o volumnen de reacción)</li>
                                 <li><a href="https://wilkelab.org/cowplot/articles/introduction.html">Cowplot</a> Provee varias característisticas que ayudan con la creación de figuras con calidad para publicación utilizando ggplot2, como un set de temas, funciones para alinear gráficos y ordenarlos en figuras compuestas de alta complejidad, y funciones que facilitan la anotación de gráficos y/o mezclar gráficos e imágenes.</li>
                                 <li><a href="https://lazappi.github.io/clustree/">Clustree</a>Este visualizador muestra las relaciones entre agrupaciones de células (clusters) en resoluciones múltiples, permitiendo ver cómo las muestras se muecen mientras el número de clusters crece.</li>
                                 <li><a href="https://bioconductor.org/packages/release/bioc/html/preprocessCore.html">PreprocessCore:</a> Una colección de funciones de pre-procesamiento.</li>
-                            </ul.a>
+                            </ul>
                         </div>
                     </section>
 
@@ -268,7 +280,7 @@ loadPackages(pkgs)
                         <section class="video">
                             <div class="container-md">
                                 <div class="video-content">
-                                    <img src="geo_dataset.jpg" alt="img" class="video-preview">
+                                    <img src="geo_dataset.jpg" alt="img" class="video-preview" loading="lazy" decoding="async">
                                 </div>
                             </div>
                         </section>
@@ -458,11 +470,11 @@ print(class(sc))
                         <div class="container">
                             <h2>Control de calidad</h2>
 
-                            <ul.a>
+                            <ul class="a">
                                 Ahora crearemos un objeto de Seurat para continuar con el análisis. En este paso, aplicaremos algunos filtros:
                                 <li>Remover genes que hayan sido detectados en menos de 3 células.</li>
                                 <li>Remover células que hayan expresado menos de 200 genes.</li>
-                            </ul.a>
+                            </ul>
                             <br>
                             <p>Estos pasos de filtrado ayudan a limpiar la información al excluir genes y células con expresiones mínimas, las cuáles no serían informativas. Sin embargo, estos filtros son opcionales - uno puede ajustar los límites o saltarse este paso por completo si así se prefiere.</p>
                             <section class="">
@@ -545,7 +557,7 @@ dim(sc) - dim(sampleA)
                             <br>
                             <p>Para abordar este problema, utilizaremos el método scDblFinder para identificar y eliminar los dobletes de nuestro conjunto de datos. Este método requiere un objeto de clase SingleCellExperiment, que forma parte de la infraestructura de Bioconductor.</p>
                             <br>
-                            <ul.a>
+                            <ul class="a">
                                 Pasos:
                                 <li>Preparar el objeto SingleCellExperiment: Esto es necesario antes de aplicar el método scDblFinder.</li>
                                 <li>Aplicar scDblFinder: El método utiliza un enfoque probabilístico para detectar dobletes, por lo que los resultados pueden variar ligeramente entre ejecuciones.</li>
@@ -2454,7 +2466,7 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
                             <section class="video">
                             <div class="container-xg">
                                 <div class="video-content">
-                                    <img src="da.png" alt="img" class="video-preview">
+                                    <img src="da.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                                 </div>
                             </div>
                         </section>
@@ -3028,7 +3040,7 @@ head(ego)
                         <section class="video">
                             <div class="container-md">
                                 <div class="video-content">
-                                    <img src="ambient.jpg" alt="img" class="video-preview">
+                                    <img src="ambient.jpg" alt="img" class="video-preview" loading="lazy" decoding="async">
                                 </div>
                             </div>
                         </section>
@@ -3225,26 +3237,23 @@ DropletUtils:::write10xCounts("SRR10340945_cleanV2", adj.matrix)
                     </div>
                     </section>
                 
-        <!--Top Button -->
-         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-        <!--Top Button -->
-         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-         <!--Foootnote-->
-        <footer class="footer bg-dark">
-    <div class="container">
-
-
-        <!-- Institutions -->
-        <div class="footer-logos">
-            <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-            <img src="../../../images/uchile.png" alt="chile">
-            <img src="../../../images/accdis.png" alt="UTEM">
-            <img src="../../../images/utem.png" alt="SUS">
-        </div>
+        <button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
     </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../../js/main.js"></script>
-    </body>
+<script src="../../../js/main.js" defer></script>
+</body>
 </html>

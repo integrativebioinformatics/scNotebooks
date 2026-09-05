@@ -1,119 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-
-    </head>
-    <body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cite Us — Single Cell Notebooks</title>
+<meta name="description" content="Single Cell Notebooks training material.">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../js/i18n.js"></script>
+</head>
+    <body data-depth="../../" data-page-lang="en">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../index.html">
-                        <img src="../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../index.html"><i class="fa-solid fa-house" style="color: black;"></i></a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
-        <!-- Hero Modules -->
-         <section class="hero-modules">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-heading">Cite Us</h1>
-                    <p>
-<b>### Please Cite Us | Por favor, cite-nos | Por favor, cítanos</b>
-<br>
-Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. et al.  
-The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.  
-Nature Genetics, 2026, Volume 58, Issue 5, Pages 789–795.
-<br> 
-ISSN: 1061-4036 
-<br> 
-<a href="https://doi.org/10.1038/s41588-026-02584">https://doi.org/10.1038/s41588-026-02584</a>
-                    </p>
-                    <br>
-                    <p>
-<b>### Tell Us | Conte-nos | Cuéntanos</b>
-<br>
-If you used the scNotebooks for training, courses, or studies, please let us know! 
-<br> 
-Send us a message in the <b>GitHub Discussions forum</b> or through GitHub — we would love to hear from you.  
-<br>
-If you would like to help translate the notebooks into another language, feel free to reach out so we can expand the project together.              
-                    </p>
-<br>
-                    <p>
-Se você utilizou os scNotebooks para treinamento, cursos ou estudos, nos deixe saber!  
-<br>
-Mande uma mensagem no <b>fórum do GitHub Discussions</b> ou pelo GitHub — adoraríamos saber.  
-<br>
-Se quiser ajudar a traduzir os notebooks para outra língua, entre em contato para que possamos expandir o projeto juntos.                          
-                    </p>
-<br>
-                    <p>
-Si utilizaste los scNotebooks para capacitación, cursos o estudios, ¡déjanos saber!  
-<br>
-Envíanos un mensaje en el <b>foro de GitHub Discussions</b> o por GitHub — nos encantaría saberlo.  
-<br>
-Si deseas ayudar a traducir los notebooks a otro idioma, ponte en contacto para que podamos ampliar el proyecto juntos.                        
-                    </p>
-
-                
-
-                </div>
-            </div>
-         </section>
-
-
-        
-
-    
-        <!--Top Button -->
-         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-          <!--Foootnote-->
-        <footer class="footer bg-dark">
-    <div class="container">
-
-
-        <!-- Institutions -->
-        <div class="footer-logos">
-            <img src="../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-            <img src="../../images/uchile.png" alt="chile">
-            <img src="../../images/accdis.png" alt="UTEM">
-            <img src="../../images/utem.png" alt="SUS">
-        </div>
+  <div class="container">
+    <div class="logo">
+      <a href="../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
     </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
+
+<main id="main">
+<section class="hero-modules">
+  <div class="container-sm">
+    <span class="eyebrow"><span class="icon icon-quote" aria-hidden="true"></span><span data-i18n="cite.eyebrow">Citation</span></span>
+    <h1 class="hero-heading text-xl" data-i18n="cite.title">Cite us</h1>
+    <p class="hero-text" data-i18n="cite.lead">If these notebooks helped your work, please cite the paper.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container-sm">
+    <div class="cite-card">
+      <p class="cite-ref" id="cite-text">Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. <em>et al.</em>
+        <strong>The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.</strong>
+        <em>Nature Genetics</em>, 2026, Volume 58, Issue 5, Pages 789–795. ISSN 1061-4036.
+        doi:&nbsp;10.1038/s41588-026-02584</p>
+      <div class="cite-actions">
+        <button class="btn btn-sm btn-primary" type="button" data-copy="#cite-text"><i class="fa-copy"></i><span data-i18n="cite.copy">Copy citation</span></button>
+        <button class="btn btn-sm" type="button" data-copy="#cite-bib"><i class="fa-copy"></i><span data-i18n="cite.bibtex">Copy BibTeX</span></button>
+        <a class="btn btn-sm" href="https://doi.org/10.1038/s41588-026-02584" target="_blank" rel="noopener"><i class="fa-arrow-up-right-from-square"></i><span data-i18n="cite.doi">View on publisher site</span></a>
+      </div>
+    </div>
+
+    <h2 class="text-lg" style="margin-top:2.5rem">BibTeX</h2>
+    <div class="code-container">
+      <button class="copy-btn" type="button" title="Copy code" aria-label="Copy BibTeX"><i class="fa-copy"></i></button>
+      <pre id="cite-bib"><code>@article{scNotebooks2026,
+  author  = {Rojas-Hidalgo, A. and Arias-Carrasco, R. and Silva, J. K. and others},
+  title   = {The Single Cell Notebooks for inclusive and accessible training
+             in single-cell and spatial omics},
+  journal = {Nature Genetics},
+  year    = {2026},
+  volume  = {58},
+  number  = {5},
+  pages   = {789--795},
+  issn    = {1061-4036},
+  doi     = {10.1038/s41588-026-02584}
+}</code></pre>
+    </div>
+
+    <h2 class="text-lg" style="margin-top:2.5rem">Tell us &middot; Conte-nos &middot; Cuéntanos &middot; 告诉我们 &middot; हमें बताएँ</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <span class="icon icon-chat" aria-hidden="true"></span>
+        <h3 class="text-md" lang="en">English</h3>
+        <p>If you used the scNotebooks for training, courses or studies, please let us know — send a message in the
+          <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener">GitHub Discussions forum</a>.
+          If you would like to help translate the notebooks into another language, reach out so we can expand the project together.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon icon-chat" aria-hidden="true"></span>
+        <h3 class="text-md" lang="pt-BR">Português</h3>
+        <p>Se você utilizou os scNotebooks para treinamento, cursos ou estudos, nos deixe saber — mande uma mensagem no
+          <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener">fórum do GitHub Discussions</a>.
+          Se quiser ajudar a traduzir os notebooks para outra língua, entre em contato para que possamos expandir o projeto juntos.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon icon-chat" aria-hidden="true"></span>
+        <h3 class="text-md" lang="es">Español</h3>
+        <p>Si utilizaste los scNotebooks para capacitación, cursos o estudios, ¡déjanos saber! Envíanos un mensaje en el
+          <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener">foro de GitHub Discussions</a>.
+          Si deseas ayudar a traducir los notebooks a otro idioma, ponte en contacto para que podamos ampliar el proyecto juntos.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon icon-chat" aria-hidden="true"></span>
+        <h3 class="text-md" lang="zh-CN">中文</h3>
+        <p>如果您将 scNotebooks 用于培训、课程或研究，欢迎告诉我们——请在
+          <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener">GitHub Discussions 论坛</a>留言。
+          如果您愿意帮助把笔记本翻译成其他语言，也请与我们联系，一起把这个项目做得更好。</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon icon-chat" aria-hidden="true"></span>
+        <h3 class="text-md" lang="hi">हिन्दी</h3>
+        <p>यदि आपने प्रशिक्षण, पाठ्यक्रमों या अध्ययन के लिए scNotebooks का उपयोग किया है, तो हमें अवश्य बताएँ — 
+          <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener">GitHub Discussions</a> में संदेश भेजें।
+          यदि आप नोटबुक का किसी अन्य भाषा में अनुवाद करने में सहायता करना चाहें, तो संपर्क करें ताकि हम मिलकर इस परियोजना का विस्तार कर सकें।</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
+    </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../js/main.js"></script>
-    </body>
+<script src="../../js/main.js" defer></script>
+</body>
 </html>

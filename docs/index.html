@@ -1,426 +1,617 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="images/favicon2.ico" type="image/x-icon">
-    </head>
-    <body>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a class="home" href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a class="home" href="#about">About</a>
-                        </li>
-                        <li>
-                            <a class="home" href="#members">Team</a>
-                        </li>
-                        <li>
-                            <a class="home" class="btn" href="https://github.com/integrativebioinformatics/scNotebooks"><i class="fa-solid fa-arrow-up-right-from-square"></i>GitHub</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a class="home" href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a class="home" href="#about">About</a>
-                        </li>
-                        <li>
-                            <a class="home" href="#members">Team</a>
-                        </li>
-                        <li>
-                            <a class="home" class="" href="https://github.com/integrativebioinformatics/scNotebooks"><i class="fa-solid fa-arrow-up-right-from-square"></i>GitHub</a>
-                        </li>
-                        
-                    </ul>
-                 </div> 
-            </div>
-        </nav> 
-        <!-- Hero -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-heading text-xxl">
-                        The Single Cell Notebooks for inclusive and accessible data analysis education
-                    </h1>
-                    <p class="hero-text">
-                        Computational framework includes jupyter notebooks designed for inclusive training in bioinformatics, specifically in single-cell data analysis.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#modules" class="btn btn-primary">
-                            Get Started
-                        </a>
-                        <a href="https://github.com/integrativebioinformatics/scNotebooks/tree/main/Notebooks_EN" class="btn btn"><i class="fa-brands fa-github"></i>
-                            Go to Notebooks
-                        </a>
-                        <a href="https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_docker.md" class="btn btn"><i class="fa-brands fa-docker"></i>
-                            Run Docker
-                        </a>
-                        <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" class="btn btn"><i class="fa-duotone fa-solid fa-comment"></i>
-                            Discussion
-                        </a>
-                        <a href="modules/citation/citation.html" class="btn btn"><i class="fa-solid fa-quote-left"></i>
-                            Cite Us
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- About -->
-         <section id="about" class="abt">
-            <div class="container-sm">
-                <h3 class="text-xl text-center">
-                    Project Structure
-                </h3>
-                <ul class="abt-menu">
-                    <li class="active">About</li>
-                    <li class="">Modules</li>
-                    <li class="">Team</li>
-                </ul>
-                <div class="abt-content">
-                    <div class="abt-group">
-                        <div class="abt-group-header">
-                            <h4 class="pricing-card-heading text-md">
-                            Acessible Education:
-                        </h4>
-                            <p class="pricing-card-subheading">
-                                Develop learning materials that can be used by researchers and students at various experience levels.
-                            </p>
-                        
-                        </div>
-                    </div>
-                    <div class="abt-group">
-                        <div class="abt-group-header">
-                            <h4 class="pricing-card-heading text-md">
-                            Global Inclusion:
-                        </h4>
-                            <p class="pricing-card-subheading">
-                                Reduce geographical and economic barriers to learning single-cell RNA sequencing (scRNA-seq).
-                            </p>
-                        
-                        </div>
-                    </div>
-                    <div class="abt-group">
-                        <div class="abt-group-header">
-                            <h4 class="pricing-card-heading text-md">
-                            Hands-on Training:
-                        </h4>
-                            <p class="pricing-card-subheading">
-                                Offer interactive modules covering everything from raw data processing to advanced analyses, including TCR sequence integration.
-                            </p>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-         </section>
+<html lang="en" class="i18n-pending">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Single Cell Notebooks — inclusive and accessible training in single-cell and spatial omics</title>
+<meta name="description" content="Thirteen open, hands-on Jupyter notebooks for single-cell and spatial omics training, available in English, Portuguese, Spanish and Chinese.">
+<meta name="author" content="Integrative Bioinformatics — Single Cell Notebooks consortium">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://integrativebioinformatics.github.io/scNotebooks/">
+<link rel="icon" href="images/favicon2.ico" sizes="any">
+<link rel="apple-touch-icon" href="images/logo2.png">
+<link rel="alternate" hreflang="en" href="https://integrativebioinformatics.github.io/scNotebooks/?lang=en">
+<link rel="alternate" hreflang="pt" href="https://integrativebioinformatics.github.io/scNotebooks/?lang=pt">
+<link rel="alternate" hreflang="es" href="https://integrativebioinformatics.github.io/scNotebooks/?lang=es">
+<link rel="alternate" hreflang="zh" href="https://integrativebioinformatics.github.io/scNotebooks/?lang=zh">
+<link rel="alternate" hreflang="hi" href="https://integrativebioinformatics.github.io/scNotebooks/?lang=hi">
+<link rel="alternate" hreflang="x-default" href="https://integrativebioinformatics.github.io/scNotebooks/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Single Cell Notebooks">
+<meta property="og:title" content="Single Cell Notebooks">
+<meta property="og:description" content="Thirteen open, hands-on Jupyter notebooks for inclusive and accessible training in single-cell and spatial omics.">
+<meta property="og:url" content="https://integrativebioinformatics.github.io/scNotebooks/">
+<meta property="og:image" content="https://integrativebioinformatics.github.io/scNotebooks/images/ib_image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" fetchpriority="high" media="(min-width: 641px)" href="images/hero-1600.webp"
+      imagesrcset="images/hero-800.webp 800w, images/hero-1200.webp 1200w, images/hero-1600.webp 1600w, images/hero-2000.webp 2000w"
+      imagesizes="100vw">
+<link rel="preload" as="image" fetchpriority="high" media="(max-width: 640px)" href="images/hero-m-640.webp"
+      imagesrcset="images/hero-m-640.webp 640w, images/hero-m-960.webp 960w" imagesizes="100vw">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="js/i18n.js"></script>
+</head>
+<body data-depth="" data-i18n-doctitle>
+<a class="skip-link" href="#main" data-i18n="nav.skip">Skip to content</a>
 
-
-        <!-- Modules -->
-            <section id="modules" class="mod">
-                <div class="container-sm">
-                    <ul class="mod-menu">
-                        <li class="">About</li>
-                        <li class="active">Modules</li>
-                        <li>Team</li>
-                    </ul>
-                    <div class="mod-content">
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                                <a class="home" href="modules/en/module01/module01.html">
-                                    <h4 class="text-md">
-                                        Introduction to Notebooks and Databases
-                                    </h4>
-                                </a> 
-                                <i class="fas fa-chevron-up"></i>
-                            </div>
-                            <div class="mod-group-body open">
-                                <p>This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cover key public databases for single-cell data and other databases for gene expression, containing information for humans and other organisms. To enhance learning, we provide hands-on exercises for accessing, exploring, and analyzing these databases, allowing users to develop essential skills in biological data manipulation.</p>
-                            </div>
-                        </div>
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                                <a class="home" href="modules/en/module02/module02.html">
-                                    <h4 class="text-md">
-                                        Introduction to R and RStudio
-                                    </h4>
-                                </a> 
-                                <i class="fas fa-chevron-up"></i>
-                            </div>
-                            <div class="mod-group-body">
-                                <p>This module introduces the R programming language, widely used in data science and bioinformatics for statistical analysis and data manipulation. Learners will explore the R environment, basic syntax, and core data structures such as vectors and data frames. The module also presents the ggplot2 package, a powerful tool for creating elegant and customizable visualizations using the grammar of graphics. Through hands-on exercises, users will practice writing R code, creating plots, and interpreting biological data, building a strong foundation for future analytical tasks.</p>
-                            </div>
-                        </div>
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                                <a class="home" href="modules/en/module03/module03.html">
-                                    <h4 class="text-md">
-                                        Processing raw scRNA-seq data
-                                    </h4>
-                                </a>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                                <p>This notebook introduces essential command-line operations in Linux, covering fundamental commands that are broadly applicable across programming languages with minimal adaptations. These foundational skills will support efficient data management and analysis in computational biology. Additionally, we will explore the key steps in processing raw sequencing reads into count matrices using Cell Ranger, discussing its main outputs and role in single-cell transcriptomics. Processing scRNA-seq data is a crucial step in single-cell analysis. The chosen library preparation method determines whether RNA sequences are captured from transcript ends (e.g., 10X Genomics, Drop-seq) or full-length transcripts (e.g., Smart-seq), directly influencing downstream analysis and biological insights.</p>
-                            </div>
-                        </div>
-    
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module04/module04.html">
-                                <h4 class="text-md">
-                                    Quality Control, Differential expression, Cell Type Annotation, Clustering and Functional Data analysis
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure proper quality control before downstream analysis.
-
-                                A key part of scRNA-seq analysis is identifying genes and transcripts with distinct expression patterns across different conditions. These differences can reveal underlying biological processes driving cellular heterogeneity. To refine the dataset, we will assess its quality using key metrics, apply normalization techniques to mitigate technical variability, and implement clustering methods to group cells based on gene expression patterns.
-
-                                Furthermore, we will do differential expression analysis, cell type annotation, and functional enrichment techniques to uncover gene regulation mechanisms, identify key markers, and explore pathways involved in cellular differentiation and disease states. Together, these approaches provide a comprehensive framework for interpreting single-cell transcriptomics data and extracting meaningful biological insights.
-                            </p>
-                            </div>
-                        </div>
-                
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module05/module05.html">
-                                <h4 class="text-md">
-                                    Integrating single-cell transcriptomes from multiple samples
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
-
-                                Computational methods help eliminate unwanted variation, ensuring biologically meaningful signals. Batch correction requires two key decisions: selecting the appropriate method and its parameters, and defining the batch covariate based on the integration objective.
-
-                                In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
-                            </p>
-                            </div>
-                        </div>
-                
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module06/module06.html">
-                                <h4 class="text-md">
-                                    Trajectory inference and pseudotemporal ordering
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest to understand changes in the cellular functions. In each of these states, some genes get activated and others silenced. By using scRNA-seq data, computational tools such as Monocle3 can infer the single-cell trajectories that cells undergo when transitioning across the different functional states. Thus, the developmental history (ontogeny) of differentiated cell types can be traced. This notebook will cover the key concepts and methods related to inferring cell-state trajectory and pseudotime ordering, followed by hands-on activities that illustrate the use of Monocle3, a tool devised for this purpose.
-                            </p>
-                            </div>
-                        </div>
-                
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module07/module07.html">
-                                <h4 class="text-md">
-                                    Deciphering cell-cell communication in single-cell transcriptomics data
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit signals, exchange information, and coordinate their behaviors, ultimately contributing to essential biological processes such as development, immune response, and tissue homeostasis. In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module08/module08.html">
-                                <h4 class="text-md">
-                                    Multimodal Single-Cell Analysis
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module09/module09.html">
-                                <h4 class="text-md">
-                                    TCR Profiling in Single-Cell Analysis
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                T cell receptor (TCR) profiling and Cellular Indexing of Transcriptomes and Epitopes by Sequencing (CITE-Seq) are pivotal techniques in single-cell research, offering unparalleled insights into the adaptive immune system and cellular heterogeneity. TCR profiling enables a deep dive into the repertoire and diversity of T cell populations, highlighting the specificity and uniqueness of T cell responses. On the other hand, CITE-Seq facilitates the concurrent assessment of transcriptomic data and protein expression within individual cells, creating a comprehensive portrayal of cellular states.
-
-                                In this module, participants will explore the profound implications of TCR profiling in understanding immune responses and the synergies it can achieve when coupled with CITE-Seq. We'll initiate with core concepts and theories, and swiftly transition into practical applications using advanced computational tools. Through this hands-on approach, attendees will master the nuances of TCR profiling and CITE-Seq, equipping them with valuable tools for their immunological and single-cell research pursuits.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module10/module10.html">
-                                <h4 class="text-md">
-                                    An introduction to Spatial Transcriptomics approaches
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to advance our understanding of complex biological processes and help identify new biomarkers for disease diagnosis and treatment. The main goal of spatial transcriptomics is to capture the gene expression profile of individual cells (or a mini mixture of cells in a given region) in their native tissue context, allowing for the identification of cell types and their spatial distribution. This information can then be used to create detailed maps of gene expression within tissues, providing insights into cellular interactions, developmental processes, and disease progression. In this notebook, we will cover practical steps in setting up a spatial transcriptomics analysis pipeline using the Seurat package. We will cover the basic analysis to recover gene expression in different regions as well as cell type deconvolution approaches.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module11/module11.html">
-                                <h4 class="text-md">
-                                    An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq)
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the genome that are open and potentially active, meaning they can be bound by transcription factors to regulate gene activity.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module12/module12.html">
-                                <h4 class="text-md">
-                                    Understanding Alternative Polyadenylation (APA)
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                This module focuses on the bioinformatic analysis of Alternative Polyadenylation (APA) using SCAPE-APA, a specialized computational tool designed for single-cell RNA-seq data. Learners will explore the principles behind APA detection, quantification, and interpretation in a high-throughput context. The module introduces the structure and workflow of SCAPE-APA, including input formats, preprocessing steps, and output interpretation. Through guided exercises, users will apply SCAPE-APA to real datasets, visualize APA dynamics across cell types, and extract biologically meaningful insights from polyadenylation site usage. This hands-on approach equips learners with essential skills for analyzing transcriptomic complexity at single-cell resolution.
-                            </p>
-                            </div>
-                        </div>
-
-                        <div class="mod-group">
-                            <div class="mod-group-header">
-                            <a class="home" href="modules/en/module13/module13.html">
-                                <h4 class="text-md">
-                                Principles FAIR and Data Sharing
-                                </h4>
-                            </a>
-                            <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="mod-group-body">
-                            <p>
-                                This document provides guidance on how to prepare metadata and submit transcriptomic data to the NCBI (National Center for Biotechnology Information) in the SCEA (Single Cell Expression Atlas) and the HCA Data Portal (Human Cell Atlas Data Portal), and is applicable to single-cell, bulk RNA-Seq, and spatial transcriptomics, following the FAIR (Findable, Accessible, Interoperable, Reusable) principles.
-                            </p>
-                            </div>
-                        </div>
-
-                        
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- List of Contributors -->
-         <section id="members" class="mod">
-            <div class="container-sm">
-                <ul class="mod-menu">
-                    <li class="">About</li>
-                    <li class="">Modules</li>
-                    <li class="active">Team</li>
-                </ul>
-                <div class="mod">
-                    <h4>Listed Alphabetically</h4>
-                    <p>Alex K. Shalek <a href="https://orcid.org/0000-0001-5670-8778"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=XTJspq0AAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Adolfo Rojas <a href="https://orcid.org/0000-0001-9800-3194"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=hC1-OC8AAAAJ&hl=es"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Benilton S. Carvalho <a href="https://orcid.org/0000-0001-5122-5646"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a>  <a href="https://scholar.google.com/citations?user=44vQTS4AAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Bruno Vinagre <a href="https://orcid.org/0009-0005-3051-8630"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
-                    <p>Cesar A. Prada-Medina <a href="https://scholar.google.com/citations?user=uLULc7UAAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Cristóvão Antunes <a href="#"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
-                    <p>Daniela Russo <a href="#"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="#"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Diego Pérez-Stuardo <a href="https://orcid.org/0009-0003-0944-4716"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=mQHcBMYAAAAJ&hl=es"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Emiliano Vicencio <a href="https://orcid.org/0000-0003-4477-5150"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://orcid.org/0000-0003-4477-5150"><i class="fa-brands fa-google-scholar"></i></a></p>                    
-                    <p>Erick Armingol <a href="https://orcid.org/0000-0002-1546-9165"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=L05fo8gAAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Gabriela Rapozo <a href="https://scholar.google.com/citations?user=R_ZcccEAAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Gerardo Munoz <a href=""><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href=""><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Leandro Santos <a href=""><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href=""><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Joyce Silva <a href="https://orcid.org/0000-0002-8039-9706"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a></p>
-                    <p>Mariana Boroni <a href="https://orcid.org/0000-0003-3495-9917"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=oAEL6TAAAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Natalia Tavares <a href="https://orcid.org/0000-0002-4026-679X"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com.br/citations?user=3yhepgMAAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Orr Ashenberg <a href=""><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Patricia Severino <a href="https://orcid.org/0000-0002-6682-9343"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com.br/citations?user=zsjgW9kAAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Raúl Arias-Carrasco <a href="https://orcid.org/0000-0003-1698-9282"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=WRPcvtMAAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Ricardo Khouri <a href="https://orcid.org/0000-0001-5664-4436"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=U-XypIYAAAAJ&hl=en"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Sebástian Urquiza-Zurich <a href="https://orcid.org/0000-0002-8064-330X"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.es/citations?user=d4ZVA5IAAAAJ&hl=es"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Sergio Triana <a href=""><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href=""><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Vinicius Maracaja-Coutinho <a href="https://orcid.org/0000-0002-8873-9381"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com.br/citations?user=T_dpe84AAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                    <p>Yesid Cuesta <a href="https://orcid.org/0000-0002-4243-0645"><i class="fa-brands fa-orcid" style="color: #63E6BE;"></i></a> <a href="https://scholar.google.com/citations?user=q0hiAjEAAAAJ&hl=pt-BR"><i class="fa-brands fa-google-scholar"></i></a></p>
-                                </div>
-                </div>
-         </section>
-         
-         <!--Top Button -->
-         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-
-        <!--Foootnote-->
-<footer class="footer bg-dark">
-    <div class="container">
-
-
-        <!-- Institutions -->
-        <div class="footer-logos">
-            <img src="images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-            <img src="images/uchile.png" alt="chile">
-            <img src="images/accdis.png" alt="UTEM">
-            <img src="images/utem.png" alt="SUS">
-        </div>
+<nav class="navbar">
+  <div class="container">
+    <div class="logo">
+      <a href="index.html" aria-label="Single Cell Notebooks — home">
+        <img src="images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
     </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="#about" data-i18n="nav.about">About</a></li>
+        <li><a class="home" href="#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="#cite" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="#members" data-i18n="nav.team">Team</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.section">Sections</p>
+  <ul>
+    <li><a class="home" href="#about" data-i18n="nav.about">About</a></li>
+    <li><a class="home" href="#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="#cite" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="#members" data-i18n="nav.team">Team</a></li>
+  </ul>
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks/discussions" target="_blank" rel="noopener"><i class="fa-comment"></i><span data-i18n="hero.discussion">Discussion</span></a></li>
+  </ul>
+</div>
+
+<main id="main">
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <picture>
+      <source media="(max-width: 640px)" type="image/webp"
+              srcset="images/hero-m-640.webp 640w, images/hero-m-960.webp 960w" sizes="100vw">
+      <source type="image/webp"
+              srcset="images/hero-800.webp 800w, images/hero-1200.webp 1200w, images/hero-1600.webp 1600w, images/hero-2000.webp 2000w"
+              sizes="100vw">
+      <img src="images/ib_image.png" alt="" width="2000" height="1212" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow"><span class="icon icon-spark" aria-hidden="true"></span><span data-i18n="hero.badge">Published in Nature Genetics, 2026</span></span>
+      <h1 class="hero-heading text-xxl" data-i18n-html="hero.title">The Single Cell Notebooks for <span class="grad">inclusive and accessible</span> data analysis education</h1>
+      <p class="hero-text" data-i18n="hero.text">An open computational framework of hands-on Jupyter notebooks for training in bioinformatics — from raw reads to spatial and multimodal single-cell analysis.</p>
+      <div class="hero-buttons">
+        <a href="#modules" class="btn btn-primary"><span data-i18n="hero.start">Get started</span><i class="fa-arrow-right"></i></a>
+        <a href="https://github.com/integrativebioinformatics/scNotebooks/tree/main/Notebooks_EN" class="btn" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="hero.notebooks">Go to notebooks</span></a>
+        <a href="https://github.com/integrativebioinformatics/scNotebooks/blob/main/Tutorial_docker.md" class="btn" target="_blank" rel="noopener"><i class="fa-docker"></i><span data-i18n="hero.docker">Run with Docker</span></a>
+        <a href="https://github.com/integrativebioinformatics/scNotebooks/discussions" class="btn" target="_blank" rel="noopener"><i class="fa-comment"></i><span data-i18n="hero.discussion">Discussion</span></a>
+        <a href="#cite" class="btn"><i class="fa-quote-left"></i><span data-i18n="hero.cite">Cite us</span></a>
+      </div>
+      <div class="stats">
+        <div><b>13</b><span data-i18n="stats.modules">Learning modules</span></div>
+        <div><b>5</b><span data-i18n="stats.languages">Languages</span></div>
+        <div><b data-i18n="stats.openval">100%</b><span data-i18n="stats.open">Open access</span></div>
+        <div><b data-i18n="stats.costval">Free</b><span data-i18n="stats.cost">Cost to learners</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="abt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="icon icon-globe2" aria-hidden="true"></span><span data-i18n="about.eyebrow">Project structure</span></span>
+      <h2 class="text-xl" data-i18n="about.title">Built to remove the barriers to single-cell training</h2>
+      <p class="lead" data-i18n="about.lead">Every module is self-contained, reproducible and ready to run in the cloud — no local installation, no licence fees.</p>
+    </div>
+    <div class="feature-grid abt-content">
+      <div class="abt-group reveal">
+        <span class="icon icon-book" aria-hidden="true"></span>
+        <div class="abt-group-header">
+          <h3 class="pricing-card-heading text-md" data-i18n="about.c1t">Accessible education</h3>
+          <p class="pricing-card-subheading" data-i18n="about.c1d">Learning materials that work for researchers and students at every level of experience, from a first notebook to advanced analysis.</p>
+        </div>
+      </div>
+      <div class="abt-group reveal">
+        <span class="icon icon-globe" aria-hidden="true"></span>
+        <div class="abt-group-header">
+          <h3 class="pricing-card-heading text-md" data-i18n="about.c2t">Global inclusion</h3>
+          <p class="pricing-card-subheading" data-i18n="about.c2d">Reducing geographical and economic barriers to learning single-cell RNA sequencing, with materials in four languages.</p>
+        </div>
+      </div>
+      <div class="abt-group reveal">
+        <span class="icon icon-spark" aria-hidden="true"></span>
+        <div class="abt-group-header">
+          <h3 class="pricing-card-heading text-md" data-i18n="about.c3t">Hands-on training</h3>
+          <p class="pricing-card-subheading" data-i18n="about.c3d">Interactive modules covering everything from raw data processing to advanced analyses, including TCR sequence integration.</p>
+        </div>
+      </div>
+      <div class="abt-group reveal">
+        <span class="icon icon-container" aria-hidden="true"></span>
+        <div class="abt-group-header">
+          <h3 class="pricing-card-heading text-md" data-i18n="about.c4t">Reproducible by design</h3>
+          <p class="pricing-card-subheading" data-i18n="about.c4d">Run everything in Google Colab or in the provided Docker image, with pinned environments and public datasets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modules" class="mod">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="icon icon-book" aria-hidden="true"></span><span data-i18n="mod.eyebrow">Curriculum</span></span>
+      <h2 class="text-xl" data-i18n="mod.title">Thirteen modules, from a first notebook to spatial omics</h2>
+      <p class="lead" data-i18n="mod.lead">Open a module to read what it covers, then launch the notebook in your preferred language.</p>
+      <p class="lang-note"><span class="icon icon-globe" aria-hidden="true"></span><span data-i18n="mod.fallback">The interface is in Hindi; notebook content is currently available in English.</span></p>
+    </div>
+    <div class="mod-content">
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">01</span>
+          <h3 class="text-md" data-i18n="mod.t1">Introduction to notebooks and databases</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d1">Get comfortable with Jupyter and Google Colab, then explore the main public repositories for single-cell and gene expression data through guided exercises.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="1" href="modules/en/module01/module01.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">02</span>
+          <h3 class="text-md" data-i18n="mod.t2">Introduction to R and RStudio</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d2">Learn the R environment, its core data structures and the grammar of graphics with ggplot2 — the foundation for every analysis that follows.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="2" href="modules/en/module02/module02.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">03</span>
+          <h3 class="text-md" data-i18n="mod.t3">Processing raw scRNA-seq data</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d3">Essential Linux command-line skills plus the Cell Ranger workflow that turns raw sequencing reads into count matrices.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="3" href="modules/en/module03/module03.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">04</span>
+          <h3 class="text-md" data-i18n="mod.t4">Quality control, differential expression, cell type annotation, clustering and functional analysis</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d4">A complete Seurat workflow: quality control, normalisation, clustering, differential expression, cell type annotation and functional enrichment.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="4" href="modules/en/module04/module04.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">05</span>
+          <h3 class="text-md" data-i18n="mod.t5">Integrating single-cell transcriptomes from multiple samples</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d5">Correct batch effects and integrate multiple datasets with Seurat and Harmony, including benchmarking to choose the best strategy.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="5" href="modules/en/module05/module05.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">06</span>
+          <h3 class="text-md" data-i18n="mod.t6">Trajectory inference and pseudotemporal ordering</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d6">Reconstruct differentiation trajectories and order cells in pseudotime with Monocle3.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="6" href="modules/en/module06/module06.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">07</span>
+          <h3 class="text-md" data-i18n="mod.t7">Deciphering cell-cell communication</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d7">Infer ligand-receptor interactions and cell-cell communication from expression data using LIANA.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="7" href="modules/en/module07/module07.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">08</span>
+          <h3 class="text-md" data-i18n="mod.t8">Multimodal single-cell analysis</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d8">Combine transcriptome and surface protein measurements (CITE-seq) in a single Seurat analysis of 8,617 cord blood mononuclear cells.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="8" href="modules/en/module08/module08.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">09</span>
+          <h3 class="text-md" data-i18n="mod.t9">TCR profiling in single-cell analysis</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d9">Explore T cell receptor repertoires and combine them with CITE-seq to characterise adaptive immune responses at single-cell resolution.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="9" href="modules/en/module09/module09.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">10</span>
+          <h3 class="text-md" data-i18n="mod.t10">An introduction to spatial transcriptomics</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d10">Analyse spatially resolved transcriptomes with Seurat, from region-level expression to cell type deconvolution.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="10" href="modules/en/module10/module10.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">11</span>
+          <h3 class="text-md" data-i18n="mod.t11">An introduction to scATAC-seq</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d11">Study chromatin accessibility at single-cell resolution and link open regions to transcriptional regulation.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="11" href="modules/en/module11/module11.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">12</span>
+          <h3 class="text-md" data-i18n="mod.t12">Alternative polyadenylation (APA)</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d12">Detect and quantify alternative polyadenylation in single-cell data with SCAPE-APA and interpret APA dynamics across cell types.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="12" href="modules/en/module12/module12.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="mod-group reveal">
+        <button class="mod-group-header" type="button" aria-expanded="false">
+          <span class="mod-num" aria-hidden="true">13</span>
+          <h3 class="text-md" data-i18n="mod.t13">FAIR principles and data sharing</h3>
+          <span class="mod-toggle" aria-hidden="true"><i class="fa-chevron-down"></i></span>
+        </button>
+        <div class="mod-group-body">
+          <div class="mod-body-clip"><div class="mod-body-inner">
+            <p data-i18n="mod.d13">Prepare metadata and submit single-cell, bulk and spatial data to NCBI, the Single Cell Expression Atlas and the HCA Data Portal following FAIR principles.</p>
+            <div class="mod-actions">
+              <a class="btn btn-sm btn-primary" data-module="13" href="modules/en/module13/module13.html">
+                <span data-i18n="mod.open">Open notebook</span><i class="fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cite" class="section bg-light">
+  <div class="container-sm">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="icon icon-quote" aria-hidden="true"></span><span data-i18n="cite.eyebrow">Citation</span></span>
+      <h2 class="text-xl" data-i18n="cite.title">Cite us</h2>
+      <p class="lead" data-i18n="cite.lead">If these notebooks helped your work, please cite the paper.</p>
+    </div>
+    <div class="cite-card reveal">
+      <p class="cite-ref" id="cite-text">Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. <em>et al.</em>
+        <strong>The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics.</strong>
+        <em>Nature Genetics</em>, 2026, Volume 58, Issue 5, Pages 789–795. ISSN 1061-4036.
+        doi:&nbsp;10.1038/s41588-026-02584</p>
+      <div class="cite-actions">
+        <button class="btn btn-sm btn-primary" type="button" data-copy="#cite-text">
+          <i class="fa-copy"></i><span data-i18n="cite.copy">Copy citation</span>
+        </button>
+        <button class="btn btn-sm" type="button" data-copy="#cite-bibtex">
+          <i class="fa-copy"></i><span data-i18n="cite.bibtex">Copy BibTeX</span>
+        </button>
+        <a class="btn btn-sm" href="https://doi.org/10.1038/s41588-026-02584" target="_blank" rel="noopener">
+          <i class="fa-arrow-up-right-from-square"></i><span data-i18n="cite.doi">View on publisher site</span>
+        </a>
+        <a class="btn btn-sm btn-ghost" href="modules/citation/citation.html">
+          <i class="fa-quote-left"></i><span data-i18n="nav.cite">Cite us</span>
+        </a>
+      </div>
+      <pre id="cite-bibtex" hidden>@article{scNotebooks2026,
+  author  = {Rojas-Hidalgo, A. and Arias-Carrasco, R. and Silva, J. K. and others},
+  title   = {The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics},
+  journal = {Nature Genetics},
+  year    = {2026},
+  volume  = {58},
+  number  = {5},
+  pages   = {789--795},
+  issn    = {1061-4036},
+  doi     = {10.1038/s41588-026-02584}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<section id="members" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow"><span class="icon icon-users" aria-hidden="true"></span><span data-i18n="team.eyebrow">Contributors</span></span>
+      <h2 class="text-xl" data-i18n="team.title">The team</h2>
+      <p class="lead" data-i18n="team.lead">Listed alphabetically.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">AS</span>
+        <span class="name">Alex K. Shalek</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0001-5670-8778" target="_blank" rel="noopener" aria-label="ORCID: Alex K. Shalek" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=XTJspq0AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Alex K. Shalek" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">AR</span>
+        <span class="name">Adolfo Rojas</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0001-9800-3194" target="_blank" rel="noopener" aria-label="ORCID: Adolfo Rojas" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=hC1-OC8AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Adolfo Rojas" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">BC</span>
+        <span class="name">Benilton S. Carvalho</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0001-5122-5646" target="_blank" rel="noopener" aria-label="ORCID: Benilton S. Carvalho" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=44vQTS4AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Benilton S. Carvalho" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">BV</span>
+        <span class="name">Bruno Vinagre</span>
+        <span class="team-links"><a href="https://orcid.org/0009-0005-3051-8630" target="_blank" rel="noopener" aria-label="ORCID: Bruno Vinagre" title="ORCID"><i class="fa-orcid"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">CP</span>
+        <span class="name">Cesar A. Prada-Medina</span>
+        <span class="team-links"><a href="https://scholar.google.com/citations?user=uLULc7UAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Cesar A. Prada-Medina" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">CA</span>
+        <span class="name">Cristóvão Antunes</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">DR</span>
+        <span class="name">Daniela Russo</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">DP</span>
+        <span class="name">Diego Pérez-Stuardo</span>
+        <span class="team-links"><a href="https://orcid.org/0009-0003-0944-4716" target="_blank" rel="noopener" aria-label="ORCID: Diego Pérez-Stuardo" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=mQHcBMYAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Diego Pérez-Stuardo" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">EV</span>
+        <span class="name">Emiliano Vicencio</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0003-4477-5150" target="_blank" rel="noopener" aria-label="ORCID: Emiliano Vicencio" title="ORCID"><i class="fa-orcid"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">EA</span>
+        <span class="name">Erick Armingol</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-1546-9165" target="_blank" rel="noopener" aria-label="ORCID: Erick Armingol" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=L05fo8gAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Erick Armingol" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">GR</span>
+        <span class="name">Gabriela Rapozo</span>
+        <span class="team-links"><a href="https://scholar.google.com/citations?user=R_ZcccEAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Gabriela Rapozo" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">GM</span>
+        <span class="name">Gerardo Munoz</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">LS</span>
+        <span class="name">Leandro Santos</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">JS</span>
+        <span class="name">Joyce Silva</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-8039-9706" target="_blank" rel="noopener" aria-label="ORCID: Joyce Silva" title="ORCID"><i class="fa-orcid"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">MB</span>
+        <span class="name">Mariana Boroni</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0003-3495-9917" target="_blank" rel="noopener" aria-label="ORCID: Mariana Boroni" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=oAEL6TAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Mariana Boroni" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">NT</span>
+        <span class="name">Natalia Tavares</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-4026-679X" target="_blank" rel="noopener" aria-label="ORCID: Natalia Tavares" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=3yhepgMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Natalia Tavares" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">OA</span>
+        <span class="name">Orr Ashenberg</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">PS</span>
+        <span class="name">Patricia Severino</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-6682-9343" target="_blank" rel="noopener" aria-label="ORCID: Patricia Severino" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=zsjgW9kAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Patricia Severino" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">RA</span>
+        <span class="name">Raúl Arias-Carrasco</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0003-1698-9282" target="_blank" rel="noopener" aria-label="ORCID: Raúl Arias-Carrasco" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=WRPcvtMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Raúl Arias-Carrasco" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">RK</span>
+        <span class="name">Ricardo Khouri</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0001-5664-4436" target="_blank" rel="noopener" aria-label="ORCID: Ricardo Khouri" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=U-XypIYAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Ricardo Khouri" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">SU</span>
+        <span class="name">Sebástian Urquiza-Zurich</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-8064-330X" target="_blank" rel="noopener" aria-label="ORCID: Sebástian Urquiza-Zurich" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=d4ZVA5IAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Sebástian Urquiza-Zurich" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">ST</span>
+        <span class="name">Sergio Triana</span>
+        <span class="team-links"></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">VM</span>
+        <span class="name">Vinicius Maracaja-Coutinho</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-8873-9381" target="_blank" rel="noopener" aria-label="ORCID: Vinicius Maracaja-Coutinho" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=T_dpe84AAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Vinicius Maracaja-Coutinho" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+      <div class="team-card">
+        <span class="team-initials" aria-hidden="true">YC</span>
+        <span class="name">Yesid Cuesta</span>
+        <span class="team-links"><a href="https://orcid.org/0000-0002-4243-0645" target="_blank" rel="noopener" aria-label="ORCID: Yesid Cuesta" title="ORCID"><i class="fa-orcid"></i></a><a href="https://scholar.google.com/citations?user=q0hiAjEAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar: Yesid Cuesta" title="Google Scholar"><i class="fa-google-scholar"></i></a></span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
+    </div>
+
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks. Educational materials shared for open scientific training.</span></span>
+      <span>doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="js/main.js"></script>
-    </body>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ScholarlyArticle",
+"headline":"The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics",
+"isPartOf":{"@type":"Periodical","name":"Nature Genetics","issn":"1061-4036"},
+"datePublished":"2026","volumeNumber":"58","issueNumber":"5","pagination":"789-795",
+"identifier":"https://doi.org/10.1038/s41588-026-02584",
+"sameAs":"https://doi.org/10.1038/s41588-026-02584",
+"author":[{"@type":"Person","name":"A. Rojas-Hidalgo"},{"@type":"Person","name":"R. Arias-Carrasco"},{"@type":"Person","name":"J. K. Silva"}],
+"inLanguage":["en","pt","es","zh","hi"],
+"license":"https://github.com/integrativebioinformatics/scNotebooks"}
+</script>
+<script src="js/main.js" defer></script>
+</body>
 </html>

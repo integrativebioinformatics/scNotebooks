@@ -1,0 +1,10 @@
+{
+  "name": "Single Cell Notebooks",
+  "short_name": "scNotebooks",
+  "description": "Open, hands-on training in single-cell and spatial omics.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#044D8C",
+  "icons": [{ "src": "images/logo2.png", "sizes": "any", "type": "image/png" }]
+}

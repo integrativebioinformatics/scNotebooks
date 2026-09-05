@@ -1,74 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="i18n-pending">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Single Cell Learn</title>
-        <link rel="stylesheet" href="../../../css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
-        <link rel="shortccut icon" href="../../../images/favicon2.ico" type="image/x-icon">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
-
-    </head>
-    <body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Notebooks and Databases — Single Cell Notebooks</title>
+<meta name="description" content="This module provides an introduction to Jupyter Notebooks and Google Colaboratory, exploring their features and structure, including code cells and text cells. Additionally, we cov">
+<meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../../images/favicon2.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../css/style.css">
+<script>
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('scn-theme');if(t==='light'||t==='dark')r.setAttribute('data-theme',t);}catch(e){}
+setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
+</script>
+<script src="../../../js/i18n.js"></script>
+</head>
+    <body data-depth="../../../" data-page-lang="en" data-page-module="1">
         <nav class="navbar">
-            <div class="container">
-                <div class="logo">
-                    <a href="../../../index.html">
-                        <img src="../../../images/logo.png" alt="logo">
-                    </a>
-                </div>
-                <div class="main-menu">
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-2xl"></i></a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../pt/modulo01/modulo01.html">Português</a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../es/cuaderno01/cuaderno01.html">
-                                Español
-                            </a>
-                        </li>
-                        <li>
-                            <a class="btn" href="../../cn/mokuai01/mokuai01.html">
-                                中国人
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Hamburguer Button -->
-                 <button class="hamburger-button">
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                    <div class="hamburguer-line"></div>
-                 </button> 
-                 <div class="mobile-menu"> 
-                    <ul>
-                        <li>
-                            <a href="../../../index.html"><i class="fa-solid fa-house fa-xl"></i></a>
-                        </li>
-                        <li>
-                            <a href="../../pt/modulo01/modulo01.html">Português</a>
-                        </li>
-                        <li>
-                            <a href="../../es/cuaderno01/cuaderno01.html">
-                                Español
-                            </a>
-                        </li>
-                        <li>
-                            <a class="#" href="../../cn/mokuai01/mokuai01.html">
-                                中国人
-                            </a>
-                        </li>
-                    </ul>
-                 </div>
-            </div>
-        </nav>
+  <div class="container">
+    <div class="logo">
+      <a href="../../../index.html" aria-label="Single Cell Notebooks">
+        <img src="../../../images/logo.svg" alt="Single Cell Notebooks" width="180" height="40" fetchpriority="high">
+      </a>
+    </div>
+    <div class="main-menu">
+      <ul>
+        <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+        <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+        <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+        <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+      </ul>
+    </div>
+    <div class="nav-tools">
+      <div class="lang">
+        <button class="icon-btn lang-btn" type="button" aria-expanded="false" aria-haspopup="true"
+                aria-label="Change language" data-i18n-attr="aria-label:nav.language|title:nav.language">
+          <span class="icon icon-globe" aria-hidden="true"></span><span class="lang-current">EN</span>
+        </button>
+        <ul class="lang-menu" role="menu">
+          <li><button type="button" role="menuitem" data-lang-code="en">English <span class="tag">EN</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="pt">Português (BR) <span class="tag">PT</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="es">Español <span class="tag">ES</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="zh">中文（简体） <span class="tag">ZH</span></button></li>
+          <li><button type="button" role="menuitem" data-lang-code="hi">हिन्दी <span class="tag">HI</span></button></li>
+        </ul>
+      </div>
+      <button class="icon-btn" type="button" data-theme-toggle aria-pressed="false"
+              aria-label="Toggle dark mode" data-i18n-attr="aria-label:nav.theme|title:nav.theme">
+        <span class="icon icon-moon" aria-hidden="true"></span>
+      </button>
+      <button class="hamburger-button" type="button" aria-controls="mobile-menu" aria-expanded="false"
+              aria-label="Open menu" data-i18n-attr="aria-label:nav.menu">
+        <div class="hamburguer-line"></div><div class="hamburguer-line"></div><div class="hamburguer-line"></div>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <p class="menu-label" data-i18n="nav.links">Links</p>
+  <ul>
+    <li><a class="home" href="../../../index.html"><i class="fa-house"></i><span data-i18n="nav.home">Home</span></a></li>
+    <li><a class="home" href="../../../index.html#modules" data-i18n="nav.modules">Modules</a></li>
+    <li><a class="home" href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a></li>
+    <li><a class="home" href="https://github.com/integrativebioinformatics/scNotebooks" target="_blank" rel="noopener"><i class="fa-github"></i><span data-i18n="nav.github">GitHub</span></a></li>
+  </ul>
+</div>
         <!-- Hero Modules -->
         <section class="hero-modules">
             <div class="container">
@@ -208,7 +207,7 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/scea/scea.png" alt="lala" class="video-preview">
+                            <img src="../module01/scea/scea.png" alt="lala" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -225,11 +224,11 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/scea/scea2.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <br>
                     <div class="video-content">
-                            <img src="../module01/scea/scea3.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -248,23 +247,23 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/scea/scea4.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea4.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <br>
                     <div class="video-content">
-                            <img src="../module01/scea/scea5.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea5.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/scea/scea6.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea6.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/scea/scea7.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea7.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/scea/scea8.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea8.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/scea/scea9.png" alt="img" class="video-preview">
+                            <img src="../module01/scea/scea9.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -297,10 +296,10 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/hca/hca1.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca2.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     
                 </div>
@@ -319,10 +318,10 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/hca/hca3.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca4.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca4.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -339,19 +338,19 @@ print("Hello World")
                 <section class="video">
                 <div class="container-xxl">
                     <div class="video-content">
-                            <img src="../module01/hca/hca5.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca5.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca6.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca6.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca7.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca7.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca8.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca8.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                     <div class="video-content">
-                            <img src="../module01/hca/hca9.png" alt="img" class="video-preview">
+                            <img src="../module01/hca/hca9.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                     </div>
                 </div>
                 </section>
@@ -361,7 +360,7 @@ print("Hello World")
                     <section class="video">
                         <div class="container-xxl">
                             <div class="video-content">
-                                <img src="../module01/hca/hca11.png" alt="img">
+                                <img src="../module01/hca/hca11.png" alt="img" loading="lazy" decoding="async">
                             </div>
                         </div>
                     </section>
@@ -396,16 +395,16 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg1.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg2.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg3.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg4.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg4.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -423,10 +422,10 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg5.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg5.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg6.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg6.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -442,7 +441,7 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg7.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg7.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -460,16 +459,16 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg8.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg8.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg9.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg9.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg10.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg10.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg11.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg11.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -485,7 +484,7 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg12.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg12.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -500,7 +499,7 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/cell_gene/cg13.png" alt="img" class="video-preview">
+                            <img src="../module01/cell_gene/cg13.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -537,13 +536,13 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/pdb/pdb1.png" alt="img" class="video-preview">
+                            <img src="../module01/pdb/pdb1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/pdb/pdb2.png" alt="img" class="video-preview">
+                            <img src="../module01/pdb/pdb2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/pdb/pdb3.png" alt="img" class="video-preview">
+                            <img src="../module01/pdb/pdb3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -577,22 +576,22 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp1.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp2.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp3.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp4.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp4.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp5.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp5.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/ctp/ctp6.png" alt="img" class="video-preview">
+                            <img src="../module01/ctp/ctp6.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -626,16 +625,16 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/geo/geo1.png" alt="img" class="video-preview">
+                            <img src="../module01/geo/geo1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/geo/geo2.png" alt="img" class="video-preview">
+                            <img src="../module01/geo/geo2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/geo/geo3.png" alt="img" class="video-preview">
+                            <img src="../module01/geo/geo3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/geo/geo4.png" alt="img" class="video-preview">
+                            <img src="../module01/geo/geo4.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                     </div>
                 </section>
@@ -671,13 +670,13 @@ print("Hello World")
                 <section class="video">
                     <div class="container-xxl">
                         <div class="video-content">
-                            <img src="../module01/sra/sra1.png" alt="img" class="video-preview">
+                            <img src="../module01/sra/sra1.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/sra/sra2.png" alt="img" class="video-preview">
+                            <img src="../module01/sra/sra2.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div>
                         <div class="video-content">
-                            <img src="../module01/sra/sra3.png" alt="img" class="video-preview">
+                            <img src="../module01/sra/sra3.png" alt="img" class="video-preview" loading="lazy" decoding="async">
                         </div> 
                     </div>
 
@@ -698,24 +697,23 @@ print("Hello World")
             </div>
         </section>
         
-        <!--Top Button -->
-         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i> Back to top</button>
-         <!--Foootnote-->
-        <footer class="footer bg-dark">
-    <div class="container">
-
-
-        <!-- Institutions -->
-        <div class="footer-logos">
-            <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia">
-            <img src="../../../images/uchile.png" alt="chile">
-            <img src="../../../images/accdis.png" alt="UTEM">
-            <img src="../../../images/utem.png" alt="SUS">
-        </div>
+        <button id="myBtn" type="button" title="Back to top" data-i18n-attr="title:foot.top|aria-label:foot.top">
+  <i class="fa-arrow-up" aria-hidden="true"></i><span data-i18n="foot.top">Back to top</span>
+</button>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logos">
+      <img src="../../../images/fiocruz-bahia.png" alt="Fiocruz Bahia" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/uchile.png" alt="Universidad de Chile" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/accdis.png" alt="ACCDiS" loading="lazy" decoding="async" height="46">
+      <img src="../../../images/utem.png" alt="UTEM" loading="lazy" decoding="async" height="46">
     </div>
+    <div class="footer-legal">
+      <span>&copy; 2026 <span data-i18n="foot.rights">Single Cell Notebooks.</span></span>
+      <span><a href="../../../modules/citation/citation.html" data-i18n="nav.cite">Cite us</a> &middot; doi:&nbsp;10.1038/s41588-026-02584</span>
+    </div>
+  </div>
 </footer>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <script src="../../../js/main.js"></script>
-    </body>
+<script src="../../../js/main.js" defer></script>
+</body>
 </html>
