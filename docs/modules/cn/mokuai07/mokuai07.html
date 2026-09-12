@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deciphering cell-cell communication in single-cell transcriptomics data — Single Cell Notebooks</title>
-<meta name="description" content="Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit s">
+<title>解析单细胞转录组数据中的细胞间通讯 — Single Cell Notebooks</title>
+<meta name="description" content="细胞间通讯在协调细胞活动、维持多细胞生物整体功能方面发挥着关键作用。它使细胞能够传递信号、交换信息并协调各自的行为，从而支撑发育、免疫应答和组织稳态等重要生物学过程。在这一背景下，从基因表达数据推断细胞间相互作用，有助于揭示细胞在多细胞系统中承担的多种角色和协同机制。本 notebook 将介绍主要概念和通用…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,12 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Deciphering cell-cell communication in single-cell transcriptomics data
-                    </h1>
-                    <p class="hero-text">
-                        Cell-cell communication plays a crucial role in coordinating cellular activities and maintaining the overall functionality of multicellular organisms. It allows cells to transmit signals, exchange information, and coordinate their behaviors, ultimately contributing to essential biological processes such as development, immune response, and tissue homeostasis. In this context, inferring cell-cell interactions from gene expression data becomes valuable for unraveling the multiple roles and coordination processes that cells perform within multicellular systems. In this notebook, main concepts and a general computational workflow will be covered, then hands-on activities will be performed using LIANA, a flexible tool implementing multiple state-of-the-art methods to study cell-cell interactions.
-                    </p>
+                    <h1 class="hero-heading text-xl">解析单细胞转录组数据中的细胞间通讯</h1>
+                    <p class="hero-text">细胞间通讯在协调细胞活动、维持多细胞生物整体功能方面发挥着关键作用。它使细胞能够传递信号、交换信息并协调各自的行为，从而支撑发育、免疫应答和组织稳态等重要生物学过程。在这一背景下，从基因表达数据推断细胞间相互作用，有助于揭示细胞在多细胞系统中承担的多种角色和协同机制。本 notebook 将介绍主要概念和通用的计算流程，并使用 LIANA 进行实践操作；LIANA 是一个灵活的工具，集成了多种先进的细胞间互作分析方法。</p>
                     <br>
                 <hr/>
                     </div>
@@ -86,7 +82,7 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Install the required libraries</h2>
+                <h2>安装所需库</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -110,7 +106,7 @@ bspm::enable()
 options(bspm.version.check=FALSE)
                 </code></pre>
 
-                <p>We will create an R function to performs system calls</p>
+                <p>我们将创建一个 R 函数，用于执行系统调用。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -130,7 +126,7 @@ shell_call <- function(command, ...) {
                 </div>
             </section>
 
-                <p>Install required libraries</p>
+                <p>安装所需库。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -161,28 +157,28 @@ remotes::install_github('saezlab/liana', upgrade=F)
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Introduction</h2>
+                <h2>引言</h2>
                 
-                <p>LIANA (Ligand-Receptor Inference Analysis) offers a variety of statistical methods to infer ligand-receptor interactions from single-cell transcriptomic data, using prior knowledge. This notebook aims to demonstrate how to use LIANA in a basic way with our data of interest.</p>
+                <p>LIANA（Ligand-Receptor Inference Analysis）利用已有先验知识，提供多种统计方法，从单细胞转录组数据中推断 ligand-receptor（配体-受体）相互作用。本 notebook 的目标是演示如何在感兴趣的数据上以基础方式使用 LIANA。</p>
                 <br>
-                <p>Steps for Using LIANA:</p>
+                <p>使用 LIANA 的步骤：</p>
                 <ul class="a">
                     1. Data Preparation:
-                    <li>Upload your single-cell transcriptomic data in the appropriate format.</li>
-                    <li>Make sure the data is normalized and annotated correctly.</li>
+                    <li>上传格式合适的单细胞转录组数据。</li>
+                    <li>确保数据已经正确归一化并完成注释。</li>
 
                     2. LIANA Installation and Import:
-                    <li>Install the LIANA package, if it is not already installed, using the command pip install liana.</li>
-                    <li>Import the package into your notebook with import liana.</li>
+                    <li>如果尚未安装 LIANA 包，可使用 <span class="code-inline-light">pip install liana</span> 命令安装。</li>
+                    <li>在 notebook 中用 <span class="code-inline-light">import liana</span> 导入该包。</li>
                     3. LIANA Configuration:
-                    <li>Set the parameters required for the analysis, such as the cell type and signaling pathways of interest.</li>
-                    <li>Use LIANA-specific functions to define the ligand-receptor interactions you want to investigate.</li>
+                    <li>设置分析所需参数，例如感兴趣的细胞类型和信号通路。</li>
+                    <li>使用 LIANA 的专用函数定义希望研究的配体-受体相互作用。</li>
                     4. Analysis Execution:
-                    <li>Perform the analysis using the statistical methods available in LIANA.</li>
-                    <li>Analyze results to identify significant interactions between ligands and receptors in your samples.</li>
+                    <li>使用 LIANA 中可用的统计方法执行分析。</li>
+                    <li>分析结果，识别样本中显著的配体-受体相互作用。</li>
                     5. Result Interpretation:
-                    <li>Visualize results using built-in visualization tools or export data for further analysis.</li>
-                    <li>Interpret identified interactions in the biological context of your study.</li>
+                    <li>使用内置可视化工具展示结果，或导出数据用于进一步分析。</li>
+                    <li>在研究的生物学背景下解释识别出的相互作用。</li>
                 </ul.al>
 
                 <section class="video">
@@ -228,10 +224,10 @@ library(Seurat)     # Single-cell RNA-seq analysis
                 </div>
             </section>
 
-                <p>In this section, we will showcase all the methods implemented by LIANA from various tools. Each method infers relevant ligand-receptor interactions based on different assumptions. Typically, each method returns two scores for each ligand-receptor pair:</p>
+                <p>在本节中，我们将展示 LIANA 从多种工具中整合实现的所有方法。每种方法都基于不同假设推断相关的 ligand-receptor 相互作用。通常，每种方法都会为每个 ligand-receptor 配对返回两个评分：</p>
                 <br>
-                <p><b>1.</b>Magnitude (Strength) Score: This score indicates the strength of the interaction.</p>
-                <p><b>2.</b>Specificity Score: This score reflects how specific the interaction is to a given pair of cell identities.</p>
+                <p><strong>Magnitude（Strength）Score：</strong> 表示相互作用强度。</p>
+                <p><strong>Specificity Score：</strong> 表示该相互作用对某一对细胞身份的特异性。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -248,7 +244,7 @@ show_methods()
                 </div>
             </section>
 
-                <p>The different resources of ligand-receptor interactions can be found here. The consensus integrates all the other resources.</p>
+                <p>不同的 ligand-receptor 相互作用资源可以在这里找到。<span class="code-inline-light">consensus</span> 会整合所有其他资源。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -270,9 +266,9 @@ show_resources()
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Loading data</h2>
+                <h2>加载数据</h2>
 
-                <p>Here we load our data of interest to study cell-cell communicaton.</p>
+                <p>这里加载用于研究细胞间通讯的目标数据。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -384,10 +380,10 @@ testdata %>% dplyr::glimpse()
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Running LIANA</h2>
-                <p>To run LIANA, you can choose from any of the methods it supports. In this example, we will use the <a href="https://www.nature.com/articles/s41596-020-0292-x">CellPhoneDB</a> implementation.</p>
+                <h2>运行 LIANA</h2>
+                <p>运行 LIANA 时，可以选择它支持的任意方法。在这个示例中，我们使用 <a href="https://www.nature.com/articles/s41596-020-0292-x" target="_blank" rel="noopener">CellPhoneDB</a> 的实现。</p>
                 <br>
-                <p>The <span class="code-inline-light">liana_wrap</span> function invokes multiple methods, each operating with the provided resource(s). If no specific method is specified, liana_wrap will execute all methods implemented in LIANA. Additionally, the consensus resource is used by default.</p>
+                <p><span class="code-inline-light">liana_wrap</span> 函数会调用多种方法，每种方法都会使用所提供的资源。如果没有指定具体方法，<span class="code-inline-light">liana_wrap</span> 会执行 LIANA 中实现的所有方法。此外，默认会使用 <span class="code-inline-light">consensus</span> 资源。</p>
 
             <section class="">
                 <div class="code-container">
@@ -424,7 +420,7 @@ dplyr::glimpse(cpdb_result)
                 </div>
             </section>
 
-                <p>To run LIANA using multiple methods simultaneously, you can specify the desired methods in the <span class="code-inline-light">method</span> parameter. In this example, we will use CellPhoneDB, NATMI, SingleCellSignalR (sca), and the logFC approach.</p>
+                <p>如果希望同时使用多种方法运行 LIANA，可以在 <span class="code-inline-light">method</span> 参数中指定目标方法。在这个示例中，我们将使用 CellPhoneDB、NATMI、SingleCellSignalR（sca）以及 logFC 方法。</p>
 
             <section class="">
                 <div class="code-container">
@@ -458,7 +454,7 @@ dplyr::glimpse(complex_test)
                 </div>
             </section>
 
-                <p>One of the key features of LIANA is that it can compute a consensus ranking of the prediction of all methods employed to analyze cell-cell communication. By using the function <span class="code-inline-light">liana_aggregate()</span> we can use all the results from every method used in the previous step.</p>
+                <p>LIANA 的一个关键特性是可以对所有用于细胞间通讯分析的方法预测结果计算 consensus ranking。通过 <span class="code-inline-light">liana_aggregate()</span> 函数，可以整合上一步中所有方法得到的结果。</p>
 
             <section class="">
                 <div class="code-container">
@@ -494,10 +490,10 @@ dplyr::glimpse(liana_consensus)
 
         <section class="hero-modules">
             <div class="container">
-                <h2">Visualization and interpretation</h2>
-                <p>Dotplots can be generated to easily interpret important ligand-receptor pairs used by sender-receiver cell pairs.</p>
+                <h2">可视化与解释</h2>
+                <p>Dotplot 可用于直观解释 sender-receiver 细胞对之间的重要 ligand-receptor 配对。</p>
                 <br>
-                <p>Here, we preprocess the results of CellPhoneDB, then plot them. A filter to use only significant cases is applied (P-value < 0.05).</p>
+                <p>这里我们先预处理 CellPhoneDB 的结果，然后绘图。分析中会应用筛选条件，只使用显著结果（P-value &lt; 0.05）。</p>
 
             <section class="">
                 <div class="code-container">
@@ -546,7 +542,7 @@ ggsave("01-liana_dotplot.png", plot = scPlot, bg = "white", dpi = 600, width = 1
                 </div>
             </section>
 
-                <p>Similarly, we can explore the consensus results.</p>
+                <p>类似地，我们也可以探索 consensus 结果。</p>
 
             <section class="">
                 <div class="code-container">
@@ -570,9 +566,9 @@ ggsave("02-liana_dotplot.png", plot = scPlot, bg = "white", dpi = 600, width = 1
                 </div>
             </section>
 
-                <p>Overall potential of cells to communicate can be computed. Here, we can count the number of significant/important interactions. Then, they can be visualized through a heatmap.</p>
+                <p>还可以计算细胞整体的潜在通讯能力。这里可以统计显著或重要相互作用的数量，然后通过热图可视化。</p>
                 <br>
-                <p>Similarly, we can compare the CellPhoneDB vs consensus results.</p>
+                <p>类似地，我们可以比较 CellPhoneDB 与 consensus 的结果。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -617,10 +613,10 @@ heat_freq(liana_trunc)
 
         <section class="hero-modules">
             <div class="container">
-                <h2">Extra questions:</h2>
+                <h2">思考题：</h2>
                 <ul class="a">
-                    <li>How different are the results between two methods of your choice?</li>
-                    <li>Why can this happen?</li>
+                    <li>任选两种方法，它们的结果差异有多大？</li>
+                    <li>为什么会出现这种差异？</li>
                 </ul>
                 <br>
             </div>

@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Multimodal Single-Cell Analysis — Single Cell Notebooks</title>
-<meta name="description" content="This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical c">
+<title>多模态单细胞分析 — Single Cell Notebooks</title>
+<meta name="description" content="本 notebook 探讨单细胞层面的多模态数据整合，把转录组测量与蛋白定量结合起来。我们使用包含 8,617 个脐带血单个核细胞（CBMC）的数据集，参照 Seurat 教程分析 RNA 表达与细胞表面蛋白表达之间的关系。通过载入 RNA 和 antibody-derived tags（ADT）的 coun…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,12 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Multimodal Single-Cell Analysis
-                    </h1>
-                    <p class="hero-text">
-                        This notebook explores multimodal data integration at the single-cell level, combining transcriptomic measurements with protein quantification. Using a dataset of 8,617 umbilical cord blood mononuclear cells (CBMCs), we follow a Seurat tutorial to analyze the relationships between RNA and surface protein expression. By loading count matrices for RNA and antibody-derived tags (ADT), we investigate cellular expression patterns and their biological implications. In addition to theoretical concepts, this notebook includes practical activities for downloading data from NCBI GEO and executing key analyses.
-                    </p>
+                    <h1 class="hero-heading text-xl">多模态单细胞分析</h1>
+                    <p class="hero-text">本 notebook 探讨单细胞层面的多模态数据整合，把转录组测量与蛋白定量结合起来。我们使用包含 8,617 个脐带血单个核细胞（CBMC）的数据集，参照 Seurat 教程分析 RNA 表达与细胞表面蛋白表达之间的关系。通过载入 RNA 和 antibody-derived tags（ADT）的 count 矩阵，我们将研究细胞的表达模式及其生物学意义。除理论概念外，本 notebook 还包含从 NCBI GEO 下载数据并执行关键分析的实践操作。</p>
                     <br>
                     <hr/>
                 </div>
@@ -85,7 +81,7 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Load libraries and set user directory paths</h2>
+                <h2>加载库并设置用户目录路径</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -158,19 +154,19 @@ mydir <- "/content"
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Multi-modal data analysis</h2>
+                <h2>多模态数据分析</h2>
 
-                <p>In this notebook, we will embark on the exciting journey of analyzing multi-modal data, specifically focusing on the RNA and protein expression levels in individual cells. We will be guided by a comprehensive tutorial from Seurat, which you can find in detail <a href="https://satijalab.org/seurat/articles/multimodal_vignette.html">here</a>.</p>
+                <p>在这个 notebook 中，我们将开始分析多模态数据，重点关注单个细胞中的 RNA 表达水平和蛋白表达水平。我们会参考 Seurat 的完整教程，详细内容可见<a href="https://satijalab.org/seurat/articles/multimodal_vignette.html" target="_blank" rel="noopener">这里</a>。</p>
                 <br>
-                <p>The dataset we will be working with consists of 8,617 cord blood mononuclear cells (CBMCs). These cells have been meticulously analyzed to provide both transcriptomic measurements and abundance estimates for 11 surface proteins. The protein levels have been quantified using DNA-barcoded antibodies, allowing for precise and reliable data.</p>
+                <p>我们使用的数据集包含 8,617 个脐带血单个核细胞（CBMC）。这些细胞经过细致分析，同时提供了转录组测量结果和 11 种细胞表面蛋白的丰度估计。蛋白水平使用 DNA 条形码抗体进行定量，因此数据精确且可靠。</p>
                 <br>
-                <p>To begin our analysis, we will load two count matrices: one containing the RNA measurements and the other containing the antibody-derived tags (ADT). This dual dataset will enable us to explore and understand the intricate relationships between RNA expression and protein levels in these individual cells.</p>
+                <p>分析开始时，我们将加载两个 count matrix：一个包含 RNA 测量结果，另一个包含 antibody-derived tags（ADT）。这个双模态数据集将帮助我们探索并理解单个细胞中 RNA 表达与蛋白水平之间的复杂关系。</p>
                 <br>
-                <p>Here’s a brief overview of our dataset as described by Seurat: > "In this analysis, we examine a dataset of 8,617 cord blood mononuclear cells (CBMCs), where transcriptomic measurements are paired with abundance estimates for 11 surface proteins, quantified using DNA-barcoded antibodies. Initially, we load two count matrices: one for the RNA measurements and one for the antibody-derived tags (ADT)."</p>
+                <p>下面是 Seurat 对该数据集的简要描述：&gt; “在本分析中，我们考察一个包含 8,617 个脐带血单个核细胞（CBMCs）的数据集，其中转录组测量结果与 11 个表面蛋白的丰度估计配对，蛋白丰度通过 DNA-barcoded antibodies 定量。首先，我们加载两个 count matrix：一个用于 RNA 测量，一个用于 antibody-derived tags（ADT）。”</p>
                 <br>
-                <p>By following this tutorial, we aim to gain insights into the biological mechanisms at play and the interactions between RNA and protein expressions at a single-cell level.</p>
+                <p>通过本教程，我们希望理解单细胞水平上 RNA 表达与蛋白表达之间的相互关系，并从中获得有关生物学机制的洞见。</p>
                 <br>
-                <p>Get ready for a deep dive into multi-modal data analysis!</p>
+                <p>准备好深入多模态数据分析吧！</p>
 
                 <section class="">
                 <div class="code-container">
@@ -270,7 +266,7 @@ DefaultAssay(cbmc)  # Should now return "ADT"
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Clustering</h2>
+                <h2>聚类</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -304,15 +300,15 @@ DimPlot(cbmc, label = TRUE) # This command generates a scatter plot of the cells
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Visualize multiple modalities side-by-side</h2>
+                <h2>并排可视化多种模态</h2>
 
-                <p>Now that we have successfully clustered our scRNA-seq profiles, we can move on to visualizing the expression of either protein or RNA molecules in our dataset. Seurat offers several methods to switch between different modalities and specify which modality you are interested in analyzing or visualizing.</p>
+                <p>现在我们已经成功对 scRNA-seq 表达谱进行了聚类，接下来可以可视化数据集中蛋白分子或 RNA 分子的表达。Seurat 提供了多种方法，可以在不同模态之间切换，并指定你希望分析或可视化的模态。</p>
                 <br>
-                <p>This is especially important because, in some cases, the same feature can be present in multiple modalities. For instance, in our dataset, we have independent measurements of the B cell marker CD19, both at the protein level and RNA level. Being able to switch between these modalities allows us to comprehensively explore and understand the biological significance of these features.</p>
+                <p>这一点尤其重要，因为在某些情况下，同一个特征可能同时存在于多个模态中。例如，在当前数据集中，B 细胞 marker CD19 同时具有蛋白水平和 RNA 水平的独立测量。能够在这些模态之间切换，使我们可以更全面地探索和理解这些特征的生物学意义。</p>
                 <br>
-                <p>By leveraging Seurat's capabilities, we can gain deeper insights into the relationships and interactions between RNA and protein expressions within individual cells, ultimately enhancing our understanding of the underlying biological processes.</p>
+                <p>借助 Seurat 的功能，我们可以更深入地理解单个细胞中 RNA 表达与蛋白表达之间的关系和相互作用，从而增强对底层生物学过程的认识。</p>
                 <br>
-                <p>If you have any questions or need further assistance with the analysis, feel free to ask!</p>
+                <p>如果你对分析过程有任何问题，或需要进一步帮助，可以继续提问。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -361,7 +357,7 @@ p1 | p2 # plot p1 and p2 at same time
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Identify cell surface markers for scRNA-seq clusters</h2>
+                <h2>识别 scRNA-seq cluster 的细胞表面 marker</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -393,7 +389,7 @@ head(rna_markers)
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Additional visualizations of multimodal data</h2>
+                <h2>多模态数据的其他可视化方式</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -424,10 +420,10 @@ FeatureScatter(cbmc, feature1 = "adt_CD4", feature2 = "adt_CD8", slot = "counts"
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Loading data from 10X multi-modal experiments</h2>
-                <h3>NOTE: DO NOT RUN THIS SECTION</h3>
+                <h2>加载 10X 多模态实验数据</h2>
+                <h3><strong>注意：不要运行本节</strong></h3>
 
-                <p>We are including it for you reference if you will need to process multi-modal 10x data from the raw data.</p>
+                <p>如果你之后需要从原始数据处理 10x 多模态数据，可以把本节作为参考。</p>
 
                 <section class="">
                 <div class="code-container">

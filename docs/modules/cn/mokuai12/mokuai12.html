@@ -3,7 +3,7 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alternative Polyadenylation in scRNA-Seq — Single Cell Notebooks</title>
+<title>scRNA-seq 中的可变 polyadenylation 分析 — Single Cell Notebooks</title>
 <meta name="description" content="Alternative polyadenylation (APA) is a biological process that occurs during the maturation of messenger RNA (mRNA), where different polyadenylation signals are used within the sam">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
@@ -72,15 +72,13 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Alternative Polyadenylation in scRNA-Seq
-                    </h1>
+                    <h1 class="hero-heading text-xl">scRNA-seq 中的可变 polyadenylation 分析</h1>
                     <p class="hero-text">
                         Alternative polyadenylation (APA) is a biological process that occurs during the maturation of messenger RNA (mRNA), where different polyadenylation signals are used within the same gene. This means a single DNA sequence can generate multiple versions of mRNA with different lengths at the 3’ end. These variations can affect RNA stability, cellular localization, and how the RNA is translated into protein. As a result, APA plays an important role in regulating gene expression and may be associated with processes such as cell differentiation and diseases like cancer.
                         <br>
                         <p>The <a href="https://github.com/chengl7-lab/scape">SCAPE-APA</a> (Single Cell Analysis of Polyadenylation Events) is a computational package developed to identify and quantify alternative polyadenylation events in scRNA-seq data. It allows researchers to study how different cells use distinct polyadenylation sites in their genes, revealing additional layers of regulation that are not captured by classical gene expression analysis.</p>
                         <br>
-                        <p>In this notebook, we will use SCAPE-APA within the Google Colab environment to estimate alternative polyadenylation events from scRNA-seq data. The goal is to offer a practical and intuitive introduction to this type of analysis, demonstrating how APA contributes to regulatory diversity across individual cells.</p>
+                        <p>在本 notebook 中，我们将在 Google Colab 环境中使用 SCAPE-APA，从 scRNA-seq 数据估计 APA 事件。目标是提供一个实用、直观的入门示例，展示 APA 如何在单个细胞层面贡献调控多样性。</p>
                     </p>
                     <br>
                     <hr/>
@@ -108,9 +106,9 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
             </section>
 
             <h3>Conda</h3> 
-            <p>Conda is a package for environment manager used primarily in data science and bioinformatics. It makes it easy to install software and libraries, even those with complex dependencies.</p> 
+            <p>Conda 是一个常用于数据科学和生物信息学的环境与包管理工具。它可以方便地安装软件和库，即使这些软件具有复杂依赖关系。</p> 
             <br>
-            <p>A Conda virtual environment is an isolated space where you can install specific versions of packages without interfering with other installations on your system. This avoids conflicts and ensures reproducibility of analyses.</p>
+            <p>Conda 虚拟环境是一个隔离空间，你可以在其中安装特定版本的软件包，而不会干扰系统中的其他安装。这可以避免依赖冲突，并提高分析的可重复性。</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -127,12 +125,12 @@ condacolab.install()
                 </code></pre>
                 </div>
             </section>
-            <p>✨🍰✨ Everything looks OK!</p>
+            <p>✨🍰✨ 一切正常！</p>
             <br>
             <h3>GitHub</h3> 
-            <p>GitHub is an online platform where developers can store, share, and collaborate on code projects using the Git version control system.</p>
+            <p>GitHub 是一个在线平台，开发者可以在上面使用 Git 版本控制系统存储、共享和协作开发代码项目。</p>
             <br>
-            <p>The git clone command is used to copy an entire repository from GitHub (or another Git server) to your local repository. It downloads all of the files, version history, and project structure, allowing you to work locally. Let's do this like SCAPE-APA</p>
+            <p><span class="code-inline-light">git clone</span> 命令用于把 GitHub 或其他 Git 服务器上的完整代码仓库复制到本地。它会下载所有文件、版本历史和项目结构，使你能够在本地继续操作。下面以 SCAPE-APA 仓库为例执行这一过程。</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -236,16 +234,16 @@ condacolab.install()
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>UTR Region Annotations</h2>
-                    <p>UTRs are untranslated regions of messenger RNA, located at the 5’ and 3’ ends of the gene. APA usually occurs at the 3’ end, within the 3’UTR. This means that correctly defining where these regions are located is essential to accurately detect the different APA events that can occur in a gene.</p>
+                    <h2><strong>UTR 区域注释</strong></h2>
+                    <p>UTR 是 mRNA 的 untranslated regions（非翻译区），位于基因的 5' 端和 3' 端。APA 通常发生在 3' 端，也就是 3'UTR 内。因此，正确界定这些区域的位置，对于准确检测一个基因中可能发生的不同 APA 事件至关重要。</p>
                     <br>
-                    <p>The <span class="code-inline-light">gen_utr_annotation</span> command is part of the SCAPE-APA analysis flow, and its main objective is to generate annotations of UTR (Untranslated Regions) regions from a file in .gff3 format, which contains the genomic annotations of a species.</p>
+                    <p><span class="code-inline-light">gen_utr_annotation</span> 命令是 SCAPE-APA 分析流程的一部分。它的主要目标是从 <span class="code-inline-light">.gff3</span> 格式文件生成 UTR（untranslated regions）区域注释；<span class="code-inline-light">.gff3</span> 文件中包含某一物种的基因组注释信息。</p>
                     <br>
                     <ul class="a">
                         What does the command do in practice?
-                        <li>It reads the .gff3 file, which contains information about the structure of the genes.</li>
-                        <li>It identifies and extracts the 3’UTR regions of each transcript based on these annotations.</li>
-                        <li>Generate an output file with these regions, which will be used by SCAPE-APA to detect the locations where different polyadenylation signals appear.</li>
+                        <li>读取 <span class="code-inline-light">.gff3</span> 文件，其中包含基因结构信息。</li>
+                        <li>基于这些注释，识别并提取每个 transcript 的 3'UTR 区域。</li>
+                        <li>生成包含这些区域的输出文件。SCAPE-APA 后续会使用该文件检测不同 polyadenylation signals 出现的位置。</li>
                     </ul>
             <section class="">
                 <div class="code-container">
@@ -275,13 +273,13 @@ scape gen_utr_annotation \
                 </div>
             </section>
 
-            <p>We need to make adaptations for Google Colab, as it does not support running Python scripts directly with the scape command as in a normal terminal.</p>
+            <p>在 Google Colab 中需要做一些调整，因为 Colab 不支持像普通终端那样直接用 scape 命令运行 Python 脚本。</p>
             <br>
-            <p>To run SCAPE-APA in Google Colab, you must use the conda run -n scape_env command to ensure that the correct Conda environment is activated before running the scape command.</p>
+            <p>要在 Google Colab 中运行 SCAPE-APA，必须使用 <span class="code-inline-light">conda run -n scape_env</span> 命令，以确保在执行 scape 命令之前激活正确的 Conda 环境。</p>
             <br>
-            <p>You do not need this if you run SCAPE-APA locally in your terminal, as the Conda environment will already be active.</p>
+            <p>如果你在本地终端运行 SCAPE-APA，则不需要这样做，因为 Conda 环境已经处于激活状态。</p>
             <br>
-            <p>it would look like this: <span class="code-inline-light">scape gen_utr_annotation --gff_file /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3 --output_dir /content/scape/examples/toy-example/ --res_file_name example_annotation</span></p>
+            <p>命令形式如下：scape gen_utr_annotation --gff_file /content/scape/examples/toy-example/Mus_musculus.GRCm39.113.chr.gff3 --output_dir /content/scape/examples/toy-example/ --res_file_name example_annotation</p>
             <br>        
                 </div>
             </div>
@@ -290,15 +288,15 @@ scape gen_utr_annotation \
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Prepare scRNA-seq data</h2>
-                    <p>The <span class="code-inline-light">prepare_input</span> command is an essential step in the SCAPE-APA pipeline and aims to prepare scRNA-seq data for the detection of alternative polyadenylation (APA) events.</p>
+                    <h2><strong>准备 scRNA-seq 数据</strong></h2>
+                    <p><span class="code-inline-light">prepare_input</span> 命令是 SCAPE-APA 流程中的关键步骤，用于为检测 alternative polyadenylation（APA）事件准备 scRNA-seq 数据。</p>
                     <br>
-                    <p>By focusing only on reads located in UTR regions, this step reduces noise and focuses the analysis on the areas where APA events occur. This improves the accuracy and efficiency of detection, allowing a more reliable estimation of the different polyadenylation sites in individual cells.</p>
+                    <p>该步骤只关注位于 UTR 区域中的 reads，因此可以降低噪声，并把分析聚焦在 APA 事件发生的区域。这会提高检测的准确性和效率，使我们能够更可靠地估计单个细胞中不同 polyadenylation sites 的使用情况。</p>
                     <ul class="a">
                         What it does:
-                        <li>Processes the .bam file, which contains the alignments of single-cell RNA-seq reads.</li>
-                        <li>Filters and selects only those reads that align to UTR regions (mainly 3’UTRs) previously annotated with the gen_utr_annotation command.</li>
-                        <li>Consolidates the relevant data into a format suitable for subsequent SCAPE-APA analyses.</li>
+                        <li>处理 <span class="code-inline-light">.bam</span> 文件；该文件包含单细胞 RNA-seq reads 与基因组的比对结果。</li>
+                        <li>过滤并选择那些比对到 UTR 区域的 reads，主要是前一步 <span class="code-inline-light">gen_utr_annotation</span> 命令注释得到的 3'UTR。</li>
+                        <li>将相关数据整理为适合后续 SCAPE-APA 分析的格式。</li>
                     </ul>
                     <section class="">
                 <div class="code-container">
@@ -341,9 +339,9 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
             <br>
             <h3>Samtools</h3>
             <br>
-            <p>Samtools is a collection of command-line tools used to manipulate sequence alignment files, especially in SAM (Sequence Alignment/Map) and BAM (compressed version of SAM) formats.</p>
+            <p>*Samtools* 是一组命令行工具，用于处理序列比对文件，尤其是 SAM（Sequence Alignment/Map）和 BAM（SAM 的压缩版本）格式。</p>
             <br>
-            <p>Let's install it below:</p>
+            <p>下面安装 Samtools：</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -374,7 +372,7 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
                 </code></pre>
                 </div>
             </section>
-            <p>Samtools allows you to create an index of the bam file, which allows bioinformatics tools to quickly access specific regions of the genome within that file. This is essential, for example, for viewing alignments in genome browsers or for analyses that involve extracting specific regions.</p>
+            <p>Samtools 可以为 BAM 文件创建索引，使生物信息学工具能够快速访问该文件中特定的基因组区域。例如，在基因组浏览器中查看比对结果，或在分析中提取特定区域时，BAM 索引都是必要的。</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -414,15 +412,15 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
             <section class="hero-modules">
                 <div class="container">
                     <div class="hero-content">
-                        <h2>Inferring APA events</h2>
-                        <p>With SCAPE-APA it is possible to infer how the cell uses different RNA termination signals, a fundamental process for understanding gene regulation at the single-cell level. Detecting these events allows us to investigate more refined expression patterns and their possible implications for biological processes or diseases.</p>
+                        <h2><strong>推断 APA 事件</strong></h2>
+                        <p>使用 SCAPE-APA 可以推断细胞如何使用不同的 RNA 终止信号；这是理解单细胞层面基因调控的重要过程。检测这些事件可以帮助我们研究更精细的表达模式，以及它们对生物过程或疾病可能产生的影响。</p>
                         <br>
-                        <p>For this, <span class="code-inline-light">infer_pa </span>is used in the previously annotated 3'UTR regions.</p>
+                        <p>这里会在前面注释好的 3'UTR 区域上使用 <span class="code-inline-light">infer_pa</span>。</p>
                         <br>
                         <ul class="a">
                             What it does:
-                            <li>Analyzes the input data (filtered in the prepare_input step) to detect alternative polyadenylation sites (APA sites) within the UTR regions.</li>
-                            <li>Identifies at which positions different transcripts of the same gene are being polyadenylated, allowing us to infer the diversity of post-transcriptionally regulated isoforms.</li>
+                            <li>分析输入数据，也就是在 <span class="code-inline-light">prepare_input</span> 步骤中过滤得到的数据，以检测 UTR 区域内的 alternative polyadenylation sites（APA sites）。</li>
+                            <li>识别同一基因的不同 transcripts 在哪些位置发生 polyadenylation，从而推断转录后调控 isoforms 的多样性。</li>
                         </ul>
 
             <section class="">
@@ -443,28 +441,28 @@ scape prepare_input --utr_file /content/scape/examples/toy-example/example_annot
                 </code></pre>
                 </div>
             </section>
-                        <p>Executing the <span class="code-inline-light">infer_pa </span> command This command is responsible for inferring alternative polyadenylation (APA) events from scRNA-seq alignments and previously annotated UTR regions.</p>
+                        <p>执行 <span class="code-inline-light">infer_pa</span> 命令。 该命令负责基于 scRNA-seq 比对结果和前面注释好的 UTR 区域，推断 alternative polyadenylation（APA）事件。</p>
                         <br>
                         <ul class="a">
                             Main command arguments:
-                            <li>utr_file: .csv file with annotations of the UTR regions, generated in the gen_utr_annotation step.</li>
-                            <li>cb_file: File containing the cellular barcodes, which identify each cell individually.</li>
-                            <li>bam_file: .bam file with RNA reads aligned to the genome.</li>
-                            <li>output_dir: Directory where the output files will be saved.</li>
+                            <li><span class="code-inline-light">utr_file</span>：包含 UTR 区域注释的 <span class="code-inline-light">.csv</span> 文件，由 <span class="code-inline-light">gen_utr_annotation</span> 步骤生成。</li>
+                            <li><span class="code-inline-light">cb_file</span>：包含 cell barcodes 的文件，用于逐个识别细胞。</li>
+                            <li><span class="code-inline-light">bam_file</span>：包含 RNA reads 基因组比对结果的 <span class="code-inline-light">.bam</span> 文件。</li>
+                            <li><span class="code-inline-light">output_dir</span>：保存输出文件的目录。</li>
                         </ul>
                         <br>
                         <ul class="a">
                             Main inference parameters:
-                            <li>chunksize: Number of UTRs analyzed at a time (useful for managing memory in large datasets).</li>
-                            <li>n_max_apa / n_min_apa: Maximum and minimum number of APA sites that the algorithm will detect per UTR.</li>
-                            <li>min_LA / max_LA: Minimum and maximum allowed size for alignment regions (adjusts noise and precision).</li>
-                            <li>mu_f / sigma_f: Mean and standard deviation of RNA fragment lengths (essential for modeling the data).</li>
-                            <li>min_pa_gap: Minimum distance between two distinct APA sites — avoids detecting false positives that are too close together.</li>
-                            <li>max_beta, beta_step: Controls the beta distribution, used in statistical modeling of the position of APA sites.</li>
-                            <li>theta_step: Range of theta values, another parameter of the mixture of distributions.</li>
-                            <li>min_ws / max_unif_ws: Controls the weights of the distributions in the modeling — essential for adjusting real events vs. noise.</li>
-                            <li>re_run_mode: If enabled (TRUE), allows repeating the analysis by overwriting previous results.</li>
-                            <li>fixed_run_mode: If disabled (FALSE), allows the algorithm to automatically adjust parameters for better inference.</li>
+                            <li><span class="code-inline-light">chunksize</span>：每次分析的 UTR 数量，有助于在大数据集中管理内存。</li>
+                            <li><span class="code-inline-light">n_max_apa</span> / <span class="code-inline-light">n_min_apa</span>：算法在每个 UTR 中检测的 APA sites 最大和最小数量。</li>
+                            <li><span class="code-inline-light">min_LA</span> / <span class="code-inline-light">max_LA</span>：alignment regions 允许的最小和最大大小，用于调节噪声与精度。</li>
+                            <li><span class="code-inline-light">mu_f</span> / <span class="code-inline-light">sigma_f</span>：RNA fragment length 的均值和标准差，是数据建模的重要参数。</li>
+                            <li><span class="code-inline-light">min_pa_gap</span>：两个不同 APA sites 之间的最小距离，用于避免检测到距离过近的假阳性位点。</li>
+                            <li><span class="code-inline-light">max_beta</span>、<span class="code-inline-light">beta_step</span>：控制 beta distribution，该分布用于 APA sites 位置的统计建模。</li>
+                            <li><span class="code-inline-light">theta_step</span>：theta 值范围，是混合分布中的另一个参数。</li>
+                            <li><span class="code-inline-light">min_ws</span> / <span class="code-inline-light">max_unif_ws</span>：控制建模中各分布的权重，用于区分真实事件和噪声。</li>
+                            <li><span class="code-inline-light">re_run_mode</span>：如果启用（TRUE），允许覆盖先前结果并重新运行分析。</li>
+                            <li><span class="code-inline-light">fixed_run_mode</span>：如果禁用（FALSE），允许算法自动调整参数，以获得更好的推断结果。</li>
                         </ul>
                         <br>
             <section class="">
@@ -493,17 +491,17 @@ python infer_pa.py \
             <section class="hero-modules">
                 <div class="container">
                     <div class="hero-content">
-                        <h2>Grouping events</h2>
-                        <p>The <span class="code-inline-light">merge_pa</span> command is used to group APA events detected in previous steps of SCAPE-APA, unifying results that belong to the same gene or the same UTR region.</p>
+                        <h2><strong>合并事件</strong></h2>
+                        <p><span class="code-inline-light">merge_pa</span> 命令用于合并 SCAPE-APA 前面步骤中检测到的 APA 事件，把属于同一基因或同一 UTR 区域的结果整合起来。</p>
                         <br>
                         <ul class="a">
                             What it does in practice:
-                            <li>Receives as input the inference results of APA events by cell or by UTR region (obtained via <span class="code-inline-light">infer_pa</span>).</li>
-                            <li>Receives as input the inference results of APA events by cell or by UTR region (obtained via infer_pa).</li>
-                            <li>Eliminates redundancies and generates a consolidated summary of the most representative cutoff points for each gene.</li>
+                            <li>接收按细胞或按 UTR 区域推断得到的 APA 事件结果作为输入，这些结果来自 <span class="code-inline-light">infer_pa</span>。</li>
+                            <li>接收按细胞或按 UTR 区域推断得到的 APA 事件结果作为输入，这些结果来自 <span class="code-inline-light">infer_pa</span>。</li>
+                            <li>去除冗余，并为每个基因生成最具代表性的切割位点汇总。</li>
                         </ul>
                         <br>
-                        <p>During inference, multiple APA sites can be detected in different cells or replicates. The merge_pa function allows unifying similar events, facilitating interpretation. Furthermore, it also reduces statistical noise and helps in the overall visualization of APA patterns per gene, which can be used in further analysis such as clustering, visualizations or association with cellular metadata.</p>
+                        <p>在推断过程中，不同细胞或重复样本中可能检测到多个 APA sites。<span class="code-inline-light">merge_pa</span> 函数可以把相似事件统一起来，便于解释。此外，它还能降低统计噪声，并帮助整体可视化每个基因的 APA 模式；这些结果可以继续用于聚类、可视化，或与细胞 metadata 关联等后续分析。</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -577,10 +575,10 @@ scape cal_exp_pa_len --output_dir /content/scape/examples/toy-example/"
             <section class="hero-modules">
                 <div class="container">
                     <div class="hero-content">
-                        <h2>Viewing results</h2>
+                        <h2><strong>查看结果</strong></h2>
                         <p><span class="code-inline-light">gen_utr_annotation</span></p>
                         <br>
-                        <p>Pandas is a powerful library for data manipulation and analysis in Python. With it, you can work with tables (DataFrames) in a similar way to Excel spreadsheets or SQL tables. Let's use it to check the data</p>
+                        <p>Pandas 是 Python 中功能强大的数据处理与分析库。借助 Pandas，可以像操作 Excel 表格或 SQL 表一样处理表格数据（DataFrames）。下面用它来检查数据。</p>
             <section class="">
                 <div class="code-container">
                 <!-- copy code -->

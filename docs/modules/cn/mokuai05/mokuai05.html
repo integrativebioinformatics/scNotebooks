@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Integrating single-cell transcriptomes from multiple samples — Single Cell Notebooks</title>
-<meta name="description" content="As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected f">
+<title>多样本单细胞转录组整合 — Single Cell Notebooks</title>
+<meta name="description" content="随着单细胞数据规模和复杂度不断增加，整合多个数据集已经成为常规做法。但要获得准确的分析结果，必须校正由技术和生物学差异引起的批次效应。这些效应来自样本处理方式、实验方案、测序平台的差异，也来自供体背景或组织来源等生物学因素。计算方法可以帮助去除这些无关变异，保留具有生物学意义的信号。批次校正涉及两个关键决策…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,16 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Integrating single-cell transcriptomes from multiple samples
-                    </h1>
-                    <p class="hero-text">
-                        As single-cell data complexity grows, integrating multiple datasets has become standard. However, batch effects—arising from technical and biological variations—must be corrected for accurate analysis. These effects stem from differences in sample handling, protocols, sequencing platforms, and biological factors like donor background or tissue origin.
-
-                        Computational methods help eliminate unwanted variation, ensuring biologically meaningful signals. Batch correction requires two key decisions: selecting the appropriate method and its parameters, and defining the batch covariate based on the integration objective.
-
-                        In this notebook, we explore core concepts and methods for data integration and batch correction, with hands-on activities using Seurat and Harmony. Additionally, we perform benchmarking to compare integration strategies, helping select the most effective method while preserving biological relevance.
-                    </p>
+                    <h1 class="hero-heading text-xl">多样本单细胞转录组整合</h1>
+                    <p class="hero-text">随着单细胞数据规模和复杂度不断增加，整合多个数据集已经成为常规做法。但要获得准确的分析结果，必须校正由技术和生物学差异引起的批次效应。这些效应来自样本处理方式、实验方案、测序平台的差异，也来自供体背景或组织来源等生物学因素。计算方法可以帮助去除这些无关变异，保留具有生物学意义的信号。批次校正涉及两个关键决策：选择合适的方法及其参数，以及根据整合目标定义批次协变量。在本 notebook 中，我们将介绍数据整合与批次校正的核心概念和方法，并使用 Seurat 和 Harmony 进行实践操作。此外，我们还会通过基准评估比较不同整合策略，从而在保留生物学信息的前提下选出最有效的方法。</p>
                     <br>
                     <hr/>
 
@@ -91,7 +83,7 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Install the required libraries</h2>
+                <h2>安装所需库</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -111,7 +103,7 @@ options(bspm.version.check=FALSE)
                 </code></pre>
                 </div>
             </section>
-                <p>We will create an R function to performs system calls</p>
+                <p>我们将创建一个 R 函数，用于执行系统调用。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -130,7 +122,7 @@ shell_call <- function(command, ...) {
                 </div>
             </section>
 
-                <p>Install required libraries</p>
+                <p>安装所需库。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -164,9 +156,9 @@ install.packages("harmony")
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Introduction</h2>
+                <h2>引言</h2>
 
-                <p>Integration is a technique used to combine single cell data from different experiments or conditions into a single analysis space. This is especially useful where data from different batches or conditions can be integrated to identify common biological patterns. In this example of integrating multiple datasets representing, for example, different biological conditions, sample handling, or experimental protocols, we will explore the integration performed by Seurat and Harmony separately.</p>
+                <p>数据整合是一种把来自不同实验或不同条件的单细胞数据合并到同一个分析空间中的技术。当数据来自不同批次或条件时，整合尤其有用，因为它可以帮助我们识别共同的生物学模式。在本例中，我们将整合代表不同生物条件、样本处理方式或实验流程的多个数据集，并分别探索 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6687398/" target="_blank" rel="noopener">Seurat</a> 和 <a href="https://www.nature.com/articles/s41592-019-0619-0" target="_blank" rel="noopener">Harmony</a> 执行的数据整合。</p>
 
                <section class="">
                 <div class="code-container">
@@ -193,20 +185,20 @@ options(timeout=2000)
 
         <section class="hero-modules">
             <div class="container">
-                <h2 class="hero-heading text xl">Loading data</h2>
+                <h2 class="hero-heading text xl">加载数据</h2>
 
-                <p>Here, we load the datasets necessary to perform an integration analysis.</p>
+                <p>这里加载执行整合分析所需的数据集。</p>
 
-                <p>This tutorial demonstrates the integration process using peripheral blood mononuclear cells (PBMCs) data from the study by <a href="https://www.nature.com/articles/nbt.4042">Kang et al, 2017.</a> The experiment involved splitting PBMCs into two groups: one control group and one stimulated group treated with interferon beta. The treatment induced cell type-specific gene expression changes, creating a challenge for joint analysis. Without integration, cells may cluster based on their stimulation condition rather than their intrinsic cell type identity, complicating the interpretation of results.</p>
+                <p>本教程使用 <a href="https://www.nature.com/articles/nbt.4042" target="_blank" rel="noopener">Kang et al., 2017</a> 研究中的外周血单个核细胞（PBMC）数据来演示整合流程。该实验将 PBMC 分成两组：一个对照组，以及一个接受干扰素 beta 处理的刺激组。该处理会诱导细胞类型特异性的基因表达变化，从而给联合分析带来挑战。如果不进行整合，细胞可能会按照刺激条件而不是其内在细胞类型聚类，从而使结果解释变得复杂。</p>
                 <br>
-                <p>To clarify, the integration aims to align data from both groups into a common space where cells cluster by type rather than treatment condition. This process is essential for accurately identifying shared and unique features across the datasets while minimizing the influence of batch effects introduced by the experimental design.</p>
+                <p>更明确地说，整合的目标是把两组数据对齐到一个共同空间中，使细胞主要按照类型而不是处理条件聚类。这个过程对于准确识别数据集之间共有和特异的特征非常重要，同时也能尽量降低实验设计引入的批次效应影响。</p>
                 <br>
-                <p>Steps to follow:</p>
+                <p>操作步骤：</p>
                 <ul class="a">
-                    <li>Load the PBMC datasets: Use preprocessed gene expression data from the Kang study.</li>
-                    <li>Inspect the dataset composition: Verify that both control and stimulated groups are included and check for adequate cell type representation.</li>
-                    <li>Perform integration: Employ integration tools such as Seurat or Harmony to combine the datasets while accounting for batch effects.</li>
-                    <li>Visualize the results: Examine clustering to ensure cells group primarily by type rather than by treatment condition. These steps ensure a robust and biologically meaningful comparison of the control and stimulated PBMC groups.</li>
+                    <li>加载 PBMC 数据集：使用 Kang 研究中预处理后的基因表达数据。</li>
+                    <li>检查数据集组成：确认同时包含对照组和刺激组，并检查细胞类型覆盖是否足够。</li>
+                    <li>执行整合：使用 Seurat 或 Harmony 等整合工具，在考虑批次效应的同时合并数据集。</li>
+                    <li>可视化结果：检查聚类情况，确认细胞主要按类型而不是处理条件分组。 这些步骤可以确保对照组和刺激组 PBMC 之间的比较更加稳健，并具有生物学意义。</li>
                 </ul>
 
                 <section class="">
@@ -275,8 +267,8 @@ sc_datasets %>% dplyr::glimpse()
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Data preprocessing</h2>
-                <p>We preprocess the data to a point that is in common for both Seurat and Harmony data integration.</p>
+                <h2>数据预处理</h2>
+                <p>我们先把数据预处理到 Seurat 和 Harmony 两种整合方法都可以共同使用的阶段。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -297,15 +289,15 @@ sc_datasets <- Seurat::NormalizeData(sc_datasets, verbose = FALSE)
                 </div>
             </section>
 
-                <p>The NormalizeData function in Seurat simplifies raw single-cell RNA sequencing (scRNA-seq) data into a standardized form, making it easier to compare cells and detect meaningful biological patterns. This process involves three main steps:</p>
+                <p>Seurat 中的 <span class="code-inline-light">NormalizeData</span> 函数可以把原始单细胞 RNA 测序（scRNA-seq）数据转换为标准化形式，使细胞之间更容易比较，也更容易检测有意义的生物学模式。这个过程主要包括三步：</p>
 
                 <ol>
-                    <li>Scaling Counts: For each gene, the count in a given cell is divided by the total number of counts from all genes in that cell. This adjusts for differences in sequencing depth across cells, ensuring fair comparisons.</li>
-                    <li>Adjusting Scale: The result from the first step is multiplied by a scaling factor (commonly set to 10,000). This makes the normalized values more interpretable, roughly resembling counts per 10,000 reads.</li>
-                    <li>Log Transformation: Finally, the scaled counts are transformed using a logarithmic function. This step reduces the effect of extremely high or low values, making patterns in the data easier to detect.</li>
+                    <li>缩放 counts：对于每个基因，将某个细胞中的 count 除以该细胞所有基因 counts 的总和。这样可以校正细胞间测序深度差异，保证比较更加公平。</li>
+                    <li>调整尺度：将第一步得到的结果乘以一个缩放因子，通常设为 10,000。这样归一化后的数值更容易解释，大致类似每 10,000 条 reads 中的 counts。</li>
+                    <li>对数转换：最后，使用对数函数转换缩放后的 counts。这一步可以降低极高或极低数值的影响，使数据中的模式更容易识别。</li>
                 </ol>
 
-                <p>This method is essential because it ensures that any differences observed between cells reflect true biological variations, not technical differences from the sequencing process</p>
+                <p>这个方法非常重要，因为它有助于确保细胞之间观察到的差异反映真实的生物学变化，而不是测序过程带来的技术差异。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -326,9 +318,9 @@ dplyr::glimpse(sc_datasets)
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Run Seurat data integration</h2>
+                <h2>运行 Seurat 数据整合</h2>
 
-                <p>The integration performed here with Seurat consists of using a Canonical Correlation Analysis to identify anchors between datasets, as indicated in the <a href="https://www.cell.com/cell/fulltext/S0092-8674(19">original paper</a>:</p>
+                <p>这里使用 Seurat 进行的整合，基于 Canonical Correlation Analysis（CCA，典型相关分析）在不同数据集之间识别 anchors，正如<a href="https://www.cell.com/cell/fulltext/S0092-8674(19" target="_blank" rel="noopener">原始论文</a>30559-8)所示：</p>
 
                 <section class="video">
                 <div class="container-md">
@@ -337,7 +329,7 @@ dplyr::glimpse(sc_datasets)
                     </div>
                 </div>
                 </section>
-                <p>Split dataset into a list of datasets</p>
+                <p>把数据集拆分成一个由多个数据集组成的列表。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -356,7 +348,7 @@ sc_datasets.list <- lapply(X = sc_datasets.list, FUN = function(x) {
                 </div>
             </section>
 
-                <p>Find highly variable features for each condition separately</p>
+                <p>分别为每个条件寻找高变特征。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -373,7 +365,7 @@ features <- SelectIntegrationFeatures(object.list = sc_datasets.list)
                 </div>
             </section>
 
-                <p>Find the features that are repeatedly variable across datasets for integration (anchor features).</p>
+                <p>寻找在多个数据集中反复表现为高变、可用于整合的特征，即 anchor features。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -392,7 +384,7 @@ sc_datasets.anchors <- FindIntegrationAnchors(object.list = sc_datasets.list, an
                 </div>
             </section>
 
-                <p>Integrate datasets - Creates an integrated data assay</p>
+                <p>整合数据集：创建一个 integrated data assay。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -426,7 +418,7 @@ dplyr::glimpse(sc_datasets.combined)
                 </div>
             </section>
 
-                <p>Run the standard workflow for visualization and clustering.</p>
+                <p>运行标准流程，用于可视化和聚类。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -472,15 +464,15 @@ p1 + p2 + p3  # Combine the plots
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Run Harmony</h2>
+                <h2>运行 Harmony</h2>
 
-                <p>From the <a href="https://www.nature.com/articles/s41592-019-0619-0">original paper</a> of harmony: PCA embeds cells into a space with reduced dimensionality. Harmony accepts the cell coordinates in this reduced space and runs an iterative algorithm to adjust for dataset specific effects:</p>
+                <p>Harmony <a href="https://www.nature.com/articles/s41592-019-0619-0" target="_blank" rel="noopener">原始论文</a>中描述道：“PCA 会把细胞嵌入到一个低维空间中。Harmony 接收这个低维空间中的细胞坐标，并运行迭代算法来校正数据集特异性效应。</p>
                 <br>
                 <ul class="a">
-                    <li>Harmony uses fuzzy clustering to assign each cell to multiple clusters, while a penalty term ensures that the diversity of datasets within each cluster is maximized.</li>
-                    <li>Harmony calculates a global centroid for each cluster, as well as dataset-specific centroids for each cluster.</li>
-                    <li>Within each cluster, Harmony calculates a correction factor for each dataset based on the centroids.</li>
-                    <li> Finally, Harmony corrects each cell with a cell-specific factor: a linear combination of dataset correction factors weighted by the cell’s soft cluster assignments made in step a. Harmony repeats steps a to d until convergence. The dependence between cluster assignment and dataset diminishes with each round. Datasets are represented with colors, cell types with different shapes.</li>
+                    <li><strong>a.</strong> Harmony 使用模糊聚类将每个细胞分配到多个 cluster，同时通过惩罚项确保每个 cluster 内的数据集多样性最大化。</li>
+                    <li><strong>b.</strong> Harmony 为每个 cluster 计算一个全局质心，并为每个数据集在每个 cluster 中计算数据集特异性质心。</li>
+                    <li><strong>c.</strong> 在每个 cluster 内，Harmony 根据这些质心为每个数据集计算校正因子。</li>
+                    <li>最后，Harmony 会用一个细胞特异的校正因子对每个细胞进行校正：该因子是各数据集校正因子的线性组合，权重来自步骤 a 中该细胞的软聚类归属。Harmony 会重复步骤 a 到 d 直至收敛，每一轮迭代都会削弱聚类归属与数据集之间的依赖关系。图中用颜色表示数据集，用不同形状表示细胞类型。</li>
                 </ul>
 
                 <section class="video">
@@ -512,7 +504,7 @@ sc_datasets.harmony <- FindVariableFeatures(sc_datasets, selection.method = "vst
                 </div>
             </section>
 
-                <p>To directly access the harmonized embeddings:</p>
+                <p>直接访问 Harmony 校正后的 embeddings：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -572,12 +564,12 @@ p1 + p2 + p3  # Combine the plots
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Integration metrics</h2>
-                <p>Inspect mixing within cluster</p>
+                <h2>整合效果指标</h2>
+                <p>检查 cluster 内部的混合情况。</p>
                 <br>
-                <p>We will use a function to plot the batch composition of each cluster.</p>
+                <p>我们将使用一个函数绘制每个 cluster 的批次组成。</p>
                 <br>
-                <p>This function was borrowed from: <a href="https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R">https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R</a></p>
+                <p>该函数借鉴自：<a href="https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R" target="_blank" rel="noopener">https://github.com/cellgeni/scRNA.seq.course/blob/master/course_files/utils/custom_seurat_functions.R</a></p>
 
                 <section class="">
                 <div class="code-container">
@@ -662,9 +654,9 @@ plot_integrated_clusters(sc_datasets.harmony, 'stim')
                 </div>
             </section>
 
-                <p>This measures how well mixed a composite dataset is. According to this link, lower scores represent better mixing. See also this code</p>
+                <p>这个指标衡量合并后的数据集混合得有多好。根据<a href="https://github.com/satijalab/Integration2019/issues/1#issuecomment-573757488" target="_blank" rel="noopener">这个链接</a>，分数越低表示混合越好。另见<a href="https://github.com/satijalab/Integration2019/blob/e5821bd242fa0a46eb6fd37764275737512032a4/analysis_code/integration/integration_metrics.R#L43C1-L45C124" target="_blank" rel="noopener">这段代码</a>。</p>
                 <br>
-                <p>This metric evaluates whether the neighborhood of a cell is well mixed. In other words, whether it contains a small number of cells from each dataset (e.g., k=5).</p>
+                <p>该指标评估某个细胞的邻域是否充分混合。换句话说，它检查该邻域中是否包含来自每个数据集的一小部分细胞，例如 <span class="code-inline-light">k=5</span>。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -776,7 +768,7 @@ mean(harmony_mixing)
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Let's compare when using no integration, Seurat, and Harmony:</h2>
+                <h2>比较未整合、Seurat 整合和 Harmony 整合的结果：</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -874,11 +866,11 @@ p1 + p2 + p3 #Combine plots
 
         <section class="hero-modules">
             <div class="container">
-                <h2 class="hero-heading text-xl">Extra Questions:</h2>
+                <h2 class="hero-heading text-xl">思考题：</h2>
                 <ul class="a">
-                        <li>How different are the results between the Seurat and Harmony integration?</li>
-                        <li>Why can this happen?</li>
-                        <li>Can you identify which markers changed in the clusters generated in one method vs the other?</li>
+                        <li>Seurat 和 Harmony 整合得到的结果差异有多大？</li>
+                        <li>为什么会出现这种差异？</li>
+                        <li>你能否识别出：在一种方法生成的 cluster 与另一种方法生成的 cluster 之间，哪些 marker 发生了变化？</li>
                     </ul>
                 <br>
             </div>

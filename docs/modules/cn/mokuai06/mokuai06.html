@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trajectory inference and pseudotemporal ordering — Single Cell Notebooks</title>
-<meta name="description" content="Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest">
+<title>轨迹推断与伪时间排序 — Single Cell Notebooks</title>
+<meta name="description" content="当细胞从一种状态转变为另一种状态时，基因表达会发生动态变化。这类转变发生在发育过程中，也贯穿整个生命周期，因此对理解细胞功能的改变非常重要。在每一种状态下，一些基因被激活，另一些基因被沉默。借助 scRNA-seq 数据，Monocle3 等计算工具可以推断细胞在不同功能状态之间转变时所经历的单细胞轨迹，从而…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,12 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Trajectory inference and pseudotemporal ordering
-                    </h1>
-                    <p class="hero-text">
-                        Gene expression changes in a dynamic way as cells transition from one state to another. These transitions occur during development and throughout life, which makes them of interest to understand changes in the cellular functions. In each of these states, some genes get activated and others silenced. By using scRNA-seq data, computational tools such as Monocle3 can infer the single-cell trajectories that cells undergo when transitioning across the different functional states. Thus, the developmental history (ontogeny) of differentiated cell types can be traced. This notebook will cover the key concepts and methods related to inferring cell-state trajectory and pseudotime ordering, followed by hands-on activities that illustrate the use of Monocle3, a tool devised for this purpose.
-                    </p>
+                    <h1 class="hero-heading text-xl">轨迹推断与伪时间排序</h1>
+                    <p class="hero-text">当细胞从一种状态转变为另一种状态时，基因表达会发生动态变化。这类转变发生在发育过程中，也贯穿整个生命周期，因此对理解细胞功能的改变非常重要。在每一种状态下，一些基因被激活，另一些基因被沉默。借助 scRNA-seq 数据，Monocle3 等计算工具可以推断细胞在不同功能状态之间转变时所经历的单细胞轨迹，从而追溯分化细胞类型的发育历史（个体发生）。本 notebook 将介绍细胞状态轨迹推断与伪时间排序的核心概念和方法，并通过实践操作演示 Monocle3 的使用。</p>
                     <br>
                     <hr/>
                     </div>
@@ -86,7 +82,7 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Install the required libraries</h2>
+                <h2>安装所需库</h2>
 
                 <section class="">
                 <div class="code-container">
@@ -120,7 +116,7 @@ system("rm add_cranapt_jammy.sh")
                 </div>
             </section>
 
-                <p>We will create an R function to performs system calls</p>
+                <p>我们将创建一个 R 函数，用于执行系统调用。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -143,7 +139,7 @@ shell_call <- function(command, ...) {
                 </div>
             </section>
 
-                <p>Install required libraries</p>
+                <p>安装所需库。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -182,22 +178,22 @@ remotes::install_github('cole-trapnell-lab/monocle3') # Install Monocle3 for tra
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Introduction</h2>
+                <h2>引言</h2>
 
-                <p>Cells continuously transition between different functional states throughout development and life. During these transitions, gene expression changes dynamically—some genes become activated while others are silenced. Single-cell RNA sequencing (scRNA-seq) allows researchers to capture these dynamic changes at high resolution. Computational tools like Monocle3 use scRNA-seq data to reconstruct cellular trajectories, helping us understand how cells progress through different states over time. This approach is particularly useful in studying differentiation, disease progression, and cellular reprogramming.</p>
+                <p>在发育和生命过程中，细胞会不断在不同功能状态之间转换。在这些转换过程中，基因表达会动态变化：有些基因被激活，另一些基因被沉默。单细胞 RNA 测序（scRNA-seq）允许研究者以高分辨率捕捉这些动态变化。Monocle3 等计算工具可以利用 scRNA-seq 数据重建细胞轨迹，帮助我们理解细胞如何随时间推进到不同状态。这种方法特别适用于研究细胞分化、疾病进展和细胞重编程。</p>
                 <br>
-                <p>In this tutorial, we will learn how to infer cellular trajectories and estimate pseudotime—a measure of the relative progression of cells along a developmental path—using Monocle3. By analyzing single-cell data, we can map how cells evolve across different functional states and identify key genes that drive these transitions.</p>
+                <p>在本教程中，我们将学习如何使用 Monocle3 推断细胞轨迹，并估计 pseudotime（伪时间）。伪时间是衡量细胞沿发育路径相对进程的指标。通过分析单细胞数据，我们可以描绘细胞如何在不同功能状态之间演变，并识别驱动这些转换的关键基因。</p>
                 <br>
-                <p>This tutorial is inspired by and builds upon previous guides and studies that have demonstrated the power of trajectory inference in single-cell biology.</p>
+                <p>本教程受到以下既有指南和研究的启发，并在其基础上展开。这些资料展示了轨迹推断在单细胞生物学中的作用。</p>
                 <ul class="a">
                     <a href="https://cole-trapnell-lab.github.io/monocle3/docs/trajectories/">
-                        <li>Original tutorial of Monocle3</li>
+                        <li>Monocle3 原始教程</li>
                     </a>
                     <a href="https://stuartlab.org/signac/articles/monocle.html">
-                        <li>Tutorial combining Seurat and Monocle3 by the Stuart Lab</li>
+                        <li>Stuart Lab 的 Seurat 与 Monocle3 联合教程</li>
                     </a>
                     <a href="https://rpubs.com/mahima_bose/Seurat_and_Monocle3_p">
-                        <li>Tutorial combining Seurat and Monocle3 by Mahima Bose</li>
+                        <li>Mahima Bose 的 Seurat 与 Monocle3 联合教程</li>
                     </a>
                 </ul>
 
@@ -234,13 +230,13 @@ library(ggplot2)       # Data visualization
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Loading data</h2>
+                <h2>加载数据</h2>
 
-                <p>Here, we load our datasets of interest to integrate multiple scRNA-seq samples.</p>
+                <p>这里加载我们感兴趣的数据集，用于整合多个 scRNA-seq 样本。</p>
                 <br>
-                <p>This tutorial demonstrates how to align two groups of peripheral blood mononuclear cells (PBMCs) from <a href="https://www.nature.com/articles/nbt.4042">Kang et al, 2017</a>. In this experiment, PBMCs were divided into a control group and a stimulated group, where the latter was treated with interferon-beta. This stimulation led to cell type-specific changes in gene expression. As a result, when analyzing the data, cells tend to cluster not only by their biological identity (cell type) but also by their stimulation condition. This introduces a challenge in joint analysis, as differences in expression patterns can obscure the underlying similarities between the same cell types in both groups.</p>
+                <p>本教程演示如何对齐 <a href="https://www.nature.com/articles/nbt.4042" target="_blank" rel="noopener">Kang et al., 2017</a> 研究中的两组外周血单个核细胞（PBMC）。在该实验中，PBMC 被分成对照组和刺激组；刺激组接受了 interferon-beta 处理。这种刺激导致细胞类型特异性的基因表达变化。因此，在分析数据时，细胞不仅会按照其生物学身份（细胞类型）聚类，也会受到刺激条件影响而聚类。这给联合分析带来挑战，因为表达模式差异可能掩盖两组中相同细胞类型之间的内在相似性。</p>
                 <br>
-                <p>By integrating these datasets, we aim to correct for batch effects and condition-specific variations, allowing a more accurate comparison of the shared biological features across both groups.</p>
+                <p>通过整合这些数据集，我们希望校正批次效应和条件特异性变化，从而更准确地比较两组之间共有的生物学特征。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -310,9 +306,9 @@ testdata %>% dplyr::glimpse()
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Data processing</h2>
+                <h2>数据处理</h2>
 
-                <p>We perform the typical data processing, integration, batch correction, and clustering before running Monocle3.</p>
+                <p>在运行 Monocle3 之前，我们先执行常规数据处理、整合、批次校正和聚类。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -338,7 +334,7 @@ testdata <- Seurat::NormalizeData(testdata, verbose = FALSE) %>%  # Normalize ge
                 </div>
             </section>
 
-                <p>This is how the UMAP looks like:</p>
+                <p>UMAP 图如下所示：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -365,9 +361,9 @@ scPlot
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Running Monocle3</h2>
+                <h2>运行 Monocle3</h2>
 
-                <p>To analyze cellular trajectories using Monocle3, we first need to convert our Seurat object into a format that Monocle3 can process. This is done using the <span class="code-inline-light">as.cell_data_set()</span> function from the SeuratWrappers package. This function transforms the Seurat object into a CellDataSet object, which serves as the input for Monocle3’s trajectory inference algorithms. Once converted, this object can be used to construct developmental trajectories, infer pseudotime, and analyze cellular state transitions.</p>
+                <p>要使用 Monocle3 分析细胞轨迹，首先需要把 Seurat 对象转换为 Monocle3 能够处理的格式。这里使用 SeuratWrappers 包中的 <span class="code-inline-light">as.cell_data_set()</span> 函数完成转换。该函数会把 Seurat 对象转换为 <span class="code-inline-light">CellDataSet</span> 对象，作为 Monocle3 轨迹推断算法的输入。完成转换后，该对象即可用于构建发育轨迹、推断伪时间，并分析细胞状态转换。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -406,9 +402,9 @@ cds %>% dplyr::glimpse()
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Inferring trajectory</h2>
+                <h2><strong>推断轨迹</strong></h2>
 
-                <p>Monocle3 determines whether cells should be placed within the same trajectory or assigned to separate trajectories through its clustering algorithm. During this process, each cell is not only grouped into a cluster but also assigned to a partition, which represents distinct regions of the dataset. When constructing trajectories, Monocle3 treats each partition as a separate trajectory. In this step, we first cluster the cells using the <span class="code-inline-light">cluster_cells()</span> function, which identifies biologically meaningful groupings. Then, we use <span class="code-inline-light">learn_graph()</span> to infer the trajectory structure, allowing us to visualize and analyze the developmental pathways that cells follow.</p>
+                <p>Monocle3 会通过聚类算法判断细胞应被放在同一条轨迹中，还是分配到不同轨迹中。在这个过程中，每个细胞不仅会被分入某个 cluster，也会被分配到一个 partition；partition 表示数据集中彼此相对独立的区域。构建轨迹时，Monocle3 会把每个 partition 视为一条独立轨迹。在这一步中，我们先用 <span class="code-inline-light">cluster_cells()</span> 函数对细胞进行聚类，识别具有生物学意义的分组；然后使用 <span class="code-inline-light">learn_graph()</span> 推断轨迹结构，从而可视化并分析细胞所遵循的发育路径。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -428,13 +424,13 @@ cds <- cluster_cells(cds = cds,  # Perform clustering on the cell dataset
                 </div>
             </section>
 
-                <p>Next, we visualize the inferred trajectory to examine how cells are organized along developmental paths.</p>
+                <p>接下来，可视化推断出的轨迹，观察细胞如何沿发育路径组织。</p>
                 <br>
-                <p>In the plot, black lines represent the structure of the inferred trajectory, forming a graph that connects related cells. If the graph is not fully connected, it indicates that cells in different partitions follow distinct developmental paths.</p>
+                <p>在图中，黑色线条表示推断轨迹的结构，形成连接相关细胞的图。如果该图没有完全连通，说明不同 partition 中的细胞可能遵循不同发育路径。</p>
                 <br>
-                <p>Special points within the graph are marked with numbered circles. Light gray circles at the ends of branches correspond to distinct cell fates—possible final states in the trajectory. Black circles represent branch points, where cells can follow different developmental directions.</p>
+                <p>图中的特殊点用带编号的圆圈标记。 分支末端的浅灰色圆圈对应不同细胞命运，也就是轨迹中可能的最终状态。 黑色圆圈表示分支点，细胞可以从这里走向不同发育方向。</p>
                 <br>
-                <p>The visualization can be customized using the <span class="code-inline-light">label_leaves</span> and <span class="code-inline-light">label_branch_points</span> arguments in <span class="code-inline-light">plot_cells()</span>. These options control whether cell fates and branch points are labeled in the plot. It is important to note that the numbers displayed in the circles serve only as reference markers and do not imply any specific biological meaning.</p>
+                <p>可以通过 <span class="code-inline-light">plot_cells()</span> 中的 <span class="code-inline-light">label_leaves</span> 和 <span class="code-inline-light">label_branch_points</span> 参数自定义可视化。这些选项控制是否在图中标记细胞命运和分支点。需要注意，圆圈中的数字只是参考标记，并不代表特定生物学含义。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -463,7 +459,7 @@ scPlot
                 </div>
             </section>
 
-                <p>Here we can have a more clean visualization by removing labels</p>
+                <p>移除标签后，可以得到更简洁的可视化结果。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -496,13 +492,13 @@ scPlot
 
         <section class="hero-modules">
             <div class="container">
-                <h2>Inferring pseudotime</h2>
+                <h2><strong>推断伪时间</strong></h2>
 
-                <p>Pseudotime estimates the progression of cells through a biological process based on gene expression similarities. Monocle3 orders cells along a trajectory, assigning a pseudotime value that reflects their relative position from a defined starting point. Cells closer to the root have lower pseudotime values, while those further along the path have higher values, indicating more advanced states. This helps model differentiation and identify key regulatory changes over time.</p>
+                <p>伪时间根据基因表达相似性估计细胞在某个生物学过程中的进程。Monocle3 会沿轨迹对细胞排序，并为每个细胞分配一个伪时间值，表示它相对于定义起点的位置。靠近 root 的细胞伪时间较低，沿路径更远的细胞伪时间较高，表示状态更晚或更推进。这有助于建模分化过程，并识别随时间变化的关键调控事件。</p>
                 <br>
-                <p>Monocle3 orders cells along a learned trajectory using pseudotime, which represents an abstract measure of progress. Pseudotime is determined by the distance between a cell and the trajectory's starting point, measured along the shortest path. The trajectory's length corresponds to the total transcriptional changes a cell undergoes from the initial to the final state.</p>
+                <p>Monocle3 使用伪时间沿学习得到的轨迹对细胞排序。伪时间是一种抽象的进程度量，由细胞到轨迹起点之间沿最短路径的距离决定。轨迹长度对应细胞从初始状态到最终状态经历的总转录变化。</p>
                 <br>
-                <p>Comparing the annotated UMAP and the Monocle3 trajectory, we can define which Monocle3 clusters are the roots for inferring differentiation:</p>
+                <p>比较带注释的 UMAP 和 Monocle3 轨迹后，我们可以定义哪些 Monocle3 cluster 作为推断分化方向的 root。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -540,7 +536,7 @@ scPlot
                 </div>
             </section>
 
-                <p>Then, using the following command, we can select root cells or starting states in the trajectory and infer the pseudotime for each of the other cells.</p>
+                <p>然后，使用下面的命令选择轨迹中的 root cells 或起始状态，并推断其他每个细胞的伪时间。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -589,7 +585,7 @@ ggsave("05-plot_cells.png", plot = scPlot1, bg = "white", width = 9, height = 9,
                 </div>
             </section>
 
-                <p>A joint UMAP representation of the Seurat Clusters, Trajectory, and Pseudotimes.</p>
+                <p>Seurat cluster、轨迹和伪时间的联合 UMAP 表示。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -615,7 +611,7 @@ ggsave("06-Multiple_plots.png", plot = scPlot, bg = "white", width = 27, height 
                 </div>
             </section>
 
-                <p>We can order the seurat clusters by the pseudotimes they are associated with.</p>
+                <p>我们可以按照 cluster 对应的伪时间，对 Seurat cluster 进行排序。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -650,7 +646,7 @@ scPlot
                 </div>
             </section>
 
-                <p>Finally, we can inspect how gene expression of a few genes changes across pseudotimes.</p>
+                <p>最后，可以检查若干基因的表达如何随伪时间变化。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -710,11 +706,11 @@ scPlot
 
         <section class="hero-modules">
             <div class="container">
-                <h2 class="hero-heading text-xl">Extra questions:</h2>
+                <h2 class="hero-heading text-xl">思考题：</h2>
                 <ul class="a">
-                    <li>How does selecting different root cells affect the analysis?</li>
-                    <li>Perform the analysis for one cell type of interest. Can you identify cell subtypes?</li>
-                    <li>Do the marker genes of this cell type change across pseudotime?</li>
+                    <li>选择不同 root cells 会如何影响分析？</li>
+                    <li>对某个感兴趣的细胞类型执行该分析。你能识别出细胞亚型吗？</li>
+                    <li>这个细胞类型的 marker gene 是否会随伪时间变化？</li>
                 </ul>
                 <br>
             </div>

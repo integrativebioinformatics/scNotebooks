@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq) — Single Cell Notebooks</title>
-<meta name="description" content="scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the g">
+<title>单细胞转座酶可及染色质测序（scATAC-seq）入门 — Single Cell Notebooks</title>
+<meta name="description" content="scATAC-seq 是一种在单细胞层面研究染色质可及性的技术。与关注基因表达的 scRNA-seq 不同，scATAC-seq 识别基因组中处于开放、可能具有活性的区域，也就是转录因子可以结合并调控基因活性的区域。">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,12 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        An introduction to Single cell Assay for Transposase-Accessible Chromatin sequencing (scATAC-seq)
-                    </h1>
-                    <p class="hero-text">
-                        scATAC-seq is a technique used to study chromatin accessibility at the single-cell level. Unlike scRNA-seq, which focuses on gene expression, scATAC-seq identifies regions of the genome that are open and potentially active, meaning they can be bound by transcription factors to regulate gene activity.
-                    </p>
+                    <h1 class="hero-heading text-xl">单细胞转座酶可及染色质测序（scATAC-seq）入门</h1>
+                    <p class="hero-text">scATAC-seq 是一种在单细胞层面研究染色质可及性的技术。与关注基因表达的 scRNA-seq 不同，scATAC-seq 识别基因组中处于开放、可能具有活性的区域，也就是转录因子可以结合并调控基因活性的区域。</p>
                     <br>
                     </div>
                 <hr/> 
@@ -88,23 +84,23 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
             <div class="container">
                 <div class="hero-content">
                     <br/>
-                    <p>For this work, we will use data from the article by Kumegawa et al. (2022) entitled: "GRHL2 motif is associated with intratumor heterogeneity of cis-regulatory elements in luminal breast cancer"</p>
+                    <p>本次分析使用 Kumegawa 等人在 2022 年发表的研究数据，论文题为 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9177858/" target="_blank" rel="noopener">"GRHL2 motif is associated with intratumor heterogeneity of cis-regulatory elements in luminal breast cancer"</a>。</p>
                     <br>
-                    <p>In this paper, Kumegawa et al. analyze chromatin accessibility profiles of more than 10.000 cells from 16 breast cancer patients including luminal, luminal-HER2, HER2+ and 3 triple-negative subtypes. Using this profiling process, they classified cells into cancer cells and tumor microenvironment, allowing to highlight the heterogeneity of disease-related pathways. Moreover, they identified the GRHL2 transcription factor which cooperated with FOXA1 to initiate endocrine resistance and that GRHL2 binding elements potentially regulate genes associated with endocrine resistance, metastasis, and poor prognosis in patients that received hormonal therapy.</p>
+                    <p>在这篇论文中，Kumegawa 等人分析了 16 位乳腺癌患者中超过 10,000 个细胞的染色质可及性图谱，患者亚型包括 luminal、luminal-HER2、HER2+ 以及 3 种 triple-negative breast cancer（TNBC）亚型。基于这些图谱，作者将细胞分为癌细胞和肿瘤微环境细胞，从而揭示了疾病相关通路的异质性。此外，他们发现转录因子 GRHL2 可与 FOXA1 协同启动内分泌耐药，并且 GRHL2 结合元件可能调控与内分泌耐药、转移以及接受激素治疗患者预后不良相关的基因。</p>
                     <br>
-                    <p>The scATAC-seq libraries were prepared with the SureCell ATAC-seq Library Preparation kit (BioRad) and a SureCell ddSEQ Index Kit (Bio-Rad). Alignment was done with ATAC-Seq Analysis Toolkit (Bio-Rad).</p>
+                    <p>scATAC-seq 文库使用 SureCell ATAC-seq Library Preparation Kit（Bio-Rad）和 SureCell ddSEQ Index Kit（Bio-Rad）制备；比对步骤使用 ATAC-Seq Analysis Toolkit（Bio-Rad）完成。</p>
                     <br>
-                    <p>For this work, we will explore two breast tumor samples (TNBC and Luminal-HER2), specifically T cells. To do so, we went to retrieve the file fragment of a sample from the <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi">GEO (Gene Expression Omnibus)</a> website using the identifier provided by the author: GSE198639.</p>
+                    <p>本教程将探索两个乳腺肿瘤样本（TNBC 和 Luminal-HER2），并具体关注其中的 T 细胞。为此，我们根据作者提供的 GEO 编号 GSE198639，从 <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi" target="_blank" rel="noopener">GEO（Gene Expression Omnibus）网站</a> 获取样本的 fragment 文件。</p>
                     <br>
-                    <p>This course is done using ArchR. For more details on ArchR see <a href="https://www.archrproject.com/index.html">here</a>.</p>
+                    <p>本课程使用 ArchR 完成。ArchR 的更多信息见<a href="https://www.archrproject.com/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
                     <br>
-                    <p>ArchR provides a comprehensive suite for scATAC-seq analysis tools from pre-processing data to results, offering several levels of information. Moreover, ArchR is fast and ask a reasonable ressource usage.</p>
+                    <p>ArchR 为 scATAC-seq 分析提供了从预处理到结果解释的完整工具集，可以在多个层次上提取信息。同时，ArchR 运行速度较快，对计算资源的需求也相对合理。</p>
                     <br>
-                    <p>For these analyses, you need (if you will do in your computer):</p>
+                    <p>如果要在自己的电脑上运行这些分析，需要完成以下准备：</p>
                     <ul class="a">
-                        <li>Install python3.6 or more: <a href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
-                        <li>Install conda (miniconda or anaconda, it's a package manager for python, it allows to create python environment):<a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html">https://conda.io/projects/conda/en/latest/user-guide/install/index.html</a></li>
-                        <li>Install macs2 package (via the terminal):</li>
+                        <li>安装 Python 3.6 或更高版本： <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">https://www.python.org/downloads/</a></li>
+                        <li>安装 conda（miniconda 或 anaconda）。conda 是 Python 的包管理器，也可以用来创建独立的 Python 环境： <a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html" target="_blank" rel="noopener">https://conda.io/projects/conda/en/latest/user-guide/install/index.html</a></li>
+                        <li>在终端中安装 macs2：</li>
                         <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -122,8 +118,8 @@ conda install macs2 or conda install -c bioconda macs2
                 </code></pre>
                 </div>
             </section>
-                        <li>Install of R4.1.3 or more: <a href="https://cran.r-project.org/">https://cran.r-project.org/</a></li>
-                        <li>install these R packages (via R environment):</li>
+                        <li>安装 R 4.1.3 或更高版本： <a href="https://cran.r-project.org/" target="_blank" rel="noopener">https://cran.r-project.org/</a></li>
+                        <li>在 R 环境中安装以下 R 包：</li>
                         <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -155,7 +151,7 @@ install.packages("hexbin")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Download preinstalled libraries and datasets</h2>
+                    <h2>下载预安装库和数据集</h2>
 
                     <section class="">
                 <div class="code-container">
@@ -305,7 +301,7 @@ system("unzip scATACseqWorkshop.zip")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>NOTE: If you have errors you can do this to reanalyze the data</h2>
+                    <h2>注意：如果运行中出错，可以用下面的方法重新分析数据</h2>
 
                     <section class="">
                 <div class="code-container">
@@ -336,11 +332,11 @@ shell_call("unzip scATACseqWorkshop.zip")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Define libraries, parameters and directories</h2>
+                    <h2>定义库、参数和目录</h2>
 
-                    <p>Firstly, we define python library location and load R libraries. After, we define some parameters such as: 1) the number of threads we will use, 2) the working directory and 3) the location of fragment files.</p>
+                    <p>首先，我们定义 Python 库的位置，并加载 R 包。随后设置一些分析参数，包括：1）使用的线程数，2）工作目录，3）fragment 文件的位置。</p>
                     <br>
-                    <p>In fact, ArchR can utilize multiple input formats of scATAC-seq data (the fragment files and the BAM files are the more common scATAC-seq data).</p>
+                    <p>实际上，ArchR 支持多种 scATAC-seq 数据输入格式，其中 fragment 文件和 BAM 文件是最常见的 scATAC-seq 输入数据。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -422,15 +418,15 @@ addArchRGenome("hg19")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Create Arrow file</h2>
+                    <h2>创建 Arrow 文件</h2>
 
-                    <p>We create an HDF5-format Arrow file that stores all of the data associated with a sample (now and during all the analysis process). It will be updated with the additional layers of information.</p>
+                    <p>我们会创建 HDF5 格式的 Arrow 文件，用于存储与样本相关的所有数据。该文件会贯穿整个分析过程，并随着分析推进不断加入新的信息层。</p>
                     <br>
-                    <p>If we analyse some samples, an Arrow file will be generated for each sample.</p>
+                    <p>如果分析多个样本，每个样本都会生成一个对应的 Arrow 文件。</p>
                     <br>
-                    <p>It's not a R language object and because of this, we will generate an ArchRProject object to associate the Arrow file(s) into a single analytical framework that will be rapidly accessible in R.</p>
+                    <p>Arrow 文件本身不是 R 语言对象。因此，我们还会生成一个 ArchRProject 对象，把一个或多个 Arrow 文件纳入同一个分析框架，使其能够在 R 中被快速访问和操作。</p>
                     <br>
-                    <p>During this step, ArchR computes a TileMatrix containing insertion counts across genome-wide 500-bp bins (default value) and a GeneScoreMatrix that stores predicted gene expression based on weighting insertion counts in tiles nearby a gene promoter.</p>
+                    <p>在这一步中，ArchR 会计算 TileMatrix，其中包含全基因组 500 bp bins（默认值）上的 insertion counts；同时还会计算 GeneScoreMatrix，该矩阵根据基因启动子附近 tiles 中的 insertion counts 加权估计基因表达。</p>
 
                     <br>
 
@@ -462,16 +458,16 @@ project <- ArchRProject(
                 </div>
             </section>
 
-                    <p>Strict quality control (QC) of scATAC-seq data is essential to remove the contribution of low-quality cells.</p>
+                    <p>对 scATAC-seq 数据进行严格质量控制（quality control, QC）非常重要，可以去除低质量细胞对分析结果的影响。</p>
                     <br>
-                    <p>ArchR considers three characteristics of data:</p>
+                    <p>ArchR 主要考察数据的三个特征：</p>
                     <ul class="a">
-                        <li>The fragment size (DNA fragments cut by Tn5 transposases) distribution. Due to nucleosomal periodicity, we expect to see depletion of fragments that are the length of DNA wrapped around a nucleosome (approximately 147 bp).</li>
-                        <li>The Transcription Start Site (TSS) enrichment (signal-to-background ratio). Low signal-to-background ratio is often attributed to dead or dying cells which have de-chromatized DNA which allows for random transposition genome-wide.</li>
-                        <li>The number of unique nuclear fragments (i.e. not mapping to mitochondrial DNA).</li>
+                        <li>fragment size 分布。fragment 是由 Tn5 转座酶切割得到的 DNA 片段。由于核小体周期性，我们通常期望看到长度约为 147 bp，也就是缠绕在一个核小体上的 DNA 长度附近的片段减少。</li>
+                        <li>Transcription Start Site（TSS）enrichment，即信噪比。较低的信噪比通常与死亡或濒死细胞有关，这类细胞的 DNA 去染色质化后更容易在全基因组范围内发生随机转座。</li>
+                        <li>unique nuclear fragments 数量，即不比对到线粒体 DNA 的唯一核基因组 fragment 数量。</li>
                     </ul>
                     <br>
-                    <p>We can appreciate the QC and the main metrics of samples using some plots: Plot QC metrics:</p>
+                    <p>可以通过一些图形查看样本的 QC 情况和主要指标。 绘制 QC 指标：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -504,7 +500,7 @@ plot.tss.frags
                 </div>
             </section>
 
-                    <p>Plot TSS metrics:</p>
+                    <p>绘制 TSS 指标：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -542,7 +538,7 @@ plot.tss.v1 | plot.tss.v2
             </section>
 
                 
-                    <p>Plot fragment metrics:</p>
+                    <p>绘制 fragment 指标：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -608,9 +604,9 @@ ArrowFiles <- createArrowFiles(
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Doublet detection</h2>
+                    <h2>Doublet 检测</h2>
                 </div>
-                <p>A source of trouble in single-cell data is the contribution of "doublets" to the analysis (a doublet refers to a single droplet that received more than one nucleus). To predict which “cells” are actually doublets, ArchR synthesizes in silico doublets from the data by mixing the reads from thousands of combinations of individual cells. It projects these synthetic doublets into the UMAP embedding and identify their nearest neighbor. By iterating this procedure thousands of times, it can identify “cells” in the data whose signal looks very similar to synthetic doublets. Here, we identify the doublets.</p>
+                <p>单细胞数据中的一个常见问题是 doublets 对分析的影响。doublet 指同一个液滴中捕获了不止一个细胞核。 为了预测哪些“细胞”实际上是 doublets，ArchR 会从数据中合成 in silico doublets：它将许多单细胞组合的 reads 混合起来，构造出模拟 doublet。随后，ArchR 会把这些合成 doublets 投影到 UMAP embedding 中并寻找其最近邻。通过重复这一过程数千次，ArchR 可以识别真实数据中信号模式与合成 doublets 非常相似的“细胞”。 这里，我们将识别 doublets。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -637,9 +633,9 @@ doubletScores <- addDoubletScores(
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Creation of ArchR project</h2>
+                    <h2>创建 ArchR project</h2>
                 </div>
-                <p>As explain before, we generate a ArchR project to easily manipulate the scATAC-seq generated by ArchR.</p>
+                <p>如前所述，我们会生成一个 ArchR project，以便更方便地操作由 ArchR 创建的 scATAC-seq 数据。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -660,7 +656,7 @@ project <- ArchRProject(
                 </div>
             </section>
 
-                <p>We can easily list the matrix items present in the project</p>
+                <p>我们可以很方便地列出 project 中包含的矩阵项目。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -678,16 +674,16 @@ getAvailableMatrices(project)  # Check what matrices (e.g., Gene Score Matrix) a
             </section>
 
                 <br>
-                <p>Strict quality control (QC) of scATAC-seq data is essential to remove the contribution of low-quality cells.</p>
+                <p>对 scATAC-seq 数据进行严格质量控制（quality control, QC）非常重要，可以去除低质量细胞对分析结果的影响。</p>
                 <br>
-                <p>ArchR consider three characteristics of data:</p>
+                <p>ArchR 主要考察数据的三个特征：</p>
                 <ul class="a">
-                    <li>The fragment size distribution. Due to nucleosomal periodicity, we expect to see depletion of fragments that are the length of DNA wrapped around a nucleosome (approximately 147 bp).</li>
-                    <li>The TSS enrichment (signal-to-background ratio). Low signal-to-background ratio is often attributed to dead or dying cells which have de-chromatized DNA which allows for random transposition genome-wide.</li>
-                    <li>The number of unique nuclear fragments (i.e. not mapping to mitochondrial DNA). We can appreciate the QC and the main metrics of samples using some plots:</li>
+                    <li>fragment size 分布。由于核小体周期性，我们通常期望看到长度约为 147 bp，也就是缠绕在一个核小体上的 DNA 长度附近的片段减少。</li>
+                    <li>TSS enrichment，即信噪比。较低的信噪比通常与死亡或濒死细胞有关，这类细胞的 DNA 去染色质化后更容易在全基因组范围内发生随机转座。</li>
+                    <li>unique nuclear fragments 数量，即不比对到线粒体 DNA 的唯一核基因组 fragment 数量。 可以通过一些图形查看样本的 QC 情况和主要指标。</li>
                 </ul>
                 <br>
-                <p>Plot QC metrics:</p>
+                <p>绘制 QC 指标：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -723,7 +719,7 @@ plot.tss.frags
                 </div>
             </section>
                 
-                <p>Plot TSS metrics:</p>
+                <p>绘制 TSS 指标：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -762,7 +758,7 @@ plot.tss.v1 | plot.tss.v2
                 </div>
             </section>
 
-                <p>Plot fragment metrics:</p>
+                <p>绘制 fragment 指标：</p>
 
                 <section class="">
                 <div class="code-container">
@@ -801,7 +797,7 @@ plot.frags.v1 | plot.frags.v2
                 </div>
             </section>
 
-                <p>Filter the doublets</p>
+                <p>过滤 doublets。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -818,7 +814,7 @@ project <- filterDoublets(ArchRProj = project)  # Remove detected doublets to ke
                 </div>
             </section>
 
-                <p>Sample Fragment Size Distribution and TSS Enrichment Profiles</p>
+                <p>样本 fragment size 分布和 TSS enrichment profiles。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -846,22 +842,22 @@ plot.frags.v3 | plot.tss.v3
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Normalization, dimensional reduction, batch effect correction, clustering and others step</h2>
-                    <h3>Normalization and dimensional reduction</h3>
-                    <p>scATAC-seq generates a sparse insertion counts matrix (500-bp tiles; binary data of ~6 million of features) making it impossible to identify variable peaks for standard dimensionality reduction. To get around this issue, ArchR use LSI (Latent Semantic Indexing), a layered dimensionality reduction approach for sparse and noisy data.</p>
+                    <h2>归一化、降维、批次效应校正、聚类及其他步骤</h2>
+                    <h3>5.1. 归一化与降维</h3>
+                    <p>scATAC-seq 会生成非常稀疏的 insertion counts 矩阵，例如 500 bp tiles，对应约 600 万个二值特征。这使得使用标准降维方法识别高变 peaks 变得不可行。为了解决这个问题，ArchR 使用 LSI（latent semantic indexing），这是一种适用于稀疏、噪声较高数据的分层降维方法。</p>
                     <br>
-                    <p>Rather than identifying the most variable peaks, ArchR tries using the most accessible features as input to LSI.</p>
+                    <p>ArchR 并不直接寻找变异最大的 peaks，而是尝试使用最可及的特征作为 LSI 输入。</p>
                     <br>
-                    <p>However, when running multiple samples the results could shown high degrees of noise and low reproducibility.</p>
+                    <p>不过，在同时分析多个样本时，结果可能出现较高噪声且可重复性较低。</p>
                     <br>
-                    <p>To remedy this, ArchR introduced the “iterative LSI” approach (Satpathy, Granja et al., 2019), which computes an initial LSI transformation on the most accessible tiles and identifies lower resolution clusters that are not batch confounded.</p>
+                    <p>为了解决这一问题，ArchR 引入了 “iterative LSI” 方法（Satpathy, Granja et al., 2019）。该方法先在最可及的 tiles 上计算初始 LSI 转换，并识别较低分辨率、且不被批次混杂驱动的 clusters。</p>
                     <ul class="a">
-                        <li>This approach computes an initial LSI transformation on the most accessible tiles and identifies lower resolution clusters that are not batch confounded.</li>
-                        <li>ArchR computes the average accessibility for each of these clusters across all features. ArchR then identifies the most variable peaks across these clusters and uses these features for LSI again.</li>
-                        <li>In this second iteration, the most variable peaks are more similar to the variable genes used in scRNA-seq LSI implementations.</li>
+                        <li>首先，在最可及的 tiles 上计算初始 LSI 转换，并识别较低分辨率且不受批次混杂影响的 clusters。</li>
+                        <li>随后，ArchR 会计算这些 clusters 在所有特征上的平均可及性，并识别 clusters 之间变异最大的 peaks，再用这些特征重新进行 LSI。</li>
+                        <li>在第二轮迭代中，最具变异性的 peaks 更类似于 scRNA-seq LSI 实现中使用的高变基因。</li>
                     </ul>
                     <br>
-                    <p>This approach minimizes observed batch effects and allow dimensionality reduction operations on a more reasonably sized feature matrix.</p>
+                    <p>这种策略可以降低观察到的批次效应，并把降维操作限制在规模更合理的特征矩阵上。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -886,9 +882,9 @@ project_Normalized <- addIterativeLSI(ArchRProj = project, iterations = 2,
 
                     <br>
 
-                    <h3>Batch effect correction</h3>
+                    <h3>5.2. 批次效应校正</h3>
                     <br>
-                    <p>Sometimes the iterative LSI approach isn’t enough to correct strong batch effect differences. For this reason, ArchR implements a commonly used batch effect correction tool called Harmony (Korsunsky et al., 2019) which was originally designed for scRNA-seq.</p>
+                    <p>有时 iterative LSI 仍不足以校正较强的批次差异。因此，ArchR 实现了常用的批次效应校正工具 Harmony（Korsunsky et al., 2019）。Harmony 最初是为 scRNA-seq 设计的。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -906,9 +902,9 @@ project_Normalized <- addHarmony(ArchRProj = project_Normalized, reducedDims = "
                 </div>
             </section>
 
-                <h3>UMAP</h3>
+                <h3>5.3. UMAP</h3>
                     <br>
-                    <p>Run UMAP in ArchR.</p>
+                    <p>在 ArchR 中运行 UMAP。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -934,9 +930,9 @@ plotEmbedding(ArchRProj = project_Normalized, colorBy = "cellColData", name = "S
                 </div>
             </section>
 
-                    <h3>Clustering</h3>
+                    <h3>5.4. 聚类</h3>
                     <br>
-                    <p>To identify clusters, ArchR allows to use same method as Seurat or Scran. We have selected the same method describe the first day and used in Seurat package.</p>
+                    <p>为了识别 clusters，ArchR 可以使用与 Seurat 或 Scran 相同的方法。这里选择的是第一天课程中介绍并在 Seurat 包中使用过的方法。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -958,9 +954,9 @@ for(i in seq(0,0.9,0.1)){
                 </div>
             </section>
 
-                    <h3>Save and load a project</h3>
+                    <h3>5.5. 保存和加载 project</h3>
                     <br>
-                    <p>Save</p>
+                    <p>保存：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -978,7 +974,7 @@ saveArchRProject(ArchRProj = project_Normalized,
                 </div>
             </section>
 
-                    <p>Load</p>
+                    <p>加载：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1002,10 +998,10 @@ project_Normalized <- loadArchRProject(path = file.path(getwd(),"Analysis_scATAC
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Exploration of data using Gene estimation</h2>
-                    <h4>Visualization of clustering using Clustree</h4>
+                    <h2>使用 GeneScore 估计探索数据</h2>
+                    <h4>6.1. 使用 Clustree 可视化聚类</h4>
                     <br>
-                    <p>Clustree is an useful tool to explore the links between the clusters from different resolutions.</p>
+                    <p>Clustree 是一个有用工具，可用于探索不同分辨率下 clusters 之间的对应关系。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1025,7 +1021,7 @@ clustree(tmp.clustree.datatable, prefix="Clusters.res")
                 </div>
             </section>
                     <br>
-                    <h4>Visualization of clustering on UMAP</h4>
+                    <h4>6.2. 在 UMAP 上可视化聚类</h4>
                     <br>
                     <section class="">
                 <div class="code-container">
@@ -1058,12 +1054,12 @@ for(i in seq(0,0.9,0.1)){
                 </div>
             </section>
                     <br>
-                    <h4>Characterization of clusters</h4>
+                    <h4>6.3. 表征 clusters</h4>
                     <br>
                     
-                    <p>At this step, we select a specific resolution to explore in details the GeneScore to characterize the different clusters. For that, we will identify marker genes (based on gene scores, or estimation of gene expression) of clusters. In short, ArchR estimates gene scores using the local accessibility of the gene region that includes the promoter and gene body, but imposes an exponential weight that accounts for the activity of putative distal regulatory elements as a function of distance.</p>
+                    <p>在这一步中，我们选择一个特定分辨率，并详细探索 GeneScore，用于刻画不同 clusters 的特征。 为此，我们会识别各 cluster 的 marker genes。这些 marker 基于 gene scores，也就是对基因表达的估计。 简而言之，ArchR 会基于基因区域的局部可及性估计 gene scores。该区域包括启动子和 gene body；同时，ArchR 会根据距离对潜在远端调控元件的活性施加指数权重。</p>
                     <br>
-                    <p>Remarks: ArchR can used gene, peak or transcription factor motif features. Here, ArchR identify the genes that appear to be uniquely active in each cluster at the resolution 0.4.</p>
+                    <p>{width=70% height=50%}</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1099,7 +1095,7 @@ for(i in names(markerList)){
                 </div>
             </section>
                     <br>
-                    <p>To visualize the marker genes, we can produce a heatmap:</p>
+                    <p>为了可视化 marker genes，可以绘制热图：</p>
                     
                     <section class="">
                 <div class="code-container">
@@ -1141,7 +1137,7 @@ write.table(cbind(Cluster=rownames(heatmapGSmatrix), heatmapGSmatrix), sep="\t",
                 </div>
             </section>
                     
-                    <p>Or visualize GeneScore of marker genes in UMAP</p>
+                    <p>也可以在 UMAP 上可视化 marker genes 的 GeneScore。</p>
                     
                     <section class="">
                 <div class="code-container">
@@ -1165,7 +1161,7 @@ plot.GS.woMAGIC$VIM | plot.GS.woMAGIC$EPCAM
                 </div>
             </section>
                     
-                    <p>However, scATAC-seq data is really sparse. Due to that, it is highly suggest to use MAGIC (van Dijk, et al., 2018), which add an imputation weight to the gene scores by smoothing signal across nearby cells.</p>
+                    <p>不过，scATAC-seq 数据非常稀疏。因此，强烈建议使用 MAGIC（van Dijk et al., 2018），它通过平滑邻近细胞之间的信号，为 gene scores 添加 imputation weight。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1201,12 +1197,12 @@ plot.GS$CD4 | plot.GS$GZMA
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>scATAC-scRNAseq integration</h2>
-                    <p>ArchR enables integration with scRNA-seq, offers the possibility to use clusters called in scRNA-seq space or use the gene expression measurements after integration.</p>
+                    <h2>scATAC 与 scRNA-seq 整合</h2>
+                    <p>ArchR 支持与 scRNA-seq 数据整合，并可以使用 scRNA-seq 空间中定义的 clusters，或使用整合后得到的基因表达测量结果。</p>
                     <br>
-                    <p>The way this integration works is by directly aligning cells from scATAC-seq with cells from scRNA-seq by comparing the scATAC-seq gene score matrix with the scRNA-seq gene expression matrix. This alignment is performed using the FindTransferAnchors() function from the Seurat package which allows you to align data across two datasets.</p>
+                    <p>这种整合的基本思路，是通过比较 scATAC-seq 的 gene score matrix 与 scRNA-seq 的 gene expression matrix，直接对齐 scATAC-seq 细胞和 scRNA-seq 细胞。该对齐过程使用 Seurat 包中的 <span class="code-inline-light">FindTransferAnchors()</span> 函数完成，它可以在两个数据集之间建立对应关系。</p>
                     <br>
-                    <p>However, to appropriately scale this procedure for hundreds of thousands of cells ArchR provides, a parallelization of this procedure by dividing the total cells into smaller groups of cells and performing separate alignments.</p>
+                    <p>不过，为了让这一流程能够适用于数十万细胞规模的数据，ArchR 将所有细胞划分为更小的细胞组，并行执行多次独立对齐，从而实现并行化扩展。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1252,19 +1248,19 @@ cM <- as.matrix(confusionMatrix(project$Clusters.res0.7,                # Warnin
                 <div class="hero-content">
                     <h2>Peak calling</h2>
 
-                    <p>Calling peaks is one of the most fundamental processes in ATAC-seq data analysis. Because per-cell scATAC-seq data is essentially binary (accessible or not accessible), we perform calling peaks on groups of similar cells (or clusters) define previously.</p>
+                    <p>Peak calling 是 ATAC-seq 数据分析中最基础的流程之一。 由于单细胞层面的 scATAC-seq 数据本质上接近二值，即某个位点可及或不可及，因此通常不会在单个细胞上进行 peak calling，而是在先前定义的相似细胞群或 clusters 上进行。</p>
                     <br>
-                    <p>ArchR applies a Iterative Overlap Peak Merging Procedure with the recommanded MACS2 peak caller (Zhang et al., 2008).</p>
+                    <p>ArchR 使用推荐的 MACS2 peak caller（Zhang et al., 2008），并应用 iterative overlap peak merging procedure。</p>
                     <br>
-                    <p>It uses a function to perform this iterative overlap peak merging procedure:</p>
+                    <p>该过程通过函数执行，主要步骤如下：</p>
                     <ul>
-                        <li>ArchR would call peaks for each pseudo-bulk replicate individually.</li>
-                        <li>ArchR would analyze all of the pseudo-bulk replicates from a single cell type together, performing the first iteration of iterative overlap removal.</li>
-                        <li>After the first iteration of iterative overlap removal, ArchR checks to see the reproducibility of each peak across pseudo-bulk replicates and only keeps peaks that pass a threshold indicated by the reproducibility parameter.</li>
-                        <li>At the end of this process, we would have a single merged peak set for each cell types.</li>
+                        <li>ArchR 会分别为每个 pseudo-bulk replicate 进行 peak calling。</li>
+                        <li>ArchR 会把来自同一细胞类型的所有 pseudo-bulk replicates 放在一起分析，并执行第一轮 iterative overlap removal。</li>
+                        <li>第一轮 iterative overlap removal 之后，ArchR 会检查每个 peak 在 pseudo-bulk replicates 之间的可重复性，只保留通过 reproducibility 参数阈值的 peaks。</li>
+                        <li>该过程结束后，每种细胞类型都会得到一个合并后的 peak set。</li>
                     </ul>
                     <br>
-                    <h4>Creation of the pseudo-bulk replicates</h4>
+                    <h4>8.1. 创建 pseudo-bulk replicates</h4>
                     <br>
                     <section class="">
                 <div class="code-container">
@@ -1289,7 +1285,7 @@ project_Peaks <- addGroupCoverages(
                 </div>
             </section>
                     <br>
-                    <h4>Perform peak calling</h4>
+                    <h4>8.2. 执行 peak calling</h4>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -1333,8 +1329,8 @@ saveArchRProject(
                 </div>
             </section>
                     <br>
-                    <h4>Identification of marker peaks</h4>
-                    <p>As explained before for the marker genes, ArchR can used gene, peak or transcription factor motif features. Here, ArchR identify the peaks that appear to be uniquely active in each cluster at selected resolution.</p>
+                    <h4>8.3. 识别 marker peaks</h4>
+                    <p>正如前面 marker genes 部分所述，ArchR 可以使用 gene、peak 或 transcription factor motif 作为特征。这里，ArchR 会在所选分辨率下识别每个 cluster 中看起来特异活跃的 peaks。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1366,7 +1362,7 @@ markerList[["C9"]]
                 </div>
             </section>
 
-                    <p>To visualize the marker genes, we can produce a heatmap:</p>
+                    <p>为了可视化 marker genes，可以绘制热图：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1390,7 +1386,7 @@ heatmapPeaks
                 </div>
             </section>
 
-                    <p>Or MA and volcano plots of marker peaks by cluster:</p>
+                    <p>也可以按 cluster 绘制 marker peaks 的 MA plot 和 volcano plot：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1422,7 +1418,7 @@ map | vp
                 </div>
             </section>
 
-                    <p>Or visualize the marker peaks on a browser track:</p>
+                    <p>还可以在 browser track 中可视化 marker peaks：</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1472,16 +1468,16 @@ saveRDS(markersPeaks,"markersPeaks.rds")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Motif Enrichment</h2>
-                    <p>After identified peak sets, the next step is to predict what transcription factors (TFs) may be mediating the binding events that create those accessible chromatin sites.</p>
+                    <h2>Motif 富集</h2>
+                    <p>识别 peak sets 后，下一步是预测哪些转录因子（transcription factors, TFs）可能介导了形成这些开放染色质位点的结合事件。</p>
                     <br>
-                    <p>ArchR allow to annotate the TF motifs that are enriched in peaks that are up or down in the different cell types.</p>
+                    <p>ArchR 可以注释在不同细胞类型中上调或下调 peaks 富集的 TF motifs。</p>
                     <br>
-                    <p>Firstly, we add motif annotations to our ArchRProject based on a reference database (for example: CIS-BP, JASPAR, Encode or Homer).</p>
+                    <p>首先，我们基于参考数据库为 ArchRProject 添加 motif annotations，例如 CIS-BP、JASPAR、ENCODE 或 HOMER。</p>
                     <br>
-                    <p>Here, we have selected CIS-BP which contains > 300 TF families from > 700 species collecting from > 70 sources , including other databases: Transfac, JASPAR, Hocomoco, FactorBook, UniProbe, among others.</p>
+                    <p>这里选择 CIS-BP。CIS-BP 包含来自 700 多个物种、超过 300 个 TF families 的信息，整合了 70 多个来源，其中包括 Transfac、JASPAR、Hocomoco、FactorBook、UniProbe 等数据库。</p>
                     <br>
-                    <p>Next, we test the set of significantly differential peaks for motif enrichment.</p>
+                    <p>随后，我们会对显著差异 peaks 集合进行 motif enrichment 检验。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1525,7 +1521,7 @@ head(enrichMotifs@assays@data$Enrichment,10)
                 </div>
             </section>
 
-                    <p>We can display a heatmap to visualize the main motifs of each clusters.</p>
+                    <p>可以绘制热图，展示每个 cluster 中的主要 motifs。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1543,13 +1539,13 @@ ComplexHeatmap::draw(heatmapEM, heatmap_legend_side = "bot", annotation_legend_s
                 </div>
             </section>
 
-                    <h4>ChromVAR and visualization of motif deviation</h4>
+                    <h4>9.1. ChromVAR 与 motif deviation 可视化</h4>
 
-                    <p>ChromVAR, developed by Greenleaf lab, is designed for predicting enrichment of TF activity on a per-cell basis from sparse chromatin accessibility data. ChromVAR computes:</p>
+                    <p>ChromVAR 由 Greenleaf Lab 开发，用于从稀疏的染色质可及性数据中预测单细胞层面的 TF 活性富集情况。 ChromVAR 会计算：</p>
 
                     <ul class="a">
-                        <li>A “deviation”, which is a bias-corrected measurement of how far the per-cell accessibility of a given feature (i.e motif) deviates from the expected accessibility based on the average of all cells or samples.</li>
-                        <li>A “z-score” / a “deviation score”, which is the z-score for each bias-corrected deviation across all cells.</li>
+                        <li>“deviation”：一个经过偏差校正的度量，用于衡量某个特征（例如 motif）在单个细胞中的可及性，与基于所有细胞或样本平均水平所期望的可及性相差多远。</li>
+                        <li>“z-score” 或 “deviation score”：对所有细胞中每个偏差校正后的 deviation 计算得到的 z-score。</li>
                     </ul>
 
                     <section class="">
@@ -1577,7 +1573,7 @@ saveArchRProject(ArchRProj = project_Normalized,
                 </div>
             </section>
 
-                    <p>We can display a distribution of markers</p>
+                    <p>可以展示 markers 的分布。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1619,7 +1615,7 @@ do.call(cowplot::plot_grid, c(list(ncol = 2), cowp))
                 </div>
             </section>
 
-                    <p>Or visualize the motif deviation in UMAP (and see if motif deviation correlates with TF gene score)</p>
+                    <p>也可以在 UMAP 中可视化 motif deviation，并观察 motif deviation 是否与对应 TF 的 gene score 相关。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1664,9 +1660,9 @@ do.call(cowplot::plot_grid, c(list(ncol = 2), gene.umap))
                 </div>
             </section>
 
-                    <h4>Pairwise test between clusters</h4>
+                    <h4>9.2. clusters 之间的成对检验</h4>
 
-                    <p>We can identify the motif enrichment between two clusters (based on differential accessibility of peaks between these two clusters).</p>
+                    <p>可以基于两个 clusters 之间 peaks 的差异可及性，识别这两个 clusters 之间的 motif enrichment。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1702,7 +1698,7 @@ map.Cl1vCl2 | vp.Cl1vCl2
                 </div>
             </section>
 
-                    <p>Motif Up-Enrich and motif Down-enrich (based on the pairwise test between clusters)</p>
+                    <p>基于 clusters 之间的成对检验，展示 motif up-enrichment 和 motif down-enrichment。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1763,9 +1759,9 @@ ggUp | ggDo
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Identification of Positive TF-Regulators</h2>
-                    <p>Although ATAC-seq allows unbiased identification of TFs, families of TFs share similar motifs when viewed in aggregate. This makes it difficult to identify specific TFs that may be responsible for the observed changes in chromatin accessibility to their predicted binding sites. To circumvent this problem, ArchR identifies TFs whose gene expression (Gene score) is positively correlated with changes in accessibility of their corresponding motif (Motif deviation obtained using ChromVAR).</p>
-                    <h4>Step 1. Identify Deviant TF Motifs</h4>
+                    <h2>识别正向 TF 调控因子</h2>
+                    <p>虽然 ATAC-seq 可以无偏地识别 TF，但从整体 motif 层面观察时，同一 TF family 中的多个 TF 往往共享相似 motif。 这使得我们难以判断具体是哪一个 TF 负责了其预测结合位点处观察到的染色质可及性变化。为了解决这个问题，ArchR 会识别这样的 TF：其基因表达水平（GeneScore）与其对应 motif 的可及性变化（使用 ChromVAR 获得的 motif deviation）呈正相关。</p>
+                    <h4>步骤 1. 识别发生偏离的 TF motifs</h4>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -1788,7 +1784,7 @@ rowData(seZ)$maxDelta <- lapply(seq_len(ncol(seZ)), function(x){
                 </code></pre>
                 </div>
             </section>
-                    <h4>Step 2. Identify Correlated TF Motifs and TF Gene Score/Expression</h4>
+                    <h4>步骤 2. 识别相关的 TF motifs 与 TF GeneScore/表达</h4>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -1811,7 +1807,7 @@ head(corGSM_MM, 15)
                 </code></pre>
                 </div>
             </section>
-                    <h4>Step 3. Add Maximum Delta Deviation to the Correlation Data Frame</h4>
+                    <h4>步骤 3. 将最大 delta deviation 加入 correlation data frame</h4>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -1826,7 +1822,7 @@ corGSM_MM$maxDelta <- rowData(seZ)[match(corGSM_MM$MotifMatrix_name, rowData(seZ
                 </code></pre>
                 </div>
             </section>
-                    <h4>Step 4. Identify Positive TF Regulators</h4>
+                    <h4>步骤 4. 识别正向 TF regulators</h4>
                     <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -1873,9 +1869,9 @@ head(as.matrix(sort(corGSM_MM[corGSM_MM$TFRegulator=="NEG", c("GeneScoreMatrix_n
                 <div class="hero-content">
                     <h2>Co-accessibility</h2>
                 </div>
-                <p>To study how the genes are regulated (promoter and enhancer links) ArchR proposes Co-accessibility analysis. Co-accessibility is a correlation in accessibility between two peaks across many single cells. Said another way, when Peak A is accessible in a single cell, Peak B is often also accessible. For example, co-accessibility allows to visualize the enhancer(s) linked to the gene promoter.</p>
+                <p>为了研究基因如何受到调控，例如 promoter 与 enhancer 之间的联系，ArchR 提供了 co-accessibility 分析。 Co-accessibility 指许多单细胞中两个 peaks 的可及性之间存在相关关系。换句话说，当 Peak A 在某个细胞中可及时，Peak B 往往也同时可及。 例如，co-accessibility 可以帮助可视化与某个基因 promoter 相关联的 enhancer。</p>
                 <br>
-                <p>Remarks:Co-accessibility analysis identify cell type-specific peaks. Although these peaks are often accessible together within a single cell type (and often all not accessible in all other cell types) does not necessarily explain a regulatory relationship between these peaks.</p>
+                <p>说明：co-accessibility 分析可以识别细胞类型特异性 peaks。虽然这些 peaks 往往在同一细胞类型中共同可及，并且在其他细胞类型中通常都不可及，但这本身并不必然证明这些 peaks 之间存在直接调控关系。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -1924,7 +1920,7 @@ grid::grid.draw(p$CD8A)
                 <div class="hero-content">
                     <h2>Footprinting</h2>
                 </div>
-                <p>Transcription factor (TF) footprinting allows for the prediction of the precise binding location of a TF at a particular locus. This is because the DNA bases that are directly bound by the TF are actually protected from transposition while the DNA bases immediately adjacent to TF binding are accessible.</p>
+                <p>转录因子（TF）footprinting 可用于预测某个 TF 在特定位点上的精确结合位置。其原理是：TF 直接结合的 DNA 碱基会受到保护，不容易发生转座；而紧邻 TF 结合位点两侧的 DNA 碱基仍然可及。</p>
                 <br>
                 <section class="">
                 <div class="code-container">
@@ -1964,12 +1960,12 @@ plotFootprints(seFoot = seFoot,
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Trajectory Analysis</h2>
+                    <h2>轨迹分析</h2>
                 </div>
-                <p>ArchR proposes to create a cellular trajectory that approximates the differentiation from a cell cluster to an other one. After the definition of the trajectory backbone, which consist of an ordered vector of cell group labels, ArchR identify a pseudo-time value for each cell in the trajectory. In the results, ArchR provides UMAPs to visualize the pseudo-temporal trajectory and heatmaps to track spike/pattern/gene signals as a function of pseudo-temporality.</p>
+                <p>ArchR 可以构建一条细胞轨迹，用于近似表示从一个细胞 cluster 向另一个 cluster 的分化过程。 定义 trajectory backbone 之后，也就是一个按顺序排列的细胞群标签向量，ArchR 会为轨迹中的每个细胞识别一个 pseudo-time 值。 在结果中，ArchR 会提供 UMAP 用于可视化伪时间轨迹，也会提供热图，用于追踪 insertion/peak/gene 等信号随伪时间变化的模式。</p>
                 <br>
-                <h4>Construction of trajectory</h4>
-                <p>Firstly, ArchR produces a pseudo-time value for each cell in the trajectory, which can be visualize on UMAP and used to display an arrow approximating the trajectory path from the spline-fit.</p>
+                <h4>13.1. 构建轨迹</h4>
+                <p>首先，ArchR 会为轨迹中的每个细胞生成一个 pseudo-time 值。该值可以显示在 UMAP 上，也可以用来绘制由 spline 拟合得到的轨迹方向箭头。</p>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -2000,8 +1996,8 @@ plotTraj[[1]]
                 </div>
             </section>
 
-                <h4>Observation of specific genes</h4>
-                <p>It's possible to visualize this trajectory but color the cells by a specific gene score value.</p>
+                <h4>13.2. 观察特定基因</h4>
+                <p>可以可视化这条轨迹，并根据某个特定基因的 gene score 给细胞着色。</p>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -2021,8 +2017,8 @@ p_gene[[1]] | p_gene[[2]]
                 </div>
             </section>
 
-                <h4>Pseudo-time heatmaps</h4>
-                <p>Finally, ArchR allow to perform heatmap to visualize changes in many features (peaks, gene scores or motifs) across pseudo-time.</p>
+                <h4>13.3. 伪时间热图</h4>
+                <p>最后，ArchR 可以绘制热图，展示许多特征，例如 peaks、gene scores 或 motifs，在伪时间上的变化。</p>
                 <section class="">
                 <div class="code-container">
                 <!-- copy code -->
@@ -2067,10 +2063,10 @@ p_trajMM
                 </div>
             </section>
 
-                <h4>Integrative pseudo-time analysis</h4>
-                <p>As shown before, ArchR allows also to perform integrative analysis to identify positive TF using gene scores and motif accessibility across pseudo-time, follow their variability across pseudo-time and understand their role in this trajectory. To do it, ArchR proposes to use the correlateTrajectories() function which takes two SummarizedExperiment objects obtained from the getTrajectories() function which we have obtained before.</p>
+                <h4>13.3. 整合式伪时间分析</h4>
+                <p>如前所示，ArchR 也可以进行整合分析：结合 gene scores 和 motif accessibility 识别正向 TF，跟踪它们在伪时间上的变化，并理解它们在这条轨迹中的作用。为此，ArchR 提供 <span class="code-inline-light">correlateTrajectories()</span> 函数。该函数接受两个 <span class="code-inline-light">SummarizedExperiment</span> 对象作为输入，这两个对象来自此前运行的 <span class="code-inline-light">getTrajectories()</span> 函数。</p>
                 <ul class="a">
-                    <li>Step 1. Identify and select the motifs which gene score and TF motif accessibility is correlated:</li>
+                    <li>步骤 1. 识别并选择 gene score 与 TF motif accessibility 相关的 motifs：</li>
                     
                     <section class="">
                 <div class="code-container">
@@ -2093,7 +2089,7 @@ flt_trajMM <- trajMM[corGSM_MM[[1]]$name2, ]
                 </div>
             </section>
                     
-                    <li>Step 2. Create a new trajectory two visualize side by side the TF motif based on gene score and TF motif enrichment:</li>
+                    <li>步骤 2. 创建一条新的轨迹，并排可视化基于 gene score 的 TF motif 与 TF motif enrichment：</li>
                     
                     <section class="">
                 <div class="code-container">
@@ -2142,7 +2138,7 @@ ht_GSM + ht_MM
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Session information</h2>
+                    <h2>会话信息</h2>
 
                     <section class="">
                 <div class="code-container">

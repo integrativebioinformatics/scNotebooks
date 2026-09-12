@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>An introduction to Spatial Transcriptomics approaches — Single Cell Notebooks</title>
-<meta name="description" content="Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to adv">
+<title>空间转录组学入门 — Single Cell Notebooks</title>
+<meta name="description" content="空间转录组学是一个快速发展的领域，目标是获得组织或器官中具有空间分辨率的基因表达谱。该技术有望加深我们对复杂生物学过程的理解，并帮助发现用于疾病诊断和治疗的新生物标志物。空间转录组学的核心目标，是在细胞原位的组织环境中捕获单个细胞（或某一区域内少量细胞混合体）的基因表达谱，从而识别细胞类型及其空间分布。这些信…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,12 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        An introduction to Spatial Transcriptomics approaches
-                    </h1>
-                    <p class="hero-text">
-                        Spatial transcriptomics is a rapidly evolving field that aims to provide a spatially resolved gene expression profile of a tissue or organ. This technology has the potential to advance our understanding of complex biological processes and help identify new biomarkers for disease diagnosis and treatment. The main goal of spatial transcriptomics is to capture the gene expression profile of individual cells (or a mini mixture of cells in a given region) in their native tissue context, allowing for the identification of cell types and their spatial distribution. This information can then be used to create detailed maps of gene expression within tissues, providing insights into cellular interactions, developmental processes, and disease progression. In this notebook, we will cover practical steps in setting up a spatial transcriptomics analysis pipeline using the Seurat package. We will cover the basic analysis to recover gene expression in different regions as well as cell type deconvolution approaches.
-                    </p>
+                    <h1 class="hero-heading text-xl">空间转录组学入门</h1>
+                    <p class="hero-text">空间转录组学是一个快速发展的领域，目标是获得组织或器官中具有空间分辨率的基因表达谱。该技术有望加深我们对复杂生物学过程的理解，并帮助发现用于疾病诊断和治疗的新生物标志物。空间转录组学的核心目标，是在细胞原位的组织环境中捕获单个细胞（或某一区域内少量细胞混合体）的基因表达谱，从而识别细胞类型及其空间分布。这些信息可以用来绘制组织内部的详细基因表达图谱，帮助理解细胞间相互作用、发育过程和疾病进展。在本 notebook 中，我们将介绍如何使用 Seurat 包搭建空间转录组分析流程，内容包括恢复不同区域基因表达的基础分析，以及细胞类型去卷积方法。</p>
                     <br>
                 <hr/>
                 </div>
@@ -86,13 +82,13 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2 class="hero-heading text xl">Spatial transcriptomics</h2>
-                    <h3>Tutorial links</h3>
-                    <p>Explore the following tutorials to get started with spatial transcriptomics analysis:</p>
+                    <h2 class="hero-heading text xl">空间转录组学</h2>
+                    <h3>教程链接</h3>
+                    <p>可以参考以下教程开始学习空间转录组分析：</p>
                     <ul class="a">
-                        <li>Spatial Features <a href="https://ludvigla.github.io/STUtility_web_site/Spatial_Features.html#Matrix_factorization">STUtilit</a>. This tutorial covers the extraction and analysis of spatial features using the STUtility package.</li>
-                        <li><a href="https://satijalab.org/seurat/articles/spatial_vignette.html">Seurat Spatial Vignette Learn</a>. How to perform spatial transcriptomics analysis using the Seurat package.</li>
-                        <li>Quality Control <a href="https://ludvigla.github.io/STUtility_web_site/Quality_Control.html">STUtility</a>. This tutorial focuses on quality control steps for spatial transcriptomics data using the STUtility package.</li>
+                        <li><a href="https://ludvigla.github.io/STUtility_web_site/Spatial_Features.html#Matrix_factorization" target="_blank" rel="noopener">Spatial Features STUtility</a>：本教程介绍如何使用 STUtility 包提取和分析空间特征。</li>
+                        <li><a href="https://satijalab.org/seurat/articles/spatial_vignette.html" target="_blank" rel="noopener">Seurat Spatial Vignette</a>：如何使用 Seurat 包进行空间转录组分析。</li>
+                        <li><a href="https://ludvigla.github.io/STUtility_web_site/Quality_Control.html" target="_blank" rel="noopener">Quality Control STUtility</a>：本教程聚焦于使用 STUtility 包对空间转录组数据进行质量控制。</li>
                     </ul>
                 </div>
             </div>
@@ -101,10 +97,10 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Download the Raw Data and Code Used in the Paper</h2>
-                    <p>To access the raw data and the code used in the relevant paper, visit the following link: <a href="https://zenodo.org/record/4751624#.Y17sri_pMUF">Zenodo Dataset</a></p>
+                    <h2>下载论文所用的原始数据与代码</h2>
+                    <p>如需获取相关论文使用的原始数据和代码，请访问以下链接：<a href="https://zenodo.org/record/4751624#.Y17sri_pMUF" target="_blank" rel="noopener">Zenodo 数据集</a></p>
                     <br>
-                    <p>These resources will provide you with a comprehensive understanding of spatial transcriptomics and guide you through the analysis process.</p>
+                    <p>这些资源可以帮助你全面理解空间转录组学，并引导你完成整个分析流程。</p>
                 </div>
             </div>
         </section>
@@ -259,7 +255,7 @@ library(SPOTlight)  # Deconvolution of spatial transcriptomics data.
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Download the data</h2>
+                    <h2>下载数据</h2>
                     
                     <section class="">
                 <div class="code-container">
@@ -311,8 +307,8 @@ shell_call("unzip ST_Exercises.zip")
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>RECOVER THE PATHOLOGIST ANNOTATIONS</h2>
-                    <h3>Load the data set</h3>
+                    <h2>恢复病理学家的注释</h2>
+                    <h3>加载数据集</h3>
                     
                     <section class="">
                 <div class="code-container">
@@ -343,8 +339,8 @@ table(Her2p@meta.data$ids)
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Quality control (QC) plots</h2>
-                    <p>Create the color palette</p>
+                    <h2>质量控制（QC）图</h2>
+                    <p>创建配色方案。</p>
                     
                     <section class="">
                 <div class="code-container">
@@ -369,7 +365,7 @@ VlnPlot(Her2p, # Generates a violin plot
                 </div>
             </section>
 
-                    <p>Plot the metrics</p>
+                    <p>绘制各项指标。</p>
                     
                     <section class="">
                 <div class="code-container">
@@ -414,7 +410,7 @@ FeatureOverlay(Her2p, features = c("nCount_RNA"),
                 </div>
             </section>
                     
-                    <h3>NOTE: Normalization, PCA, dimensionality reduction, and UMAP already applied on this object</h3>
+                    <h3>注意：该对象已经完成归一化、PCA、降维和 UMAP 计算</h3>
                 </div>
             </div>
         </section>
@@ -422,7 +418,7 @@ FeatureOverlay(Her2p, features = c("nCount_RNA"),
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Clustering</h2>
+                    <h2>聚类</h2>
                     
                     <section class="">
                 <div class="code-container">
@@ -581,7 +577,7 @@ ST.FeaturePlot(object = Her2p, features = "SCT_snn_res.0.4", pt.size = 4,
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Differentially expressed genes</h2>
+                    <h2>差异表达基因</h2>
                     
                     <section class="">
                 <div class="code-container">
@@ -723,9 +719,9 @@ VlnPlot(Her2p, features = c("EPN2", "AGR3"),
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>3D visualization</h2>
+                    <h2>3D 可视化</h2>
 
-                    <h3>It doesn't run in colab</h3>
+                    <h3>该步骤无法在 Colab 中运行</h3>
                     
                     <section class="">
                 <div class="code-container">
@@ -792,7 +788,7 @@ FeaturePlot3D(Her2p, features = "IFI6", pt.size = 1.6, pts.downsample = 5e4)
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Gene Ontology (GO) Terms</h2>
+                    <h2>Gene Ontology（GO）术语</h2>
                     
                     <section class="">
                 <div class="code-container">
@@ -869,7 +865,7 @@ cluster6_enrichpathway <- ggbarplot(newbar.dt, x = "Description", y = "Count",
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Pathways analysis with EnrichR</h2>
+                    <h2>使用 EnrichR 进行通路分析</h2>
                     
                     <section class="">
                 <div class="code-container">
@@ -967,8 +963,8 @@ cluster6_enrichR
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>CELL TYPES DECONVOLUTION</h2>
-                    <h3>Load the SC dataset</h3>
+                    <h2>细胞类型去卷积</h2>
+                    <h3>加载单细胞数据集</h3>
                     
                     <section class="">
                 <div class="code-container">
@@ -1017,44 +1013,44 @@ SP = Load10X_Spatial(data.dir = "ST_Exercises/10X_Spatial_T_Breast_Block_A_Secti
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>QC plots and Normalization</h2>
-                    <p>Normalization is a crucial preprocessing step in scRNA-seq data analysis. It involves adjusting the raw gene expression data to account for technical variations and differences in sequencing depth across cells. These comparisons should help to understand the strengths and weaknesses of each normalization method</p>
+                    <h2>质控图与归一化</h2>
+                    <p>归一化是 scRNA-seq 数据分析中非常关键的预处理步骤。它通过调整原始基因表达数据，补偿细胞之间的技术差异和测序深度差异。比较不同归一化方法的结果，有助于理解每种方法的优势和局限。</p>
                     <br>
-                    <p>Method of Normalization</p>
+                    <p>归一化方法</p>
                     <br>
                     <ul class="a">
-                        <li>SCTransform: A more advanced method that uses negative binomial regression to remove technical variability and stabilize variance, providing a robust normalization for single-cell data</li>
-                        <li>Log-Normalization: Scales gene expression values and applies a log transformation, which helps in stabilizing the variance and making the data more suitable for downstream analysis.</li>
+                        <li>SCTransform：一种更高级的方法，使用负二项回归去除技术变异并稳定方差，可为单细胞数据提供更稳健的归一化结果。</li>
+                        <li>对数归一化：先缩放基因表达值，再进行对数转换。这有助于稳定方差，使数据更适合后续分析。</li>
                         <br>
-                        <p>Removal of Technical Variability</p>
+                        <p>去除技术变异</p>
                         <br>
-                        <li>SCTransform: More robust in removing technical variability, making it ideal for datasets with significant variation.</li>
-                        <li>NormalizeData: Effective but less sophisticated than SCTransform in handling technical variability.</li>
+                        <li>SCTransform：在去除技术变异方面更稳健，尤其适合变异较大的数据集。</li>
+                        <li>NormalizeData：同样有效，但在处理技术变异方面不如 SCTransform 精细。</li>
                         <br>
-                        <p>Complexity and Execution Time</p>
+                        <p>复杂度与运行时间</p>
                         <br>
-                        <li>SCTransform: More complex and time-consuming due to the regression calculations and variance-stabilizing transformation.</li>
-                        <li>NormalizeData: Simpler and faster, making it suitable for quick analyses and large datasets.</li>
+                        <li>SCTransform：由于涉及回归计算和方差稳定化转换，方法更复杂、计算量更大。</li>
+                        <li>NormalizeData：更简单也更快，适合快速分析和大规模数据集。</li>
                         <br>
-                        <p>Handling Covariates</p>
+                        <p>协变量处理</p>
                         <br>
-                        <li>SCTransform: Allows for the inclusion of covariates (e.g., number of genes detected per cell) for regression, improving the quality of normalized data.</li>
-                        <li>NormalizeData: Does not typically incorporate covariates directly in the normalization process.</li>
+                        <li>SCTransform：允许把协变量纳入回归模型，例如每个细胞检测到的基因数，从而提升归一化数据质量。</li>
+                        <li>NormalizeData：通常不会在归一化过程中直接纳入协变量。</li>
                         <br>
-                        <p>Variance Stabilization</p>
+                        <p>方差稳定</p>
                         <br>
-                        <li>SCTransform: Stabilizes variance, making the data more suitable for downstream analyses like clustering and marker identification.</li>
-                        <li>NormalizeData: Uses log-transformation to partially stabilize variance but not as effectively as SCTransform.</li>
+                        <li>SCTransform：能够稳定方差，使数据更适合后续的聚类和 marker 识别等分析。</li>
+                        <li>NormalizeData：通过对数转换部分稳定方差，但效果通常不如 SCTransform。</li>
                         <br>
-                        <p>Flexibility</p>
+                        <p>灵活性</p>
                         <br>
-                        <li>SCTransform: Primarily focused on handling single-cell RNA-seq data with robust normalization methods.</li>
-                        <li>NormalizeData: Flexible with different normalization methods (e.g., LogNormalize), allowing adjustments based on the specific needs of the analysis.</li>
+                        <li>SCTransform：主要面向单细胞 RNA 测序数据，强调稳健归一化。</li>
+                        <li>NormalizeData：支持不同归一化方法，例如 LogNormalize，可根据具体分析需求调整。</li>
                         <br>
-                        <p>Scalability</p>
+                        <p>可扩展性</p>
                         <br>
-                        <li>SCTransform: Can handle large datasets but may be slower due to its complexity.</li>
-                        <li>NormalizeData: Efficiently handles large datasets due to its simplicity and speed.</li>
+                        <li>SCTransform：可以处理大数据集，但由于方法复杂，运行速度可能较慢。</li>
+                        <li>NormalizeData：得益于方法简单和速度快，能够高效处理大数据集。</li>
                     </ul>
                     
                     <section class="">
@@ -1099,15 +1095,15 @@ p1 + p2
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h2>Deconvolution Pipeline</h2>
-                    <p>Deconvolution is a computational technique used to infer and quantify the proportions of different cell types within a mixed population of cells. Since scRNA-seq data often come from complex tissues containing multiple cell types, deconvolution helps to identify and isolate the gene expression profiles specific to each cell type within the mixture.</p>
+                    <h2>去卷积流程</h2>
+                    <p>去卷积是一类计算方法，用于从混合细胞群体中推断并量化不同细胞类型的比例。由于 scRNA-seq 数据通常来自包含多种细胞类型的复杂组织，去卷积可以帮助识别混合样本中各细胞类型的特异性基因表达谱。</p>
                     <br>
-                    <p>Why is Deconvolution Important?</p>
+                    <p>为什么去卷积重要？</p>
                     <br>
                     <ul class="a">
-                        <li>Identifying Cell Types: Deconvolution enables researchers to determine the presence and abundance of various cell types in a heterogeneous tissue sample.</li>
-                        <li>Understanding Cellular Composition: It helps to elucidate the cellular composition of tissues, revealing how different cell types contribute to biological processes and disease states.</li>
-                        <li>Improving Data Interpretation: By separating the gene expression signals of different cell types, deconvolution enhances the accuracy and interpretability of scRNA-seq data, leading to more precise biological insights.</li>
+                        <li>细胞类型识别：去卷积可以帮助研究者判断异质性组织样本中存在哪些细胞类型，以及它们的丰度。</li>
+                        <li>理解细胞组成：它有助于阐明组织的细胞组成，揭示不同细胞类型如何参与生物过程和疾病进展。</li>
+                        <li>改善数据解释：通过分离来自不同细胞类型的基因表达信号，去卷积可以提高 scRNA-seq 数据解释的准确性，使生物学结论更精确。</li>
                     </ul>
                     
                     <section class="">

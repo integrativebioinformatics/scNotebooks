@@ -3,8 +3,8 @@
     <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quality Control, Differential expression, Cell Type Annotation, Clustering and Functional Data analysis — Single Cell Notebooks</title>
-<meta name="description" content="In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ens">
+<title>质量控制、差异表达、细胞类型注释、聚类与功能分析 — Single Cell Notebooks</title>
+<meta name="description" content="本模块将使用 Seurat 包处理和分析 scRNA-seq 数据，涵盖数据导入、过滤和初步可视化等关键步骤，以确保在下游分析之前完成充分的质量控制。scRNA-seq 分析的核心之一，是识别在不同条件下具有差异表达模式的基因和转录本；这些差异可以揭示驱动细胞异质性的生物学过程。为了优化数据集，我们会用关键指…">
 <meta name="theme-color" content="#044D8C" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../../images/favicon2.ico" sizes="any">
@@ -71,16 +71,8 @@ setTimeout(function(){r.classList.remove('i18n-pending');},1500);})();
         <section class="hero-modules">
             <div class="container">
                 <div class="hero-content">
-                    <h1 class="hero-heading text-xl">
-                        Quality Control, Differential expression, Cell Type Annotation, Clustering and Functional Data analysis
-                    </h1>
-                    <p class="hero-text">
-                        In this section, we will use the Seurat package to process and analyze scRNA-seq data, covering essential steps such as data import, filtering, and preliminary visualization to ensure proper quality control before downstream analysis.
-                        <br/>
-                        A key part of scRNA-seq analysis is identifying genes and transcripts with distinct expression patterns across different conditions. These differences can reveal underlying biological processes driving cellular heterogeneity. To refine the dataset, we will assess its quality using key metrics, apply normalization techniques to mitigate technical variability, and implement clustering methods to group cells based on gene expression patterns.
-                        <br/>
-                        Furthermore, we will do differential expression analysis, cell type annotation, and functional enrichment techniques to uncover gene regulation mechanisms, identify key markers, and explore pathways involved in cellular differentiation and disease states. Together, these approaches provide a comprehensive framework for interpreting single-cell transcriptomics data and extracting meaningful biological insights.
-                    </p>
+                    <h1 class="hero-heading text-xl">质量控制、差异表达、细胞类型注释、聚类与功能分析</h1>
+                    <p class="hero-text">本模块将使用 Seurat 包处理和分析 scRNA-seq 数据，涵盖数据导入、过滤和初步可视化等关键步骤，以确保在下游分析之前完成充分的质量控制。scRNA-seq 分析的核心之一，是识别在不同条件下具有差异表达模式的基因和转录本；这些差异可以揭示驱动细胞异质性的生物学过程。为了优化数据集，我们会用关键指标评估数据质量，使用归一化方法降低技术变异，并通过聚类方法按基因表达模式对细胞分组。随后，我们还会进行差异表达分析、细胞类型注释和功能富集分析，以揭示基因调控机制、识别关键 marker，并探索参与细胞分化和疾病状态的通路。这些方法共同构成了解读单细胞转录组数据、提取生物学信息的完整框架。</p>
                     <br>
                     <hr/>
                     </div>
@@ -1216,7 +1208,7 @@ DimHeatmap(sampleA, dims = 1:5, cells = 500, balanced=T)
                 </div>
             </section>
 
-                            <p>The other PCs instead do seem to be measuring the relative expression of different genes. If PC1 is just the total signal per cell maybe we can visualize that directly.</p>
+                            <p>其他 PC 则确实在刻画不同基因的相对表达。如果 PC1 只是反映每个细胞的总信号，我们或许可以直接把它可视化出来。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1234,13 +1226,13 @@ scPlot
                 </div>
             </section>
 
-                            <p>That definitely seems to be the case. This large variation in total RNA per cell is likely influencing the results. We observed this in our QC steps, and since we haven't corrected for it yet, it's important to address this issue now.</p>
+                            <p>看起来确实如此。每个细胞总 RNA 量的巨大差异很可能影响了结果。我们在质控步骤中已经观察到这一现象，而且还没有进行校正，因此现在需要处理这个问题。</p>
                             <br>
-                            <p>A common and straightforward way to correct for this is to normalize the data. We will do this by dividing the counts for each gene by the total UMI (Unique Molecular Identifier) count for that specific cell. This step adjusts for the varying RNA capture efficiency across cells, ensuring that the expression levels are comparable across all cells, regardless of their total RNA content.</p>
+                            <p>一种常见且直接的校正方式是对数据进行归一化。这里的做法是把每个基因的 counts 除以该细胞的 UMI（Unique Molecular Identifier）总数。这一步可以校正细胞之间 RNA 捕获效率的差异，使得即便细胞的总 RNA 含量不同，表达水平仍然可比。</p>
                             <br>
-                            <p>After normalization, we will apply a log transformation. This is done to make the data more manageable and to reduce the impact of genes with very high expression, which can dominate the analysis.</p>
+                            <p>归一化之后，我们会进行对数转换。这样可以让数据更易处理，并降低高表达基因对分析的主导影响。</p>
                             <br>
-                            <p>Additionally, we will multiply the normalized counts by a scaling factor of 10,000 before applying the log transformation. This factor is somewhat arbitrary, but it is commonly used in practice. The scaling factor ensures that the resulting values are not too small and are easier to handle computationally. While the exact factor is not critical, using a standard value like 10,000 makes the process consistent and allows for easier comparison across datasets.</p>
+                            <p>此外，在进行对数转换之前，我们会将归一化后的 counts 乘以 10,000 这个缩放因子。这个因子在一定程度上是经验性的，但在实践中非常常用。它可以避免转换后的数值过小，使后续计算更方便。虽然具体因子并不是最关键的，但使用 10,000 这样的标准值可以让流程保持一致，也方便不同数据集之间进行比较。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1330,20 +1322,20 @@ scPlot
                 </div>
             </section>
 
-                            <p>It doesn't look better, but that is, can you play to improve it?</p>
+                            <p>结果看起来并没有变好，不过你可以尝试调整参数，看看能否改进。</p>
                         </div>
                     </section>
 
                     <section class="hero-modules">
                         <div class="container">
                             <h2>UMAP</h2>
-                            <p>UMAP (Uniform Manifold Approximation and Projection) is a nonlinear dimensionality reduction technique that is often used for visualizing complex datasets, such as single-cell RNA-seq data. Unlike PCA, which is a linear transformation, UMAP is capable of capturing more complex, nonlinear relationships between data points. This makes UMAP especially useful when the data has intricate structures that cannot be captured by linear methods.</p>
+                            <p>UMAP（Uniform Manifold Approximation and Projection）是一种非线性降维方法，常用于可视化复杂数据集，例如单细胞 RNA-seq 数据。与 PCA 这种线性转换不同，UMAP 能够捕捉数据点之间更复杂的非线性关系。因此，当数据中存在无法用线性方法充分表达的复杂结构时，UMAP 尤其有用。</p>
                             <br>
-                            <p>The feature of UMAP is that it preserves both local and global structures in the data. This means that UMAP not only keeps the relationships between nearby points but also tries to maintain the broader overall structure of the dataset, which makes it great for visualization.</p>
+                            <p>UMAP 的特点是能够同时保留数据的局部结构和全局结构。这意味着 UMAP 不仅尽量保持相邻点之间的关系，也会尝试维持数据集较大尺度上的整体结构，因此非常适合可视化。</p>
                             <br>
-                            <p>However, UMAP's bug or limitation is that it is computationally expensive and can be noisy when dealing with high-dimensional data directly. To address this, we often perform initial dimensionality reduction using PCA before applying UMAP. PCA reduces the number of dimensions by identifying the most important components in the data, which simplifies the structure and speeds up the UMAP calculations. Additionally, PCA can help remove some noise, improving the quality of the UMAP results.</p>
+                            <p>不过，UMAP 的局限在于计算成本较高，并且在直接处理高维数据时可能受到噪声影响。为了解决这个问题，我们通常先用 PCA 进行初步降维，再应用 UMAP。PCA 通过识别数据中最重要的成分来降低维度，从而简化数据结构并加快 UMAP 计算。此外，PCA 也有助于去除一部分噪声，提高 UMAP 结果质量。</p>
                             <br>
-                            <p>In summary, UMAP is a powerful tool for visualizing complex data, and using it after PCA can make the process more efficient and produce clearer results.</p>
+                            <p>总之，UMAP 是可视化复杂数据的强大工具；在 PCA 之后使用 UMAP，可以让计算更高效，并获得更清晰的结果。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1651,14 +1643,14 @@ scPlot
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Clustering</h2>
-                            <p>Clustering is a method used in data analysis to group objects (such as cells, genes, or other entities) based on their similarities. In the context of scRNA-seq, clustering helps identify distinct cell populations by grouping cells with similar gene expression profiles. Now, let's perform formal clustering on this data. While there are various clustering algorithms available, we will use a nearest-neighbor graph approach combined with the Louvain algorithm to identify clusters or communities within the data.</p>
+                            <h2>聚类</h2>
+                            <p>聚类是一种数据分析方法，用于根据相似性把对象（例如细胞、基因或其他实体）分组。在 scRNA-seq 语境下，聚类可以把具有相似基因表达谱的细胞归为一类，从而帮助识别不同细胞群。现在，我们将在这份数据上进行正式聚类。虽然可用的聚类算法很多，这里我们将使用最近邻图方法，并结合 Louvain 算法识别数据中的聚类或群落。</p>
                             <br>
-                            <p>This method works by building a graph where each data point (cell) is connected to its nearest neighbors, and then the Louvain algorithm is used to find groups of points that are densely connected to each other, indicating clusters.</p>
+                            <p>这个方法首先构建一个图：每个数据点（细胞）都会与其最近邻细胞相连；随后使用 Louvain 算法寻找彼此之间连接紧密的点群，这些点群对应聚类。</p>
                             <br>
-                            <p>One advantage of this approach is that it relies on distance metrics to the nearest neighbors, making it relatively robust to the curse of dimensionality. This means that it performs better than some other algorithms when working with high-dimensional data, such as single-cell RNA-seq data, where many variables can complicate clustering. Therefore, the nearest-neighbor graph and Louvain algorithm are a good choice for detecting meaningful clusters in complex datasets.</p>
+                            <p>这种方法的一个优点是依赖最近邻距离度量，因此对“维度灾难”相对稳健。也就是说，在处理单细胞 RNA-seq 这类高维数据时，相比某些其他算法，它通常表现更好，因为大量变量会让聚类变得复杂。因此，最近邻图结合 Louvain 算法是复杂数据集中检测有意义聚类的合适选择。</p>
                             <br>
-                            <p>We'll calculate distances in the first 20 dimensions.</p>
+                            <p>我们将在前 20 个维度中计算距离。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1675,7 +1667,7 @@ sampleA <- FindClusters(sampleA)
                 </div>
             </section>
 
-                            <p>Now we will visualize cluster membership in the UMAP space.</p>
+                            <p>现在在 UMAP 空间中可视化每个细胞所属的 cluster。</p>
 
                     <section class="">
                 <div class="code-container">
@@ -1693,9 +1685,9 @@ scPlot
                 </div>
                 </section>
 
-                             <p>Almost all clustering algorithms have some sort of free parameter that controls how many clusters are identified.</p>
+                             <p>几乎所有聚类算法都有某种自由参数，用来控制识别出的 cluster 数量。</p>
                              <br>
-                             <p>In the Louvain algorithm we have the resolution which, holding all other parameters (such as the dimensions, the number of nearest neighbors, etc) constant, controls the number of clusters. Low (high) values for resultion give low (high) numbers of clusters.</p>
+                             <p>在 Louvain 算法中，这个参数是 *resolution*。在其他参数（例如维度数、最近邻数量等）保持不变的情况下，resolution 控制 cluster 的数量。较低的 resolution 会得到较少的 cluster，较高的 resolution 会得到较多的 cluster。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -1758,7 +1750,7 @@ scPlot
                 </div>
             </section>
 
-                             <p>It can be useful to see how clusters corresponding to one value of resolution correspond to those from another resolution. The clustree package does a nice job of visualizing this over the clusterings we have already performed.</p>
+                             <p>观察某个 *resolution* 下的 cluster 如何对应到另一个 *resolution* 下的 cluster，通常很有帮助。<span class="code-inline-light">clustree</span> 包可以很好地可视化我们已经完成的多组聚类结果之间的关系。</p>
 
                              <section class="">
                 <div class="code-container">
@@ -1820,7 +1812,7 @@ scPlot
                 </div>
             </section>
 
-                             <p>Now let's go back to the resolution that gave us three clusters</p>
+                             <p>现在回到产生 3 个 cluster 的 resolution。</p>
 
                              <section class="">
                 <div class="code-container">
@@ -1839,7 +1831,7 @@ scPlot
                 </div>
             </section>
 
-                             <p>Here is how we can identify marker genes for cluster 0</p>
+                             <p>下面演示如何识别 cluster 0 的 marker gene。</p>
 
                              <section class="">
                 <div class="code-container">
@@ -1872,7 +1864,7 @@ scPlot
                 </div>
             </section>
 
-                             <p>Since we didn't specify, the previous calculation gave us genes either significantly over or under expressed in our population of interest. Sometimes we just want over expressed genes, which is easy to filter for.</p>
+                             <p>由于前面没有特别指定，刚才的计算返回的是在目标细胞群中显著高表达或低表达的基因。有时候我们只想查看高表达基因，这可以很容易地通过筛选完成。</p>
 
                              <section class="">
                 <div class="code-container">
@@ -2033,8 +2025,8 @@ scPlot
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Differential Expression</h2>
-                            <p>Differential expression in refers to the process of identifying genes that show significant differences in expression levels between different groups of cells or conditions. This analysis helps to uncover genes that are uniquely expressed in specific cell types, states, or in response to certain treatments or environmental factors.</p>
+                            <h2>差异表达分析</h2>
+                            <p>差异表达分析是指识别在不同细胞群或不同条件之间表达水平存在显著差异的基因。该分析有助于发现某些细胞类型、细胞状态，或特定处理和环境因素响应中具有特异性表达的基因。</p>
 
                         <section class="">
                 <div class="code-container">
@@ -2134,23 +2126,23 @@ scPlot
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Annotating Cell Types</h2>
-                            <p>Interpreting the results from single-cell data analysis is often the most challenging part of the process. To gain a deeper understanding beyond just the clusters we identified, we can annotate cell types by comparing the expression profiles from our data to a reference dataset. This approach allows us to provide more meaningful interpretations of the clusters.</p>
+                            <h2>细胞类型注释</h2>
+                            <p>解释单细胞数据分析结果往往是整个流程中最具挑战性的部分。为了不仅仅停留在识别 cluster 的层面，我们可以通过把本数据的表达谱与参考数据集进行比较来注释细胞类型。这种方法可以为 cluster 提供更有意义的解释。</p>
                             <br>
                             <p>Best practices recommend a hybrid approach, in which automated annotation is used as a starting point, followed by manual validation based on canonical markers and biological consistency. Using databases like <a href="https://www.google.com/url?q=https%3A%2F%2Fpanglaodb.se%2F">PanglaoDB</a>  and <a href="https://www.google.com/url?q=https%3A%2F%2Fcellxgene.cziscience.com%2F">CELLxGENE</a> can also be a useful alternative at this stage.
                             <br>
                             <p>For more information, please refer to our Module 01.</p>
                             </p>
                             <br>
-                            <h3>Automated annotation</h3>
-                            <p>To start, we will load a reference dataset that includes the cell types we expect to encounter in our samples. The celldex package offers several well-curated and well-annotated reference datasets. Although most of these datasets originate from bulk RNA-Seq and microarray experiments, they are still very useful for annotating single-cell datasets. In our case, we will use the Blueprint and ENCODE reference datasets, which are commonly used for such purposes. These datasets will help us match the gene expression profiles from our single-cell data to known cell types, enhancing our ability to interpret the clusters meaningfully.</p>
+                            <h3>自动注释</h3>
+                            <p>首先，我们将加载一个参考数据集，其中包含预期会在样本中遇到的细胞类型。<span class="code-inline-light">celldex</span> 包提供了多个整理良好、注释完善的参考数据集。虽然这些数据集大多来自 bulk RNA-seq 和微阵列实验，但它们对于单细胞数据集注释仍然非常有用。在本例中，我们将使用 Blueprint 和 ENCODE 参考数据集；它们常用于这类分析。这些参考数据可以帮助我们把单细胞数据中的基因表达谱匹配到已知细胞类型，从而更有意义地解释 cluster。</p>
                             <br>
-                            <p>In R widely used tools include <a href="https://github.com/dviraran/SingleR">SingleR</a>, <a href="https://github.com/satijalab/azimuth">Azimuth</a>, and <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2Fscmap.html">scmap</a>, many of which integrate naturally with Seurat or the Bioconductor ecosystem.</p>
-                            <p>See the more information in:</p>
+                            <p>在 R 中，常用工具包括 <a href="https://github.com/dviraran/SingleR" target="_blank" rel="noopener">SingleR</a>、<a href="https://github.com/satijalab/azimuth" target="_blank" rel="noopener">Azimuth</a> 和 <a href="https://bioconductor.org/packages/release/bioc/html/scmap.html" target="_blank" rel="noopener">scmap</a>，其中许多工具可以自然地与 Seurat 或 Bioconductor 生态结合使用。</p>
+                            <p>更多信息见：</p>
                             <ul class="a">
-                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41590-018-0276-y">Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage</a></li>
-                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fazimuth.hubmapconsortium.org%2F">Azimuth HuBMAP Consortium</a></li>
-                                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fnmeth.4644">scmap: projection of single-cell RNA-seq data across data sets</a></li>
+                                <li><a href="https://www.nature.com/articles/s41590-018-0276-y" target="_blank" rel="noopener">Reference-based analysis of lung single-cell sequencing reveals a transitional profibrotic macrophage</a></li>
+                                <li><a href="https://azimuth.hubmapconsortium.org/" target="_blank" rel="noopener">Azimuth HuBMAP Consortium</a></li>
+                                <li><a href="https://www.nature.com/articles/nmeth.4644" target="_blank" rel="noopener">scmap: projection of single-cell RNA-seq data across data sets</a></li>
                             </ul>
 
                             <section class="">
@@ -2169,7 +2161,7 @@ ref
                 </div>
             </section>
 
-                            <p>Then, to use the SingleR() function, we need to convert the Seurat object to a SingleCellExperiment Bioconductor object. The SingleR() function takes our dataset, the reference dataset and the labels of the reference dataset.</p>
+                            <p>接下来，为了使用 <span class="code-inline-light">SingleR()</span> 函数，需要把 <span class="code-inline-light">Seurat</span> 对象转换为 Bioconductor 的 <span class="code-inline-light">SingleCellExperiment</span> 对象。<span class="code-inline-light">SingleR()</span> 函数需要输入我们的数据集、参考数据集以及参考数据集中的标签。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2188,7 +2180,7 @@ table(pred$labels)
                 </div>
             </section>
 
-                            <p>We can use a heatmap to visualize the resulting cell type annotation. At the top of the heatmap, we see the color code identifying the different cell types</p>
+                            <p>可以用热图可视化得到的细胞类型注释结果。热图顶部的颜色条表示不同细胞类型的颜色编码。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2206,7 +2198,7 @@ plotScoreHeatmap(pred)
                 </div>
             </section>
 
-                            <p>A heatmap can also be used to show the distribution of the cell types by the clusters we identified using Seurat.</p>
+                            <p>热图也可以用于展示我们用 <span class="code-inline-light">Seurat</span> 识别出的各 cluster 中细胞类型的分布。</p>
 
                             <section class="">
                 <div class="code-container">
@@ -2225,15 +2217,13 @@ pheatmap(log2(my.table + 1), filename = "53-pheatmap.png")
                 </div>
             </section>
 
-            <h3>Manual annotation</h3>
-                    <p>This aproach is based on set of known gene markers associated with a cell type. In this step, a robust set of marker genes and pior knowledge (based on literature or specialist, e.g pathologist, immunologist), as well annotation experience is ideal to work well. However this step is crital to risk of unclear cell type annotations, incomplete detection of gene marker during sequencing and subjetivity.
-                    <br>
-                    There are ways to work with manual annotations, including:</p>
+            <h3>人工注释</h3>
+                    <p>人工注释基于一组已知与特定细胞类型相关的 marker gene。为了让这一步可靠运行，理想情况下需要稳健的 marker gene 集合、先验知识（来自文献或病理学家、免疫学家等专家），以及一定的注释经验。不过，这一步也存在风险，例如细胞类型注释不清、测序过程中未充分检测到 marker gene，以及主观性带来的偏差。 人工注释可以通过多种方式完成，包括：</p>
                     <ul class="a">
-                        <li>Annotation based on a set of marker genes from the cell populations that we expect to find in our data;</li>
-                        <li>Identifying the marker genes in each cluster to infer which cell type represents that population.</li>
+                        <li>基于我们预期会在数据中找到的细胞群 marker gene 集合进行注释；</li>
+                        <li>识别每个 cluster 中的 marker gene，并据此推断该细胞群对应的细胞类型。</li>
                     </ul>
-                    <p>As our dataset is represented by bronchoalveolar immune cells in patients with COVID-19. Then, we expect to find immune cells in our clusters.</p>
+                    <p>由于我们的数据集来自 COVID-19 患者的支气管肺泡免疫细胞，因此预期会在 cluster 中发现免疫细胞。</p>
 
                 <section class="">
                 <div class="code-container">
@@ -2250,7 +2240,7 @@ scPlot
                 </div>
             </section>
 
-            <p>Let's create a panel of known markers for cell populations that we expect to find in our dataset.</p>
+            <p>创建一个已知 marker panel，用于表示我们预期会在数据集中发现的细胞群。</p>
 
             <section class="">
                 <div class="code-container">
@@ -2321,7 +2311,7 @@ scPlot
                 </div>
             </section>
 
-            <p>As we expected, our dataset represents a set of immune cells. We can further differentiate their cell populations.</p>
+            <p>正如预期，我们的数据集代表的是一组免疫细胞。接下来可以进一步区分这些细胞群。</p>
 
             <section class="">
                 <div class="code-container">
@@ -2418,20 +2408,20 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Differential Abundance</h2>
-                            <p>In addition to changes in gene expression, alterations in cellular composition between experimental conditions (treated vs. control) represent an important mechanism to be explored in scRNA-seq studies. Differential abundance analysis aims to identify whether certain cell populations are enriched or not in a given group of interest, as implemented by the <a href="https://www.google.com/url?q=https%3A%2F%2Fbioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FmiloR.html">MiloR</a> package.</p>
+                            <h2>差异丰度分析</h2>
+                            <p>除了基因表达变化外，不同实验条件（处理组 vs. 对照组）之间细胞组成的改变也是 scRNA-seq 研究中值得探索的重要机制。差异丰度分析旨在识别某些细胞群是否在给定目标组中富集或减少，这里使用 <a href="https://bioconductor.org/packages/release/bioc/html/miloR.html" target="_blank" rel="noopener">MiloR</a> 包实现。</p>
                             <br>
-                            <p>See original article <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41587-021-01033-z">Differential abundance testing on single-cell data using k-nearest neighbor graphs</a></p>
+                            <p>&gt; 原始论文：<a href="https://www.nature.com/articles/s41587-021-01033-z" target="_blank" rel="noopener">Differential abundance testing on single-cell data using k-nearest neighbor graphs</a></p>
                             <br>
-                            <p>Changes in abundance may occur even in the absence of changes in gene expression. MiloR infers differential abundance using KNNs, which is appropriate for detecting spatial variations in cell density associated with conditions, avoiding exclusive reliance on rigid clustering in isolation.</p>
+                            <p>即使没有基因表达变化，细胞丰度也可能发生改变。MiloR 使用 KNN 推断差异丰度，这适合检测与实验条件相关的细胞密度空间变化，并避免只依赖固定 cluster 进行分析。</p>
                             <br>
-                            <p>Milo is a tool for analysis of complex single cell datasets and diferential experimental conditions. While differential abundance is commonly quantified in discrete cell clusters, Milo uses partially overlapping neighbourhoods of cells on a KNN graph.</p>
-                            <p>Milo analysis consists of 4 steps:</p>
+                            <p>Milo 是用于分析复杂单细胞数据集和不同实验条件的工具。差异丰度通常在离散细胞 cluster 中量化，而 Milo 则使用 KNN 图上部分重叠的细胞邻域。</p>
+                            <p>Milo 分析包含 4 个步骤：</p>
                             <ul class="a">
-                                <li>Prepare the <span class="code-inline-light">SingleCellExperiment</span> object: This is necessary before applying the MiloR method.</li>
-                                <li>Sampling of representative neighbourhoods.</li>
-                                <li>Testing for differential abundance of conditions in all neighbourhoods.</li>
-                                <li>Accounting for multiple hypothesis testing using a weighted FDR procedure that accounts for the overlap of neighbourhoods.</li>
+                                <li>准备 <span class="code-inline-light">SingleCellExperiment</span> 对象：在应用 MiloR 方法前必须完成。</li>
+                                <li>抽样代表性邻域。</li>
+                                <li>在所有邻域中检验不同条件之间的差异丰度。</li>
+                                <li>使用加权 FDR 程序进行多重假设检验校正，该程序会考虑邻域之间的重叠。</li>
                             </ul>
 
                             <section class="video">
@@ -2442,10 +2432,10 @@ VlnPlot(sampleA, features = clt_markers$gene, ncol = 3, pt.size = 1)
                             </div>
                         </section>
 
-                        <h3>Do not run in Colab!</h3>
-                        <p>To didactic purposes in this step, we will download other samples from our dataset to calculate the differential abundance of cells between mild and severe COVID-19 patients. To avoid making this tutorial too lengthy, we will simplify some steps.</p>
+                        <h3><strong>不要在 Colab 中运行！</strong></h3>
+                        <p>出于教学目的，在这一步中我们会从当前数据集中下载其他样本，用于计算轻症和重症 COVID-19 患者之间细胞丰度的差异。为了避免教程过长，我们会简化部分步骤。</p>
                         <br>
-                        <p>However, we strongly recommend that you follow the best practice guidelines developed in SampleA object for the other samples.</p>
+                        <p>不过，我们强烈建议你在处理其他样本时，遵循前面针对 <span class="code-inline-light">SampleA</span> 对象建立的最佳实践流程。</p>
 
             <section class="">
                 <div class="code-container">
@@ -2552,9 +2542,9 @@ sc_merged <- RunUMAP(sc_merged, dims=1:30, verbose = FALSE)
                 </div>
             </section>
 
-            <p>Harmony was applied to correct for batch effects using the <span class="code-inline-light">orig.ident</span> metadata column. This software enables the integration of multiple datasets and effectively removes batch effects in single‑cell RNA‑seq analysis. For a detailed walkthrough of integration strategies, see Module 05.</p>
+            <p>这里使用 <span class="code-inline-light">orig.ident</span> 元数据列，通过 Harmony 校正批次效应。Harmony 可以整合多个数据集，并有效去除单细胞 RNA-seq 分析中的批次效应。关于整合策略的详细流程，请参见 <strong>模块 05</strong>。</p>
             <br>
-            <p>More information about Harmony can be found at the official Broad Institute portal: <a href="https://www.google.com/url?q=https%3A%2F%2Fportals.broadinstitute.org%2Fharmony%2F">Harmony</a></p>
+            <p>&gt; 关于 Harmony 的更多信息可在 Broad Institute 官方门户查看：<a href="https://portals.broadinstitute.org/harmony/" target="_blank" rel="noopener">Harmony</a></p>
 
             <section class="">
                 <div class="code-container">
@@ -2794,12 +2784,12 @@ plotNhoodGraphDA(milo, da_results,
                 </div>
             </section>
 
-            <p>Understanding Key Terms in Abundance Differential Analysis</p>
+            <p>理解差异丰度分析中的关键术语</p>
             <ul class="a">
-                <li>Fold Change (FC): Represents the magnitude of difference in abundance between conditions or groups. In this context, FC indicates how much a particular cell population is enriched or depleted when comparing experimental conditions.</li>
-                <li>False Discovery Rate (FDR): A statistical correction applied to p‑values to account for multiple testing. It helps control the proportion of false positives, ensuring that significant results are more reliable.</li>
-                <li>Cluster: Refers to a group of cells identified by unsupervised clustering methods. Each cluster represents a population with similar gene expression profiles, and abundance differential analysis tests whether the frequency of these clusters changes across conditions.</li>
-                <li>Together, these metrics allow us to interpret whether specific cell populations are significantly expanded or reduced, while maintaining statistical rigor and biological relevance.</li>
+                <li>Fold Change（FC，倍数变化）：表示不同条件或分组之间丰度差异的大小。在这里，FC 表示比较实验条件时，某个特定细胞群富集或减少的程度。</li>
+                <li>False Discovery Rate（FDR，错误发现率）：一种用于校正 p 值的统计方法，用来处理多重检验问题。它有助于控制假阳性比例，使显著结果更加可靠。</li>
+                <li>Cluster：指无监督聚类方法识别出的细胞群。每个 cluster 代表一组具有相似基因表达谱的细胞，差异丰度分析会检验这些 cluster 的频率是否随条件变化而改变。</li>
+                <li>这些指标共同帮助我们在保持统计严谨性和生物学相关性的同时，判断特定细胞群是否显著扩增或减少。</li>
             </ul>
             <br>
                         </div>
@@ -2810,23 +2800,23 @@ plotNhoodGraphDA(milo, da_results,
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>GO Enrichment Analyses</h2>
-                            <p>Enrichment analysis is a powerful tool for extracting biologically relevant information from single-cell datasets, facilitating the discovery of key genes, pathways, and cellular processes. In scRNA-seq, researchers often deal with complex tissues composed of various cell types. This analysis can reveal novel biological insights by highlighting unexpected associations between gene sets and Gene Ontology (GO) terms, providing a deeper understanding of cellular functions and disease mechanisms.</p>
+                            <h2>GO 富集分析</h2>
+                            <p>富集分析是从单细胞数据集中提取生物学相关信息的强大工具，有助于发现关键基因、通路和细胞过程。在 scRNA-seq 中，研究者通常面对由多种细胞类型组成的复杂组织。通过突出基因集与 Gene Ontology（GO）术语之间意料之外的关联，富集分析可以揭示新的生物学线索，并帮助更深入理解细胞功能和疾病机制。</p>
                             <br>
-                            <p>GO Enrichment Analysis is a method used to identify overrepresented GO terms within a set of genes. This analysis helps to determine whether certain biological processes, molecular functions, or cellular components are significantly associated with the genes of interest.</p>
+                            <p>GO 富集分析用于识别某一组基因中显著过度表示的 GO 术语。该分析有助于判断某些生物过程、分子功能或细胞组分是否与感兴趣基因显著相关。</p>
 
-                            <p>Gene Ontology (GO) is a comprehensive system that categorizes genes into hierarchical categories based on:</p>
+                            <p>Gene Ontology（GO）是一个综合系统，按照层级结构对基因进行分类，主要包括：</p>
 
                             <ul class="a">
-                                <li>Biological Processes (BP): The biological objectives the gene contributes to, such as cell cycle, apoptosis, or metabolism.</li>
-                                <li>Molecular Functions (MF): The molecular activities performed by the gene product, such as binding or catalytic activity.</li>
-                                <li>Cellular Components (CC): The location within the cell where the gene product is active, such as the nucleus or mitochondrion.</li>
+                                <li>Biological Processes（BP，生物过程）：基因参与的生物学目标，例如细胞周期、凋亡或代谢。</li>
+                                <li>Molecular Functions（MF，分子功能）：基因产物执行的分子活动，例如结合或催化活性。</li>
+                                <li>Cellular Components（CC，细胞组分）：基因产物发挥作用的细胞内位置，例如细胞核或线粒体。</li>
                             </ul>
 
-                            <p>Additionally, genes are commonly referenced using standardized identifiers:</p>
+                            <p>此外，基因通常使用标准化标识符进行引用：</p>
                             <ul class="a">
-                                <li>Gene Symbol: A short, human‑readable abbreviation (e.g., TP53, ACTB) that represents the gene name.</li>
-                                <li>EntrezID: A unique numerical identifier assigned by NCBI’s Entrez Gene database, ensuring consistency across datasets and tools.</li>
+                                <li>Gene Symbol：简短、便于人类阅读的缩写（例如 TP53、ACTB），用于表示基因名称。</li>
+                                <li>EntrezID：由 NCBI Entrez Gene 数据库分配的唯一数字标识符，用于保证不同数据集和工具之间的一致性。</li>
                             </ul>
 
                             <section class="">
@@ -2893,7 +2883,7 @@ length(my.genes) - nrow(my.map)
                 </div>
             </section>
 
-                            <h3>GO classification:</h3>
+                            <h3>GO 分类</h3>
 
                             <section class="">
                 <div class="code-container">
@@ -2983,18 +2973,18 @@ head(ego)
                 </div>
             </section>
 
-            <h2>GO enrichment in another organisms</h2>
+            <h2>其他生物中的 GO 富集</h2>
 
-            <p>Importantly, pathway enrichment analysis is not restricted to human or animal models. For non-model organisms and plants, a wide range of dedicated databases and functional annotations are available, enabling robust interpretation of transcriptomic data across diverse species.</p>
+            <p>重要的是，通路富集分析并不局限于人类或动物模型。对于非模式生物和植物，也有多种专门数据库和功能注释资源可用，可以支持对不同物种转录组数据的稳健解释。</p>
             <br>
-            <p>In plant research, enrichment analyses commonly rely on plant-specific pathway repositories and Gene Ontology annotations tailored to species such as Arabidopsis thaliana, rice, and maize. These resources are essential for investigating key biological processes, including plant development, stress and immune responses, hormone signaling, and metabolic adaptations to environmental cues.</p>
+            <p>在植物研究中，富集分析通常依赖植物特异性的通路资源库，以及针对 _Arabidopsis thaliana_、水稻、玉米等物种定制的 Gene Ontology 注释。这些资源对于研究植物发育、胁迫和免疫响应、激素信号以及对环境线索的代谢适应等关键生物过程非常重要。</p>
             <br>
-            <p>From a technical perspective, any gene identifier type supported by an appropriate OrgDb object can be directly used in GO-based analyses within the Bioconductor ecosystem. This flexibility allows seamless functional annotation across multiple organisms and identifier systems.</p>
+            <p>从技术角度看，只要某种基因标识符类型被合适的 <span class="code-inline-light">OrgDb</span> 对象支持，就可以在 Bioconductor 生态中直接用于基于 GO 的分析。这种灵活性让不同生物和不同标识符系统之间的功能注释更加顺畅。</p>
             <ul class="a">
-                <li><a href="https://www.google.com/url?q=https%3A%2F%2Fwww.wikipathways.org%2F">WikiPathways</a> is an open, community-driven platform dedicated to the curation of biological pathways, offering broad organismal coverage ranging from vertebrates to bacteria and plants. By adopting a collaborative curation model, WikiPathways complements established pathway resources such as KEGG, Reactome, and Pathway Commons.</li>
-                <li>In the context of plant biology, <a href="https://www.google.com/url?q=https%3A%2F%2Fplantreactome.gramene.org%2F">Plant Reactome</a> provides an open-source, open-access, manually curated and peer-reviewed pathway database encompassing more than 100 plant species.</li>
-                <li>For organisms lacking a dedicated OrgDb package in Bioconductor (e.g., species without an available annotation database analogous to org.Mm.eg.db in mouse)</li>
-                <li>Users can retrieve organism-specific annotations—when available—through online resources such as <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.bioconductor.org%2Fpackages%2Frelease%2Fbioc%2Fhtml%2FAnnotationHub.html">AnnotationHub</a>, ensuring that enrichment analyses remain accessible even for less-characterized species.</li>
+                <li><a href="https://www.wikipathways.org/" target="_blank" rel="noopener">WikiPathways</a> 是一个开放的、由社区驱动的生物通路整理平台，覆盖范围从脊椎动物到细菌和植物。通过协作式整理模型，WikiPathways 补充了 <span class="code-inline-light">KEGG</span>、<span class="code-inline-light">Reactome</span> 和 <span class="code-inline-light">Pathway Commons</span> 等成熟通路资源。</li>
+                <li>在植物生物学中，<a href="https://plantreactome.gramene.org/" target="_blank" rel="noopener">Plant Reactome</a> 提供了一个开源、开放访问、人工整理并经同行评议的通路数据库，覆盖 100 多种植物。</li>
+                <li>对于 Bioconductor 中没有专门 <span class="code-inline-light">OrgDb</span> 包的生物（例如没有类似小鼠 <span class="code-inline-light">org.Mm.eg.db</span> 这样可用注释数据库的物种）</li>
+                <li>用户可以在有可用资源时，通过 <a href="https://www.bioconductor.org/packages/release/bioc/html/AnnotationHub.html" target="_blank" rel="noopener">AnnotationHub</a> 等在线资源获取物种特异性注释，确保即使是研究较少的物种，也可以开展富集分析。</li>
             </ul>
             <br>
                         </div>
@@ -3002,10 +2992,10 @@ head(ego)
 
                     <section class="hero-modules">
                         <div class="container">
-                            <h2>Ambient RNA Correction (Optional)</h2>
-                            <p>In some cases, there may be suspicion that the data contains contamination from cells that were destroyed and released their contents into the medium during library preparation, which could alter the RNA counts in intact cells. Tools, such as SoupX, analyze the barcodes detected as background and their RNA content to identify transcripts potentially increased by contamination in the barcodes detected as cells and correct for their effect.</p>
+                            <h2>环境 RNA 校正（可选）</h2>
+                            <p>在某些情况下，数据中可能存在来自破裂细胞的污染：这些细胞在建库过程中被破坏，并将内容物释放到介质中，从而改变完整细胞中的 RNA counts。SoupX 等工具会分析被检测为背景的 barcode 及其 RNA 内容，识别在被判定为细胞的 barcode 中可能因污染而升高的转录本，并校正这种影响。</p>
                             <br>
-                            <p>See the original article <a href="https://www.google.com/url?q=https%3A%2F%2Fpubmed.ncbi.nlm.nih.gov%2F33367645%2F">SoupX removes ambient RNA contamination from droplet-based single-cell RNA sequencing data</a></p>
+                            <p>&gt; 原始论文：<a href="https://pubmed.ncbi.nlm.nih.gov/33367645/" target="_blank" rel="noopener">SoupX removes ambient RNA contamination from droplet-based single-cell RNA sequencing data</a></p>
 
                         <section class="video">
                             <div class="container-md">
@@ -3015,10 +3005,10 @@ head(ego)
                             </div>
                         </section>
 
-                        <p>To show how simple this process can be, we will use a dataset generated with 10x technology and mapped with CellRanger (v8.0.1). This data corresponds to a sample from a head and neck cancer study.</p>
+                        <p>为了展示这个过程可以多么简单，我们将使用一个由 10x 技术生成并用 Cell Ranger（v8.0.1）比对的数据集。该数据对应于一项头颈部癌症研究中的样本。</p>
                         <br>
-                        <p>Dataset vailable from NCBI/SRA: <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945">https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945</a></p>
-                        <p>The original article: <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC8184766%2F"></a>B cell signatures and tertiary lymphoid structures contribute to outcome in head and neck squamous cell carcinoma</p>
+                        <p>数据集来自 NCBI/SRA：<a href="https://www.google.com/url?q=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fsra%2F%3Fterm%3DSRR10340945" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/sra/?term=SRR10340945</a></p>
+                        <p>&gt; 原始论文：<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8184766/" target="_blank" rel="noopener">B cell signatures and tertiary lymphoid structures contribute to outcome in head and neck squamous cell carcinoma</a></p>
 
             <section class="">
                 <div class="code-container">
@@ -3036,7 +3026,7 @@ shell_call("ls -lh")
                 </div>
             </section>
 
-            <p>As can be seen in the following code, for 10x data the process is as simple as loading the results folder obtained from cellranger and executing the <span class="code-inline-light">autoEstCont()</span> function.</p>
+            <p>如下方代码所示，对于 10x 数据，这个过程可以非常简单：加载 Cell Ranger 得到的结果文件夹，并执行 <span class="code-inline-light">autoEstCont()</span> 函数。</p>
 
             <section class="">
                 <div class="code-container">
@@ -3104,11 +3094,11 @@ shell_call("ls -lh SRR10340945_clean")
                 </div>
             </section>
 
-            <p>For data where the complete Cell Ranger output folder ("outs") is not accessible or where the data was not generated using 10x technology, SoupX can also be used by implementing a series of alternative steps. These steps involve generating a cluster, since the previous method uses the cluster generated by Cell Ranger, whose information is available in the "outs" folder, in addition to the account matrices.</p>
+            <p>如果无法访问完整的 Cell Ranger 输出文件夹（“outs”），或者数据并非由 10x 技术生成，也可以通过一系列替代步骤使用 SoupX。这些步骤包括生成 cluster，因为前一种方法使用的是 Cell Ranger 生成的 cluster；除了计数矩阵外，这些信息也保存在 “outs” 文件夹中。</p>
             <br>
-            <p>In the following lines of code, you will see an example adapted from <a href="https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html">https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html</a> with the data we just used.</p>
+            <p>在下面的代码中，你将看到一个基于 <a href="https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html" target="_blank" rel="noopener">https://cellgeni.github.io/notebooks/html/new-10kPBMC-SoupX.html</a> 改写的示例，使用的是我们刚刚用到的数据。</p>
             <br>
-            <p>It is essential to have both matrices: the filtered account matrix and the raw account matrix.</p>
+            <p>必须同时具备两个矩阵：filtered count matrix 和 raw count matrix。</p>
 
             <section class="">
                 <div class="code-container">
@@ -3130,7 +3120,7 @@ soup.channel
                 </div>
             </section>
 
-            <p>Now we will execute the normalization steps up to the clustering required by SoupX. For simplicity and speed, we use <span class="code-inline-light">NormalizeData()</span>, but you can replace it with SCTransform() as implemented in the tutorial we adapted if you prefer.</p>
+            <p>现在执行 SoupX 所需的归一化到聚类步骤。为了简洁和速度，这里使用 <span class="code-inline-light">NormalizeData()</span>；如果你愿意，也可以像我们参考的教程中那样改用 <span class="code-inline-light">SCTransform()</span>。</p>
 
             <section class="">
                 <div class="code-container">
@@ -3152,7 +3142,7 @@ srat <- FindClusters(srat, verbose = T)
                 </div>
             </section>
 
-            <p>Then we integrate the information obtained from the processing with seurat into the previously defined SoupChannel object</p>
+            <p>然后，把用 Seurat 处理得到的信息整合到之前定义的 <span class="code-inline-light">SoupChannel</span> 对象中。</p>
 
             <section class="">
                 <div class="code-container">
@@ -3176,7 +3166,7 @@ soup.channel  <- setDR(soup.channel, umap)
                 </div>
             </section>
 
-            <p>Finally, we can estimate the contamination and save our corrected data.</p>
+            <p>最后，估计污染比例，并保存校正后的数据。</p>
 
             <section class="">
                 <div class="code-container">
@@ -3198,7 +3188,7 @@ DropletUtils:::write10xCounts("SRR10340945_cleanV2", adj.matrix)
                 </div>
             </section>
 
-            <p>Other tools that can be used to implement this environmental RNA correction process, and which you can find more information about if you are interested, are <a href="https://www.google.com/url?q=https%3A%2F%2Fpmc.ncbi.nlm.nih.gov%2Farticles%2FPMC7059395%2F">DecontX</a> and <a href="https://www.google.com/url?q=https%3A%2F%2Fwww.nature.com%2Farticles%2Fs41592-023-01943-7">CellBender</a></p>
+            <p>&gt; 还可以使用其他工具完成这种环境 RNA 校正。如果你感兴趣，可以进一步了解 <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7059395/" target="_blank" rel="noopener">DecontX</a> 和 <a href="https://www.nature.com/articles/s41592-023-01943-7" target="_blank" rel="noopener">CellBender</a>。</p>
             <br>
 
                     </div>
