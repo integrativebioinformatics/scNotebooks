@@ -8,6 +8,7 @@ The establishment of collaborative scientific endeavors like the [Human Cell Atl
 ### Cite Us | Cite-nos | Cítanos
 
 Rojas-Hidalgo, A., Arias-Carrasco, R., Silva, J.K. et al. The Single Cell Notebooks for inclusive and accessible training in single-cell and spatial omics. Nat Genet 58, 1189–1194 (2026).
+
 DOI: https://doi.org/10.1038/s41588-026-02584-0
 
 ---
